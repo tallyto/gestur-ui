@@ -7,15 +7,23 @@ import { Cliente } from '../models/cliente.model';
   providedIn: 'root'
 })
 export class ClienteService {
-  getClientes(): Observable<Cliente[]> { 
+
+  getClienteById(clienteId: number): Observable<Cliente> {
+    return this.http.get<Cliente>(`${this.baseUrl}/${clienteId}`);
+  }
+  getClientes(): Observable<Cliente[]> {
     return this.http.get<Cliente[]>(this.baseUrl);
   }
 
-  private baseUrl = 'http://localhost:3001/api/clientes'; // Altere a URL de acordo com a sua API backend
-
+  private baseUrl = 'http://localhost:3001/api/clientes'; 
   constructor(private http: HttpClient) { }
 
   cadastrarCliente(cliente: Cliente): Observable<Cliente> {
     return this.http.post<Cliente>(this.baseUrl, cliente);
+  }
+
+  atualizarCliente(clienteId: number, cliente: Cliente): Observable<Cliente> {
+    return this.http.put<Cliente>(`${this.baseUrl}/${clienteId}`, cliente);
+
   }
 }

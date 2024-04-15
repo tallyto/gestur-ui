@@ -23,7 +23,7 @@ export class VendaFormComponent implements OnInit {
     private vendaService: VendaService,
     private messageService: MessageService,
     private clienteService: ClienteService,
-    private route: ActivatedRoute // Injetando ActivatedRoute para obter parâmetros da rota
+    private route: ActivatedRoute 
   ) {}
 
   ngOnInit(): void {

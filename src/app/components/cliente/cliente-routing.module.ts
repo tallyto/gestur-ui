@@ -7,7 +7,8 @@ import {ClienteListComponent} from "./cliente-list/cliente-list.component";
 const routes: Routes = [
   { path: '', redirectTo: 'list', pathMatch: 'full' },
   { path: 'new', component: ClienteFormComponent },
-  { path: 'list', component: ClienteListComponent}
+  { path: 'list', component: ClienteListComponent},
+  { path: 'editar/:id', component: ClienteFormComponent}
 
 ];
 

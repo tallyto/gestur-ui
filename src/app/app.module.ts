@@ -21,8 +21,10 @@ import { MessageService } from "primeng/api";
 import { MessagesModule } from "primeng/messages";
 import { ToastModule } from 'primeng/toast';
 import { CardModule } from 'primeng/card';
+import { DividerModule } from 'primeng/divider';
 import { VendaListComponent } from './components/venda/venda-list/venda-list.component';
 import { VendaFormComponent } from './components/venda/venda-form/venda-form.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,6 +52,7 @@ import { VendaFormComponent } from './components/venda/venda-form/venda-form.com
     MessagesModule,
     ToastModule,
     CardModule,
+    DividerModule
   ],
   providers: [MessageService],
   bootstrap: [AppComponent]

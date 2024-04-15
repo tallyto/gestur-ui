@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Cliente } from '../../../models/cliente.model';
 import { ClienteService } from '../../../services/cliente.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cliente-list',
@@ -12,15 +13,19 @@ export class ClienteListComponent  implements OnInit {
 
   clientes: Cliente[] = [];
 
-  constructor(private clienteService: ClienteService) {}
+  constructor(
+    private clienteService: ClienteService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.clienteService.getClientes()
       .subscribe(clientes => this.clientes = clientes);
   }
 
-  onEdit(id: string) {
-    console.log(id);
+  onEdit(id: number) {
+    console.log("clicado")
+    this.router.navigate(['/cliente/editar', id]);
   }
   
   onRemove(id: string) {
