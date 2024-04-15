@@ -5,7 +5,7 @@ import { MessageService } from 'primeng/api';
 import { Venda } from '../../../models/venda.model';
 import { Cliente } from '../../../models/cliente.model';
 import { ClienteService } from '../../../services/cliente.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-venda-form',
@@ -14,23 +14,24 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class VendaFormComponent implements OnInit {
   public vendaForm: FormGroup;
-  isCollapsed = false; // Flag to control collapse state
+  isCollapsed = false; 
   clientes: Cliente[] = [];
-  vendaId: number | null = null; // ID da venda a ser editada
+  vendaId: number | null = null;
 
   constructor(
     private fb: FormBuilder,
     private vendaService: VendaService,
     private messageService: MessageService,
     private clienteService: ClienteService,
-    private route: ActivatedRoute 
+    private activatedRoute: ActivatedRoute, 
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     this.vendaForm = this.getVendaFormBuilder();
     this.loadClientes();
 
-    this.route.params.subscribe((params) => {
+    this.activatedRoute.params.subscribe((params) => {
       const id = params['id'];
       if (id) {
         this.vendaId = +id;
@@ -67,6 +68,10 @@ export class VendaFormComponent implements OnInit {
     this.isCollapsed = !this.isCollapsed;
   }
 
+  goBack() {
+    this.router.navigate(['/vendas']);
+  }
+
   onSubmit() {
     if (this.vendaForm.invalid) {
       return;
@@ -86,6 +91,7 @@ export class VendaFormComponent implements OnInit {
           life: 3000
         });
         this.vendaForm.reset();
+        this.goBack();
       },
       error: (err) => {
         const errorMessage = this.vendaId ? 'Erro ao atualizar venda' : 'Erro ao registrar venda';

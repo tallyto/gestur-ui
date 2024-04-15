@@ -24,6 +24,9 @@ import { CardModule } from 'primeng/card';
 import { DividerModule } from 'primeng/divider';
 import { VendaListComponent } from './components/venda/venda-list/venda-list.component';
 import { VendaFormComponent } from './components/venda/venda-form/venda-form.component';
+import { ProdutoFormComponent } from './components/produto/produto-form/produto-form.component';
+import { ProdutoListComponent } from './components/produto/produto-list/produto-list.component';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 
 @NgModule({
   declarations: [
@@ -33,6 +36,8 @@ import { VendaFormComponent } from './components/venda/venda-form/venda-form.com
     VendaListComponent,
     VendaFormComponent,
     NavbarComponent,
+    ProdutoFormComponent,
+    ProdutoListComponent,
   ],
   imports: [
     BrowserModule,
@@ -52,7 +57,9 @@ import { VendaFormComponent } from './components/venda/venda-form/venda-form.com
     MessagesModule,
     ToastModule,
     CardModule,
-    DividerModule
+    DividerModule,
+    InputTextModule,
+    InputTextareaModule
   ],
   providers: [MessageService],
   bootstrap: [AppComponent]

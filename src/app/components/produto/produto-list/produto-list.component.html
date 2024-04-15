@@ -1,0 +1,30 @@
+<div class="mt-2">
+    <p-card header="Produtos">
+        <p-table [value]="produtos" styleClass="p-datatable-striped" responsiveLayout="stack"
+            [tableStyle]="{ 'min-width': '50rem' }">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Nome</th>
+                    <th>Descrição</th>
+                    <th>Preço</th>
+                    <th>Ações</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-produto>
+                <tr>
+                    <td>{{ produto.nome }}</td>
+                    <td>{{ produto.descricao }}</td>
+                    <td>{{ produto.preco }}</td>
+                    <td>
+                        <button aria-label="editar" (click)="onEdit(produto.id)" pButton style="margin: 0 5px;"
+                            icon="pi pi-pencil" pTooltip="Editar">
+                        </button>
+                        <!-- <button aria-label="excluir" pButton style="margin: 0 5px;" icon="pi pi-trash"
+                            (click)="onRemove(produto.id)" pTooltip="Excluir" tooltipPosition="top">
+                        </button> -->
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </p-card>
+</div>

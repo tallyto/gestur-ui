@@ -30,7 +30,7 @@ export class NavbarComponent implements OnInit{
         ],
       },
       {
-        label: 'Vendas',
+        label: 'Pedidos',
         icon: 'fa-solid fa-dollar-sign',
         items: [
           {
@@ -46,18 +46,18 @@ export class NavbarComponent implements OnInit{
         ],
       },
       {
-        label: 'Viagens',
+        label: 'Produtos',
         icon: 'fa-solid fa-suitcase',
         items: [
           {
             label: 'New',
             icon: 'pi pi-fw pi-save',
-            routerLink: "/cadastro-carteirinha"
+            routerLink: "/produto/new"
           },
           {
             label: 'List',
             icon: 'fa-solid fa-list',
-            routerLink: "/lista-carteirinha"
+            routerLink: "/produto/list"
           }
         ]
       },
