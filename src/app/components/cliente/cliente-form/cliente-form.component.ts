@@ -11,9 +11,9 @@ import { MessageService } from 'primeng/api';
 })
 export class ClienteFormComponent implements OnInit {
   public clienteForm: FormGroup;
-  isCollapsed = true; // Flag to control collapse state
-  
-  constructor(private fb: FormBuilder, 
+  isCollapsed = false; // Flag to control collapse state
+
+  constructor(private fb: FormBuilder,
     private clienteService: ClienteService,
     private messageService: MessageService
   ) {}
@@ -60,6 +60,6 @@ export class ClienteFormComponent implements OnInit {
             });
           },
         });
-  
+
   }
 }

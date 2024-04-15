@@ -21,12 +21,16 @@ import { MessageService } from "primeng/api";
 import { MessagesModule } from "primeng/messages";
 import { ToastModule } from 'primeng/toast';
 import { CardModule } from 'primeng/card';
+import { VendaListComponent } from './components/venda/venda-list/venda-list.component';
+import { VendaFormComponent } from './components/venda/venda-form/venda-form.component';
 @NgModule({
   declarations: [
     AppComponent,
     ClienteFormComponent,
     ClienteListComponent,
-    NavbarComponent
+    VendaListComponent,
+    VendaFormComponent,
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,7 +49,7 @@ import { CardModule } from 'primeng/card';
     MenubarModule,
     MessagesModule,
     ToastModule,
-    CardModule
+    CardModule,
   ],
   providers: [MessageService],
   bootstrap: [AppComponent]

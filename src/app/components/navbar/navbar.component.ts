@@ -20,12 +20,12 @@ export class NavbarComponent implements OnInit{
           {
             label: 'New',
             icon: 'pi pi-fw pi-user-plus',
-            routerLink: "/cadastro-usuario"
+            routerLink: "/cliente/new"
           },
           {
             label: 'List',
             icon: 'pi pi-fw pi-users',
-            routerLink: "/lista-usuario"
+            routerLink: "/cliente/list"
           }
         ],
       },
@@ -36,12 +36,12 @@ export class NavbarComponent implements OnInit{
           {
             label: 'New',
             icon: 'pi pi-fw pi-user-plus',
-            routerLink: "/cadastro-usuario"
+            routerLink: "/vendas/new"
           },
           {
             label: 'List',
             icon: 'pi pi-fw pi-users',
-            routerLink: "/lista-usuario"
+            routerLink: "/vendas/list"
           }
         ],
       },
