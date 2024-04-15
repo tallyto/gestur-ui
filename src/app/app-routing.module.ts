@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {VendaRoutingModule} from "./components/venda/venda-routing.module";
 import {ClienteRoutingModule} from "./components/cliente/cliente-routing.module";
 import { ProdutoRoutingModule } from './components/produto/produto-routing.module';
+import { PedidoRoutingModule } from './components/pedido/pedido-routing.module';
 
 const routes: Routes = [
-    { path: '', redirectTo: 'vendas', pathMatch: 'full' },
-    { path: 'vendas', loadChildren: () => VendaRoutingModule},
+    { path: '', redirectTo: 'pedido', pathMatch: 'full' },
+    { path: 'pedido', loadChildren: () => PedidoRoutingModule},
     {path: 'cliente', loadChildren: () => ClienteRoutingModule},
     {path: 'produto', loadChildren: () => ProdutoRoutingModule}
 ];

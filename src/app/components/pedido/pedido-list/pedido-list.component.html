@@ -1,0 +1,30 @@
+<div class="mt-2">
+    <p-card header="Pedidos">
+        <p-table [value]="pedidos" styleClass="p-datatable-striped" responsiveLayout="stack"
+            [tableStyle]="{ 'min-width': '50rem' }">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Cliente</th>
+                    <th>Data do Pedido</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-pedido>
+                <tr>
+                    <td>{{ pedido.cliente.nome }}</td>
+                    <td>{{ pedido.dataPedido }}</td>
+                    <td>{{ pedido.status }}</td>
+                    <td>
+                        <button aria-label="editar" (click)="onEdit(pedido.id)" pButton style="margin: 0 5px;"
+                            icon="pi pi-pencil" pTooltip="Editar">
+                        </button>
+                        <!-- <button aria-label="excluir" pButton style="margin: 0 5px;" icon="pi pi-trash"
+                            (click)="onRemove(pedido.id)" pTooltip="Excluir" tooltipPosition="top">
+                        </button> -->
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </p-card>
+</div>

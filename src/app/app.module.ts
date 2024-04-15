@@ -22,22 +22,22 @@ import { MessagesModule } from "primeng/messages";
 import { ToastModule } from 'primeng/toast';
 import { CardModule } from 'primeng/card';
 import { DividerModule } from 'primeng/divider';
-import { VendaListComponent } from './components/venda/venda-list/venda-list.component';
-import { VendaFormComponent } from './components/venda/venda-form/venda-form.component';
 import { ProdutoFormComponent } from './components/produto/produto-form/produto-form.component';
 import { ProdutoListComponent } from './components/produto/produto-list/produto-list.component';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { PedidoFormComponent } from './components/pedido/pedido-form/pedido-form.component';
+import { PedidoListComponent } from './components/pedido/pedido-list/pedido-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ClienteFormComponent,
     ClienteListComponent,
-    VendaListComponent,
-    VendaFormComponent,
     NavbarComponent,
     ProdutoFormComponent,
     ProdutoListComponent,
+    PedidoFormComponent,
+    PedidoListComponent
   ],
   imports: [
     BrowserModule,
