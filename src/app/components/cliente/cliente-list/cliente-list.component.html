@@ -1,0 +1,40 @@
+<div class="mt-2">
+    <p-card header="Clientes">
+
+        <p-table [value]="clientes" styleClass="p-datatable-striped" responsiveLayout="stack"
+            [tableStyle]="{ 'min-width': '50rem' }">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Nome</th>
+                    <th>Nascimento</th>
+                    <th>CPF</th>
+                    <th>Ações</th>
+                    <!-- <th>RG</th>
+                    <th>Email</th>
+                    <th>Telefone</th>
+                    <th>Renda</th>
+                    <th>Profissão</th> -->
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body"  let-cliente>
+                <tr>
+                    <td>{{ cliente.nome }}</td>
+                    <td>{{ cliente.dataNascimento | date: 'dd/MM/yyyy'}}</td>
+
+                    <td>{{ cliente.cpf }}</td>
+                    <td><button aria-label="editar" (click)="onEdit(cliente.id)" pButton style="margin: 0 5px;" icon="fa-solid fa-user-pen" pTooltip="editar">
+                    </button>
+                    <!-- <button aria-label="excluir" pButton style="margin: 0 5px" icon="fas fa-trash" (click)="onRemove(cliente.id)" pTooltip="Excluir" tooltipPosition="top"></button> -->
+                </td>
+
+                    <!-- <td>{{ cliente.rg }}</td>
+                    <td>{{ cliente.email }}</td>
+                    <td>{{ cliente.telefone }}</td>
+                    <td>{{ cliente.renda }}</td>
+                    <td>{{ cliente.profissao }}</td> -->
+                </tr>
+            </ng-template>
+        </p-table>
+
+    </p-card>
+</div>
