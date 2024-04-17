@@ -62,6 +62,23 @@ export class NavbarComponent implements OnInit{
         ]
       },
       {
+        label: 'Lembretes',
+        
+        icon: 'fa-regular fa-calendar-days',
+        items: [
+          {
+            label: 'New',
+            icon: 'pi pi-fw pi-save',
+            routerLink: "/cadastro-carteirinha"
+          },
+          {
+            label: 'List',
+            icon: 'fa-solid fa-list',
+            routerLink: "/lista-carteirinha"
+          }
+        ]
+      },
+      {
         label: 'Roteiros',
         icon: 'fa-solid fa-route',
         items: [
