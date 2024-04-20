@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Venda } from '../models/venda.model';
+import {Venda} from "../models/venda.model";
 
 @Injectable({
   providedIn: 'root'
@@ -11,19 +11,19 @@ export class VendaService {
 
   constructor(private http: HttpClient) { }
 
-  registrarVenda(venda: Venda): Observable<Venda> {
+  cadastrar(venda: Venda): Observable<Venda> {
     return this.http.post<Venda>(this.baseUrl, venda);
   }
 
-  getVendas(): Observable<Venda[]> {
+  listar(): Observable<Venda[]> {
     return this.http.get<Venda[]>(this.baseUrl);
   }
 
-  getVendaById(id: number): Observable<Venda> {
-    return this.http.get<Venda>(`${this.baseUrl}/${id}` )
+  buscarPorId(id: number): Observable<Venda> {
+    return this.http.get<Venda>(`${this.baseUrl}/${id}`);
   }
 
-  atualizarVenda(id: number, venda: Venda): Observable<Venda> {
-    return this.http.put<Venda>(`${this.baseUrl}/${id}`, venda)
+  atualizar(id: number, venda: Venda): Observable<Venda> {
+    return this.http.put<Venda>(`${this.baseUrl}/${id}`, venda);
   }
 }

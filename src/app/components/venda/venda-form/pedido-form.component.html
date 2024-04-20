@@ -29,7 +29,46 @@
                 </div>
             </div>
         </p-panel>
+
+
     </div>
+
+    <div class="mt-3">
+        <p-panel >
+            <ng-template pTemplate="header">
+                <div>
+                    <span class="font-bold">Itens da Venda</span>
+                </div>
+            </ng-template>
+            <p-table [value]="pedidoForm.get('itens').value" styleClass="p-datatable-striped" responsiveLayout="stack"
+            [tableStyle]="{ 'min-width': '50rem' }">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Nome</th>
+                    <th>Preço</th>
+                    <th>Descrição</th>
+                    <th>Ações</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+                <tr>
+                    <td>{{ item.produto.nome }}</td>
+                    <td>{{ item.produto.preco }}</td>
+                    <td>{{ item.produto.descricao }}</td>
+                    <td>
+                        <button aria-label="editar" (click)="onEdit(item.id)" pButton style="margin: 0 5px;"
+                            icon="pi pi-pencil" pTooltip="Editar">
+                        </button>
+                        <!-- <button aria-label="excluir" pButton style="margin: 0 5px;" icon="pi pi-trash"
+                            (click)="onRemove(venda.id)" pTooltip="Excluir" tooltipPosition="top">
+                        </button> -->
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+        </p-panel>
+    </div>
+
 
     <div class="mt-3 flex gap-3">
         <button pButton [disabled]="pedidoForm.invalid" type="submit" label="Cadastrar"></button>

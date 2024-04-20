@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Pedido } from '../../../models/pedido.model'; // Importe o modelo de Pedido correspondente
-import { PedidoService } from '../../../services/pedido.service'; // Importe o serviço de Pedido correspondente
+import { VendaService } from '../../../services/venda.service'; // Importe o serviço de Pedido correspondente
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-pedido-list',
+  selector: 'app-venda-list',
   templateUrl: './pedido-list.component.html',
   styleUrls: ['./pedido-list.component.css']
 })
@@ -12,12 +12,12 @@ export class PedidoListComponent implements OnInit {
   pedidos: Pedido[] = [];
 
   constructor(
-    private pedidoService: PedidoService,
+    private pedidoService: VendaService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.pedidoService.getPedidos()
+    this.pedidoService.listar()
       .subscribe(pedidos => this.pedidos = pedidos);
   }
 
@@ -25,8 +25,8 @@ export class PedidoListComponent implements OnInit {
     this.router.navigate(['/pedido/editar', id]);
   }
 
-  // Método para remoção de pedido
+  // Método para remoção de venda
   onRemove(id: number) {
-    // Implemente a lógica de remoção de pedido aqui
+    // Implemente a lógica de remoção de venda aqui
   }
 }

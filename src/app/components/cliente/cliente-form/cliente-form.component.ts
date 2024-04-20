@@ -12,7 +12,7 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./cliente-form.component.css'],
 })
 export class ClienteFormComponent implements OnInit {
-  
+
 
   public clienteForm: FormGroup;
   isCollapsed = false;
@@ -48,7 +48,8 @@ export class ClienteFormComponent implements OnInit {
       telefone: ['', Validators.required],
       renda: ['', Validators.required],
       cep: [''],
-      logradouro: [''],
+      rua: [''],
+      numero: [''],
       complemento: [''],
       bairro: [''],
       cidade: [''],
@@ -116,7 +117,7 @@ export class ClienteFormComponent implements OnInit {
           // @ts-expect-error
           if (!data.erro) {
             this.clienteForm.patchValue({
-              logradouro: data['logradouro'],
+              rua: data['logradouro'],
               bairro: data['bairro'],
               cidade: data['localidade'],
               estado: data['uf'],

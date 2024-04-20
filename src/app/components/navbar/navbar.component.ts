@@ -36,12 +36,12 @@ export class NavbarComponent implements OnInit{
           {
             label: 'New',
             icon: 'pi pi-fw pi-user-plus',
-            routerLink: "/pedido/new"
+            routerLink: "/venda/new"
           },
           {
             label: 'List',
             icon: 'pi pi-fw pi-users',
-            routerLink: "/pedido/list"
+            routerLink: "/venda/list"
           }
         ],
       },
@@ -63,7 +63,7 @@ export class NavbarComponent implements OnInit{
       },
       {
         label: 'Lembretes',
-        
+
         icon: 'fa-regular fa-calendar-days',
         items: [
           {

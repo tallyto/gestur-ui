@@ -2,17 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PedidoService } from '../../../services/pedido.service'; 
-import { Pedido } from '../../../models/pedido.model'; 
+import { VendaService } from '../../../services/venda.service';
+import { Pedido } from '../../../models/pedido.model';
 import { Cliente } from '../../../models/cliente.model';
 import { ClienteService } from '../../../services/cliente.service';
 
 @Component({
-  selector: 'app-pedido-form',
+  selector: 'app-venda-form',
   templateUrl: './pedido-form.component.html',
   styleUrls: ['./pedido-form.component.css'],
 })
 export class PedidoFormComponent implements OnInit {
+
   public pedidoForm: FormGroup;
   isCollapsed = false;
   pedidoId: number | null = null;
@@ -20,7 +21,7 @@ export class PedidoFormComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private pedidoService: PedidoService, 
+    private pedidoService: VendaService,
     private messageService: MessageService,
     private activateRoute: ActivatedRoute,
     private clienteService: ClienteService,
@@ -29,7 +30,7 @@ export class PedidoFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.pedidoForm = this.getPedidoFormBuilder();
-  
+
     this.activateRoute.params.subscribe((params) => {
       const id = params['id'];
       if (id) {
@@ -43,14 +44,32 @@ export class PedidoFormComponent implements OnInit {
 
   getPedidoFormBuilder() {
     return this.fb.group({
-      cliente: ['', Validators.required], 
-      dataPedido: ['', Validators.required], 
+      cliente: ['', Validators.required],
+      dataPedido: ['', Validators.required],
       status: ['', Validators.required],
+      itens: [],
     });
   }
 
   loadPedidoData(id: number) {
-    // Implemente a lógica para carregar os dados do pedido pelo ID, se necessário
+    this.pedidoService.buscarPorId(id).subscribe({
+      next: (pedido) => {
+        this.pedidoForm.patchValue(pedido);
+        console.log(this.pedidoForm.value);
+        this.loadClienteData();
+      },
+      error: () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Erro ao carregar venda',
+          life: 3000,
+        });
+      }
+    })
+  }
+
+  onEdit(arg0: any) {
+    throw new Error('Method not implemented.');
   }
 
   loadClienteData() {
@@ -75,8 +94,8 @@ export class PedidoFormComponent implements OnInit {
     }
     const pedido: Pedido = this.pedidoForm.value;
     const pedidoObservable = this.pedidoId
-      ? this.pedidoService.atualizarPedido(this.pedidoId, pedido)
-      : this.pedidoService.cadastrarPedido(pedido);
+      ? this.pedidoService.atualizar(this.pedidoId, pedido)
+      : this.pedidoService.cadastrar(pedido);
 
     pedidoObservable.subscribe({
       next: () => {
@@ -93,8 +112,8 @@ export class PedidoFormComponent implements OnInit {
       },
       error: () => {
         const errorMessage = this.pedidoId
-          ? 'Erro ao atualizar pedido'
-          : 'Erro ao cadastrar pedido';
+          ? 'Erro ao atualizar venda'
+          : 'Erro ao cadastrar venda';
         this.messageService.add({
           severity: 'error',
           summary: errorMessage,

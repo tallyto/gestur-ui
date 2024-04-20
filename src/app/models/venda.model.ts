@@ -1,13 +1,11 @@
 import { Cliente } from "./cliente.model";
+import {ItemVenda} from "./item-venda.model";
 
-export interface Venda {
-    id?: number; // O id é opcional, pois será gerado pelo banco de dados
-    cliente: Cliente; // Importe o modelo de Cliente e ajuste conforme necessário
-    valorPago: number;
-    valorRepassado: number;
-    formaPagamento: string;
-    comissaoRAV: number;
-    comissaoMarkup: number;
-    descontoAplicado: boolean;
-  }
-  
+export class Venda {
+  id: number;
+  cliente: Cliente;
+  dataEmbarque: Date;
+  dataDesembarque: Date;
+  status: string;
+  itens: ItemVenda[];
+}
