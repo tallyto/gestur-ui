@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
-import { PedidoListComponent } from './venda-list/pedido-list.component';
+import { VendaListComponent } from './venda-list/venda-list.component';
 import { RouterModule, Routes } from '@angular/router';
-import { PedidoFormComponent } from './venda-form/pedido-form.component';
+import { VendaFormComponent } from './venda-form/venda-form.component';
 
 
 
 const routes: Routes = [
   { path: '', redirectTo: 'list', pathMatch: 'full' },
-  { path: 'new', component: PedidoFormComponent },
-  { path: 'list', component: PedidoListComponent},
-  { path: 'editar/:id', component: PedidoFormComponent}
+  { path: 'new', component: VendaFormComponent },
+  { path: 'list', component: VendaListComponent},
+  { path: 'editar/:id', component: VendaFormComponent}
 
 ];
 

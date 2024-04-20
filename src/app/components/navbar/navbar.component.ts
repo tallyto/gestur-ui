@@ -30,7 +30,7 @@ export class NavbarComponent implements OnInit{
         ],
       },
       {
-        label: 'Pedidos',
+        label: 'Venda',
         icon: 'fa-solid fa-dollar-sign',
         items: [
           {
@@ -67,52 +67,20 @@ export class NavbarComponent implements OnInit{
         icon: 'fa-regular fa-calendar-days',
         items: [
           {
-            label: 'New',
-            icon: 'pi pi-fw pi-save',
-            routerLink: "/cadastro-carteirinha"
+            label: 'Aniversários',
+            icon: 'fa-solid fa-cake-candles',
+            routerLink: "/aniversarios"
           },
           {
-            label: 'List',
-            icon: 'fa-solid fa-list',
-            routerLink: "/lista-carteirinha"
-          }
+            label: 'Embarques',
+            icon: 'fa-solid fa-plane',
+            routerLink: "/embarques"
+          },
         ]
       },
       {
         label: 'Roteiros',
         icon: 'fa-solid fa-route',
-        items: [
-          {
-            label: 'New',
-            icon: 'pi pi-fw pi-save',
-            routerLink: "/cadastro-carteirinha"
-          },
-          {
-            label: 'List',
-            icon: 'fa-solid fa-list',
-            routerLink: "/lista-carteirinha"
-          }
-        ]
-      },
-      {
-        label: 'Embarques',
-        icon: 'fa-solid fa-plane',
-        items: [
-          {
-            label: 'New',
-            icon: 'pi pi-fw pi-save',
-            routerLink: "/cadastro-carteirinha"
-          },
-          {
-            label: 'List',
-            icon: 'fa-solid fa-list',
-            routerLink: "/lista-carteirinha"
-          }
-        ]
-      },
-      {
-        label: 'Hospedagem',
-        icon: 'fa-solid fa-hotel',
         items: [
           {
             label: 'New',

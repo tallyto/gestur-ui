@@ -25,8 +25,8 @@ import { DividerModule } from 'primeng/divider';
 import { ProdutoFormComponent } from './components/produto/produto-form/produto-form.component';
 import { ProdutoListComponent } from './components/produto/produto-list/produto-list.component';
 import { InputTextareaModule } from 'primeng/inputtextarea';
-import { PedidoFormComponent } from './components/venda/venda-form/pedido-form.component';
-import { PedidoListComponent } from './components/venda/venda-list/pedido-list.component';
+import { VendaFormComponent } from './components/venda/venda-form/venda-form.component';
+import { VendaListComponent } from './components/venda/venda-list/venda-list.component';
 
 @NgModule({
   declarations: [
@@ -36,8 +36,8 @@ import { PedidoListComponent } from './components/venda/venda-list/pedido-list.c
     NavbarComponent,
     ProdutoFormComponent,
     ProdutoListComponent,
-    PedidoFormComponent,
-    PedidoListComponent
+    VendaFormComponent,
+    VendaListComponent
   ],
   imports: [
     BrowserModule,

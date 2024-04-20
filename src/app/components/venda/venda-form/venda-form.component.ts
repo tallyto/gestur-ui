@@ -3,25 +3,25 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { ActivatedRoute, Router } from '@angular/router';
 import { VendaService } from '../../../services/venda.service';
-import { Pedido } from '../../../models/pedido.model';
 import { Cliente } from '../../../models/cliente.model';
 import { ClienteService } from '../../../services/cliente.service';
+import {Venda} from "../../../models/venda.model";
 
 @Component({
   selector: 'app-venda-form',
-  templateUrl: './pedido-form.component.html',
-  styleUrls: ['./pedido-form.component.css'],
+  templateUrl: './venda-form.component.html',
+  styleUrls: ['./venda-form.component.css'],
 })
-export class PedidoFormComponent implements OnInit {
+export class VendaFormComponent implements OnInit {
 
-  public pedidoForm: FormGroup;
+  public vendaForm: FormGroup;
   isCollapsed = false;
-  pedidoId: number | null = null;
+  vendaId: number | null = null;
   clientes: Cliente[]
 
   constructor(
     private fb: FormBuilder,
-    private pedidoService: VendaService,
+    private vendaService: VendaService,
     private messageService: MessageService,
     private activateRoute: ActivatedRoute,
     private clienteService: ClienteService,
@@ -29,33 +29,33 @@ export class PedidoFormComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.pedidoForm = this.getPedidoFormBuilder();
+    this.vendaForm = this.getVendaFormBuilder();
 
     this.activateRoute.params.subscribe((params) => {
       const id = params['id'];
       if (id) {
-        this.pedidoId = +id;
-        this.loadPedidoData(this.pedidoId);
+        this.vendaId = +id;
+        this.loadVendaData(this.vendaId);
       } else {
         this.loadClienteData();
       }
     });
   }
 
-  getPedidoFormBuilder() {
+  getVendaFormBuilder(): FormGroup {
     return this.fb.group({
       cliente: ['', Validators.required],
-      dataPedido: ['', Validators.required],
+      dataEmbarque: ['', Validators.required],
+      dataDesembarque: ['', Validators.required],
       status: ['', Validators.required],
       itens: [],
     });
   }
 
-  loadPedidoData(id: number) {
-    this.pedidoService.buscarPorId(id).subscribe({
-      next: (pedido) => {
-        this.pedidoForm.patchValue(pedido);
-        console.log(this.pedidoForm.value);
+  loadVendaData(id: number) {
+    this.vendaService.buscarPorId(id).subscribe({
+      next: (venda) => {
+        this.vendaForm.patchValue(venda);
         this.loadClienteData();
       },
       error: () => {
@@ -85,21 +85,21 @@ export class PedidoFormComponent implements OnInit {
   }
 
   goBack() {
-    this.router.navigate(['/pedido']);
+    this.router.navigate(['/venda']);
   }
 
   onSubmit() {
-    if (this.pedidoForm.invalid) {
+    if (this.vendaForm.invalid) {
       return;
     }
-    const pedido: Pedido = this.pedidoForm.value;
-    const pedidoObservable = this.pedidoId
-      ? this.pedidoService.atualizar(this.pedidoId, pedido)
-      : this.pedidoService.cadastrar(pedido);
+    const venda: Venda =  this.vendaForm.value;
+    const vendaObservable = this.vendaId
+      ? this.vendaService.atualizar(this.vendaId, venda)
+      : this.vendaService.cadastrar(venda);
 
-    pedidoObservable.subscribe({
+    vendaObservable.subscribe({
       next: () => {
-        const sucessoMessage = this.pedidoId
+        const sucessoMessage = this.vendaId
           ? 'Pedido atualizado com sucesso!'
           : 'Pedido cadastrado com sucesso!';
         this.messageService.add({
@@ -107,11 +107,11 @@ export class PedidoFormComponent implements OnInit {
           summary: sucessoMessage,
           life: 3000,
         });
-        this.pedidoForm.reset();
+        this.vendaForm.reset();
         this.goBack();
       },
       error: () => {
-        const errorMessage = this.pedidoId
+        const errorMessage = this.vendaId
           ? 'Erro ao atualizar venda'
           : 'Erro ao cadastrar venda';
         this.messageService.add({
