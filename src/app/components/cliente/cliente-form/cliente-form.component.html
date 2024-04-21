@@ -22,18 +22,7 @@
                     <p-calendar id="dataNascimento" formControlName="dataNascimento" dateFormat="dd/mm/yy"></p-calendar>
                 </div>
             </div>
-            <div class="p-fluid col-12 md:col-4">
-                <div class="flex flex-column gap-2">
-                    <label for="cpf">CPF</label>
-                    <input pInputText id="cpf" formControlName="cpf" />
-                </div>
-            </div>
-            <div class="p-fluid col-12 md:col-4">
-                <div class="flex flex-column gap-2">
-                    <label for="rg">RG</label>
-                    <input pInputText id="rg" formControlName="rg" />
-                </div>
-            </div>
+
             <div class="p-fluid col-12 md:col-4">
                 <div class="flex flex-column gap-2">
                     <label for="telefone">Telefone:</label>
@@ -64,9 +53,33 @@
     </p-panel>
    </div>
 
+  <div class="mt-3">
+    <p-panel [toggleable]="true" [collapsed]="doccumentColapsed">
+      <ng-template pTemplate="header">
+        <div>
+          <span class="font-bold">Documentos</span>
+        </div>
+      </ng-template>
+      <div class="grid">
+        <div class="p-fluid col-12 md:col-4">
+          <div class="flex flex-column gap-2">
+            <label for="cpf">CPF</label>
+            <input pInputText id="cpf" formControlName="cpf" />
+          </div>
+        </div>
+        <div class="p-fluid col-12 md:col-4">
+          <div class="flex flex-column gap-2">
+            <label for="rg">RG</label>
+            <input pInputText id="rg" formControlName="rg" />
+          </div>
+        </div>
+      </div>
+    </p-panel>
+  </div>
+
 
     <div class="mt-3">
-        <p-panel [toggleable]="true" [collapsed]="addressDetail">
+        <p-panel [toggleable]="true" [collapsed]="addressCollapsed">
             <ng-template pTemplate="header">
                 <div>
                     <span class="font-bold">Endereço</span>
