@@ -37,7 +37,7 @@ import { VendaListComponent } from './components/venda/venda-list/venda-list.com
     ProdutoFormComponent,
     ProdutoListComponent,
     VendaFormComponent,
-    VendaListComponent
+    VendaListComponent,
   ],
   imports: [
     BrowserModule,
