@@ -17,7 +17,8 @@ export class ClienteFormComponent implements OnInit {
   public clienteForm: FormGroup;
   isCollapsed = false;
   clienteId: number | null = null;
-  addressDetail = false
+  addressCollapsed = false
+  doccumentColapsed = false;
 
   constructor(private fb: FormBuilder,
     private clienteService: ClienteService,
