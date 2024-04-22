@@ -27,6 +27,8 @@ import { ProdutoListComponent } from './components/produto/produto-list/produto-
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { VendaFormComponent } from './components/venda/venda-form/venda-form.component';
 import { VendaListComponent } from './components/venda/venda-list/venda-list.component';
+import { FornecedorListComponent } from './components/fornecedor/fornecedor-list/fornecedor-list.component';
+import {FornecedorFormComponent} from "./components/fornecedor/fornecedor-form/fornecedor-form.component";
 
 @NgModule({
   declarations: [
@@ -38,6 +40,8 @@ import { VendaListComponent } from './components/venda/venda-list/venda-list.com
     ProdutoListComponent,
     VendaFormComponent,
     VendaListComponent,
+    FornecedorListComponent,
+    FornecedorFormComponent
   ],
   imports: [
     BrowserModule,

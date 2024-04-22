@@ -3,12 +3,14 @@ import {RouterModule, Routes} from '@angular/router';
 import {ClienteRoutingModule} from "./components/cliente/cliente-routing.module";
 import {ProdutoRoutingModule} from './components/produto/produto-routing.module';
 import {VendaRoutingModule} from './components/venda/venda-routing.module';
+import {FornecedorRoutingModule} from "./components/fornecedor/fornecedor-routing.module";
 
 const routes: Routes = [
   {path: '', redirectTo: 'venda', pathMatch: 'full'},
   {path: 'venda', loadChildren: () => VendaRoutingModule},
   {path: 'cliente', loadChildren: () => ClienteRoutingModule},
-  {path: 'produto', loadChildren: () => ProdutoRoutingModule}
+  {path: 'produto', loadChildren: () => ProdutoRoutingModule},
+  {path: 'fornecedor', loadChildren: () => FornecedorRoutingModule}
 ];
 
 @NgModule({

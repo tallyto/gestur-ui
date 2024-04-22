@@ -47,7 +47,7 @@ export class NavbarComponent implements OnInit{
       },
       {
         label: 'Produtos',
-        icon: 'fa-solid fa-suitcase',
+        icon: 'fa-solid fa-earth-americas',
         items: [
           {
             label: 'New',
@@ -58,6 +58,22 @@ export class NavbarComponent implements OnInit{
             label: 'List',
             icon: 'fa-solid fa-list',
             routerLink: "/produto/list"
+          }
+        ]
+      },
+      {
+        label: 'Fornecedores',
+        icon: 'fa-solid fa-briefcase',
+        items: [
+          {
+            label: 'New',
+            icon: 'pi pi-fw pi-save',
+            routerLink: "/fornecedor/new"
+          },
+          {
+            label: 'List',
+            icon: 'fa-solid fa-list',
+            routerLink: "/fornecedor/list"
           }
         ]
       },
