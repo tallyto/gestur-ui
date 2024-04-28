@@ -2,12 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Produto } from '../models/produto.model';
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProdutoService {
-  private baseUrl = 'http://localhost:3001/api/produtos'; // Altere a URL base de acordo com a sua API de Produto
+  private baseUrl = `${environment.apiUrl}/api/produtos`
 
   constructor(private http: HttpClient) { }
 
