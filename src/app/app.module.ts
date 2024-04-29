@@ -27,6 +27,7 @@ import { ProdutoListComponent } from './components/produto/produto-list/produto-
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { VendaFormComponent } from './components/venda/venda-form/venda-form.component';
 import { VendaListComponent } from './components/venda/venda-list/venda-list.component';
+import {FileUploadModule} from "primeng/fileupload";
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { VendaListComponent } from './components/venda/venda-list/venda-list.com
     CardModule,
     DividerModule,
     InputTextModule,
-    InputTextareaModule
+    InputTextareaModule,
+    FileUploadModule
   ],
   providers: [MessageService],
   bootstrap: [AppComponent]

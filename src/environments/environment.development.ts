@@ -1,3 +1,3 @@
 export const environment = {
-  apiUrl: 'https://gestur.fly.dev'
+  apiUrl: 'http://localhost:3001'
 };
