@@ -5,6 +5,8 @@ import { ClienteService } from '../../../services/cliente.service';
 import { MessageService } from 'primeng/api';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import {environment} from "../../../../environments/environment";
+import {FileUploadEvent} from "primeng/fileupload";
 
 @Component({
   selector: 'app-cliente-form',
@@ -19,6 +21,10 @@ export class ClienteFormComponent implements OnInit {
   clienteId: number | null = null;
   addressCollapsed = false
   doccumentColapsed = false;
+  attachmentColapsed: false;
+  uploadedFiles: any[] = [];
+
+  uploadUrl = ''
 
   constructor(private fb: FormBuilder,
     private clienteService: ClienteService,
@@ -34,6 +40,7 @@ export class ClienteFormComponent implements OnInit {
       if (id) {
         this.clienteId = +id;
         this.loadClienteData(this.clienteId);
+        this.uploadUrl = `${environment.apiUrl}/api/clientes/${this.clienteId}/anexos`
       }
     })
   }
@@ -62,8 +69,18 @@ export class ClienteFormComponent implements OnInit {
 
   loadClienteData(id: number) {
     this.clienteService.getClienteById(id).subscribe((cliente) => {
-      this.clienteForm.patchValue(cliente);
-    }
+        this.clienteForm.patchValue(cliente);
+        this.uploadedFiles = []
+        if (cliente.anexos.length > 0) {
+          this.uploadedFiles = cliente.anexos.map(value => {
+            return {
+              id: value.anexo.id,
+              name: value.anexo.nomeOriginal,
+              size: value.anexo.tamanho,
+            }
+          })
+        }
+      }
     );
   }
 
@@ -83,7 +100,7 @@ export class ClienteFormComponent implements OnInit {
     const clienteObservable = this.clienteId ? this.clienteService.atualizarCliente(this.clienteId, cliente) : this.clienteService.cadastrarCliente(cliente);
 
     clienteObservable.subscribe({
-      next: (value) => {
+      next: (_value) => {
         const sucessMessage = this.clienteId ? 'Cliente atualizado com sucesso!' : 'Cliente cadastrado com sucesso!';
         this.messageService.add({
           severity: 'success',
@@ -93,7 +110,7 @@ export class ClienteFormComponent implements OnInit {
         this.clienteForm.reset();
         this.goBack();
       },
-      error: (err) => {
+      error: (_err) => {
         const errorMessage = this.clienteId ? 'Erro ao atualizar cliente' : 'Erro ao cadastrar cliente';
         this.messageService.add({
           severity: 'error',
@@ -102,9 +119,6 @@ export class ClienteFormComponent implements OnInit {
         });
       }
     })
-
-
-
 
   }
 
@@ -128,5 +142,41 @@ export class ClienteFormComponent implements OnInit {
       })
     }
   }
+
+
+  onUpload(event: FileUploadEvent) {
+    for (let file of event.files) {
+      this.uploadedFiles.push(file);
+    }
+    this.loadClienteData(this.clienteId)
+    this.messageService.add({severity: 'info', summary: 'File Uploaded', detail: ''});
+  }
+
+  openNewTab(url: string) {
+    window.open(url, '_blank');
+  }
+  onDownload(anexoId: number) {
+    this.clienteService.downloadAnexo(this.clienteId, anexoId).subscribe({
+      next: (data) => {
+        this.openNewTab(data.url);
+      },
+      error: (err) => {
+        this.messageService.add({severity: 'error', summary: err});
+      }
+    });
+  }
+
+  onRemove(anexoId: number) {
+      this.clienteService.removeAnexo(this.clienteId, anexoId).subscribe({
+        next: (_data) => {
+          this.loadClienteData(this.clienteId)
+        }
+      })
+  }
+
+
+
+
+
 
 }
