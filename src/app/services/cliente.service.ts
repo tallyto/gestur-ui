@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Cliente } from '../models/cliente.model';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+import {Cliente} from '../models/cliente.model';
 import {environment} from "../../environments/environment";
 
 @Injectable({
@@ -9,9 +9,10 @@ import {environment} from "../../environments/environment";
 })
 export class ClienteService {
 
-
   private baseUrl = `${environment.apiUrl}/api/clientes`;
-  constructor(private http: HttpClient) { }
+
+  constructor(private http: HttpClient) {
+  }
 
   cadastrarCliente(cliente: Cliente): Observable<Cliente> {
     return this.http.post<Cliente>(this.baseUrl, cliente);
@@ -19,14 +20,21 @@ export class ClienteService {
 
   atualizarCliente(clienteId: number, cliente: Cliente): Observable<Cliente> {
     return this.http.put<Cliente>(`${this.baseUrl}/${clienteId}`, cliente);
+  }
 
+  downloadAnexo(clienteId: number, anexoId: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/${clienteId}/anexos/${anexoId}`);
   }
 
   getClienteById(clienteId: number): Observable<Cliente> {
     return this.http.get<Cliente>(`${this.baseUrl}/${clienteId}`);
   }
+
   getClientes(): Observable<Cliente[]> {
     return this.http.get<Cliente[]>(this.baseUrl);
   }
 
+  removeAnexo(clienteId: number, anexoId: number) {
+    return this.http.delete(`${this.baseUrl}/${clienteId}/anexos/${anexoId}`);
+  }
 }

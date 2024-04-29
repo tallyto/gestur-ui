@@ -1,6 +1,6 @@
 // cliente.model.ts
 export interface Cliente {
-    id?: number; // O id é opcional, pois pode não estar disponível ao criar um novo cliente
+    id?: number;
     nome: string;
     cpf: string;
     rg: string;
@@ -8,5 +8,5 @@ export interface Cliente {
     telefone: string;
     renda: string;
     profissao: string;
+    anexos: any[];
   }
-  
