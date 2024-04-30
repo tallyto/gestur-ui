@@ -22,16 +22,16 @@ export class ClienteService {
     return this.http.put<Cliente>(`${this.baseUrl}/${clienteId}`, cliente);
   }
 
-  downloadAnexo(clienteId: number, anexoId: number): Observable<any> {
-    return this.http.get(`${this.baseUrl}/${clienteId}/anexos/${anexoId}`);
-  }
-
   getClienteById(clienteId: number): Observable<Cliente> {
     return this.http.get<Cliente>(`${this.baseUrl}/${clienteId}`);
   }
 
   getClientes(): Observable<Cliente[]> {
     return this.http.get<Cliente[]>(this.baseUrl);
+  }
+
+  downloadAnexo(clienteId: number, anexoId: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/${clienteId}/anexos/${anexoId}`);
   }
 
   removeAnexo(clienteId: number, anexoId: number) {

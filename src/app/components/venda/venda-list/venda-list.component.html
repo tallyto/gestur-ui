@@ -1,32 +1,34 @@
 <div class="mt-2">
-    <p-card header="Vendas">
-        <p-table [value]="vendas" styleClass="p-datatable-striped" responsiveLayout="stack"
-                 [tableStyle]="{ 'min-width': '50rem' }">
-            <ng-template pTemplate="header">
-                <tr>
-                    <th>Cliente</th>
-                    <th>Data de Embarque</th>
-                    <th>Data de Desembarque</th>
-                    <th>Status</th>
-                    <th>Ações</th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-venda>
-                <tr>
-                    <td>{{ venda.cliente.nome }}</td>
-                    <td>{{ venda.dataEmbarque | date :  'dd/MM/yyyy' }}</td>
-                    <td>{{ venda.dataDesembarque  | date :  'dd/MM/yyyy'}}</td>
-                    <td>{{ venda.status }}</td>
-                    <td>
-                        <button aria-label="editar" (click)="onEdit(venda.id)" pButton style="margin: 0 5px;"
-                                icon="pi pi-pencil" pTooltip="Editar">
-                        </button>
-                        <!-- <button aria-label="excluir" pButton style="margin: 0 5px;" icon="pi pi-trash"
-                            (click)="onRemove(venda.id)" pTooltip="Excluir" tooltipPosition="top">
-                        </button> -->
-                    </td>
-                </tr>
-            </ng-template>
-        </p-table>
-    </p-card>
+  <p-card header="Vendas">
+    <p-table [value]="vendas" styleClass="p-datatable-striped" responsiveLayout="stack"
+             [tableStyle]="{ 'min-width': '50rem' }">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Cliente</th>
+          <th>Serviço</th>
+          <th>Data de Embarque</th>
+          <th>Data de Desembarque</th>
+          <th>Status</th>
+          <th>Ações</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-venda>
+        <tr>
+          <td>{{ venda.cliente.nome }}</td>
+          <td>Pacote</td>
+          <td>{{ venda.dataEmbarque | date :  'dd/MM/yyyy' }}</td>
+          <td>{{ venda.dataDesembarque  | date :  'dd/MM/yyyy' }}</td>
+          <td>{{ venda.status }}</td>
+          <td>
+            <button aria-label="editar" (click)="onEdit(venda.id)" pButton style="margin: 0 5px;"
+                    icon="pi pi-pencil" pTooltip="Editar">
+            </button>
+            <!-- <button aria-label="excluir" pButton style="margin: 0 5px;" icon="pi pi-trash"
+                (click)="onRemove(venda.id)" pTooltip="Excluir" tooltipPosition="top">
+            </button> -->
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </p-card>
 </div>
