@@ -6,6 +6,9 @@ import { VendaService } from '../../../services/venda.service';
 import { Cliente } from '../../../models/cliente.model';
 import { ClienteService } from '../../../services/cliente.service';
 import {Venda} from "../../../models/venda.model";
+import {FileUploadEvent} from "primeng/fileupload";
+import {environment} from "../../../../environments/environment";
+import {ItemAnexo} from "../../../models/item-anexo.model";
 
 @Component({
   selector: 'app-venda-form',
@@ -18,6 +21,12 @@ export class VendaFormComponent implements OnInit {
   isCollapsed = false;
   vendaId: number | null = null;
   clientes: Cliente[]
+  servico = [{id: 1, nome: "Pacote"},{id: 2,  nome: "Aéreo"},{id: 3,  nome: "Hotel"},{id: 4,  nome: "Transfer"}]
+  hasItems: false;
+  attachmentColapsed: false;
+  uploadUrl: string | undefined;
+
+  uploadedFiles: any[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -36,6 +45,7 @@ export class VendaFormComponent implements OnInit {
       if (id) {
         this.vendaId = +id;
         this.loadVendaData(this.vendaId);
+        this.uploadUrl = `${environment.apiUrl}/api/vendas/${id}/anexos`
       } else {
         this.loadClienteData();
       }
@@ -48,6 +58,8 @@ export class VendaFormComponent implements OnInit {
       dataEmbarque: ['', Validators.required],
       dataDesembarque: ['', Validators.required],
       status: ['', Validators.required],
+      servico: ['', Validators.required],
+      total:  {value: 0, disabled: true},
       itens: [],
     });
   }
@@ -56,6 +68,16 @@ export class VendaFormComponent implements OnInit {
     this.vendaService.buscarPorId(id).subscribe({
       next: (venda) => {
         this.vendaForm.patchValue(venda);
+        this.uploadedFiles = []
+        if (venda.anexos.length > 0) {
+          this.uploadedFiles = venda.anexos.map((value: ItemAnexo)=> {
+            return {
+              id: value.anexo.id,
+              name: value.anexo.nomeOriginal,
+              size: value.anexo.tamanho,
+            }
+          })
+        }
         this.loadClienteData();
       },
       error: () => {
@@ -68,9 +90,6 @@ export class VendaFormComponent implements OnInit {
     })
   }
 
-  onEdit(arg0: any) {
-    throw new Error('Method not implemented.');
-  }
 
   loadClienteData() {
     this.clienteService.getClientes().subscribe({
@@ -88,6 +107,10 @@ export class VendaFormComponent implements OnInit {
     this.router.navigate(['/venda']);
   }
 
+  onEdit(id: number) {
+    this.router.navigate(['/venda/editar', id]);
+  }
+
   onSubmit() {
     if (this.vendaForm.invalid) {
       return;
@@ -98,7 +121,7 @@ export class VendaFormComponent implements OnInit {
       : this.vendaService.cadastrar(venda);
 
     vendaObservable.subscribe({
-      next: () => {
+      next: (venda) => {
         const sucessoMessage = this.vendaId
           ? 'Pedido atualizado com sucesso!'
           : 'Pedido cadastrado com sucesso!';
@@ -108,7 +131,7 @@ export class VendaFormComponent implements OnInit {
           life: 3000,
         });
         this.vendaForm.reset();
-        this.goBack();
+        this.onEdit(venda.id)
       },
       error: () => {
         const errorMessage = this.vendaId
@@ -121,5 +144,34 @@ export class VendaFormComponent implements OnInit {
         });
       },
     });
+  }
+  onUpload(event: FileUploadEvent) {
+    for (let file of event.files) {
+      this.uploadedFiles.push(file);
+    }
+    this.loadVendaData(this.vendaId)
+    this.messageService.add({severity: 'info', summary: 'File Uploaded', detail: ''});
+  }
+
+  openNewTab(url: string) {
+    window.open(url, '_blank');
+  }
+  onDownload(anexoId: number) {
+    this.vendaService.downloadAnexo(this.vendaId, anexoId).subscribe({
+      next: (data) => {
+        this.openNewTab(data.url);
+      },
+      error: (err) => {
+        this.messageService.add({severity: 'error', summary: err});
+      }
+    });
+  }
+
+  onRemove(anexoId: number) {
+    this.vendaService.removeAnexo(this.vendaId, anexoId).subscribe({
+      next: (_data) => {
+        this.loadVendaData(this.vendaId)
+      }
+    })
   }
 }
