@@ -27,4 +27,12 @@ export class VendaService {
   atualizar(id: number, venda: Venda): Observable<Venda> {
     return this.http.put<Venda>(`${this.baseUrl}/${id}`, venda);
   }
+
+  downloadAnexo(vendaId: number, anexoId: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/${vendaId}/anexos/${anexoId}`);
+  }
+
+  removeAnexo(vendaId: number, anexoId: number) {
+    return this.http.delete(`${this.baseUrl}/${vendaId}/anexos/${anexoId}`);
+  }
 }
