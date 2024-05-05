@@ -54,8 +54,9 @@ export class ClienteFormComponent implements OnInit {
       rg: ['', Validators.required],
       dataNascimento: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      telefone: ['', Validators.required],
-      renda: ['', Validators.required],
+      telefone: ['', [Validators.required]],
+      renda: [''],
+      profissao: [''],
       cep: [''],
       rua: [''],
       numero: [''],
@@ -63,7 +64,6 @@ export class ClienteFormComponent implements OnInit {
       bairro: [''],
       cidade: [''],
       estado: [''],
-      profissao: ['', Validators.required]
     });
   }
 
@@ -176,7 +176,6 @@ export class ClienteFormComponent implements OnInit {
   }
 
   onEdit(id: number) {
-    console.log("clicado")
     this.router.navigate(['/cliente/editar', id]);
   }
 
