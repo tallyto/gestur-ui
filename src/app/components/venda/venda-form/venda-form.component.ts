@@ -9,6 +9,7 @@ import {Venda} from "../../../models/venda.model";
 import {FileUploadEvent} from "primeng/fileupload";
 import {environment} from "../../../../environments/environment";
 import {ItemAnexo} from "../../../models/item-anexo.model";
+import {Servico} from "../../../models/servico.model";
 
 @Component({
   selector: 'app-venda-form',
@@ -21,7 +22,7 @@ export class VendaFormComponent implements OnInit {
   isCollapsed = false;
   vendaId: number | null = null;
   clientes: Cliente[]
-  servico = [{id: 1, nome: "Pacote"},{id: 2,  nome: "Aéreo"},{id: 3,  nome: "Hotel"},{id: 4,  nome: "Transfer"}]
+  servico = Servico
   hasItems: false;
   attachmentColapsed: false;
   uploadUrl: string | undefined;
@@ -123,14 +124,14 @@ export class VendaFormComponent implements OnInit {
     vendaObservable.subscribe({
       next: (venda) => {
         const sucessoMessage = this.vendaId
-          ? 'Pedido atualizado com sucesso!'
-          : 'Pedido cadastrado com sucesso!';
+          ? 'Venda atualizada com sucesso!'
+          : 'Venda cadastrada com sucesso!';
         this.messageService.add({
           severity: 'success',
           summary: sucessoMessage,
           life: 3000,
         });
-        this.vendaForm.reset();
+        // this.vendaForm.reset();
         this.onEdit(venda.id)
       },
       error: () => {

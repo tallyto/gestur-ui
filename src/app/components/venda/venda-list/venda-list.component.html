@@ -15,7 +15,7 @@
       <ng-template pTemplate="body" let-venda>
         <tr>
           <td>{{ venda.cliente.nome }}</td>
-          <td>Pacote</td>
+          <td>{{ getServiceName(venda.servico) }}</td>
           <td>{{ venda.dataEmbarque | date :  'dd/MM/yyyy' }}</td>
           <td>{{ venda.dataDesembarque  | date :  'dd/MM/yyyy' }}</td>
           <td>{{ venda.status }}</td>
