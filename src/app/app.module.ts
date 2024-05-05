@@ -28,6 +28,8 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { VendaFormComponent } from './components/venda/venda-form/venda-form.component';
 import { VendaListComponent } from './components/venda/venda-list/venda-list.component';
 import {FileUploadModule} from "primeng/fileupload";
+import { FornecedorListComponent } from './components/fornecedor/fornecedor-list/fornecedor-list.component';
+import {FornecedorFormComponent} from "./components/fornecedor/fornecedor-form/fornecedor-form.component";
 
 @NgModule({
   declarations: [
@@ -39,6 +41,8 @@ import {FileUploadModule} from "primeng/fileupload";
     ProdutoListComponent,
     VendaFormComponent,
     VendaListComponent,
+    FornecedorListComponent,
+    FornecedorFormComponent
   ],
   imports: [
     BrowserModule,

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { VendaService } from '../../../services/venda.service';
 import { Router } from '@angular/router';
 import {Venda} from "../../../models/venda.model";
+import {VendaService} from "../../../services/venda.service";
 
 @Component({
   selector: 'app-venda-list',
