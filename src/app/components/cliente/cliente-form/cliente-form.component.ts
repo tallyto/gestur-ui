@@ -25,6 +25,7 @@ export class ClienteFormComponent implements OnInit {
   uploadedFiles: any[] = [];
 
   uploadUrl = ''
+  othersCollapsed: false;
 
   constructor(private fb: FormBuilder,
     private clienteService: ClienteService,
@@ -100,7 +101,7 @@ export class ClienteFormComponent implements OnInit {
     const clienteObservable = this.clienteId ? this.clienteService.atualizarCliente(this.clienteId, cliente) : this.clienteService.cadastrarCliente(cliente);
 
     clienteObservable.subscribe({
-      next: (_value) => {
+      next: (cliente) => {
         const sucessMessage = this.clienteId ? 'Cliente atualizado com sucesso!' : 'Cliente cadastrado com sucesso!';
         this.messageService.add({
           severity: 'success',
@@ -108,7 +109,7 @@ export class ClienteFormComponent implements OnInit {
           life: 3000
         });
         this.clienteForm.reset();
-        this.goBack();
+        this.onEdit(cliente.id);
       },
       error: (_err) => {
         const errorMessage = this.clienteId ? 'Erro ao atualizar cliente' : 'Erro ao cadastrar cliente';
@@ -174,7 +175,10 @@ export class ClienteFormComponent implements OnInit {
       })
   }
 
-
+  onEdit(id: number) {
+    console.log("clicado")
+    this.router.navigate(['/cliente/editar', id]);
+  }
 
 
 
