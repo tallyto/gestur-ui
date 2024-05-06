@@ -2,12 +2,13 @@ import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Fornecedor} from "../models/fornecedor.model";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class FornecedorService{
-  private baseUrl = 'http://localhost:3001/api/fornecedores';
+  private baseUrl = `${environment.apiUrl}/api/fornecedores`;
 
   constructor(private http: HttpClient) {
   }
