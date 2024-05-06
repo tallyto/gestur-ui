@@ -57,7 +57,7 @@ export class ClienteFormComponent implements OnInit {
       telefone: ['', [Validators.required]],
       renda: [''],
       profissao: [''],
-      cep: [''],
+      cep: ['',[Validators.maxLength(8)]],
       rua: [''],
       numero: [''],
       complemento: [''],
