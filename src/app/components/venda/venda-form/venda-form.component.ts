@@ -10,6 +10,7 @@ import {FileUploadEvent} from "primeng/fileupload";
 import {environment} from "../../../../environments/environment";
 import {ItemAnexo} from "../../../models/item-anexo.model";
 import {Servico} from "../../../models/servico.model";
+import {Status} from "../../../models/status.model";
 
 @Component({
   selector: 'app-venda-form',
@@ -23,6 +24,7 @@ export class VendaFormComponent implements OnInit {
   vendaId: number | null = null;
   clientes: Cliente[]
   servico = Servico
+  status = Status
   hasItems: false;
   attachmentColapsed: false;
   uploadUrl: string | undefined;

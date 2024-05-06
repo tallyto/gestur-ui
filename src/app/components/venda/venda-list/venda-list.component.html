@@ -18,7 +18,9 @@
           <td>{{ getServiceName(venda.servico) }}</td>
           <td>{{ venda.dataEmbarque | date :  'dd/MM/yyyy' }}</td>
           <td>{{ venda.dataDesembarque  | date :  'dd/MM/yyyy' }}</td>
-          <td>{{ venda.status }}</td>
+          <td>
+            <p-tag [severity]="getStatusSeverity(venda.status)" [value]="getStatusName(venda.status)"></p-tag>
+          </td>
           <td>
             <button aria-label="editar" (click)="onEdit(venda.id)" pButton style="margin: 0 5px;"
                     icon="pi pi-pencil" pTooltip="Editar">

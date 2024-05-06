@@ -30,6 +30,7 @@ import { VendaListComponent } from './components/venda/venda-list/venda-list.com
 import {FileUploadModule} from "primeng/fileupload";
 import { FornecedorListComponent } from './components/fornecedor/fornecedor-list/fornecedor-list.component';
 import {FornecedorFormComponent} from "./components/fornecedor/fornecedor-form/fornecedor-form.component";
+import {TagModule} from "primeng/tag";
 
 @NgModule({
   declarations: [
@@ -44,29 +45,30 @@ import {FornecedorFormComponent} from "./components/fornecedor/fornecedor-form/f
     FornecedorListComponent,
     FornecedorFormComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    ReactiveFormsModule,
-    FormsModule,
-    MenubarModule,
-    TableModule,
-    ButtonModule,
-    DropdownModule,
-    InputTextModule,
-    CalendarModule,
-    PanelModule,
-    BrowserAnimationsModule,
-    MenubarModule,
-    MessagesModule,
-    ToastModule,
-    CardModule,
-    DividerModule,
-    InputTextModule,
-    InputTextareaModule,
-    FileUploadModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        ReactiveFormsModule,
+        FormsModule,
+        MenubarModule,
+        TableModule,
+        ButtonModule,
+        DropdownModule,
+        InputTextModule,
+        CalendarModule,
+        PanelModule,
+        BrowserAnimationsModule,
+        MenubarModule,
+        MessagesModule,
+        ToastModule,
+        CardModule,
+        DividerModule,
+        InputTextModule,
+        InputTextareaModule,
+        FileUploadModule,
+        TagModule
+    ],
   providers: [MessageService],
   bootstrap: [AppComponent]
 })
