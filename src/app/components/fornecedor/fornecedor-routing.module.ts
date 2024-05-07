@@ -8,7 +8,7 @@ const routes: Routes = [
   {path: '', redirectTo: 'list', pathMatch: 'full'},
   {path: 'new', component: FornecedorFormComponent},
   {path: 'list', component: FornecedorListComponent},
-  {path: 'editrar/:id', component: FornecedorFormComponent},
+  {path: 'editar/:id', component: FornecedorFormComponent},
 ];
 
 
