@@ -99,7 +99,7 @@
           </div>
         </ng-template>
         <p-fileUpload name="arquivo" [url]="uploadUrl" (onUpload)="onUpload($event)" [multiple]="false"
-                      maxFileSize="1000000">
+                      maxFileSize="1000000" [auto]="true" chooseLabel="Enviar">
           <ng-template pTemplate="content">
             <ul *ngIf="uploadedFiles.length">
               <li *ngFor="let file of uploadedFiles">
