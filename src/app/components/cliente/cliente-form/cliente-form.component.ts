@@ -19,13 +19,13 @@ export class ClienteFormComponent implements OnInit {
   public clienteForm: FormGroup;
   isCollapsed = false;
   clienteId: number | null = null;
-  addressCollapsed = false
   doccumentColapsed = false;
   attachmentColapsed: false;
   uploadedFiles: any[] = [];
 
   uploadUrl = ''
-  othersCollapsed: false;
+  addressCollapsed = true
+  othersCollapsed = true;
 
   constructor(private fb: FormBuilder,
     private clienteService: ClienteService,
@@ -57,7 +57,7 @@ export class ClienteFormComponent implements OnInit {
       telefone: ['', [Validators.required]],
       renda: [''],
       profissao: [''],
-      cep: ['', [Validators.maxLength(8)]],
+      cep: [''],
       rua: [''],
       numero: [''],
       complemento: [''],
