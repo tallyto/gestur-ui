@@ -57,13 +57,17 @@ export class ClienteFormComponent implements OnInit {
       telefone: ['', [Validators.required]],
       renda: [''],
       profissao: [''],
-      cep: ['',[Validators.maxLength(8)]],
+      cep: ['', [Validators.maxLength(8)]],
       rua: [''],
       numero: [''],
       complemento: [''],
       bairro: [''],
       cidade: [''],
       estado: [''],
+      numeroPassaporte: [''],
+      paisEmissao: [''],
+      dataEmissao: [''],
+      dataValidade: [''],
     });
   }
 
@@ -156,6 +160,7 @@ export class ClienteFormComponent implements OnInit {
   openNewTab(url: string) {
     window.open(url, '_blank');
   }
+
   onDownload(anexoId: number) {
     this.clienteService.downloadAnexo(this.clienteId, anexoId).subscribe({
       next: (data) => {
@@ -168,18 +173,16 @@ export class ClienteFormComponent implements OnInit {
   }
 
   onRemove(anexoId: number) {
-      this.clienteService.removeAnexo(this.clienteId, anexoId).subscribe({
-        next: (_data) => {
-          this.loadClienteData(this.clienteId)
-        }
-      })
+    this.clienteService.removeAnexo(this.clienteId, anexoId).subscribe({
+      next: (_data) => {
+        this.loadClienteData(this.clienteId)
+      }
+    })
   }
 
   onEdit(id: number) {
     this.router.navigate(['/cliente/editar', id]);
   }
-
-
 
 
 }
