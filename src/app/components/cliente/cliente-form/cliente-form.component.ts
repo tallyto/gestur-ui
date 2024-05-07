@@ -112,7 +112,6 @@ export class ClienteFormComponent implements OnInit {
           summary: sucessMessage,
           life: 3000
         });
-        this.clienteForm.reset();
         this.onEdit(cliente.id);
       },
       error: (_err) => {
