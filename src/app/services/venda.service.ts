@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import {Venda} from "../models/venda.model";
 import {environment} from "../../environments/environment";
+import {ItemVenda} from "../models/item-venda.model";
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,10 @@ export class VendaService {
 
   cadastrar(venda: Venda): Observable<Venda> {
     return this.http.post<Venda>(this.baseUrl, venda);
+  }
+
+  cadastrarItem(vendaId: number, itemVenda: ItemVenda): Observable<ItemVenda> {
+    return this.http.post<ItemVenda>(`${this.baseUrl}/${vendaId}/item`, itemVenda);
   }
 
   listar(): Observable<Venda[]> {

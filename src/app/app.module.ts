@@ -31,6 +31,7 @@ import {FileUploadModule} from "primeng/fileupload";
 import { FornecedorListComponent } from './components/fornecedor/fornecedor-list/fornecedor-list.component';
 import {FornecedorFormComponent} from "./components/fornecedor/fornecedor-form/fornecedor-form.component";
 import {TagModule} from "primeng/tag";
+import {DialogModule} from "primeng/dialog";
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import {TagModule} from "primeng/tag";
         InputTextModule,
         InputTextareaModule,
         FileUploadModule,
-        TagModule
+        TagModule,
+        DialogModule
     ],
   providers: [MessageService],
   bootstrap: [AppComponent]
