@@ -11,6 +11,9 @@ import {environment} from "../../../../environments/environment";
 import {ItemAnexo} from "../../../models/item-anexo.model";
 import {Servico} from "../../../models/servico.model";
 import {Status} from "../../../models/status.model";
+import {ItemVenda} from "../../../models/item-venda.model";
+import {FornecedorService} from "../../../services/fornecedor.service";
+import {Fornecedor} from "../../../models/fornecedor.model";
 
 @Component({
   selector: 'app-venda-form',
@@ -31,17 +34,22 @@ export class VendaFormComponent implements OnInit {
 
   uploadedFiles: any[] = [];
 
+  itemVendaModal = false;
+  itemVendaFrom: FormGroup;
+  fornecedores: Fornecedor[] = []
   constructor(
     private fb: FormBuilder,
     private vendaService: VendaService,
     private messageService: MessageService,
     private activateRoute: ActivatedRoute,
     private clienteService: ClienteService,
+    private fornecedorService: FornecedorService,
     private router: Router
   ) { }
 
   ngOnInit(): void {
     this.vendaForm = this.getVendaFormBuilder();
+    this.itemVendaFrom = this.getItemVendaFormBuilder();
 
     this.activateRoute.params.subscribe((params) => {
       const id = params['id'];
@@ -49,6 +57,7 @@ export class VendaFormComponent implements OnInit {
         this.vendaId = +id;
         this.loadVendaData(this.vendaId);
         this.uploadUrl = `${environment.apiUrl}/api/vendas/${id}/anexos`
+        this.loadFornecedorData()
       } else {
         this.loadClienteData();
       }
@@ -66,6 +75,19 @@ export class VendaFormComponent implements OnInit {
       itens: [],
     });
   }
+
+  getItemVendaFormBuilder(): FormGroup {
+    return this.fb.group({
+      valorTotal: ['', Validators.required],
+      formaPagamento: ['', Validators.required],
+      fornecedor: [''],
+      descricao: ['',  Validators.required],
+      anotacao: [''],
+      comissaoRecebida: [''],
+      comissaoAReceber: ['']
+    });
+  }
+
 
   loadVendaData(id: number) {
     this.vendaService.buscarPorId(id).subscribe({
@@ -90,6 +112,14 @@ export class VendaFormComponent implements OnInit {
           life: 3000,
         });
       }
+    })
+  }
+
+  loadFornecedorData() {
+    this.fornecedorService.listar().subscribe({
+     next: (fornecedores: Fornecedor[]) => {
+          this.fornecedores = fornecedores
+     }
     })
   }
 
@@ -159,6 +189,7 @@ export class VendaFormComponent implements OnInit {
   openNewTab(url: string) {
     window.open(url, '_blank');
   }
+
   onDownload(anexoId: number) {
     this.vendaService.downloadAnexo(this.vendaId, anexoId).subscribe({
       next: (data) => {
@@ -176,5 +207,45 @@ export class VendaFormComponent implements OnInit {
         this.loadVendaData(this.vendaId)
       }
     })
+  }
+
+  handlerItemVendaModal() {
+      this.itemVendaModal = !this.itemVendaModal;
+  }
+
+  handlerItemVenda() {
+    if (this.itemVendaFrom.invalid) {
+      return;
+    }
+    const itemVenda: ItemVenda =  this.itemVendaFrom.value;
+    this.vendaService.cadastrarItem(this.vendaId, itemVenda).subscribe({
+      next: (itemVenda) => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Item cadastrado com sucesso!',
+          life: 3000,
+        });
+        this.handlerItemVendaModal()
+        this.itemVendaFrom.reset()
+        this.loadVendaData(this.vendaId)
+      },
+      error: (err) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Erro ao cadastrar item',
+          life: 3000,
+        });
+      }
+    })
+  }
+
+  onEditItemVenda(itemVenda: ItemVenda) {
+    this.itemVendaFrom.patchValue(itemVenda)
+    this.handlerItemVendaModal()
+  }
+
+  closeItemVendaModal() {
+    this.handlerItemVendaModal()
+    this.itemVendaFrom.reset()
   }
 }
