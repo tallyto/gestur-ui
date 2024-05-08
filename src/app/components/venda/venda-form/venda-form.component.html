@@ -7,7 +7,6 @@
         </div>
       </ng-template>
       <div class="grid">
-
         <div class="p-fluid col-12 md:col-4">
           <div class="flex flex-column gap-2">
             <label for="cliente">Cliente</label>
@@ -16,7 +15,7 @@
           </div>
         </div>
 
-        <div class="p-fluid col-6 md:col-6">
+        <div class="p-fluid col-12 md:col-4">
           <div class="flex flex-column gap-2">
             <label for="servico">Serviço</label>
             <p-dropdown id="servico" [options]="servico" formControlName="servico" optionLabel="nome"
@@ -25,7 +24,7 @@
           </div>
         </div>
 
-        <div class="p-fluid col-6 md:col-6">
+        <div class="p-fluid col-12 md:col-4">
           <div class="flex flex-column gap-2">
             <label for="status">Status</label>
             <p-dropdown id="status" [options]="status" formControlName="status" optionLabel="nome"
@@ -42,7 +41,7 @@
           </div>
         </div>
 
-        <div class="p-fluid col-6 md:col-6">
+        <div class="p-fluid col-12 md:col-6">
           <div class="flex flex-column gap-2">
             <label for="dataDesembarque">Data de Desembarque</label>
             <input pInputText id="dataDesembarque" type="date" formControlName="dataDesembarque"/>

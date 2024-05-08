@@ -71,7 +71,8 @@ export class VendaFormComponent implements OnInit {
       dataDesembarque: ['', Validators.required],
       status: ['', Validators.required],
       servico: ['', Validators.required],
-      total:  {value: 0, disabled: true},
+      origem: [''],
+      destino: [''],
       itens: [],
     });
   }
