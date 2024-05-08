@@ -10,4 +10,6 @@ export class Venda {
   status: string;
   itens: ItemVenda[];
   anexos: ItemAnexo[];
+  origem: string;
+  destino: string;
 }
