@@ -79,6 +79,7 @@ export class VendaFormComponent implements OnInit {
 
   getItemVendaFormBuilder(): FormGroup {
     return this.fb.group({
+      id: [''],
       valorTotal: ['', Validators.required],
       formaPagamento: ['', Validators.required],
       fornecedor: [''],
