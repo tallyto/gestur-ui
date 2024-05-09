@@ -46,22 +46,6 @@ export class NavbarComponent implements OnInit{
         ],
       },
       {
-        label: 'Produtos',
-        icon: 'fa-solid fa-earth-americas',
-        items: [
-          {
-            label: 'New',
-            icon: 'pi pi-fw pi-save',
-            routerLink: "/produto/new"
-          },
-          {
-            label: 'List',
-            icon: 'fa-solid fa-list',
-            routerLink: "/produto/list"
-          }
-        ]
-      },
-      {
         label: 'Fornecedores',
         icon: 'fa-solid fa-briefcase',
         items: [
