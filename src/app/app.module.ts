@@ -17,7 +17,7 @@ import { InputTextModule } from 'primeng/inputtext'
 import { CalendarModule } from 'primeng/calendar'
 import { PanelModule } from 'primeng/panel';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MessageService } from "primeng/api";
+import {ConfirmationService, MessageService} from "primeng/api";
 import { MessagesModule } from "primeng/messages";
 import { ToastModule } from 'primeng/toast';
 import { CardModule } from 'primeng/card';
@@ -26,10 +26,11 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { VendaFormComponent } from './components/venda/venda-form/venda-form.component';
 import { VendaListComponent } from './components/venda/venda-list/venda-list.component';
 import {FileUploadModule} from "primeng/fileupload";
-import { FornecedorListComponent } from './components/fornecedor/fornecedor-list/fornecedor-list.component';
+import {FornecedorListComponent} from './components/fornecedor/fornecedor-list/fornecedor-list.component';
 import {FornecedorFormComponent} from "./components/fornecedor/fornecedor-form/fornecedor-form.component";
 import {TagModule} from "primeng/tag";
 import {DialogModule} from "primeng/dialog";
+import {ConfirmDialogModule} from "primeng/confirmdialog";
 
 @NgModule({
   declarations: [
@@ -65,9 +66,11 @@ import {DialogModule} from "primeng/dialog";
         InputTextareaModule,
         FileUploadModule,
         TagModule,
-        DialogModule
+        DialogModule,
+        ConfirmDialogModule
     ],
-  providers: [MessageService],
+  providers: [MessageService,ConfirmationService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

@@ -209,7 +209,7 @@
                   <span class="font-bold">{{ file.name }}</span>
                   <p-button [text]="true" icon="fa-solid fa-file-arrow-down" (click)="onDownload(file.id)"
                             pTooltip="Download"></p-button>
-                  <p-button [text]="true" severity="danger" icon="fa-solid fa-trash" (click)="onRemove(file.id)"
+                  <p-button [text]="true" severity="danger" icon="fa-solid fa-trash" (click)="confirmRemoveAttachment(file.id)"
                             pTooltip="Remover"></p-button>
                 </div>
 
