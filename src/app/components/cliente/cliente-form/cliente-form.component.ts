@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Cliente } from '../../../models/cliente.model';
-import { ClienteService } from '../../../services/cliente.service';
-import { MessageService } from 'primeng/api';
-import { ActivatedRoute, Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import {Component, OnInit} from '@angular/core';
+import {FormGroup, FormBuilder, Validators} from '@angular/forms';
+import {Cliente} from '../../../models/cliente.model';
+import {ClienteService} from '../../../services/cliente.service';
+import {ConfirmationService, MessageService} from 'primeng/api';
+import {ActivatedRoute, Router} from '@angular/router';
+import {HttpClient} from '@angular/common/http';
 import {environment} from "../../../../environments/environment";
 import {FileUploadEvent} from "primeng/fileupload";
 
@@ -28,12 +28,15 @@ export class ClienteFormComponent implements OnInit {
   othersCollapsed = true;
 
   constructor(private fb: FormBuilder,
-    private clienteService: ClienteService,
-    private messageService: MessageService,
-    private activateRoute: ActivatedRoute,
-    private router: Router,
-    private http: HttpClient
-  ) { }
+              private clienteService: ClienteService,
+              private messageService: MessageService,
+              private confirmationService: ConfirmationService,
+              private activateRoute: ActivatedRoute,
+              private router: Router,
+              private http: HttpClient
+  ) {
+  }
+
   ngOnInit(): void {
     this.clienteForm = this.getClientFormBuilder()
     this.activateRoute.params.subscribe((params) => {
@@ -174,9 +177,29 @@ export class ClienteFormComponent implements OnInit {
   onRemove(anexoId: number) {
     this.clienteService.removeAnexo(this.clienteId, anexoId).subscribe({
       next: (_data) => {
+        this.messageService.add({severity: 'info', summary: 'Confirmed', detail: 'Record deleted'});
         this.loadClienteData(this.clienteId)
       }
     })
+  }
+
+  confirmRemoveAttachment(attachmentId: number) {
+    this.confirmationService.confirm({
+      message: 'Do you want to delete this record?',
+      header: 'Delete Confirmation',
+      icon: 'pi pi-info-circle',
+      acceptButtonStyleClass: "p-button-danger p-button-text",
+      rejectButtonStyleClass: "p-button-text p-button-text",
+      acceptIcon: "none",
+      rejectIcon: "none",
+
+      accept: () => {
+        this.onRemove(attachmentId)
+      },
+      reject: () => {
+        this.messageService.add({severity: 'error', summary: 'Rejected', detail: 'You have rejected'});
+      }
+    });
   }
 
   onEdit(id: number) {

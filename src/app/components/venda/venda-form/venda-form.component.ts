@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MessageService } from 'primeng/api';
-import { ActivatedRoute, Router } from '@angular/router';
-import { VendaService } from '../../../services/venda.service';
-import { Cliente } from '../../../models/cliente.model';
-import { ClienteService } from '../../../services/cliente.service';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {ConfirmationService, MessageService} from 'primeng/api';
+import {ActivatedRoute, Router} from '@angular/router';
+import {VendaService} from '../../../services/venda.service';
+import {Cliente} from '../../../models/cliente.model';
+import {ClienteService} from '../../../services/cliente.service';
 import {Venda} from "../../../models/venda.model";
 import {FileUploadEvent} from "primeng/fileupload";
 import {environment} from "../../../../environments/environment";
@@ -37,6 +37,7 @@ export class VendaFormComponent implements OnInit {
   itemVendaModal = false;
   itemVendaFrom: FormGroup;
   fornecedores: Fornecedor[] = []
+
   constructor(
     private fb: FormBuilder,
     private vendaService: VendaService,
@@ -44,8 +45,10 @@ export class VendaFormComponent implements OnInit {
     private activateRoute: ActivatedRoute,
     private clienteService: ClienteService,
     private fornecedorService: FornecedorService,
+    private confirmationService: ConfirmationService,
     private router: Router
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.vendaForm = this.getVendaFormBuilder();
@@ -83,7 +86,7 @@ export class VendaFormComponent implements OnInit {
       valorTotal: ['', Validators.required],
       formaPagamento: ['', Validators.required],
       fornecedor: [''],
-      descricao: ['',  Validators.required],
+      descricao: ['', Validators.required],
       anotacao: [''],
       comissaoRecebida: [''],
       comissaoAReceber: ['']
@@ -97,7 +100,7 @@ export class VendaFormComponent implements OnInit {
         this.vendaForm.patchValue(venda);
         this.uploadedFiles = []
         if (venda.anexos.length > 0) {
-          this.uploadedFiles = venda.anexos.map((value: ItemAnexo)=> {
+          this.uploadedFiles = venda.anexos.map((value: ItemAnexo) => {
             return {
               id: value.anexo.id,
               name: value.anexo.nomeOriginal,
@@ -119,9 +122,9 @@ export class VendaFormComponent implements OnInit {
 
   loadFornecedorData() {
     this.fornecedorService.listar().subscribe({
-     next: (fornecedores: Fornecedor[]) => {
-          this.fornecedores = fornecedores
-     }
+      next: (fornecedores: Fornecedor[]) => {
+        this.fornecedores = fornecedores
+      }
     })
   }
 
@@ -150,7 +153,7 @@ export class VendaFormComponent implements OnInit {
     if (this.vendaForm.invalid) {
       return;
     }
-    const venda: Venda =  this.vendaForm.value;
+    const venda: Venda = this.vendaForm.value;
     const vendaObservable = this.vendaId
       ? this.vendaService.atualizar(this.vendaId, venda)
       : this.vendaService.cadastrar(venda);
@@ -180,6 +183,7 @@ export class VendaFormComponent implements OnInit {
       },
     });
   }
+
   onUpload(event: FileUploadEvent) {
     for (let file of event.files) {
       this.uploadedFiles.push(file);
@@ -206,20 +210,40 @@ export class VendaFormComponent implements OnInit {
   onRemove(anexoId: number) {
     this.vendaService.removeAnexo(this.vendaId, anexoId).subscribe({
       next: (_data) => {
+        this.messageService.add({severity: 'info', summary: 'Confirmed', detail: 'Record deleted'});
         this.loadVendaData(this.vendaId)
       }
     })
   }
 
+  confirmRemoveAttachment(attachmentId: number) {
+    this.confirmationService.confirm({
+      message: 'Do you want to delete this record?',
+      header: 'Delete Confirmation',
+      icon: 'pi pi-info-circle',
+      acceptButtonStyleClass: "p-button-danger p-button-text",
+      rejectButtonStyleClass: "p-button-text p-button-text",
+      acceptIcon: "none",
+      rejectIcon: "none",
+
+      accept: () => {
+        this.onRemove(attachmentId)
+      },
+      reject: () => {
+        this.messageService.add({severity: 'error', summary: 'Rejected', detail: 'You have rejected'});
+      }
+    });
+  }
+
   handlerItemVendaModal() {
-      this.itemVendaModal = !this.itemVendaModal;
+    this.itemVendaModal = !this.itemVendaModal;
   }
 
   handlerItemVenda() {
     if (this.itemVendaFrom.invalid) {
       return;
     }
-    const itemVenda: ItemVenda =  this.itemVendaFrom.value;
+    const itemVenda: ItemVenda = this.itemVendaFrom.value;
     this.vendaService.cadastrarItem(this.vendaId, itemVenda).subscribe({
       next: (itemVenda) => {
         this.messageService.add({
