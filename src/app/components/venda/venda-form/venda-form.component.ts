@@ -14,6 +14,7 @@ import {Status} from "../../../models/status.model";
 import {ItemVenda} from "../../../models/item-venda.model";
 import {FornecedorService} from "../../../services/fornecedor.service";
 import {Fornecedor} from "../../../models/fornecedor.model";
+import {markAllFieldsAsDirty} from "../../../utils/Util";
 
 @Component({
   selector: 'app-venda-form',
@@ -151,6 +152,7 @@ export class VendaFormComponent implements OnInit {
 
   onSubmit() {
     if (this.vendaForm.invalid) {
+      markAllFieldsAsDirty(this.vendaForm)
       return;
     }
     const venda: Venda = this.vendaForm.value;
@@ -241,6 +243,7 @@ export class VendaFormComponent implements OnInit {
 
   handlerItemVenda() {
     if (this.itemVendaFrom.invalid) {
+      markAllFieldsAsDirty(this.itemVendaFrom)
       return;
     }
     const itemVenda: ItemVenda = this.itemVendaFrom.value;
