@@ -11,4 +11,10 @@ export class ItemVenda {
   anotacao: string;
   comissaoRecebida: number;
   comissaoAReceber: number;
+  localizador: string;
+  atendente: string;
+  quantidade: number;
+  desconto: number;
+  valorFornecedor: number;
+  descontoFornecedor: number;
 }

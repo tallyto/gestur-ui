@@ -31,6 +31,8 @@ import {FornecedorFormComponent} from "./components/fornecedor/fornecedor-form/f
 import {TagModule} from "primeng/tag";
 import {DialogModule} from "primeng/dialog";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
+import {InputIconModule} from "primeng/inputicon";
+import {IconFieldModule} from "primeng/iconfield";
 
 @NgModule({
   declarations: [
@@ -43,32 +45,34 @@ import {ConfirmDialogModule} from "primeng/confirmdialog";
     FornecedorListComponent,
     FornecedorFormComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        HttpClientModule,
-        ReactiveFormsModule,
-        FormsModule,
-        MenubarModule,
-        TableModule,
-        ButtonModule,
-        DropdownModule,
-        InputTextModule,
-        CalendarModule,
-        PanelModule,
-        BrowserAnimationsModule,
-        MenubarModule,
-        MessagesModule,
-        ToastModule,
-        CardModule,
-        DividerModule,
-        InputTextModule,
-        InputTextareaModule,
-        FileUploadModule,
-        TagModule,
-        DialogModule,
-        ConfirmDialogModule
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MenubarModule,
+    TableModule,
+    ButtonModule,
+    DropdownModule,
+    InputTextModule,
+    CalendarModule,
+    PanelModule,
+    BrowserAnimationsModule,
+    MenubarModule,
+    MessagesModule,
+    ToastModule,
+    CardModule,
+    DividerModule,
+    InputTextModule,
+    InputTextareaModule,
+    FileUploadModule,
+    TagModule,
+    DialogModule,
+    ConfirmDialogModule,
+    InputIconModule,
+    IconFieldModule
+  ],
   providers: [MessageService,ConfirmationService],
   bootstrap: [AppComponent]
 })

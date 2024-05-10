@@ -90,7 +90,13 @@ export class VendaFormComponent implements OnInit {
       descricao: ['', Validators.required],
       anotacao: [''],
       comissaoRecebida: [''],
-      comissaoAReceber: ['']
+      comissaoAReceber: [''],
+      localizador: [''],
+      atendente: [''],
+      quantidade: [''],
+      desconto: [''],
+      valorFornecedor: [''],
+      descontoFornecedor: [''],
     });
   }
 
