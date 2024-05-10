@@ -31088,9 +31088,9 @@ function standardizeConfig(r) {
 function getOutlet(route) {
   return route.outlet || PRIMARY_OUTLET;
 }
-function sortByMatchingOutlets(routes6, outletName) {
-  const sortedConfig = routes6.filter((r) => getOutlet(r) === outletName);
-  sortedConfig.push(...routes6.filter((r) => getOutlet(r) !== outletName));
+function sortByMatchingOutlets(routes5, outletName) {
+  const sortedConfig = routes5.filter((r) => getOutlet(r) === outletName);
+  sortedConfig.push(...routes5.filter((r) => getOutlet(r) !== outletName));
   return sortedConfig;
 }
 function getClosestRouteInjector(snapshot) {
@@ -31711,9 +31711,9 @@ function split(segmentGroup, consumedSegments, slicedSegments, config2) {
     slicedSegments
   };
 }
-function addEmptyPathsToChildrenIfNeeded(segmentGroup, slicedSegments, routes6, children) {
+function addEmptyPathsToChildrenIfNeeded(segmentGroup, slicedSegments, routes5, children) {
   const res = {};
-  for (const r of routes6) {
+  for (const r of routes5) {
     if (emptyPathMatch(segmentGroup, slicedSegments, r) && !children[getOutlet(r)]) {
       const s = new UrlSegmentGroup([], {});
       res[getOutlet(r)] = s;
@@ -31721,10 +31721,10 @@ function addEmptyPathsToChildrenIfNeeded(segmentGroup, slicedSegments, routes6, 
   }
   return __spreadValues(__spreadValues({}, children), res);
 }
-function createChildrenForEmptyPaths(routes6, primarySegment) {
+function createChildrenForEmptyPaths(routes5, primarySegment) {
   const res = {};
   res[PRIMARY_OUTLET] = primarySegment;
-  for (const r of routes6) {
+  for (const r of routes5) {
     if (r.path === "" && getOutlet(r) !== PRIMARY_OUTLET) {
       const s = new UrlSegmentGroup([], {});
       res[getOutlet(r)] = s;
@@ -31732,11 +31732,11 @@ function createChildrenForEmptyPaths(routes6, primarySegment) {
   }
   return res;
 }
-function containsEmptyPathMatchesWithNamedOutlets(segmentGroup, slicedSegments, routes6) {
-  return routes6.some((r) => emptyPathMatch(segmentGroup, slicedSegments, r) && getOutlet(r) !== PRIMARY_OUTLET);
+function containsEmptyPathMatchesWithNamedOutlets(segmentGroup, slicedSegments, routes5) {
+  return routes5.some((r) => emptyPathMatch(segmentGroup, slicedSegments, r) && getOutlet(r) !== PRIMARY_OUTLET);
 }
-function containsEmptyPathMatches(segmentGroup, slicedSegments, routes6) {
-  return routes6.some((r) => emptyPathMatch(segmentGroup, slicedSegments, r));
+function containsEmptyPathMatches(segmentGroup, slicedSegments, routes5) {
+  return routes5.some((r) => emptyPathMatch(segmentGroup, slicedSegments, r));
 }
 function emptyPathMatch(segmentGroup, slicedSegments, r) {
   if ((segmentGroup.hasChildren() || slicedSegments.length > 0) && r.pathMatch === "full") {
@@ -31852,9 +31852,9 @@ var Recognizer = class {
       return of(mergedChildren);
     }));
   }
-  processSegment(injector, routes6, segmentGroup, segments, outlet, allowRedirects) {
-    return from(routes6).pipe(concatMap((r) => {
-      return this.processSegmentAgainstRoute(r._injector ?? injector, routes6, r, segmentGroup, segments, outlet, allowRedirects).pipe(catchError((e) => {
+  processSegment(injector, routes5, segmentGroup, segments, outlet, allowRedirects) {
+    return from(routes5).pipe(concatMap((r) => {
+      return this.processSegmentAgainstRoute(r._injector ?? injector, routes5, r, segmentGroup, segments, outlet, allowRedirects).pipe(catchError((e) => {
         if (e instanceof NoMatch) {
           return of(null);
         }
@@ -31870,18 +31870,18 @@ var Recognizer = class {
       throw e;
     }));
   }
-  processSegmentAgainstRoute(injector, routes6, route, rawSegment, segments, outlet, allowRedirects) {
+  processSegmentAgainstRoute(injector, routes5, route, rawSegment, segments, outlet, allowRedirects) {
     if (!isImmediateMatch(route, rawSegment, segments, outlet))
       return noMatch$1(rawSegment);
     if (route.redirectTo === void 0) {
       return this.matchSegmentAgainstRoute(injector, rawSegment, route, segments, outlet);
     }
     if (this.allowRedirects && allowRedirects) {
-      return this.expandSegmentAgainstRouteUsingRedirect(injector, rawSegment, routes6, route, segments, outlet);
+      return this.expandSegmentAgainstRouteUsingRedirect(injector, rawSegment, routes5, route, segments, outlet);
     }
     return noMatch$1(rawSegment);
   }
-  expandSegmentAgainstRouteUsingRedirect(injector, segmentGroup, routes6, route, segments, outlet) {
+  expandSegmentAgainstRouteUsingRedirect(injector, segmentGroup, routes5, route, segments, outlet) {
     const {
       matched,
       consumedSegments,
@@ -31902,7 +31902,7 @@ This is currently a dev mode only error but will become a call stack size exceed
     }
     const newTree = this.applyRedirects.applyRedirectCommands(consumedSegments, route.redirectTo, positionalParamSegments);
     return this.applyRedirects.lineralizeSegments(route, newTree).pipe(mergeMap((newSegments) => {
-      return this.processSegment(injector, routes6, segmentGroup, newSegments.concat(remainingSegments), outlet, false);
+      return this.processSegment(injector, routes5, segmentGroup, newSegments.concat(remainingSegments), outlet, false);
     }));
   }
   matchSegmentAgainstRoute(injector, rawSegment, route, segments, outlet) {
@@ -32284,10 +32284,10 @@ function loadChildren(route, compiler, parentInjector, onLoadEndListener) {
         self: true
       }).flat();
     }
-    const routes6 = rawRoutes.map(standardizeConfig);
-    (typeof ngDevMode === "undefined" || ngDevMode) && validateConfig(routes6, route.path, requireStandaloneComponents);
+    const routes5 = rawRoutes.map(standardizeConfig);
+    (typeof ngDevMode === "undefined" || ngDevMode) && validateConfig(routes5, route.path, requireStandaloneComponents);
     return {
-      routes: routes6,
+      routes: routes5,
       injector
     };
   }));
@@ -33932,9 +33932,9 @@ var _RouterPreloader = class _RouterPreloader {
       this.subscription.unsubscribe();
     }
   }
-  processRoutes(injector, routes6) {
+  processRoutes(injector, routes5) {
     const res = [];
-    for (const route of routes6) {
+    for (const route of routes5) {
       if (route.providers && !route._injector) {
         route._injector = createEnvironmentInjector(route.providers, injector, `Route: ${route.path}`);
       }
@@ -34285,13 +34285,13 @@ var _RouterModule = class _RouterModule {
    * @return The new `NgModule`.
    *
    */
-  static forRoot(routes6, config2) {
+  static forRoot(routes5, config2) {
     return {
       ngModule: _RouterModule,
       providers: [ROUTER_PROVIDERS, typeof ngDevMode === "undefined" || ngDevMode ? config2?.enableTracing ? withDebugTracing().\u0275providers : [] : [], {
         provide: ROUTES,
         multi: true,
-        useValue: routes6
+        useValue: routes5
       }, {
         provide: ROUTER_FORROOT_GUARD,
         useFactory: provideForRootGuard,
@@ -34318,13 +34318,13 @@ var _RouterModule = class _RouterModule {
    * @return The new NgModule.
    *
    */
-  static forChild(routes6) {
+  static forChild(routes5) {
     return {
       ngModule: _RouterModule,
       providers: [{
         provide: ROUTES,
         multi: true,
-        useValue: routes6
+        useValue: routes5
       }]
     };
   }
@@ -40677,6 +40677,13 @@ var environment = {
   apiUrl: "https://gestur.fly.dev"
 };
 
+// src/app/utils/Util.ts
+var markAllFieldsAsDirty = (formGroup) => {
+  Object.values(formGroup.controls).forEach((control) => {
+    control.markAsDirty();
+  });
+};
+
 // src/app/services/cliente.service.ts
 var _ClienteService = class _ClienteService {
   constructor(http) {
@@ -45010,6 +45017,4228 @@ var AnimationGroupPlayer = class {
 };
 var \u0275PRE_STYLE = "!";
 
+// node_modules/primeng/fesm2022/primeng-icons-minus.mjs
+var MinusIcon = class _MinusIcon extends BaseIcon {
+  static \u0275fac = /* @__PURE__ */ (() => {
+    let \u0275MinusIcon_BaseFactory;
+    return function MinusIcon_Factory(t) {
+      return (\u0275MinusIcon_BaseFactory || (\u0275MinusIcon_BaseFactory = \u0275\u0275getInheritedFactory(_MinusIcon)))(t || _MinusIcon);
+    };
+  })();
+  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({
+    type: _MinusIcon,
+    selectors: [["MinusIcon"]],
+    standalone: true,
+    features: [\u0275\u0275InheritDefinitionFeature, \u0275\u0275StandaloneFeature],
+    decls: 2,
+    vars: 5,
+    consts: [["width", "14", "height", "14", "viewBox", "0 0 14 14", "fill", "none", "xmlns", "http://www.w3.org/2000/svg"], ["d", "M13.2222 7.77778H0.777778C0.571498 7.77778 0.373667 7.69584 0.227806 7.54998C0.0819442 7.40412 0 7.20629 0 7.00001C0 6.79373 0.0819442 6.5959 0.227806 6.45003C0.373667 6.30417 0.571498 6.22223 0.777778 6.22223H13.2222C13.4285 6.22223 13.6263 6.30417 13.7722 6.45003C13.9181 6.5959 14 6.79373 14 7.00001C14 7.20629 13.9181 7.40412 13.7722 7.54998C13.6263 7.69584 13.4285 7.77778 13.2222 7.77778Z", "fill", "currentColor"]],
+    template: function MinusIcon_Template(rf, ctx) {
+      if (rf & 1) {
+        \u0275\u0275namespaceSVG();
+        \u0275\u0275elementStart(0, "svg", 0);
+        \u0275\u0275element(1, "path", 1);
+        \u0275\u0275elementEnd();
+      }
+      if (rf & 2) {
+        \u0275\u0275classMap(ctx.getClassNames());
+        \u0275\u0275attribute("aria-label", ctx.ariaLabel)("aria-hidden", ctx.ariaHidden)("role", ctx.role);
+      }
+    },
+    dependencies: [CommonModule],
+    encapsulation: 2
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(MinusIcon, [{
+    type: Component,
+    args: [{
+      selector: "MinusIcon",
+      standalone: true,
+      imports: [CommonModule, BaseIcon],
+      template: `
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" [attr.aria-label]="ariaLabel" [attr.aria-hidden]="ariaHidden" [attr.role]="role" [class]="getClassNames()">
+            <path
+                d="M13.2222 7.77778H0.777778C0.571498 7.77778 0.373667 7.69584 0.227806 7.54998C0.0819442 7.40412 0 7.20629 0 7.00001C0 6.79373 0.0819442 6.5959 0.227806 6.45003C0.373667 6.30417 0.571498 6.22223 0.777778 6.22223H13.2222C13.4285 6.22223 13.6263 6.30417 13.7722 6.45003C13.9181 6.5959 14 6.79373 14 7.00001C14 7.20629 13.9181 7.40412 13.7722 7.54998C13.6263 7.69584 13.4285 7.77778 13.2222 7.77778Z"
+                fill="currentColor"
+            />
+        </svg>
+    `
+    }]
+  }], null, null);
+})();
+
+// node_modules/primeng/fesm2022/primeng-icons-plus.mjs
+var PlusIcon = class _PlusIcon extends BaseIcon {
+  pathId;
+  ngOnInit() {
+    this.pathId = "url(#" + UniqueComponentId() + ")";
+  }
+  static \u0275fac = /* @__PURE__ */ (() => {
+    let \u0275PlusIcon_BaseFactory;
+    return function PlusIcon_Factory(t) {
+      return (\u0275PlusIcon_BaseFactory || (\u0275PlusIcon_BaseFactory = \u0275\u0275getInheritedFactory(_PlusIcon)))(t || _PlusIcon);
+    };
+  })();
+  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({
+    type: _PlusIcon,
+    selectors: [["PlusIcon"]],
+    standalone: true,
+    features: [\u0275\u0275InheritDefinitionFeature, \u0275\u0275StandaloneFeature],
+    decls: 6,
+    vars: 7,
+    consts: [["width", "14", "height", "14", "viewBox", "0 0 14 14", "fill", "none", "xmlns", "http://www.w3.org/2000/svg"], ["d", "M7.67742 6.32258V0.677419C7.67742 0.497757 7.60605 0.325452 7.47901 0.198411C7.35197 0.0713707 7.17966 0 7 0C6.82034 0 6.64803 0.0713707 6.52099 0.198411C6.39395 0.325452 6.32258 0.497757 6.32258 0.677419V6.32258H0.677419C0.497757 6.32258 0.325452 6.39395 0.198411 6.52099C0.0713707 6.64803 0 6.82034 0 7C0 7.17966 0.0713707 7.35197 0.198411 7.47901C0.325452 7.60605 0.497757 7.67742 0.677419 7.67742H6.32258V13.3226C6.32492 13.5015 6.39704 13.6725 6.52358 13.799C6.65012 13.9255 6.82106 13.9977 7 14C7.17966 14 7.35197 13.9286 7.47901 13.8016C7.60605 13.6745 7.67742 13.5022 7.67742 13.3226V7.67742H13.3226C13.5022 7.67742 13.6745 7.60605 13.8016 7.47901C13.9286 7.35197 14 7.17966 14 7C13.9977 6.82106 13.9255 6.65012 13.799 6.52358C13.6725 6.39704 13.5015 6.32492 13.3226 6.32258H7.67742Z", "fill", "currentColor"], [3, "id"], ["width", "14", "height", "14", "fill", "white"]],
+    template: function PlusIcon_Template(rf, ctx) {
+      if (rf & 1) {
+        \u0275\u0275namespaceSVG();
+        \u0275\u0275elementStart(0, "svg", 0)(1, "g");
+        \u0275\u0275element(2, "path", 1);
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(3, "defs")(4, "clipPath", 2);
+        \u0275\u0275element(5, "rect", 3);
+        \u0275\u0275elementEnd()()();
+      }
+      if (rf & 2) {
+        \u0275\u0275classMap(ctx.getClassNames());
+        \u0275\u0275attribute("aria-label", ctx.ariaLabel)("aria-hidden", ctx.ariaHidden)("role", ctx.role);
+        \u0275\u0275advance();
+        \u0275\u0275attribute("clip-path", ctx.pathId);
+        \u0275\u0275advance(3);
+        \u0275\u0275property("id", ctx.pathId);
+      }
+    },
+    encapsulation: 2
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(PlusIcon, [{
+    type: Component,
+    args: [{
+      selector: "PlusIcon",
+      standalone: true,
+      imports: [BaseIcon],
+      template: `
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" [attr.aria-label]="ariaLabel" [attr.aria-hidden]="ariaHidden" [attr.role]="role" [class]="getClassNames()">
+            <g [attr.clip-path]="pathId">
+                <path
+                    d="M7.67742 6.32258V0.677419C7.67742 0.497757 7.60605 0.325452 7.47901 0.198411C7.35197 0.0713707 7.17966 0 7 0C6.82034 0 6.64803 0.0713707 6.52099 0.198411C6.39395 0.325452 6.32258 0.497757 6.32258 0.677419V6.32258H0.677419C0.497757 6.32258 0.325452 6.39395 0.198411 6.52099C0.0713707 6.64803 0 6.82034 0 7C0 7.17966 0.0713707 7.35197 0.198411 7.47901C0.325452 7.60605 0.497757 7.67742 0.677419 7.67742H6.32258V13.3226C6.32492 13.5015 6.39704 13.6725 6.52358 13.799C6.65012 13.9255 6.82106 13.9977 7 14C7.17966 14 7.35197 13.9286 7.47901 13.8016C7.60605 13.6745 7.67742 13.5022 7.67742 13.3226V7.67742H13.3226C13.5022 7.67742 13.6745 7.60605 13.8016 7.47901C13.9286 7.35197 14 7.17966 14 7C13.9977 6.82106 13.9255 6.65012 13.799 6.52358C13.6725 6.39704 13.5015 6.32492 13.3226 6.32258H7.67742Z"
+                    fill="currentColor"
+                />
+            </g>
+            <defs>
+                <clipPath [id]="pathId">
+                    <rect width="14" height="14" fill="white" />
+                </clipPath>
+            </defs>
+        </svg>
+    `
+    }]
+  }], null, null);
+})();
+
+// node_modules/primeng/fesm2022/primeng-panel.mjs
+var _c04 = ["*", [["p-header"]], [["p-footer"]]];
+var _c1 = ["*", "p-header", "p-footer"];
+var _c2 = (a0, a1) => ({
+  "p-panel p-component": true,
+  "p-panel-toggleable": a0,
+  "p-panel-expanded": a1
+});
+var _c3 = (a0) => ({
+  transitionParams: a0,
+  height: "0",
+  opacity: "0"
+});
+var _c4 = (a0) => ({
+  value: "hidden",
+  params: a0
+});
+var _c5 = (a0) => ({
+  transitionParams: a0,
+  height: "*",
+  opacity: "1"
+});
+var _c6 = (a0) => ({
+  value: "visible",
+  params: a0
+});
+var _c7 = (a0, a1, a2) => ({
+  "p-panel-icons-start": a0,
+  "p-panel-icons-end": a1,
+  "p-panel-icons-center": a2
+});
+var _c8 = (a0) => ({
+  $implicit: a0
+});
+function Panel_div_1_span_1_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span", 10);
+    \u0275\u0275text(1);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(2);
+    \u0275\u0275attribute("id", ctx_r1.id + "_header");
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate(ctx_r1.header);
+  }
+}
+function Panel_div_1_ng_container_3_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementContainer(0);
+  }
+}
+function Panel_div_1_5_ng_template_0_Template(rf, ctx) {
+}
+function Panel_div_1_5_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275template(0, Panel_div_1_5_ng_template_0_Template, 0, 0, "ng-template");
+  }
+}
+function Panel_div_1_button_6_ng_container_1_ng_container_1_span_1_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275element(0, "span", 16);
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(5);
+    \u0275\u0275classMap(ctx_r1.expandIcon);
+    \u0275\u0275property("ngClass", ctx_r1.iconClass);
+  }
+}
+function Panel_div_1_button_6_ng_container_1_ng_container_1_MinusIcon_2_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275element(0, "MinusIcon", 17);
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(5);
+    \u0275\u0275property("styleClass", ctx_r1.iconClass);
+  }
+}
+function Panel_div_1_button_6_ng_container_1_ng_container_1_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementContainerStart(0);
+    \u0275\u0275template(1, Panel_div_1_button_6_ng_container_1_ng_container_1_span_1_Template, 1, 3, "span", 14)(2, Panel_div_1_button_6_ng_container_1_ng_container_1_MinusIcon_2_Template, 1, 1, "MinusIcon", 15);
+    \u0275\u0275elementContainerEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(4);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", ctx_r1.expandIcon);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", !ctx_r1.expandIcon);
+  }
+}
+function Panel_div_1_button_6_ng_container_1_ng_container_2_span_1_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275element(0, "span", 16);
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(5);
+    \u0275\u0275classMap(ctx_r1.collapseIcon);
+    \u0275\u0275property("ngClass", ctx_r1.iconClass);
+  }
+}
+function Panel_div_1_button_6_ng_container_1_ng_container_2_PlusIcon_2_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275element(0, "PlusIcon", 17);
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(5);
+    \u0275\u0275property("styleClass", ctx_r1.iconClass);
+  }
+}
+function Panel_div_1_button_6_ng_container_1_ng_container_2_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementContainerStart(0);
+    \u0275\u0275template(1, Panel_div_1_button_6_ng_container_1_ng_container_2_span_1_Template, 1, 3, "span", 14)(2, Panel_div_1_button_6_ng_container_1_ng_container_2_PlusIcon_2_Template, 1, 1, "PlusIcon", 15);
+    \u0275\u0275elementContainerEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(4);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", ctx_r1.collapseIcon);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", !ctx_r1.collapseIcon);
+  }
+}
+function Panel_div_1_button_6_ng_container_1_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementContainerStart(0);
+    \u0275\u0275template(1, Panel_div_1_button_6_ng_container_1_ng_container_1_Template, 3, 2, "ng-container", 12)(2, Panel_div_1_button_6_ng_container_1_ng_container_2_Template, 3, 2, "ng-container", 12);
+    \u0275\u0275elementContainerEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(3);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", !ctx_r1.collapsed);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", ctx_r1.collapsed);
+  }
+}
+function Panel_div_1_button_6_2_ng_template_0_Template(rf, ctx) {
+}
+function Panel_div_1_button_6_2_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275template(0, Panel_div_1_button_6_2_ng_template_0_Template, 0, 0, "ng-template");
+  }
+}
+function Panel_div_1_button_6_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r3 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "button", 11);
+    \u0275\u0275listener("click", function Panel_div_1_button_6_Template_button_click_0_listener($event) {
+      \u0275\u0275restoreView(_r3);
+      const ctx_r1 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r1.onIconClick($event));
+    })("keydown", function Panel_div_1_button_6_Template_button_keydown_0_listener($event) {
+      \u0275\u0275restoreView(_r3);
+      const ctx_r1 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r1.onKeyDown($event));
+    });
+    \u0275\u0275template(1, Panel_div_1_button_6_ng_container_1_Template, 3, 2, "ng-container", 12)(2, Panel_div_1_button_6_2_Template, 1, 0, null, 13);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(2);
+    \u0275\u0275attribute("id", ctx_r1.id + "_header")("aria-label", ctx_r1.buttonAriaLabel)("aria-controls", ctx_r1.id + "_content")("aria-expanded", !ctx_r1.collapsed);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", !ctx_r1.headerIconTemplate);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngTemplateOutlet", ctx_r1.headerIconTemplate)("ngTemplateOutletContext", \u0275\u0275pureFunction1(7, _c8, ctx_r1.collapsed));
+  }
+}
+function Panel_div_1_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r1 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 6);
+    \u0275\u0275listener("click", function Panel_div_1_Template_div_click_0_listener($event) {
+      \u0275\u0275restoreView(_r1);
+      const ctx_r1 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r1.onHeaderClick($event));
+    });
+    \u0275\u0275template(1, Panel_div_1_span_1_Template, 2, 2, "span", 7);
+    \u0275\u0275projection(2, 1);
+    \u0275\u0275template(3, Panel_div_1_ng_container_3_Template, 1, 0, "ng-container", 4);
+    \u0275\u0275elementStart(4, "div", 8);
+    \u0275\u0275template(5, Panel_div_1_5_Template, 1, 0, null, 4)(6, Panel_div_1_button_6_Template, 3, 9, "button", 9);
+    \u0275\u0275elementEnd()();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext();
+    \u0275\u0275attribute("id", ctx_r1.id + "-titlebar");
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", ctx_r1.header);
+    \u0275\u0275advance(2);
+    \u0275\u0275property("ngTemplateOutlet", ctx_r1.headerTemplate);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngClass", \u0275\u0275pureFunction3(6, _c7, ctx_r1.iconPos === "start", ctx_r1.iconPos === "end", ctx_r1.iconPos === "center"));
+    \u0275\u0275advance();
+    \u0275\u0275property("ngTemplateOutlet", ctx_r1.iconTemplate);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", ctx_r1.toggleable);
+  }
+}
+function Panel_ng_container_5_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementContainer(0);
+  }
+}
+function Panel_div_6_ng_container_2_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementContainer(0);
+  }
+}
+function Panel_div_6_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 18);
+    \u0275\u0275projection(1, 2);
+    \u0275\u0275template(2, Panel_div_6_ng_container_2_Template, 1, 0, "ng-container", 4);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext();
+    \u0275\u0275advance(2);
+    \u0275\u0275property("ngTemplateOutlet", ctx_r1.footerTemplate);
+  }
+}
+var Panel = class _Panel {
+  el;
+  /**
+   * Defines if content of panel can be expanded and collapsed.
+   * @group Props
+   */
+  toggleable;
+  /**
+   * Header text of the panel.
+   * @group Props
+   */
+  header;
+  /**
+   * Defines the initial state of panel content, supports one or two-way binding as well.
+   * @group Props
+   */
+  collapsed;
+  /**
+   * Inline style of the component.
+   * @group Props
+   */
+  style;
+  /**
+   * Style class of the component.
+   * @group Props
+   */
+  styleClass;
+  /**
+   * Position of the icons.
+   * @group Props
+   */
+  iconPos = "end";
+  /**
+   * Expand icon of the toggle button.
+   * @group Props
+   * @deprecated since v15.4.2, use `headericons` template instead.
+   */
+  expandIcon;
+  /**
+   * Collapse icon of the toggle button.
+   * @group Props
+   * @deprecated since v15.4.2, use `headericons` template instead.
+   */
+  collapseIcon;
+  /**
+   * Specifies if header of panel cannot be displayed.
+   * @group Props
+   * @deprecated since v15.4.2, use `headericons` template instead.
+   */
+  showHeader = true;
+  /**
+   * Specifies the toggler element to toggle the panel content.
+   * @group Props
+   */
+  toggler = "icon";
+  /**
+   * Transition options of the animation.
+   * @group Props
+   */
+  transitionOptions = "400ms cubic-bezier(0.86, 0, 0.07, 1)";
+  /**
+   * Emitted when the collapsed changes.
+   * @param {boolean} value - New Value.
+   * @group Emits
+   */
+  collapsedChange = new EventEmitter();
+  /**
+   * Callback to invoke before panel toggle.
+   * @param {PanelBeforeToggleEvent} event - Custom panel toggle event
+   * @group Emits
+   */
+  onBeforeToggle = new EventEmitter();
+  /**
+   * Callback to invoke after panel toggle.
+   * @param {PanelAfterToggleEvent} event - Custom panel toggle event
+   * @group Emits
+   */
+  onAfterToggle = new EventEmitter();
+  footerFacet;
+  templates;
+  iconTemplate;
+  animating;
+  headerTemplate;
+  contentTemplate;
+  footerTemplate;
+  headerIconTemplate;
+  id = UniqueComponentId();
+  get buttonAriaLabel() {
+    return this.header;
+  }
+  constructor(el) {
+    this.el = el;
+  }
+  ngAfterContentInit() {
+    this.templates.forEach((item) => {
+      switch (item.getType()) {
+        case "header":
+          this.headerTemplate = item.template;
+          break;
+        case "content":
+          this.contentTemplate = item.template;
+          break;
+        case "footer":
+          this.footerTemplate = item.template;
+          break;
+        case "icons":
+          this.iconTemplate = item.template;
+          break;
+        case "headericons":
+          this.headerIconTemplate = item.template;
+          break;
+        default:
+          this.contentTemplate = item.template;
+          break;
+      }
+    });
+  }
+  onHeaderClick(event2) {
+    if (this.toggler === "header") {
+      this.toggle(event2);
+    }
+  }
+  onIconClick(event2) {
+    if (this.toggler === "icon") {
+      this.toggle(event2);
+    }
+  }
+  toggle(event2) {
+    if (this.animating) {
+      return false;
+    }
+    this.animating = true;
+    this.onBeforeToggle.emit({
+      originalEvent: event2,
+      collapsed: this.collapsed
+    });
+    if (this.toggleable) {
+      if (this.collapsed)
+        this.expand();
+      else
+        this.collapse();
+    }
+    event2.preventDefault();
+  }
+  expand() {
+    this.collapsed = false;
+    this.collapsedChange.emit(this.collapsed);
+  }
+  collapse() {
+    this.collapsed = true;
+    this.collapsedChange.emit(this.collapsed);
+  }
+  getBlockableElement() {
+    return this.el.nativeElement.children[0];
+  }
+  onKeyDown(event2) {
+    if (event2.code === "Enter" || event2.code === "Space") {
+      this.toggle(event2);
+      event2.preventDefault();
+    }
+  }
+  onToggleDone(event2) {
+    this.animating = false;
+    this.onAfterToggle.emit({
+      originalEvent: event2,
+      collapsed: this.collapsed
+    });
+  }
+  static \u0275fac = function Panel_Factory(t) {
+    return new (t || _Panel)(\u0275\u0275directiveInject(ElementRef));
+  };
+  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({
+    type: _Panel,
+    selectors: [["p-panel"]],
+    contentQueries: function Panel_ContentQueries(rf, ctx, dirIndex) {
+      if (rf & 1) {
+        \u0275\u0275contentQuery(dirIndex, Footer, 5);
+        \u0275\u0275contentQuery(dirIndex, PrimeTemplate, 4);
+      }
+      if (rf & 2) {
+        let _t;
+        \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx.footerFacet = _t.first);
+        \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx.templates = _t);
+      }
+    },
+    hostAttrs: [1, "p-element"],
+    inputs: {
+      toggleable: [InputFlags.HasDecoratorInputTransform, "toggleable", "toggleable", booleanAttribute],
+      header: "header",
+      collapsed: [InputFlags.HasDecoratorInputTransform, "collapsed", "collapsed", booleanAttribute],
+      style: "style",
+      styleClass: "styleClass",
+      iconPos: "iconPos",
+      expandIcon: "expandIcon",
+      collapseIcon: "collapseIcon",
+      showHeader: [InputFlags.HasDecoratorInputTransform, "showHeader", "showHeader", booleanAttribute],
+      toggler: "toggler",
+      transitionOptions: "transitionOptions"
+    },
+    outputs: {
+      collapsedChange: "collapsedChange",
+      onBeforeToggle: "onBeforeToggle",
+      onAfterToggle: "onAfterToggle"
+    },
+    features: [\u0275\u0275InputTransformsFeature],
+    ngContentSelectors: _c1,
+    decls: 7,
+    vars: 25,
+    consts: [[3, "ngClass", "ngStyle"], ["class", "p-panel-header", 3, "click", 4, "ngIf"], ["role", "region", 1, "p-toggleable-content", 3, "id"], [1, "p-panel-content"], [4, "ngTemplateOutlet"], ["class", "p-panel-footer", 4, "ngIf"], [1, "p-panel-header", 3, "click"], ["class", "p-panel-title", 4, "ngIf"], [1, "p-panel-icons", 3, "ngClass"], ["pRipple", "", "type", "button", "role", "button", "class", "p-panel-header-icon p-panel-toggler p-link", 3, "click", "keydown", 4, "ngIf"], [1, "p-panel-title"], ["pRipple", "", "type", "button", "role", "button", 1, "p-panel-header-icon", "p-panel-toggler", "p-link", 3, "click", "keydown"], [4, "ngIf"], [4, "ngTemplateOutlet", "ngTemplateOutletContext"], [3, "class", "ngClass", 4, "ngIf"], [3, "styleClass", 4, "ngIf"], [3, "ngClass"], [3, "styleClass"], [1, "p-panel-footer"]],
+    template: function Panel_Template(rf, ctx) {
+      if (rf & 1) {
+        \u0275\u0275projectionDef(_c04);
+        \u0275\u0275elementStart(0, "div", 0);
+        \u0275\u0275template(1, Panel_div_1_Template, 7, 10, "div", 1);
+        \u0275\u0275elementStart(2, "div", 2);
+        \u0275\u0275listener("@panelContent.done", function Panel_Template_div_animation_panelContent_done_2_listener($event) {
+          return ctx.onToggleDone($event);
+        });
+        \u0275\u0275elementStart(3, "div", 3);
+        \u0275\u0275projection(4);
+        \u0275\u0275template(5, Panel_ng_container_5_Template, 1, 0, "ng-container", 4);
+        \u0275\u0275elementEnd();
+        \u0275\u0275template(6, Panel_div_6_Template, 3, 1, "div", 5);
+        \u0275\u0275elementEnd()();
+      }
+      if (rf & 2) {
+        \u0275\u0275classMap(ctx.styleClass);
+        \u0275\u0275property("ngClass", \u0275\u0275pureFunction2(14, _c2, ctx.toggleable, !ctx.collapsed && ctx.toggleable))("ngStyle", ctx.style);
+        \u0275\u0275attribute("id", ctx.id)("data-pc-name", "panel");
+        \u0275\u0275advance();
+        \u0275\u0275property("ngIf", ctx.showHeader);
+        \u0275\u0275advance();
+        \u0275\u0275property("id", ctx.id + "_content")("@panelContent", ctx.collapsed ? \u0275\u0275pureFunction1(19, _c4, \u0275\u0275pureFunction1(17, _c3, ctx.animating ? ctx.transitionOptions : "0ms")) : \u0275\u0275pureFunction1(23, _c6, \u0275\u0275pureFunction1(21, _c5, ctx.animating ? ctx.transitionOptions : "0ms")));
+        \u0275\u0275attribute("aria-labelledby", ctx.id + "_header")("aria-hidden", ctx.collapsed)("tabindex", ctx.collapsed ? "-1" : void 0);
+        \u0275\u0275advance(3);
+        \u0275\u0275property("ngTemplateOutlet", ctx.contentTemplate);
+        \u0275\u0275advance();
+        \u0275\u0275property("ngIf", ctx.footerFacet || ctx.footerTemplate);
+      }
+    },
+    dependencies: () => [NgClass, NgIf, NgTemplateOutlet, NgStyle, Ripple, PlusIcon, MinusIcon],
+    styles: ["@layer primeng{.p-panel-header{display:flex;align-items:center}.p-panel-title{line-height:1;order:1}.p-panel-header-icon{display:inline-flex;justify-content:center;align-items:center;cursor:pointer;text-decoration:none;overflow:hidden;position:relative}.p-panel-toggleable.p-panel-expanded>.p-toggleable-content:not(.ng-animating){overflow:visible}.p-panel-toggleable .p-toggleable-content{overflow:hidden}}\n"],
+    encapsulation: 2,
+    data: {
+      animation: [trigger("panelContent", [state("hidden", style({
+        height: "0"
+      })), state("void", style({
+        height: "{{height}}"
+      }), {
+        params: {
+          height: "0"
+        }
+      }), state("visible", style({
+        height: "*"
+      })), transition("visible <=> hidden", [animate("{{transitionParams}}")]), transition("void => hidden", animate("{{transitionParams}}")), transition("void => visible", animate("{{transitionParams}}"))])]
+    },
+    changeDetection: 0
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(Panel, [{
+    type: Component,
+    args: [{
+      selector: "p-panel",
+      template: `
+        <div [attr.id]="id" [attr.data-pc-name]="'panel'" [ngClass]="{ 'p-panel p-component': true, 'p-panel-toggleable': toggleable, 'p-panel-expanded': !collapsed && toggleable }" [ngStyle]="style" [class]="styleClass">
+            <div class="p-panel-header" *ngIf="showHeader" (click)="onHeaderClick($event)" [attr.id]="id + '-titlebar'">
+                <span class="p-panel-title" *ngIf="header" [attr.id]="id + '_header'">{{ header }}</span>
+                <ng-content select="p-header"></ng-content>
+                <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
+                <div class="p-panel-icons" [ngClass]="{ 'p-panel-icons-start': iconPos === 'start', 'p-panel-icons-end': iconPos === 'end', 'p-panel-icons-center': iconPos === 'center' }">
+                    <ng-template *ngTemplateOutlet="iconTemplate"></ng-template>
+                    <button
+                        *ngIf="toggleable"
+                        [attr.id]="id + '_header'"
+                        pRipple
+                        type="button"
+                        role="button"
+                        class="p-panel-header-icon p-panel-toggler p-link"
+                        [attr.aria-label]="buttonAriaLabel"
+                        [attr.aria-controls]="id + '_content'"
+                        [attr.aria-expanded]="!collapsed"
+                        (click)="onIconClick($event)"
+                        (keydown)="onKeyDown($event)"
+                    >
+                        <ng-container *ngIf="!headerIconTemplate">
+                            <ng-container *ngIf="!collapsed">
+                                <span *ngIf="expandIcon" [class]="expandIcon" [ngClass]="iconClass"></span>
+                                <MinusIcon *ngIf="!expandIcon" [styleClass]="iconClass" />
+                            </ng-container>
+
+                            <ng-container *ngIf="collapsed">
+                                <span *ngIf="collapseIcon" [class]="collapseIcon" [ngClass]="iconClass"></span>
+                                <PlusIcon *ngIf="!collapseIcon" [styleClass]="iconClass" />
+                            </ng-container>
+                        </ng-container>
+
+                        <ng-template *ngTemplateOutlet="headerIconTemplate; context: { $implicit: collapsed }"></ng-template>
+                    </button>
+                </div>
+            </div>
+            <div
+                class="p-toggleable-content"
+                [id]="id + '_content'"
+                role="region"
+                [attr.aria-labelledby]="id + '_header'"
+                [attr.aria-hidden]="collapsed"
+                [attr.tabindex]="collapsed ? '-1' : undefined"
+                [@panelContent]="
+                    collapsed
+                        ? { value: 'hidden', params: { transitionParams: animating ? transitionOptions : '0ms', height: '0', opacity: '0' } }
+                        : { value: 'visible', params: { transitionParams: animating ? transitionOptions : '0ms', height: '*', opacity: '1' } }
+                "
+                (@panelContent.done)="onToggleDone($event)"
+            >
+                <div class="p-panel-content">
+                    <ng-content></ng-content>
+                    <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+                </div>
+
+                <div class="p-panel-footer" *ngIf="footerFacet || footerTemplate">
+                    <ng-content select="p-footer"></ng-content>
+                    <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
+                </div>
+            </div>
+        </div>
+    `,
+      animations: [trigger("panelContent", [state("hidden", style({
+        height: "0"
+      })), state("void", style({
+        height: "{{height}}"
+      }), {
+        params: {
+          height: "0"
+        }
+      }), state("visible", style({
+        height: "*"
+      })), transition("visible <=> hidden", [animate("{{transitionParams}}")]), transition("void => hidden", animate("{{transitionParams}}")), transition("void => visible", animate("{{transitionParams}}"))])],
+      changeDetection: ChangeDetectionStrategy.OnPush,
+      encapsulation: ViewEncapsulation$1.None,
+      host: {
+        class: "p-element"
+      },
+      styles: ["@layer primeng{.p-panel-header{display:flex;align-items:center}.p-panel-title{line-height:1;order:1}.p-panel-header-icon{display:inline-flex;justify-content:center;align-items:center;cursor:pointer;text-decoration:none;overflow:hidden;position:relative}.p-panel-toggleable.p-panel-expanded>.p-toggleable-content:not(.ng-animating){overflow:visible}.p-panel-toggleable .p-toggleable-content{overflow:hidden}}\n"]
+    }]
+  }], () => [{
+    type: ElementRef
+  }], {
+    toggleable: [{
+      type: Input,
+      args: [{
+        transform: booleanAttribute
+      }]
+    }],
+    header: [{
+      type: Input
+    }],
+    collapsed: [{
+      type: Input,
+      args: [{
+        transform: booleanAttribute
+      }]
+    }],
+    style: [{
+      type: Input
+    }],
+    styleClass: [{
+      type: Input
+    }],
+    iconPos: [{
+      type: Input
+    }],
+    expandIcon: [{
+      type: Input
+    }],
+    collapseIcon: [{
+      type: Input
+    }],
+    showHeader: [{
+      type: Input,
+      args: [{
+        transform: booleanAttribute
+      }]
+    }],
+    toggler: [{
+      type: Input
+    }],
+    transitionOptions: [{
+      type: Input
+    }],
+    collapsedChange: [{
+      type: Output
+    }],
+    onBeforeToggle: [{
+      type: Output
+    }],
+    onAfterToggle: [{
+      type: Output
+    }],
+    footerFacet: [{
+      type: ContentChild,
+      args: [Footer]
+    }],
+    templates: [{
+      type: ContentChildren,
+      args: [PrimeTemplate]
+    }]
+  });
+})();
+var PanelModule = class _PanelModule {
+  static \u0275fac = function PanelModule_Factory(t) {
+    return new (t || _PanelModule)();
+  };
+  static \u0275mod = /* @__PURE__ */ \u0275\u0275defineNgModule({
+    type: _PanelModule
+  });
+  static \u0275inj = /* @__PURE__ */ \u0275\u0275defineInjector({
+    imports: [CommonModule, SharedModule, RippleModule, PlusIcon, MinusIcon, SharedModule]
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(PanelModule, [{
+    type: NgModule,
+    args: [{
+      imports: [CommonModule, SharedModule, RippleModule, PlusIcon, MinusIcon],
+      exports: [Panel, SharedModule],
+      declarations: [Panel]
+    }]
+  }], null, null);
+})();
+
+// node_modules/primeng/fesm2022/primeng-icons-times.mjs
+var TimesIcon = class _TimesIcon extends BaseIcon {
+  static \u0275fac = /* @__PURE__ */ (() => {
+    let \u0275TimesIcon_BaseFactory;
+    return function TimesIcon_Factory(t) {
+      return (\u0275TimesIcon_BaseFactory || (\u0275TimesIcon_BaseFactory = \u0275\u0275getInheritedFactory(_TimesIcon)))(t || _TimesIcon);
+    };
+  })();
+  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({
+    type: _TimesIcon,
+    selectors: [["TimesIcon"]],
+    standalone: true,
+    features: [\u0275\u0275InheritDefinitionFeature, \u0275\u0275StandaloneFeature],
+    decls: 2,
+    vars: 5,
+    consts: [["width", "14", "height", "14", "viewBox", "0 0 14 14", "fill", "none", "xmlns", "http://www.w3.org/2000/svg"], ["d", "M8.01186 7.00933L12.27 2.75116C12.341 2.68501 12.398 2.60524 12.4375 2.51661C12.4769 2.42798 12.4982 2.3323 12.4999 2.23529C12.5016 2.13827 12.4838 2.0419 12.4474 1.95194C12.4111 1.86197 12.357 1.78024 12.2884 1.71163C12.2198 1.64302 12.138 1.58893 12.0481 1.55259C11.9581 1.51625 11.8617 1.4984 11.7647 1.50011C11.6677 1.50182 11.572 1.52306 11.4834 1.56255C11.3948 1.60204 11.315 1.65898 11.2488 1.72997L6.99067 5.98814L2.7325 1.72997C2.59553 1.60234 2.41437 1.53286 2.22718 1.53616C2.03999 1.53946 1.8614 1.61529 1.72901 1.74767C1.59663 1.88006 1.5208 2.05865 1.5175 2.24584C1.5142 2.43303 1.58368 2.61419 1.71131 2.75116L5.96948 7.00933L1.71131 11.2675C1.576 11.403 1.5 11.5866 1.5 11.7781C1.5 11.9696 1.576 12.1532 1.71131 12.2887C1.84679 12.424 2.03043 12.5 2.2219 12.5C2.41338 12.5 2.59702 12.424 2.7325 12.2887L6.99067 8.03052L11.2488 12.2887C11.3843 12.424 11.568 12.5 11.7594 12.5C11.9509 12.5 12.1346 12.424 12.27 12.2887C12.4053 12.1532 12.4813 11.9696 12.4813 11.7781C12.4813 11.5866 12.4053 11.403 12.27 11.2675L8.01186 7.00933Z", "fill", "currentColor"]],
+    template: function TimesIcon_Template(rf, ctx) {
+      if (rf & 1) {
+        \u0275\u0275namespaceSVG();
+        \u0275\u0275elementStart(0, "svg", 0);
+        \u0275\u0275element(1, "path", 1);
+        \u0275\u0275elementEnd();
+      }
+      if (rf & 2) {
+        \u0275\u0275classMap(ctx.getClassNames());
+        \u0275\u0275attribute("aria-label", ctx.ariaLabel)("aria-hidden", ctx.ariaHidden)("role", ctx.role);
+      }
+    },
+    encapsulation: 2
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(TimesIcon, [{
+    type: Component,
+    args: [{
+      selector: "TimesIcon",
+      standalone: true,
+      imports: [BaseIcon],
+      template: `
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" [attr.aria-label]="ariaLabel" [attr.aria-hidden]="ariaHidden" [attr.role]="role" [class]="getClassNames()">
+            <path
+                d="M8.01186 7.00933L12.27 2.75116C12.341 2.68501 12.398 2.60524 12.4375 2.51661C12.4769 2.42798 12.4982 2.3323 12.4999 2.23529C12.5016 2.13827 12.4838 2.0419 12.4474 1.95194C12.4111 1.86197 12.357 1.78024 12.2884 1.71163C12.2198 1.64302 12.138 1.58893 12.0481 1.55259C11.9581 1.51625 11.8617 1.4984 11.7647 1.50011C11.6677 1.50182 11.572 1.52306 11.4834 1.56255C11.3948 1.60204 11.315 1.65898 11.2488 1.72997L6.99067 5.98814L2.7325 1.72997C2.59553 1.60234 2.41437 1.53286 2.22718 1.53616C2.03999 1.53946 1.8614 1.61529 1.72901 1.74767C1.59663 1.88006 1.5208 2.05865 1.5175 2.24584C1.5142 2.43303 1.58368 2.61419 1.71131 2.75116L5.96948 7.00933L1.71131 11.2675C1.576 11.403 1.5 11.5866 1.5 11.7781C1.5 11.9696 1.576 12.1532 1.71131 12.2887C1.84679 12.424 2.03043 12.5 2.2219 12.5C2.41338 12.5 2.59702 12.424 2.7325 12.2887L6.99067 8.03052L11.2488 12.2887C11.3843 12.424 11.568 12.5 11.7594 12.5C11.9509 12.5 12.1346 12.424 12.27 12.2887C12.4053 12.1532 12.4813 11.9696 12.4813 11.7781C12.4813 11.5866 12.4053 11.403 12.27 11.2675L8.01186 7.00933Z"
+                fill="currentColor"
+            />
+        </svg>
+    `
+    }]
+  }], null, null);
+})();
+
+// node_modules/primeng/fesm2022/primeng-icons-upload.mjs
+var UploadIcon = class _UploadIcon extends BaseIcon {
+  pathId;
+  ngOnInit() {
+    this.pathId = "url(#" + UniqueComponentId() + ")";
+  }
+  static \u0275fac = /* @__PURE__ */ (() => {
+    let \u0275UploadIcon_BaseFactory;
+    return function UploadIcon_Factory(t) {
+      return (\u0275UploadIcon_BaseFactory || (\u0275UploadIcon_BaseFactory = \u0275\u0275getInheritedFactory(_UploadIcon)))(t || _UploadIcon);
+    };
+  })();
+  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({
+    type: _UploadIcon,
+    selectors: [["UploadIcon"]],
+    standalone: true,
+    features: [\u0275\u0275InheritDefinitionFeature, \u0275\u0275StandaloneFeature],
+    decls: 6,
+    vars: 7,
+    consts: [["width", "14", "height", "14", "viewBox", "0 0 14 14", "fill", "none", "xmlns", "http://www.w3.org/2000/svg"], ["fill-rule", "evenodd", "clip-rule", "evenodd", "d", "M6.58942 9.82197C6.70165 9.93405 6.85328 9.99793 7.012 10C7.17071 9.99793 7.32234 9.93405 7.43458 9.82197C7.54681 9.7099 7.61079 9.55849 7.61286 9.4V2.04798L9.79204 4.22402C9.84752 4.28011 9.91365 4.32457 9.98657 4.35479C10.0595 4.38502 10.1377 4.40039 10.2167 4.40002C10.2956 4.40039 10.3738 4.38502 10.4467 4.35479C10.5197 4.32457 10.5858 4.28011 10.6413 4.22402C10.7538 4.11152 10.817 3.95902 10.817 3.80002C10.817 3.64102 10.7538 3.48852 10.6413 3.37602L7.45127 0.190618C7.44656 0.185584 7.44176 0.180622 7.43687 0.175736C7.32419 0.063214 7.17136 0 7.012 0C6.85264 0 6.69981 0.063214 6.58712 0.175736C6.58181 0.181045 6.5766 0.186443 6.5715 0.191927L3.38282 3.37602C3.27669 3.48976 3.2189 3.6402 3.22165 3.79564C3.2244 3.95108 3.28746 4.09939 3.39755 4.20932C3.50764 4.31925 3.65616 4.38222 3.81182 4.38496C3.96749 4.3877 4.11814 4.33001 4.23204 4.22402L6.41113 2.04807V9.4C6.41321 9.55849 6.47718 9.7099 6.58942 9.82197ZM11.9952 14H2.02883C1.751 13.9887 1.47813 13.9228 1.22584 13.8061C0.973545 13.6894 0.746779 13.5241 0.558517 13.3197C0.370254 13.1154 0.22419 12.876 0.128681 12.6152C0.0331723 12.3545 -0.00990605 12.0775 0.0019109 11.8V9.40005C0.0019109 9.24092 0.065216 9.08831 0.1779 8.97579C0.290584 8.86326 0.443416 8.80005 0.602775 8.80005C0.762134 8.80005 0.914966 8.86326 1.02765 8.97579C1.14033 9.08831 1.20364 9.24092 1.20364 9.40005V11.8C1.18295 12.0376 1.25463 12.274 1.40379 12.4602C1.55296 12.6463 1.76817 12.7681 2.00479 12.8H11.9952C12.2318 12.7681 12.447 12.6463 12.5962 12.4602C12.7453 12.274 12.817 12.0376 12.7963 11.8V9.40005C12.7963 9.24092 12.8596 9.08831 12.9723 8.97579C13.085 8.86326 13.2378 8.80005 13.3972 8.80005C13.5565 8.80005 13.7094 8.86326 13.8221 8.97579C13.9347 9.08831 13.998 9.24092 13.998 9.40005V11.8C14.022 12.3563 13.8251 12.8996 13.45 13.3116C13.0749 13.7236 12.552 13.971 11.9952 14Z", "fill", "currentColor"], [3, "id"], ["width", "14", "height", "14", "fill", "white"]],
+    template: function UploadIcon_Template(rf, ctx) {
+      if (rf & 1) {
+        \u0275\u0275namespaceSVG();
+        \u0275\u0275elementStart(0, "svg", 0)(1, "g");
+        \u0275\u0275element(2, "path", 1);
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(3, "defs")(4, "clipPath", 2);
+        \u0275\u0275element(5, "rect", 3);
+        \u0275\u0275elementEnd()()();
+      }
+      if (rf & 2) {
+        \u0275\u0275classMap(ctx.getClassNames());
+        \u0275\u0275attribute("aria-label", ctx.ariaLabel)("aria-hidden", ctx.ariaHidden)("role", ctx.role);
+        \u0275\u0275advance();
+        \u0275\u0275attribute("clip-path", ctx.pathId);
+        \u0275\u0275advance(3);
+        \u0275\u0275property("id", ctx.pathId);
+      }
+    },
+    encapsulation: 2
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(UploadIcon, [{
+    type: Component,
+    args: [{
+      selector: "UploadIcon",
+      standalone: true,
+      imports: [BaseIcon],
+      template: `
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" [attr.aria-label]="ariaLabel" [attr.aria-hidden]="ariaHidden" [attr.role]="role" [class]="getClassNames()">
+            <g [attr.clip-path]="pathId">
+                <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M6.58942 9.82197C6.70165 9.93405 6.85328 9.99793 7.012 10C7.17071 9.99793 7.32234 9.93405 7.43458 9.82197C7.54681 9.7099 7.61079 9.55849 7.61286 9.4V2.04798L9.79204 4.22402C9.84752 4.28011 9.91365 4.32457 9.98657 4.35479C10.0595 4.38502 10.1377 4.40039 10.2167 4.40002C10.2956 4.40039 10.3738 4.38502 10.4467 4.35479C10.5197 4.32457 10.5858 4.28011 10.6413 4.22402C10.7538 4.11152 10.817 3.95902 10.817 3.80002C10.817 3.64102 10.7538 3.48852 10.6413 3.37602L7.45127 0.190618C7.44656 0.185584 7.44176 0.180622 7.43687 0.175736C7.32419 0.063214 7.17136 0 7.012 0C6.85264 0 6.69981 0.063214 6.58712 0.175736C6.58181 0.181045 6.5766 0.186443 6.5715 0.191927L3.38282 3.37602C3.27669 3.48976 3.2189 3.6402 3.22165 3.79564C3.2244 3.95108 3.28746 4.09939 3.39755 4.20932C3.50764 4.31925 3.65616 4.38222 3.81182 4.38496C3.96749 4.3877 4.11814 4.33001 4.23204 4.22402L6.41113 2.04807V9.4C6.41321 9.55849 6.47718 9.7099 6.58942 9.82197ZM11.9952 14H2.02883C1.751 13.9887 1.47813 13.9228 1.22584 13.8061C0.973545 13.6894 0.746779 13.5241 0.558517 13.3197C0.370254 13.1154 0.22419 12.876 0.128681 12.6152C0.0331723 12.3545 -0.00990605 12.0775 0.0019109 11.8V9.40005C0.0019109 9.24092 0.065216 9.08831 0.1779 8.97579C0.290584 8.86326 0.443416 8.80005 0.602775 8.80005C0.762134 8.80005 0.914966 8.86326 1.02765 8.97579C1.14033 9.08831 1.20364 9.24092 1.20364 9.40005V11.8C1.18295 12.0376 1.25463 12.274 1.40379 12.4602C1.55296 12.6463 1.76817 12.7681 2.00479 12.8H11.9952C12.2318 12.7681 12.447 12.6463 12.5962 12.4602C12.7453 12.274 12.817 12.0376 12.7963 11.8V9.40005C12.7963 9.24092 12.8596 9.08831 12.9723 8.97579C13.085 8.86326 13.2378 8.80005 13.3972 8.80005C13.5565 8.80005 13.7094 8.86326 13.8221 8.97579C13.9347 9.08831 13.998 9.24092 13.998 9.40005V11.8C14.022 12.3563 13.8251 12.8996 13.45 13.3116C13.0749 13.7236 12.552 13.971 11.9952 14Z"
+                    fill="currentColor"
+                />
+            </g>
+            <defs>
+                <clipPath [id]="pathId">
+                    <rect width="14" height="14" fill="white" />
+                </clipPath>
+            </defs>
+        </svg>
+    `
+    }]
+  }], null, null);
+})();
+
+// node_modules/primeng/fesm2022/primeng-icons-check.mjs
+var CheckIcon = class _CheckIcon extends BaseIcon {
+  static \u0275fac = /* @__PURE__ */ (() => {
+    let \u0275CheckIcon_BaseFactory;
+    return function CheckIcon_Factory(t) {
+      return (\u0275CheckIcon_BaseFactory || (\u0275CheckIcon_BaseFactory = \u0275\u0275getInheritedFactory(_CheckIcon)))(t || _CheckIcon);
+    };
+  })();
+  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({
+    type: _CheckIcon,
+    selectors: [["CheckIcon"]],
+    standalone: true,
+    features: [\u0275\u0275InheritDefinitionFeature, \u0275\u0275StandaloneFeature],
+    decls: 2,
+    vars: 5,
+    consts: [["width", "14", "height", "14", "viewBox", "0 0 14 14", "fill", "none", "xmlns", "http://www.w3.org/2000/svg"], ["d", "M4.86199 11.5948C4.78717 11.5923 4.71366 11.5745 4.64596 11.5426C4.57826 11.5107 4.51779 11.4652 4.46827 11.4091L0.753985 7.69483C0.683167 7.64891 0.623706 7.58751 0.580092 7.51525C0.536478 7.44299 0.509851 7.36177 0.502221 7.27771C0.49459 7.19366 0.506156 7.10897 0.536046 7.03004C0.565935 6.95111 0.613367 6.88 0.674759 6.82208C0.736151 6.76416 0.8099 6.72095 0.890436 6.69571C0.970973 6.67046 1.05619 6.66385 1.13966 6.67635C1.22313 6.68886 1.30266 6.72017 1.37226 6.76792C1.44186 6.81567 1.4997 6.8786 1.54141 6.95197L4.86199 10.2503L12.6397 2.49483C12.7444 2.42694 12.8689 2.39617 12.9932 2.40745C13.1174 2.41873 13.2343 2.47141 13.3251 2.55705C13.4159 2.64268 13.4753 2.75632 13.4938 2.87973C13.5123 3.00315 13.4888 3.1292 13.4271 3.23768L5.2557 11.4091C5.20618 11.4652 5.14571 11.5107 5.07801 11.5426C5.01031 11.5745 4.9368 11.5923 4.86199 11.5948Z", "fill", "currentColor"]],
+    template: function CheckIcon_Template(rf, ctx) {
+      if (rf & 1) {
+        \u0275\u0275namespaceSVG();
+        \u0275\u0275elementStart(0, "svg", 0);
+        \u0275\u0275element(1, "path", 1);
+        \u0275\u0275elementEnd();
+      }
+      if (rf & 2) {
+        \u0275\u0275classMap(ctx.getClassNames());
+        \u0275\u0275attribute("aria-label", ctx.ariaLabel)("aria-hidden", ctx.ariaHidden)("role", ctx.role);
+      }
+    },
+    encapsulation: 2
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(CheckIcon, [{
+    type: Component,
+    args: [{
+      selector: "CheckIcon",
+      standalone: true,
+      imports: [BaseIcon],
+      template: `
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" [attr.aria-label]="ariaLabel" [attr.aria-hidden]="ariaHidden" [attr.role]="role" [class]="getClassNames()">
+            <path
+                d="M4.86199 11.5948C4.78717 11.5923 4.71366 11.5745 4.64596 11.5426C4.57826 11.5107 4.51779 11.4652 4.46827 11.4091L0.753985 7.69483C0.683167 7.64891 0.623706 7.58751 0.580092 7.51525C0.536478 7.44299 0.509851 7.36177 0.502221 7.27771C0.49459 7.19366 0.506156 7.10897 0.536046 7.03004C0.565935 6.95111 0.613367 6.88 0.674759 6.82208C0.736151 6.76416 0.8099 6.72095 0.890436 6.69571C0.970973 6.67046 1.05619 6.66385 1.13966 6.67635C1.22313 6.68886 1.30266 6.72017 1.37226 6.76792C1.44186 6.81567 1.4997 6.8786 1.54141 6.95197L4.86199 10.2503L12.6397 2.49483C12.7444 2.42694 12.8689 2.39617 12.9932 2.40745C13.1174 2.41873 13.2343 2.47141 13.3251 2.55705C13.4159 2.64268 13.4753 2.75632 13.4938 2.87973C13.5123 3.00315 13.4888 3.1292 13.4271 3.23768L5.2557 11.4091C5.20618 11.4652 5.14571 11.5107 5.07801 11.5426C5.01031 11.5745 4.9368 11.5923 4.86199 11.5948Z"
+                fill="currentColor"
+            />
+        </svg>
+    `
+    }]
+  }], null, null);
+})();
+
+// node_modules/primeng/fesm2022/primeng-icons-exclamationtriangle.mjs
+var ExclamationTriangleIcon = class _ExclamationTriangleIcon extends BaseIcon {
+  pathId;
+  ngOnInit() {
+    this.pathId = "url(#" + UniqueComponentId() + ")";
+  }
+  static \u0275fac = /* @__PURE__ */ (() => {
+    let \u0275ExclamationTriangleIcon_BaseFactory;
+    return function ExclamationTriangleIcon_Factory(t) {
+      return (\u0275ExclamationTriangleIcon_BaseFactory || (\u0275ExclamationTriangleIcon_BaseFactory = \u0275\u0275getInheritedFactory(_ExclamationTriangleIcon)))(t || _ExclamationTriangleIcon);
+    };
+  })();
+  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({
+    type: _ExclamationTriangleIcon,
+    selectors: [["ExclamationTriangleIcon"]],
+    standalone: true,
+    features: [\u0275\u0275InheritDefinitionFeature, \u0275\u0275StandaloneFeature],
+    decls: 8,
+    vars: 7,
+    consts: [["width", "14", "height", "14", "viewBox", "0 0 14 14", "fill", "none", "xmlns", "http://www.w3.org/2000/svg"], ["d", "M13.4018 13.1893H0.598161C0.49329 13.189 0.390283 13.1615 0.299143 13.1097C0.208003 13.0578 0.131826 12.9832 0.0780112 12.8932C0.0268539 12.8015 0 12.6982 0 12.5931C0 12.4881 0.0268539 12.3848 0.0780112 12.293L6.47985 1.08982C6.53679 1.00399 6.61408 0.933574 6.70484 0.884867C6.7956 0.836159 6.897 0.810669 7 0.810669C7.103 0.810669 7.2044 0.836159 7.29516 0.884867C7.38592 0.933574 7.46321 1.00399 7.52015 1.08982L13.922 12.293C13.9731 12.3848 14 12.4881 14 12.5931C14 12.6982 13.9731 12.8015 13.922 12.8932C13.8682 12.9832 13.792 13.0578 13.7009 13.1097C13.6097 13.1615 13.5067 13.189 13.4018 13.1893ZM1.63046 11.989H12.3695L7 2.59425L1.63046 11.989Z", "fill", "currentColor"], ["d", "M6.99996 8.78801C6.84143 8.78594 6.68997 8.72204 6.57787 8.60993C6.46576 8.49782 6.40186 8.34637 6.39979 8.18784V5.38703C6.39979 5.22786 6.46302 5.0752 6.57557 4.96265C6.68813 4.85009 6.84078 4.78686 6.99996 4.78686C7.15914 4.78686 7.31179 4.85009 7.42435 4.96265C7.5369 5.0752 7.60013 5.22786 7.60013 5.38703V8.18784C7.59806 8.34637 7.53416 8.49782 7.42205 8.60993C7.30995 8.72204 7.15849 8.78594 6.99996 8.78801Z", "fill", "currentColor"], ["d", "M6.99996 11.1887C6.84143 11.1866 6.68997 11.1227 6.57787 11.0106C6.46576 10.8985 6.40186 10.7471 6.39979 10.5885V10.1884C6.39979 10.0292 6.46302 9.87658 6.57557 9.76403C6.68813 9.65147 6.84078 9.58824 6.99996 9.58824C7.15914 9.58824 7.31179 9.65147 7.42435 9.76403C7.5369 9.87658 7.60013 10.0292 7.60013 10.1884V10.5885C7.59806 10.7471 7.53416 10.8985 7.42205 11.0106C7.30995 11.1227 7.15849 11.1866 6.99996 11.1887Z", "fill", "currentColor"], [3, "id"], ["width", "14", "height", "14", "fill", "white"]],
+    template: function ExclamationTriangleIcon_Template(rf, ctx) {
+      if (rf & 1) {
+        \u0275\u0275namespaceSVG();
+        \u0275\u0275elementStart(0, "svg", 0)(1, "g");
+        \u0275\u0275element(2, "path", 1)(3, "path", 2)(4, "path", 3);
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(5, "defs")(6, "clipPath", 4);
+        \u0275\u0275element(7, "rect", 5);
+        \u0275\u0275elementEnd()()();
+      }
+      if (rf & 2) {
+        \u0275\u0275classMap(ctx.getClassNames());
+        \u0275\u0275attribute("aria-label", ctx.ariaLabel)("aria-hidden", ctx.ariaHidden)("role", ctx.role);
+        \u0275\u0275advance();
+        \u0275\u0275attribute("clip-path", ctx.pathId);
+        \u0275\u0275advance(5);
+        \u0275\u0275property("id", ctx.pathId);
+      }
+    },
+    encapsulation: 2
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(ExclamationTriangleIcon, [{
+    type: Component,
+    args: [{
+      selector: "ExclamationTriangleIcon",
+      standalone: true,
+      imports: [BaseIcon],
+      template: `
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" [attr.aria-label]="ariaLabel" [attr.aria-hidden]="ariaHidden" [attr.role]="role" [class]="getClassNames()">
+            <g [attr.clip-path]="pathId">
+                <path
+                    d="M13.4018 13.1893H0.598161C0.49329 13.189 0.390283 13.1615 0.299143 13.1097C0.208003 13.0578 0.131826 12.9832 0.0780112 12.8932C0.0268539 12.8015 0 12.6982 0 12.5931C0 12.4881 0.0268539 12.3848 0.0780112 12.293L6.47985 1.08982C6.53679 1.00399 6.61408 0.933574 6.70484 0.884867C6.7956 0.836159 6.897 0.810669 7 0.810669C7.103 0.810669 7.2044 0.836159 7.29516 0.884867C7.38592 0.933574 7.46321 1.00399 7.52015 1.08982L13.922 12.293C13.9731 12.3848 14 12.4881 14 12.5931C14 12.6982 13.9731 12.8015 13.922 12.8932C13.8682 12.9832 13.792 13.0578 13.7009 13.1097C13.6097 13.1615 13.5067 13.189 13.4018 13.1893ZM1.63046 11.989H12.3695L7 2.59425L1.63046 11.989Z"
+                    fill="currentColor"
+                />
+                <path
+                    d="M6.99996 8.78801C6.84143 8.78594 6.68997 8.72204 6.57787 8.60993C6.46576 8.49782 6.40186 8.34637 6.39979 8.18784V5.38703C6.39979 5.22786 6.46302 5.0752 6.57557 4.96265C6.68813 4.85009 6.84078 4.78686 6.99996 4.78686C7.15914 4.78686 7.31179 4.85009 7.42435 4.96265C7.5369 5.0752 7.60013 5.22786 7.60013 5.38703V8.18784C7.59806 8.34637 7.53416 8.49782 7.42205 8.60993C7.30995 8.72204 7.15849 8.78594 6.99996 8.78801Z"
+                    fill="currentColor"
+                />
+                <path
+                    d="M6.99996 11.1887C6.84143 11.1866 6.68997 11.1227 6.57787 11.0106C6.46576 10.8985 6.40186 10.7471 6.39979 10.5885V10.1884C6.39979 10.0292 6.46302 9.87658 6.57557 9.76403C6.68813 9.65147 6.84078 9.58824 6.99996 9.58824C7.15914 9.58824 7.31179 9.65147 7.42435 9.76403C7.5369 9.87658 7.60013 10.0292 7.60013 10.1884V10.5885C7.59806 10.7471 7.53416 10.8985 7.42205 11.0106C7.30995 11.1227 7.15849 11.1866 6.99996 11.1887Z"
+                    fill="currentColor"
+                />
+            </g>
+            <defs>
+                <clipPath [id]="pathId">
+                    <rect width="14" height="14" fill="white" />
+                </clipPath>
+            </defs>
+        </svg>
+    `
+    }]
+  }], null, null);
+})();
+
+// node_modules/primeng/fesm2022/primeng-icons-infocircle.mjs
+var InfoCircleIcon = class _InfoCircleIcon extends BaseIcon {
+  pathId;
+  ngOnInit() {
+    this.pathId = "url(#" + UniqueComponentId() + ")";
+  }
+  static \u0275fac = /* @__PURE__ */ (() => {
+    let \u0275InfoCircleIcon_BaseFactory;
+    return function InfoCircleIcon_Factory(t) {
+      return (\u0275InfoCircleIcon_BaseFactory || (\u0275InfoCircleIcon_BaseFactory = \u0275\u0275getInheritedFactory(_InfoCircleIcon)))(t || _InfoCircleIcon);
+    };
+  })();
+  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({
+    type: _InfoCircleIcon,
+    selectors: [["InfoCircleIcon"]],
+    standalone: true,
+    features: [\u0275\u0275InheritDefinitionFeature, \u0275\u0275StandaloneFeature],
+    decls: 6,
+    vars: 7,
+    consts: [["width", "14", "height", "14", "viewBox", "0 0 14 14", "fill", "none", "xmlns", "http://www.w3.org/2000/svg"], ["fill-rule", "evenodd", "clip-rule", "evenodd", "d", "M3.11101 12.8203C4.26215 13.5895 5.61553 14 7 14C8.85652 14 10.637 13.2625 11.9497 11.9497C13.2625 10.637 14 8.85652 14 7C14 5.61553 13.5895 4.26215 12.8203 3.11101C12.0511 1.95987 10.9579 1.06266 9.67879 0.532846C8.3997 0.00303296 6.99224 -0.13559 5.63437 0.134506C4.2765 0.404603 3.02922 1.07129 2.05026 2.05026C1.07129 3.02922 0.404603 4.2765 0.134506 5.63437C-0.13559 6.99224 0.00303296 8.3997 0.532846 9.67879C1.06266 10.9579 1.95987 12.0511 3.11101 12.8203ZM3.75918 2.14976C4.71846 1.50879 5.84628 1.16667 7 1.16667C8.5471 1.16667 10.0308 1.78125 11.1248 2.87521C12.2188 3.96918 12.8333 5.45291 12.8333 7C12.8333 8.15373 12.4912 9.28154 11.8502 10.2408C11.2093 11.2001 10.2982 11.9478 9.23232 12.3893C8.16642 12.8308 6.99353 12.9463 5.86198 12.7212C4.73042 12.4962 3.69102 11.9406 2.87521 11.1248C2.05941 10.309 1.50384 9.26958 1.27876 8.13803C1.05367 7.00647 1.16919 5.83358 1.61071 4.76768C2.05222 3.70178 2.79989 2.79074 3.75918 2.14976ZM7.00002 4.8611C6.84594 4.85908 6.69873 4.79698 6.58977 4.68801C6.48081 4.57905 6.4187 4.43185 6.41669 4.27776V3.88888C6.41669 3.73417 6.47815 3.58579 6.58754 3.4764C6.69694 3.367 6.84531 3.30554 7.00002 3.30554C7.15473 3.30554 7.3031 3.367 7.4125 3.4764C7.52189 3.58579 7.58335 3.73417 7.58335 3.88888V4.27776C7.58134 4.43185 7.51923 4.57905 7.41027 4.68801C7.30131 4.79698 7.1541 4.85908 7.00002 4.8611ZM7.00002 10.6945C6.84594 10.6925 6.69873 10.6304 6.58977 10.5214C6.48081 10.4124 6.4187 10.2652 6.41669 10.1111V6.22225C6.41669 6.06754 6.47815 5.91917 6.58754 5.80977C6.69694 5.70037 6.84531 5.63892 7.00002 5.63892C7.15473 5.63892 7.3031 5.70037 7.4125 5.80977C7.52189 5.91917 7.58335 6.06754 7.58335 6.22225V10.1111C7.58134 10.2652 7.51923 10.4124 7.41027 10.5214C7.30131 10.6304 7.1541 10.6925 7.00002 10.6945Z", "fill", "currentColor"], [3, "id"], ["width", "14", "height", "14", "fill", "white"]],
+    template: function InfoCircleIcon_Template(rf, ctx) {
+      if (rf & 1) {
+        \u0275\u0275namespaceSVG();
+        \u0275\u0275elementStart(0, "svg", 0)(1, "g");
+        \u0275\u0275element(2, "path", 1);
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(3, "defs")(4, "clipPath", 2);
+        \u0275\u0275element(5, "rect", 3);
+        \u0275\u0275elementEnd()()();
+      }
+      if (rf & 2) {
+        \u0275\u0275classMap(ctx.getClassNames());
+        \u0275\u0275attribute("aria-label", ctx.ariaLabel)("aria-hidden", ctx.ariaHidden)("role", ctx.role);
+        \u0275\u0275advance();
+        \u0275\u0275attribute("clip-path", ctx.pathId);
+        \u0275\u0275advance(3);
+        \u0275\u0275property("id", ctx.pathId);
+      }
+    },
+    encapsulation: 2
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(InfoCircleIcon, [{
+    type: Component,
+    args: [{
+      selector: "InfoCircleIcon",
+      standalone: true,
+      imports: [BaseIcon],
+      template: `
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" [attr.aria-label]="ariaLabel" [attr.aria-hidden]="ariaHidden" [attr.role]="role" [class]="getClassNames()">
+            <g [attr.clip-path]="pathId">
+                <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M3.11101 12.8203C4.26215 13.5895 5.61553 14 7 14C8.85652 14 10.637 13.2625 11.9497 11.9497C13.2625 10.637 14 8.85652 14 7C14 5.61553 13.5895 4.26215 12.8203 3.11101C12.0511 1.95987 10.9579 1.06266 9.67879 0.532846C8.3997 0.00303296 6.99224 -0.13559 5.63437 0.134506C4.2765 0.404603 3.02922 1.07129 2.05026 2.05026C1.07129 3.02922 0.404603 4.2765 0.134506 5.63437C-0.13559 6.99224 0.00303296 8.3997 0.532846 9.67879C1.06266 10.9579 1.95987 12.0511 3.11101 12.8203ZM3.75918 2.14976C4.71846 1.50879 5.84628 1.16667 7 1.16667C8.5471 1.16667 10.0308 1.78125 11.1248 2.87521C12.2188 3.96918 12.8333 5.45291 12.8333 7C12.8333 8.15373 12.4912 9.28154 11.8502 10.2408C11.2093 11.2001 10.2982 11.9478 9.23232 12.3893C8.16642 12.8308 6.99353 12.9463 5.86198 12.7212C4.73042 12.4962 3.69102 11.9406 2.87521 11.1248C2.05941 10.309 1.50384 9.26958 1.27876 8.13803C1.05367 7.00647 1.16919 5.83358 1.61071 4.76768C2.05222 3.70178 2.79989 2.79074 3.75918 2.14976ZM7.00002 4.8611C6.84594 4.85908 6.69873 4.79698 6.58977 4.68801C6.48081 4.57905 6.4187 4.43185 6.41669 4.27776V3.88888C6.41669 3.73417 6.47815 3.58579 6.58754 3.4764C6.69694 3.367 6.84531 3.30554 7.00002 3.30554C7.15473 3.30554 7.3031 3.367 7.4125 3.4764C7.52189 3.58579 7.58335 3.73417 7.58335 3.88888V4.27776C7.58134 4.43185 7.51923 4.57905 7.41027 4.68801C7.30131 4.79698 7.1541 4.85908 7.00002 4.8611ZM7.00002 10.6945C6.84594 10.6925 6.69873 10.6304 6.58977 10.5214C6.48081 10.4124 6.4187 10.2652 6.41669 10.1111V6.22225C6.41669 6.06754 6.47815 5.91917 6.58754 5.80977C6.69694 5.70037 6.84531 5.63892 7.00002 5.63892C7.15473 5.63892 7.3031 5.70037 7.4125 5.80977C7.52189 5.91917 7.58335 6.06754 7.58335 6.22225V10.1111C7.58134 10.2652 7.51923 10.4124 7.41027 10.5214C7.30131 10.6304 7.1541 10.6925 7.00002 10.6945Z"
+                    fill="currentColor"
+                />
+            </g>
+            <defs>
+                <clipPath [id]="pathId">
+                    <rect width="14" height="14" fill="white" />
+                </clipPath>
+            </defs>
+        </svg>
+    `
+    }]
+  }], null, null);
+})();
+
+// node_modules/primeng/fesm2022/primeng-icons-timescircle.mjs
+var TimesCircleIcon = class _TimesCircleIcon extends BaseIcon {
+  pathId;
+  ngOnInit() {
+    this.pathId = "url(#" + UniqueComponentId() + ")";
+  }
+  static \u0275fac = /* @__PURE__ */ (() => {
+    let \u0275TimesCircleIcon_BaseFactory;
+    return function TimesCircleIcon_Factory(t) {
+      return (\u0275TimesCircleIcon_BaseFactory || (\u0275TimesCircleIcon_BaseFactory = \u0275\u0275getInheritedFactory(_TimesCircleIcon)))(t || _TimesCircleIcon);
+    };
+  })();
+  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({
+    type: _TimesCircleIcon,
+    selectors: [["TimesCircleIcon"]],
+    standalone: true,
+    features: [\u0275\u0275InheritDefinitionFeature, \u0275\u0275StandaloneFeature],
+    decls: 6,
+    vars: 7,
+    consts: [["width", "14", "height", "14", "viewBox", "0 0 14 14", "fill", "none", "xmlns", "http://www.w3.org/2000/svg"], ["fill-rule", "evenodd", "clip-rule", "evenodd", "d", "M7 14C5.61553 14 4.26215 13.5895 3.11101 12.8203C1.95987 12.0511 1.06266 10.9579 0.532846 9.67879C0.00303296 8.3997 -0.13559 6.99224 0.134506 5.63437C0.404603 4.2765 1.07129 3.02922 2.05026 2.05026C3.02922 1.07129 4.2765 0.404603 5.63437 0.134506C6.99224 -0.13559 8.3997 0.00303296 9.67879 0.532846C10.9579 1.06266 12.0511 1.95987 12.8203 3.11101C13.5895 4.26215 14 5.61553 14 7C14 8.85652 13.2625 10.637 11.9497 11.9497C10.637 13.2625 8.85652 14 7 14ZM7 1.16667C5.84628 1.16667 4.71846 1.50879 3.75918 2.14976C2.79989 2.79074 2.05222 3.70178 1.61071 4.76768C1.16919 5.83358 1.05367 7.00647 1.27876 8.13803C1.50384 9.26958 2.05941 10.309 2.87521 11.1248C3.69102 11.9406 4.73042 12.4962 5.86198 12.7212C6.99353 12.9463 8.16642 12.8308 9.23232 12.3893C10.2982 11.9478 11.2093 11.2001 11.8502 10.2408C12.4912 9.28154 12.8333 8.15373 12.8333 7C12.8333 5.45291 12.2188 3.96918 11.1248 2.87521C10.0308 1.78125 8.5471 1.16667 7 1.16667ZM4.66662 9.91668C4.58998 9.91704 4.51404 9.90209 4.44325 9.87271C4.37246 9.84333 4.30826 9.8001 4.2544 9.74557C4.14516 9.6362 4.0838 9.48793 4.0838 9.33335C4.0838 9.17876 4.14516 9.0305 4.2544 8.92113L6.17553 7L4.25443 5.07891C4.15139 4.96832 4.09529 4.82207 4.09796 4.67094C4.10063 4.51982 4.16185 4.37563 4.26872 4.26876C4.3756 4.16188 4.51979 4.10066 4.67091 4.09799C4.82204 4.09532 4.96829 4.15142 5.07887 4.25446L6.99997 6.17556L8.92106 4.25446C9.03164 4.15142 9.1779 4.09532 9.32903 4.09799C9.48015 4.10066 9.62434 4.16188 9.73121 4.26876C9.83809 4.37563 9.89931 4.51982 9.90198 4.67094C9.90464 4.82207 9.84855 4.96832 9.74551 5.07891L7.82441 7L9.74554 8.92113C9.85478 9.0305 9.91614 9.17876 9.91614 9.33335C9.91614 9.48793 9.85478 9.6362 9.74554 9.74557C9.69168 9.8001 9.62748 9.84333 9.55669 9.87271C9.4859 9.90209 9.40996 9.91704 9.33332 9.91668C9.25668 9.91704 9.18073 9.90209 9.10995 9.87271C9.03916 9.84333 8.97495 9.8001 8.9211 9.74557L6.99997 7.82444L5.07884 9.74557C5.02499 9.8001 4.96078 9.84333 4.88999 9.87271C4.81921 9.90209 4.74326 9.91704 4.66662 9.91668Z", "fill", "currentColor"], [3, "id"], ["width", "14", "height", "14", "fill", "white"]],
+    template: function TimesCircleIcon_Template(rf, ctx) {
+      if (rf & 1) {
+        \u0275\u0275namespaceSVG();
+        \u0275\u0275elementStart(0, "svg", 0)(1, "g");
+        \u0275\u0275element(2, "path", 1);
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(3, "defs")(4, "clipPath", 2);
+        \u0275\u0275element(5, "rect", 3);
+        \u0275\u0275elementEnd()()();
+      }
+      if (rf & 2) {
+        \u0275\u0275classMap(ctx.getClassNames());
+        \u0275\u0275attribute("aria-label", ctx.ariaLabel)("aria-hidden", ctx.ariaHidden)("role", ctx.role);
+        \u0275\u0275advance();
+        \u0275\u0275attribute("clip-path", ctx.pathId);
+        \u0275\u0275advance(3);
+        \u0275\u0275property("id", ctx.pathId);
+      }
+    },
+    encapsulation: 2
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(TimesCircleIcon, [{
+    type: Component,
+    args: [{
+      selector: "TimesCircleIcon",
+      standalone: true,
+      imports: [BaseIcon],
+      template: `
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" [attr.aria-label]="ariaLabel" [attr.aria-hidden]="ariaHidden" [attr.role]="role" [class]="getClassNames()">
+            <g [attr.clip-path]="pathId">
+                <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M7 14C5.61553 14 4.26215 13.5895 3.11101 12.8203C1.95987 12.0511 1.06266 10.9579 0.532846 9.67879C0.00303296 8.3997 -0.13559 6.99224 0.134506 5.63437C0.404603 4.2765 1.07129 3.02922 2.05026 2.05026C3.02922 1.07129 4.2765 0.404603 5.63437 0.134506C6.99224 -0.13559 8.3997 0.00303296 9.67879 0.532846C10.9579 1.06266 12.0511 1.95987 12.8203 3.11101C13.5895 4.26215 14 5.61553 14 7C14 8.85652 13.2625 10.637 11.9497 11.9497C10.637 13.2625 8.85652 14 7 14ZM7 1.16667C5.84628 1.16667 4.71846 1.50879 3.75918 2.14976C2.79989 2.79074 2.05222 3.70178 1.61071 4.76768C1.16919 5.83358 1.05367 7.00647 1.27876 8.13803C1.50384 9.26958 2.05941 10.309 2.87521 11.1248C3.69102 11.9406 4.73042 12.4962 5.86198 12.7212C6.99353 12.9463 8.16642 12.8308 9.23232 12.3893C10.2982 11.9478 11.2093 11.2001 11.8502 10.2408C12.4912 9.28154 12.8333 8.15373 12.8333 7C12.8333 5.45291 12.2188 3.96918 11.1248 2.87521C10.0308 1.78125 8.5471 1.16667 7 1.16667ZM4.66662 9.91668C4.58998 9.91704 4.51404 9.90209 4.44325 9.87271C4.37246 9.84333 4.30826 9.8001 4.2544 9.74557C4.14516 9.6362 4.0838 9.48793 4.0838 9.33335C4.0838 9.17876 4.14516 9.0305 4.2544 8.92113L6.17553 7L4.25443 5.07891C4.15139 4.96832 4.09529 4.82207 4.09796 4.67094C4.10063 4.51982 4.16185 4.37563 4.26872 4.26876C4.3756 4.16188 4.51979 4.10066 4.67091 4.09799C4.82204 4.09532 4.96829 4.15142 5.07887 4.25446L6.99997 6.17556L8.92106 4.25446C9.03164 4.15142 9.1779 4.09532 9.32903 4.09799C9.48015 4.10066 9.62434 4.16188 9.73121 4.26876C9.83809 4.37563 9.89931 4.51982 9.90198 4.67094C9.90464 4.82207 9.84855 4.96832 9.74551 5.07891L7.82441 7L9.74554 8.92113C9.85478 9.0305 9.91614 9.17876 9.91614 9.33335C9.91614 9.48793 9.85478 9.6362 9.74554 9.74557C9.69168 9.8001 9.62748 9.84333 9.55669 9.87271C9.4859 9.90209 9.40996 9.91704 9.33332 9.91668C9.25668 9.91704 9.18073 9.90209 9.10995 9.87271C9.03916 9.84333 8.97495 9.8001 8.9211 9.74557L6.99997 7.82444L5.07884 9.74557C5.02499 9.8001 4.96078 9.84333 4.88999 9.87271C4.81921 9.90209 4.74326 9.91704 4.66662 9.91668Z"
+                    fill="currentColor"
+                />
+            </g>
+            <defs>
+                <clipPath [id]="pathId">
+                    <rect width="14" height="14" fill="white" />
+                </clipPath>
+            </defs>
+        </svg>
+    `
+    }]
+  }], null, null);
+})();
+
+// node_modules/primeng/fesm2022/primeng-messages.mjs
+var _c05 = (a0, a1) => ({
+  showTransitionParams: a0,
+  hideTransitionParams: a1
+});
+var _c12 = (a0) => ({
+  value: "visible",
+  params: a0
+});
+function Messages_ng_container_1_div_1_span_2_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275element(0, "span");
+  }
+  if (rf & 2) {
+    const msg_r1 = \u0275\u0275nextContext().$implicit;
+    \u0275\u0275classMap("p-message-icon pi " + msg_r1.icon);
+    \u0275\u0275attribute("data-pc-section", "icon");
+  }
+}
+function Messages_ng_container_1_div_1_span_3_CheckIcon_2_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275element(0, "CheckIcon");
+  }
+  if (rf & 2) {
+    \u0275\u0275attribute("data-pc-section", "icon");
+  }
+}
+function Messages_ng_container_1_div_1_span_3_InfoCircleIcon_3_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275element(0, "InfoCircleIcon");
+  }
+  if (rf & 2) {
+    \u0275\u0275attribute("data-pc-section", "icon");
+  }
+}
+function Messages_ng_container_1_div_1_span_3_TimesCircleIcon_4_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275element(0, "TimesCircleIcon");
+  }
+  if (rf & 2) {
+    \u0275\u0275attribute("data-pc-section", "icon");
+  }
+}
+function Messages_ng_container_1_div_1_span_3_ExclamationTriangleIcon_5_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275element(0, "ExclamationTriangleIcon");
+  }
+  if (rf & 2) {
+    \u0275\u0275attribute("data-pc-section", "icon");
+  }
+}
+function Messages_ng_container_1_div_1_span_3_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span", 10);
+    \u0275\u0275elementContainerStart(1);
+    \u0275\u0275template(2, Messages_ng_container_1_div_1_span_3_CheckIcon_2_Template, 1, 1, "CheckIcon", 11)(3, Messages_ng_container_1_div_1_span_3_InfoCircleIcon_3_Template, 1, 1, "InfoCircleIcon", 11)(4, Messages_ng_container_1_div_1_span_3_TimesCircleIcon_4_Template, 1, 1, "TimesCircleIcon", 11)(5, Messages_ng_container_1_div_1_span_3_ExclamationTriangleIcon_5_Template, 1, 1, "ExclamationTriangleIcon", 11);
+    \u0275\u0275elementContainerEnd();
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const msg_r1 = \u0275\u0275nextContext().$implicit;
+    \u0275\u0275advance(2);
+    \u0275\u0275property("ngIf", msg_r1.severity === "success");
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", msg_r1.severity === "info");
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", msg_r1.severity === "error");
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", msg_r1.severity === "warn");
+  }
+}
+function Messages_ng_container_1_div_1_ng_container_4_span_1_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275element(0, "span", 14);
+  }
+  if (rf & 2) {
+    const msg_r1 = \u0275\u0275nextContext(2).$implicit;
+    \u0275\u0275property("innerHTML", msg_r1.summary, \u0275\u0275sanitizeHtml);
+    \u0275\u0275attribute("data-pc-section", "summary");
+  }
+}
+function Messages_ng_container_1_div_1_ng_container_4_span_2_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275element(0, "span", 15);
+  }
+  if (rf & 2) {
+    const msg_r1 = \u0275\u0275nextContext(2).$implicit;
+    \u0275\u0275property("innerHTML", msg_r1.detail, \u0275\u0275sanitizeHtml);
+    \u0275\u0275attribute("data-pc-section", "detail");
+  }
+}
+function Messages_ng_container_1_div_1_ng_container_4_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementContainerStart(0);
+    \u0275\u0275template(1, Messages_ng_container_1_div_1_ng_container_4_span_1_Template, 1, 2, "span", 12)(2, Messages_ng_container_1_div_1_ng_container_4_span_2_Template, 1, 2, "span", 13);
+    \u0275\u0275elementContainerEnd();
+  }
+  if (rf & 2) {
+    const msg_r1 = \u0275\u0275nextContext().$implicit;
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", msg_r1.summary);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", msg_r1.detail);
+  }
+}
+function Messages_ng_container_1_div_1_ng_template_5_span_0_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span", 18);
+    \u0275\u0275text(1);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const msg_r1 = \u0275\u0275nextContext(2).$implicit;
+    \u0275\u0275attribute("data-pc-section", "summary");
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate(msg_r1.summary);
+  }
+}
+function Messages_ng_container_1_div_1_ng_template_5_span_1_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span", 19);
+    \u0275\u0275text(1);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const msg_r1 = \u0275\u0275nextContext(2).$implicit;
+    \u0275\u0275attribute("data-pc-section", "detail");
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate(msg_r1.detail);
+  }
+}
+function Messages_ng_container_1_div_1_ng_template_5_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275template(0, Messages_ng_container_1_div_1_ng_template_5_span_0_Template, 2, 2, "span", 16)(1, Messages_ng_container_1_div_1_ng_template_5_span_1_Template, 2, 2, "span", 17);
+  }
+  if (rf & 2) {
+    const msg_r1 = \u0275\u0275nextContext().$implicit;
+    \u0275\u0275property("ngIf", msg_r1.summary);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", msg_r1.detail);
+  }
+}
+function Messages_ng_container_1_div_1_button_7_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r2 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "button", 20);
+    \u0275\u0275listener("click", function Messages_ng_container_1_div_1_button_7_Template_button_click_0_listener() {
+      \u0275\u0275restoreView(_r2);
+      const i_r3 = \u0275\u0275nextContext().index;
+      const ctx_r3 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r3.removeMessage(i_r3));
+    });
+    \u0275\u0275element(1, "TimesIcon", 21);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r3 = \u0275\u0275nextContext(3);
+    \u0275\u0275attribute("aria-label", ctx_r3.closeAriaLabel)("data-pc-section", "closebutton");
+    \u0275\u0275advance();
+    \u0275\u0275property("styleClass", "p-message-close-icon");
+    \u0275\u0275attribute("data-pc-section", "closeicon");
+  }
+}
+function Messages_ng_container_1_div_1_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 5)(1, "div", 6);
+    \u0275\u0275template(2, Messages_ng_container_1_div_1_span_2_Template, 1, 3, "span", 7)(3, Messages_ng_container_1_div_1_span_3_Template, 6, 4, "span", 8)(4, Messages_ng_container_1_div_1_ng_container_4_Template, 3, 2, "ng-container", 3)(5, Messages_ng_container_1_div_1_ng_template_5_Template, 2, 2, "ng-template", null, 1, \u0275\u0275templateRefExtractor)(7, Messages_ng_container_1_div_1_button_7_Template, 2, 4, "button", 9);
+    \u0275\u0275elementEnd()();
+  }
+  if (rf & 2) {
+    const msg_r1 = ctx.$implicit;
+    const escapeOut_r5 = \u0275\u0275reference(6);
+    const ctx_r3 = \u0275\u0275nextContext(2);
+    \u0275\u0275classMap("p-message p-message-" + msg_r1.severity);
+    \u0275\u0275property("@messageAnimation", \u0275\u0275pureFunction1(12, _c12, \u0275\u0275pureFunction2(9, _c05, ctx_r3.showTransitionOptions, ctx_r3.hideTransitionOptions)));
+    \u0275\u0275advance();
+    \u0275\u0275attribute("data-pc-section", "wrapper");
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", msg_r1.icon);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", !msg_r1.icon);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", !ctx_r3.escape)("ngIfElse", escapeOut_r5);
+    \u0275\u0275advance(3);
+    \u0275\u0275property("ngIf", ctx_r3.closable);
+  }
+}
+function Messages_ng_container_1_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementContainerStart(0);
+    \u0275\u0275template(1, Messages_ng_container_1_div_1_Template, 8, 14, "div", 4);
+    \u0275\u0275elementContainerEnd();
+  }
+  if (rf & 2) {
+    const ctx_r3 = \u0275\u0275nextContext();
+    \u0275\u0275advance();
+    \u0275\u0275property("ngForOf", ctx_r3.messages);
+  }
+}
+function Messages_ng_template_2_ng_container_2_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementContainer(0);
+  }
+}
+function Messages_ng_template_2_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 22)(1, "div", 6);
+    \u0275\u0275template(2, Messages_ng_template_2_ng_container_2_Template, 1, 0, "ng-container", 23);
+    \u0275\u0275elementEnd()();
+  }
+  if (rf & 2) {
+    const ctx_r3 = \u0275\u0275nextContext();
+    \u0275\u0275property("ngClass", "p-message p-message-" + ctx_r3.severity);
+    \u0275\u0275advance(2);
+    \u0275\u0275property("ngTemplateOutlet", ctx_r3.contentTemplate);
+  }
+}
+var Messages = class _Messages {
+  messageService;
+  el;
+  cd;
+  config;
+  /**
+   * An array of messages to display.
+   * @group Props
+   */
+  set value(messages) {
+    this.messages = messages;
+    this.startMessageLifes(this.messages);
+  }
+  /**
+   * Defines if message box can be closed by the click icon.
+   * @group Props
+   */
+  closable = true;
+  /**
+   * Inline style of the component.
+   * @group Props
+   */
+  style;
+  /**
+   * Style class of the component.
+   * @group Props
+   */
+  styleClass;
+  /**
+   * Whether displaying services messages are enabled.
+   * @group Props
+   */
+  enableService = true;
+  /**
+   * Id to match the key of the message to enable scoping in service based messaging.
+   * @group Props
+   */
+  key;
+  /**
+   * Whether displaying messages would be escaped or not.
+   * @group Props
+   */
+  escape = true;
+  /**
+   * Severity level of the message.
+   * @group Props
+   */
+  severity;
+  /**
+   * Transition options of the show animation.
+   * @group Props
+   */
+  showTransitionOptions = "300ms ease-out";
+  /**
+   * Transition options of the hide animation.
+   * @group Props
+   */
+  hideTransitionOptions = "200ms cubic-bezier(0.86, 0, 0.07, 1)";
+  /**
+   * This function is executed when the value changes.
+   * @param {Message[]} value - messages value.
+   * @group Emits
+   */
+  valueChange = new EventEmitter();
+  /**
+   * This function is executed when a message is closed.
+   * @param {Message} value - Closed message.
+   * @group Emits
+   */
+  onClose = new EventEmitter();
+  templates;
+  messages;
+  messageSubscription;
+  clearSubscription;
+  timerSubscriptions = [];
+  contentTemplate;
+  constructor(messageService, el, cd, config2) {
+    this.messageService = messageService;
+    this.el = el;
+    this.cd = cd;
+    this.config = config2;
+  }
+  ngAfterContentInit() {
+    this.templates?.forEach((item) => {
+      switch (item.getType()) {
+        case "content":
+          this.contentTemplate = item.template;
+          break;
+        default:
+          this.contentTemplate = item.template;
+          break;
+      }
+    });
+    if (this.messageService && this.enableService && !this.contentTemplate) {
+      this.messageSubscription = this.messageService.messageObserver.subscribe((messages) => {
+        if (messages) {
+          if (!Array.isArray(messages)) {
+            messages = [messages];
+          }
+          const filteredMessages = messages.filter((m) => this.key === m.key);
+          this.messages = this.messages ? [...this.messages, ...filteredMessages] : [...filteredMessages];
+          this.startMessageLifes(filteredMessages);
+          this.cd.markForCheck();
+        }
+      });
+      this.clearSubscription = this.messageService.clearObserver.subscribe((key) => {
+        if (key) {
+          if (this.key === key) {
+            this.messages = null;
+          }
+        } else {
+          this.messages = null;
+        }
+        this.cd.markForCheck();
+      });
+    }
+  }
+  hasMessages() {
+    let parentEl = this.el.nativeElement.parentElement;
+    if (parentEl && parentEl.offsetParent) {
+      return this.contentTemplate != null || this.messages && this.messages.length > 0;
+    }
+    return false;
+  }
+  clear() {
+    this.messages = [];
+    this.valueChange.emit(this.messages);
+  }
+  removeMessage(i) {
+    this.messages = this.messages?.filter((msg, index) => index !== i);
+    this.messages[i] && this.onClose.emit(this.messages[i]);
+    this.valueChange.emit(this.messages);
+  }
+  get icon() {
+    const severity = this.severity || (this.hasMessages() ? this.messages[0].severity : null);
+    if (this.hasMessages()) {
+      switch (severity) {
+        case "success":
+          return "pi-check";
+        case "info":
+          return "pi-info-circle";
+        case "error":
+          return "pi-times";
+        case "warn":
+          return "pi-exclamation-triangle";
+        default:
+          return "pi-info-circle";
+      }
+    }
+    return null;
+  }
+  get closeAriaLabel() {
+    return this.config.translation.aria ? this.config.translation.aria.close : void 0;
+  }
+  ngOnDestroy() {
+    if (this.messageSubscription) {
+      this.messageSubscription.unsubscribe();
+    }
+    if (this.clearSubscription) {
+      this.clearSubscription.unsubscribe();
+    }
+    this.timerSubscriptions?.forEach((subscription) => subscription.unsubscribe());
+  }
+  startMessageLifes(messages) {
+    messages?.forEach((message) => message.life && this.startMessageLife(message));
+  }
+  startMessageLife(message) {
+    const timerSubsctiption = timer(message.life).subscribe(() => {
+      this.messages = this.messages?.filter((msgEl) => msgEl !== message);
+      this.timerSubscriptions = this.timerSubscriptions?.filter((timerEl) => timerEl !== timerSubsctiption);
+      this.valueChange.emit(this.messages);
+      this.cd.markForCheck();
+    });
+    this.timerSubscriptions.push(timerSubsctiption);
+  }
+  static \u0275fac = function Messages_Factory(t) {
+    return new (t || _Messages)(\u0275\u0275directiveInject(MessageService, 8), \u0275\u0275directiveInject(ElementRef), \u0275\u0275directiveInject(ChangeDetectorRef), \u0275\u0275directiveInject(PrimeNGConfig));
+  };
+  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({
+    type: _Messages,
+    selectors: [["p-messages"]],
+    contentQueries: function Messages_ContentQueries(rf, ctx, dirIndex) {
+      if (rf & 1) {
+        \u0275\u0275contentQuery(dirIndex, PrimeTemplate, 4);
+      }
+      if (rf & 2) {
+        let _t;
+        \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx.templates = _t);
+      }
+    },
+    hostAttrs: [1, "p-element"],
+    inputs: {
+      value: "value",
+      closable: [InputFlags.HasDecoratorInputTransform, "closable", "closable", booleanAttribute],
+      style: "style",
+      styleClass: "styleClass",
+      enableService: [InputFlags.HasDecoratorInputTransform, "enableService", "enableService", booleanAttribute],
+      key: "key",
+      escape: [InputFlags.HasDecoratorInputTransform, "escape", "escape", booleanAttribute],
+      severity: "severity",
+      showTransitionOptions: "showTransitionOptions",
+      hideTransitionOptions: "hideTransitionOptions"
+    },
+    outputs: {
+      valueChange: "valueChange",
+      onClose: "onClose"
+    },
+    features: [\u0275\u0275InputTransformsFeature],
+    decls: 4,
+    vars: 8,
+    consts: [["staticMessage", ""], ["escapeOut", ""], ["role", "alert", 1, "p-messages", "p-component", 3, "ngStyle"], [4, "ngIf", "ngIfElse"], ["role", "alert", 3, "class", 4, "ngFor", "ngForOf"], ["role", "alert"], [1, "p-message-wrapper"], [3, "class", 4, "ngIf"], ["class", "p-message-icon", 4, "ngIf"], ["class", "p-message-close p-link", "type", "button", "pRipple", "", 3, "click", 4, "ngIf"], [1, "p-message-icon"], [4, "ngIf"], ["class", "p-message-summary", 3, "innerHTML", 4, "ngIf"], ["class", "p-message-detail", 3, "innerHTML", 4, "ngIf"], [1, "p-message-summary", 3, "innerHTML"], [1, "p-message-detail", 3, "innerHTML"], ["class", "p-message-summary", 4, "ngIf"], ["class", "p-message-detail", 4, "ngIf"], [1, "p-message-summary"], [1, "p-message-detail"], ["type", "button", "pRipple", "", 1, "p-message-close", "p-link", 3, "click"], [3, "styleClass"], ["role", "alert", 3, "ngClass"], [4, "ngTemplateOutlet"]],
+    template: function Messages_Template(rf, ctx) {
+      if (rf & 1) {
+        \u0275\u0275elementStart(0, "div", 2);
+        \u0275\u0275template(1, Messages_ng_container_1_Template, 2, 1, "ng-container", 3)(2, Messages_ng_template_2_Template, 3, 2, "ng-template", null, 0, \u0275\u0275templateRefExtractor);
+        \u0275\u0275elementEnd();
+      }
+      if (rf & 2) {
+        const staticMessage_r6 = \u0275\u0275reference(3);
+        \u0275\u0275classMap(ctx.styleClass);
+        \u0275\u0275property("ngStyle", ctx.style);
+        \u0275\u0275attribute("aria-atomic", true)("aria-live", "assertive")("data-pc-name", "message");
+        \u0275\u0275advance();
+        \u0275\u0275property("ngIf", !ctx.contentTemplate)("ngIfElse", staticMessage_r6);
+      }
+    },
+    dependencies: () => [NgClass, NgForOf, NgIf, NgTemplateOutlet, NgStyle, Ripple, CheckIcon, InfoCircleIcon, TimesCircleIcon, ExclamationTriangleIcon, TimesIcon],
+    styles: ["@layer primeng{.p-message-wrapper{display:flex;align-items:center}.p-message-close{display:flex;align-items:center;justify-content:center;flex:none}.p-message-close.p-link{margin-left:auto;overflow:hidden;position:relative}.p-messages .p-message.ng-animating{overflow:hidden}}\n"],
+    encapsulation: 2,
+    data: {
+      animation: [trigger("messageAnimation", [transition(":enter", [style({
+        opacity: 0,
+        transform: "translateY(-25%)"
+      }), animate("{{showTransitionParams}}")]), transition(":leave", [animate("{{hideTransitionParams}}", style({
+        height: 0,
+        marginTop: 0,
+        marginBottom: 0,
+        marginLeft: 0,
+        marginRight: 0,
+        opacity: 0
+      }))])])]
+    },
+    changeDetection: 0
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(Messages, [{
+    type: Component,
+    args: [{
+      selector: "p-messages",
+      template: `
+        <div class="p-messages p-component" role="alert" [ngStyle]="style" [class]="styleClass" [attr.aria-atomic]="true" [attr.aria-live]="'assertive'" [attr.data-pc-name]="'message'">
+            <ng-container *ngIf="!contentTemplate; else staticMessage">
+                <div
+                    *ngFor="let msg of messages; let i = index"
+                    [class]="'p-message p-message-' + msg.severity"
+                    role="alert"
+                    [@messageAnimation]="{ value: 'visible', params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions } }"
+                >
+                    <div class="p-message-wrapper" [attr.data-pc-section]="'wrapper'">
+                        <span *ngIf="msg.icon" [class]="'p-message-icon pi ' + msg.icon" [attr.data-pc-section]="'icon'"> </span>
+                        <span class="p-message-icon" *ngIf="!msg.icon">
+                            <ng-container>
+                                <CheckIcon *ngIf="msg.severity === 'success'" [attr.data-pc-section]="'icon'" />
+                                <InfoCircleIcon *ngIf="msg.severity === 'info'" [attr.data-pc-section]="'icon'" />
+                                <TimesCircleIcon *ngIf="msg.severity === 'error'" [attr.data-pc-section]="'icon'" />
+                                <ExclamationTriangleIcon *ngIf="msg.severity === 'warn'" [attr.data-pc-section]="'icon'" />
+                            </ng-container>
+                        </span>
+                        <ng-container *ngIf="!escape; else escapeOut">
+                            <span *ngIf="msg.summary" class="p-message-summary" [innerHTML]="msg.summary" [attr.data-pc-section]="'summary'"></span>
+                            <span *ngIf="msg.detail" class="p-message-detail" [innerHTML]="msg.detail" [attr.data-pc-section]="'detail'"></span>
+                        </ng-container>
+                        <ng-template #escapeOut>
+                            <span *ngIf="msg.summary" class="p-message-summary" [attr.data-pc-section]="'summary'">{{ msg.summary }}</span>
+                            <span *ngIf="msg.detail" class="p-message-detail" [attr.data-pc-section]="'detail'">{{ msg.detail }}</span>
+                        </ng-template>
+                        <button class="p-message-close p-link" (click)="removeMessage(i)" *ngIf="closable" type="button" pRipple [attr.aria-label]="closeAriaLabel" [attr.data-pc-section]="'closebutton'">
+                            <TimesIcon [styleClass]="'p-message-close-icon'" [attr.data-pc-section]="'closeicon'" />
+                        </button>
+                    </div>
+                </div>
+            </ng-container>
+            <ng-template #staticMessage>
+                <div [ngClass]="'p-message p-message-' + severity" role="alert">
+                    <div class="p-message-wrapper">
+                        <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+                    </div>
+                </div>
+            </ng-template>
+        </div>
+    `,
+      animations: [trigger("messageAnimation", [transition(":enter", [style({
+        opacity: 0,
+        transform: "translateY(-25%)"
+      }), animate("{{showTransitionParams}}")]), transition(":leave", [animate("{{hideTransitionParams}}", style({
+        height: 0,
+        marginTop: 0,
+        marginBottom: 0,
+        marginLeft: 0,
+        marginRight: 0,
+        opacity: 0
+      }))])])],
+      changeDetection: ChangeDetectionStrategy.OnPush,
+      encapsulation: ViewEncapsulation$1.None,
+      host: {
+        class: "p-element"
+      },
+      styles: ["@layer primeng{.p-message-wrapper{display:flex;align-items:center}.p-message-close{display:flex;align-items:center;justify-content:center;flex:none}.p-message-close.p-link{margin-left:auto;overflow:hidden;position:relative}.p-messages .p-message.ng-animating{overflow:hidden}}\n"]
+    }]
+  }], () => [{
+    type: MessageService,
+    decorators: [{
+      type: Optional
+    }]
+  }, {
+    type: ElementRef
+  }, {
+    type: ChangeDetectorRef
+  }, {
+    type: PrimeNGConfig
+  }], {
+    value: [{
+      type: Input
+    }],
+    closable: [{
+      type: Input,
+      args: [{
+        transform: booleanAttribute
+      }]
+    }],
+    style: [{
+      type: Input
+    }],
+    styleClass: [{
+      type: Input
+    }],
+    enableService: [{
+      type: Input,
+      args: [{
+        transform: booleanAttribute
+      }]
+    }],
+    key: [{
+      type: Input
+    }],
+    escape: [{
+      type: Input,
+      args: [{
+        transform: booleanAttribute
+      }]
+    }],
+    severity: [{
+      type: Input
+    }],
+    showTransitionOptions: [{
+      type: Input
+    }],
+    hideTransitionOptions: [{
+      type: Input
+    }],
+    valueChange: [{
+      type: Output
+    }],
+    onClose: [{
+      type: Output
+    }],
+    templates: [{
+      type: ContentChildren,
+      args: [PrimeTemplate]
+    }]
+  });
+})();
+var MessagesModule = class _MessagesModule {
+  static \u0275fac = function MessagesModule_Factory(t) {
+    return new (t || _MessagesModule)();
+  };
+  static \u0275mod = /* @__PURE__ */ \u0275\u0275defineNgModule({
+    type: _MessagesModule
+  });
+  static \u0275inj = /* @__PURE__ */ \u0275\u0275defineInjector({
+    imports: [CommonModule, RippleModule, CheckIcon, InfoCircleIcon, TimesCircleIcon, ExclamationTriangleIcon, TimesIcon]
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(MessagesModule, [{
+    type: NgModule,
+    args: [{
+      imports: [CommonModule, RippleModule, CheckIcon, InfoCircleIcon, TimesCircleIcon, ExclamationTriangleIcon, TimesIcon],
+      exports: [Messages],
+      declarations: [Messages]
+    }]
+  }], null, null);
+})();
+
+// node_modules/primeng/fesm2022/primeng-progressbar.mjs
+var _c06 = (a0, a1) => ({
+  "p-progressbar p-component": true,
+  "p-progressbar-determinate": a0,
+  "p-progressbar-indeterminate": a1
+});
+var _c13 = (a0) => ({
+  $implicit: a0
+});
+function ProgressBar_div_1_div_2_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div");
+    \u0275\u0275text(1);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r0 = \u0275\u0275nextContext(2);
+    \u0275\u0275styleProp("display", ctx_r0.value != null && ctx_r0.value !== 0 ? "flex" : "none");
+    \u0275\u0275attribute("data-pc-section", "label");
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate2("", ctx_r0.value, "", ctx_r0.unit, "");
+  }
+}
+function ProgressBar_div_1_ng_container_3_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementContainer(0);
+  }
+}
+function ProgressBar_div_1_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 3)(1, "div", 4);
+    \u0275\u0275template(2, ProgressBar_div_1_div_2_Template, 2, 5, "div", 5)(3, ProgressBar_div_1_ng_container_3_Template, 1, 0, "ng-container", 6);
+    \u0275\u0275elementEnd()();
+  }
+  if (rf & 2) {
+    const ctx_r0 = \u0275\u0275nextContext();
+    \u0275\u0275styleProp("width", ctx_r0.value + "%")("background", ctx_r0.color);
+    \u0275\u0275attribute("data-pc-section", "value");
+    \u0275\u0275advance(2);
+    \u0275\u0275property("ngIf", ctx_r0.showValue && !ctx_r0.contentTemplate);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngTemplateOutlet", ctx_r0.contentTemplate)("ngTemplateOutletContext", \u0275\u0275pureFunction1(8, _c13, ctx_r0.value));
+  }
+}
+function ProgressBar_div_2_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 7);
+    \u0275\u0275element(1, "div", 8);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r0 = \u0275\u0275nextContext();
+    \u0275\u0275attribute("data-pc-section", "container");
+    \u0275\u0275advance();
+    \u0275\u0275styleProp("background", ctx_r0.color);
+    \u0275\u0275attribute("data-pc-section", "value");
+  }
+}
+var ProgressBar = class _ProgressBar {
+  /**
+   * Current value of the progress.
+   * @group Props
+   */
+  value;
+  /**
+   * Whether to display the progress bar value.
+   * @group Props
+   */
+  showValue = true;
+  /**
+   * Class of the element.
+   * @group Props
+   */
+  styleClass;
+  /**
+   * Inline style of the element.
+   * @group Props
+   */
+  style;
+  /**
+   * Unit sign appended to the value.
+   * @group Props
+   */
+  unit = "%";
+  /**
+   * Defines the mode of the progress
+   * @group Props
+   */
+  mode = "determinate";
+  /**
+   * Color for the background of the progress.
+   * @group Props
+   */
+  color;
+  templates;
+  contentTemplate;
+  ngAfterContentInit() {
+    this.templates?.forEach((item) => {
+      switch (item.getType()) {
+        case "content":
+          this.contentTemplate = item.template;
+          break;
+        default:
+          this.contentTemplate = item.template;
+      }
+    });
+  }
+  static \u0275fac = function ProgressBar_Factory(t) {
+    return new (t || _ProgressBar)();
+  };
+  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({
+    type: _ProgressBar,
+    selectors: [["p-progressBar"]],
+    contentQueries: function ProgressBar_ContentQueries(rf, ctx, dirIndex) {
+      if (rf & 1) {
+        \u0275\u0275contentQuery(dirIndex, PrimeTemplate, 4);
+      }
+      if (rf & 2) {
+        let _t;
+        \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx.templates = _t);
+      }
+    },
+    hostAttrs: [1, "p-element"],
+    inputs: {
+      value: [InputFlags.HasDecoratorInputTransform, "value", "value", numberAttribute],
+      showValue: [InputFlags.HasDecoratorInputTransform, "showValue", "showValue", booleanAttribute],
+      styleClass: "styleClass",
+      style: "style",
+      unit: "unit",
+      mode: "mode",
+      color: "color"
+    },
+    features: [\u0275\u0275InputTransformsFeature],
+    decls: 3,
+    vars: 14,
+    consts: [["role", "progressbar", 3, "ngStyle", "ngClass"], ["class", "p-progressbar-value p-progressbar-value-animate", "style", "display:flex", 3, "width", "background", 4, "ngIf"], ["class", "p-progressbar-indeterminate-container", 4, "ngIf"], [1, "p-progressbar-value", "p-progressbar-value-animate", 2, "display", "flex"], [1, "p-progressbar-label"], [3, "display", 4, "ngIf"], [4, "ngTemplateOutlet", "ngTemplateOutletContext"], [1, "p-progressbar-indeterminate-container"], [1, "p-progressbar-value", "p-progressbar-value-animate"]],
+    template: function ProgressBar_Template(rf, ctx) {
+      if (rf & 1) {
+        \u0275\u0275elementStart(0, "div", 0);
+        \u0275\u0275template(1, ProgressBar_div_1_Template, 4, 10, "div", 1)(2, ProgressBar_div_2_Template, 2, 4, "div", 2);
+        \u0275\u0275elementEnd();
+      }
+      if (rf & 2) {
+        \u0275\u0275classMap(ctx.styleClass);
+        \u0275\u0275property("ngStyle", ctx.style)("ngClass", \u0275\u0275pureFunction2(11, _c06, ctx.mode === "determinate", ctx.mode === "indeterminate"));
+        \u0275\u0275attribute("aria-valuemin", 0)("aria-valuenow", ctx.value)("aria-valuemax", 100)("data-pc-name", "progressbar")("data-pc-section", "root");
+        \u0275\u0275advance();
+        \u0275\u0275property("ngIf", ctx.mode === "determinate");
+        \u0275\u0275advance();
+        \u0275\u0275property("ngIf", ctx.mode === "indeterminate");
+      }
+    },
+    dependencies: [NgClass, NgIf, NgTemplateOutlet, NgStyle],
+    styles: ['@layer primeng{.p-progressbar{position:relative;overflow:hidden}.p-progressbar-determinate .p-progressbar-value{height:100%;width:0%;position:absolute;display:none;border:0 none;display:flex;align-items:center;justify-content:center;overflow:hidden}.p-progressbar-determinate .p-progressbar-label{display:inline-flex}.p-progressbar-determinate .p-progressbar-value-animate{transition:width 1s ease-in-out}.p-progressbar-indeterminate .p-progressbar-value:before{content:"";position:absolute;background-color:inherit;top:0;left:0;bottom:0;will-change:left,right;-webkit-animation:p-progressbar-indeterminate-anim 2.1s cubic-bezier(.65,.815,.735,.395) infinite;animation:p-progressbar-indeterminate-anim 2.1s cubic-bezier(.65,.815,.735,.395) infinite}.p-progressbar-indeterminate .p-progressbar-value:after{content:"";position:absolute;background-color:inherit;top:0;left:0;bottom:0;will-change:left,right;-webkit-animation:p-progressbar-indeterminate-anim-short 2.1s cubic-bezier(.165,.84,.44,1) infinite;animation:p-progressbar-indeterminate-anim-short 2.1s cubic-bezier(.165,.84,.44,1) infinite;-webkit-animation-delay:1.15s;animation-delay:1.15s}}@-webkit-keyframes p-progressbar-indeterminate-anim{0%{left:-35%;right:100%}60%{left:100%;right:-90%}to{left:100%;right:-90%}}@keyframes p-progressbar-indeterminate-anim{0%{left:-35%;right:100%}60%{left:100%;right:-90%}to{left:100%;right:-90%}}@-webkit-keyframes p-progressbar-indeterminate-anim-short{0%{left:-200%;right:100%}60%{left:107%;right:-8%}to{left:107%;right:-8%}}@keyframes p-progressbar-indeterminate-anim-short{0%{left:-200%;right:100%}60%{left:107%;right:-8%}to{left:107%;right:-8%}}\n'],
+    encapsulation: 2,
+    changeDetection: 0
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(ProgressBar, [{
+    type: Component,
+    args: [{
+      selector: "p-progressBar",
+      template: `
+        <div
+            role="progressbar"
+            [class]="styleClass"
+            [ngStyle]="style"
+            [attr.aria-valuemin]="0"
+            [attr.aria-valuenow]="value"
+            [attr.aria-valuemax]="100"
+            [attr.data-pc-name]="'progressbar'"
+            [attr.data-pc-section]="'root'"
+            [ngClass]="{ 'p-progressbar p-component': true, 'p-progressbar-determinate': mode === 'determinate', 'p-progressbar-indeterminate': mode === 'indeterminate' }"
+        >
+            <div *ngIf="mode === 'determinate'" class="p-progressbar-value p-progressbar-value-animate" [style.width]="value + '%'" style="display:flex" [style.background]="color" [attr.data-pc-section]="'value'">
+                <div class="p-progressbar-label">
+                    <div *ngIf="showValue && !contentTemplate" [style.display]="value != null && value !== 0 ? 'flex' : 'none'" [attr.data-pc-section]="'label'">{{ value }}{{ unit }}</div>
+                    <ng-container *ngTemplateOutlet="contentTemplate; context: { $implicit: value }"></ng-container>
+                </div>
+            </div>
+            <div *ngIf="mode === 'indeterminate'" class="p-progressbar-indeterminate-container" [attr.data-pc-section]="'container'">
+                <div class="p-progressbar-value p-progressbar-value-animate" [style.background]="color" [attr.data-pc-section]="'value'"></div>
+            </div>
+        </div>
+    `,
+      changeDetection: ChangeDetectionStrategy.OnPush,
+      encapsulation: ViewEncapsulation$1.None,
+      host: {
+        class: "p-element"
+      },
+      styles: ['@layer primeng{.p-progressbar{position:relative;overflow:hidden}.p-progressbar-determinate .p-progressbar-value{height:100%;width:0%;position:absolute;display:none;border:0 none;display:flex;align-items:center;justify-content:center;overflow:hidden}.p-progressbar-determinate .p-progressbar-label{display:inline-flex}.p-progressbar-determinate .p-progressbar-value-animate{transition:width 1s ease-in-out}.p-progressbar-indeterminate .p-progressbar-value:before{content:"";position:absolute;background-color:inherit;top:0;left:0;bottom:0;will-change:left,right;-webkit-animation:p-progressbar-indeterminate-anim 2.1s cubic-bezier(.65,.815,.735,.395) infinite;animation:p-progressbar-indeterminate-anim 2.1s cubic-bezier(.65,.815,.735,.395) infinite}.p-progressbar-indeterminate .p-progressbar-value:after{content:"";position:absolute;background-color:inherit;top:0;left:0;bottom:0;will-change:left,right;-webkit-animation:p-progressbar-indeterminate-anim-short 2.1s cubic-bezier(.165,.84,.44,1) infinite;animation:p-progressbar-indeterminate-anim-short 2.1s cubic-bezier(.165,.84,.44,1) infinite;-webkit-animation-delay:1.15s;animation-delay:1.15s}}@-webkit-keyframes p-progressbar-indeterminate-anim{0%{left:-35%;right:100%}60%{left:100%;right:-90%}to{left:100%;right:-90%}}@keyframes p-progressbar-indeterminate-anim{0%{left:-35%;right:100%}60%{left:100%;right:-90%}to{left:100%;right:-90%}}@-webkit-keyframes p-progressbar-indeterminate-anim-short{0%{left:-200%;right:100%}60%{left:107%;right:-8%}to{left:107%;right:-8%}}@keyframes p-progressbar-indeterminate-anim-short{0%{left:-200%;right:100%}60%{left:107%;right:-8%}to{left:107%;right:-8%}}\n']
+    }]
+  }], null, {
+    value: [{
+      type: Input,
+      args: [{
+        transform: numberAttribute
+      }]
+    }],
+    showValue: [{
+      type: Input,
+      args: [{
+        transform: booleanAttribute
+      }]
+    }],
+    styleClass: [{
+      type: Input
+    }],
+    style: [{
+      type: Input
+    }],
+    unit: [{
+      type: Input
+    }],
+    mode: [{
+      type: Input
+    }],
+    color: [{
+      type: Input
+    }],
+    templates: [{
+      type: ContentChildren,
+      args: [PrimeTemplate]
+    }]
+  });
+})();
+var ProgressBarModule = class _ProgressBarModule {
+  static \u0275fac = function ProgressBarModule_Factory(t) {
+    return new (t || _ProgressBarModule)();
+  };
+  static \u0275mod = /* @__PURE__ */ \u0275\u0275defineNgModule({
+    type: _ProgressBarModule
+  });
+  static \u0275inj = /* @__PURE__ */ \u0275\u0275defineInjector({
+    imports: [CommonModule]
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(ProgressBarModule, [{
+    type: NgModule,
+    args: [{
+      imports: [CommonModule],
+      exports: [ProgressBar],
+      declarations: [ProgressBar]
+    }]
+  }], null, null);
+})();
+
+// node_modules/primeng/fesm2022/primeng-fileupload.mjs
+var _c07 = ["advancedfileinput"];
+var _c14 = ["basicfileinput"];
+var _c22 = ["content"];
+var _c32 = (a0, a1) => ({
+  "p-focus": a0,
+  "p-disabled": a1
+});
+var _c42 = (a0) => ({
+  $implicit: a0
+});
+var _c52 = (a0, a1, a2, a3) => ({
+  "p-button p-component p-fileupload-choose": true,
+  "p-button-icon-only": a0,
+  "p-fileupload-choose-selected": a1,
+  "p-focus": a2,
+  "p-disabled": a3
+});
+function FileUpload_div_0_span_5_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275element(0, "span", 20);
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(2);
+    \u0275\u0275classMap(ctx_r1.chooseIcon);
+    \u0275\u0275property("ngClass", "p-button-icon p-button-icon-left");
+    \u0275\u0275attribute("aria-label", true)("data-pc-section", "chooseicon");
+  }
+}
+function FileUpload_div_0_ng_container_6_PlusIcon_1_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275element(0, "PlusIcon", 23);
+  }
+  if (rf & 2) {
+    \u0275\u0275property("styleClass", "p-button-icon p-button-icon-left");
+    \u0275\u0275attribute("aria-label", true)("data-pc-section", "chooseicon");
+  }
+}
+function FileUpload_div_0_ng_container_6_span_2_1_ng_template_0_Template(rf, ctx) {
+}
+function FileUpload_div_0_ng_container_6_span_2_1_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275template(0, FileUpload_div_0_ng_container_6_span_2_1_ng_template_0_Template, 0, 0, "ng-template");
+  }
+}
+function FileUpload_div_0_ng_container_6_span_2_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span", 24);
+    \u0275\u0275template(1, FileUpload_div_0_ng_container_6_span_2_1_Template, 1, 0, null, 14);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(3);
+    \u0275\u0275attribute("aria-label", true)("data-pc-section", "chooseicon");
+    \u0275\u0275advance();
+    \u0275\u0275property("ngTemplateOutlet", ctx_r1.chooseIconTemplate);
+  }
+}
+function FileUpload_div_0_ng_container_6_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementContainerStart(0);
+    \u0275\u0275template(1, FileUpload_div_0_ng_container_6_PlusIcon_1_Template, 1, 3, "PlusIcon", 21)(2, FileUpload_div_0_ng_container_6_span_2_Template, 2, 3, "span", 22);
+    \u0275\u0275elementContainerEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(2);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", !ctx_r1.chooseIconTemplate);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", ctx_r1.chooseIconTemplate);
+  }
+}
+function FileUpload_div_0_p_button_9_span_1_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275element(0, "span", 27);
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(3);
+    \u0275\u0275property("ngClass", ctx_r1.uploadIcon);
+    \u0275\u0275attribute("aria-hidden", true);
+  }
+}
+function FileUpload_div_0_p_button_9_ng_container_2_UploadIcon_1_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275element(0, "UploadIcon", 23);
+  }
+  if (rf & 2) {
+    \u0275\u0275property("styleClass", "p-button-icon p-button-icon-left");
+  }
+}
+function FileUpload_div_0_p_button_9_ng_container_2_span_2_1_ng_template_0_Template(rf, ctx) {
+}
+function FileUpload_div_0_p_button_9_ng_container_2_span_2_1_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275template(0, FileUpload_div_0_p_button_9_ng_container_2_span_2_1_ng_template_0_Template, 0, 0, "ng-template");
+  }
+}
+function FileUpload_div_0_p_button_9_ng_container_2_span_2_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span", 24);
+    \u0275\u0275template(1, FileUpload_div_0_p_button_9_ng_container_2_span_2_1_Template, 1, 0, null, 14);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(4);
+    \u0275\u0275attribute("aria-hidden", true);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngTemplateOutlet", ctx_r1.uploadIconTemplate);
+  }
+}
+function FileUpload_div_0_p_button_9_ng_container_2_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementContainerStart(0);
+    \u0275\u0275template(1, FileUpload_div_0_p_button_9_ng_container_2_UploadIcon_1_Template, 1, 1, "UploadIcon", 21)(2, FileUpload_div_0_p_button_9_ng_container_2_span_2_Template, 2, 2, "span", 22);
+    \u0275\u0275elementContainerEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(3);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", !ctx_r1.uploadIconTemplate);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", ctx_r1.uploadIconTemplate);
+  }
+}
+function FileUpload_div_0_p_button_9_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r3 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "p-button", 25);
+    \u0275\u0275listener("onClick", function FileUpload_div_0_p_button_9_Template_p_button_onClick_0_listener() {
+      \u0275\u0275restoreView(_r3);
+      const ctx_r1 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r1.upload());
+    });
+    \u0275\u0275template(1, FileUpload_div_0_p_button_9_span_1_Template, 1, 2, "span", 26)(2, FileUpload_div_0_p_button_9_ng_container_2_Template, 3, 2, "ng-container", 11);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(2);
+    \u0275\u0275property("label", ctx_r1.uploadButtonLabel)("disabled", !ctx_r1.hasFiles() || ctx_r1.isFileLimitExceeded())("styleClass", ctx_r1.uploadStyleClass);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", ctx_r1.uploadIcon);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", !ctx_r1.uploadIcon);
+  }
+}
+function FileUpload_div_0_p_button_10_span_1_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275element(0, "span", 27);
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(3);
+    \u0275\u0275property("ngClass", ctx_r1.cancelIcon);
+  }
+}
+function FileUpload_div_0_p_button_10_ng_container_2_TimesIcon_1_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275element(0, "TimesIcon", 23);
+  }
+  if (rf & 2) {
+    \u0275\u0275property("styleClass", "p-button-icon p-button-icon-left");
+    \u0275\u0275attribute("aria-hidden", true);
+  }
+}
+function FileUpload_div_0_p_button_10_ng_container_2_span_2_1_ng_template_0_Template(rf, ctx) {
+}
+function FileUpload_div_0_p_button_10_ng_container_2_span_2_1_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275template(0, FileUpload_div_0_p_button_10_ng_container_2_span_2_1_ng_template_0_Template, 0, 0, "ng-template");
+  }
+}
+function FileUpload_div_0_p_button_10_ng_container_2_span_2_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span", 24);
+    \u0275\u0275template(1, FileUpload_div_0_p_button_10_ng_container_2_span_2_1_Template, 1, 0, null, 14);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(4);
+    \u0275\u0275attribute("aria-hidden", true);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngTemplateOutlet", ctx_r1.cancelIconTemplate);
+  }
+}
+function FileUpload_div_0_p_button_10_ng_container_2_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementContainerStart(0);
+    \u0275\u0275template(1, FileUpload_div_0_p_button_10_ng_container_2_TimesIcon_1_Template, 1, 2, "TimesIcon", 21)(2, FileUpload_div_0_p_button_10_ng_container_2_span_2_Template, 2, 2, "span", 22);
+    \u0275\u0275elementContainerEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(3);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", !ctx_r1.cancelIconTemplate);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", ctx_r1.cancelIconTemplate);
+  }
+}
+function FileUpload_div_0_p_button_10_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r4 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "p-button", 25);
+    \u0275\u0275listener("onClick", function FileUpload_div_0_p_button_10_Template_p_button_onClick_0_listener() {
+      \u0275\u0275restoreView(_r4);
+      const ctx_r1 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r1.clear());
+    });
+    \u0275\u0275template(1, FileUpload_div_0_p_button_10_span_1_Template, 1, 1, "span", 26)(2, FileUpload_div_0_p_button_10_ng_container_2_Template, 3, 2, "ng-container", 11);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(2);
+    \u0275\u0275property("label", ctx_r1.cancelButtonLabel)("disabled", !ctx_r1.hasFiles() || ctx_r1.uploading)("styleClass", ctx_r1.cancelStyleClass);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", ctx_r1.cancelIcon);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", !ctx_r1.cancelIcon);
+  }
+}
+function FileUpload_div_0_ng_container_11_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementContainer(0);
+  }
+}
+function FileUpload_div_0_p_progressBar_14_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275element(0, "p-progressBar", 28);
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(2);
+    \u0275\u0275property("value", ctx_r1.progress)("showValue", false);
+  }
+}
+function FileUpload_div_0_div_16_div_1_div_1_img_2_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r6 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "img", 35);
+    \u0275\u0275listener("error", function FileUpload_div_0_div_16_div_1_div_1_img_2_Template_img_error_0_listener($event) {
+      \u0275\u0275restoreView(_r6);
+      const ctx_r1 = \u0275\u0275nextContext(5);
+      return \u0275\u0275resetView(ctx_r1.imageError($event));
+    });
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const file_r7 = \u0275\u0275nextContext().$implicit;
+    const ctx_r1 = \u0275\u0275nextContext(4);
+    \u0275\u0275property("src", file_r7.objectURL, \u0275\u0275sanitizeUrl)("width", ctx_r1.previewWidth);
+  }
+}
+function FileUpload_div_0_div_16_div_1_div_1_TimesIcon_9_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275element(0, "TimesIcon");
+  }
+}
+function FileUpload_div_0_div_16_div_1_div_1_10_ng_template_0_Template(rf, ctx) {
+}
+function FileUpload_div_0_div_16_div_1_div_1_10_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275template(0, FileUpload_div_0_div_16_div_1_div_1_10_ng_template_0_Template, 0, 0, "ng-template");
+  }
+}
+function FileUpload_div_0_div_16_div_1_div_1_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r5 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 31)(1, "div");
+    \u0275\u0275template(2, FileUpload_div_0_div_16_div_1_div_1_img_2_Template, 1, 2, "img", 32);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(3, "div", 33);
+    \u0275\u0275text(4);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(5, "div");
+    \u0275\u0275text(6);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(7, "div")(8, "button", 34);
+    \u0275\u0275listener("click", function FileUpload_div_0_div_16_div_1_div_1_Template_button_click_8_listener($event) {
+      const i_r8 = \u0275\u0275restoreView(_r5).index;
+      const ctx_r1 = \u0275\u0275nextContext(4);
+      return \u0275\u0275resetView(ctx_r1.remove($event, i_r8));
+    });
+    \u0275\u0275template(9, FileUpload_div_0_div_16_div_1_div_1_TimesIcon_9_Template, 1, 0, "TimesIcon", 11)(10, FileUpload_div_0_div_16_div_1_div_1_10_Template, 1, 0, null, 14);
+    \u0275\u0275elementEnd()()();
+  }
+  if (rf & 2) {
+    const file_r7 = ctx.$implicit;
+    const ctx_r1 = \u0275\u0275nextContext(4);
+    \u0275\u0275advance(2);
+    \u0275\u0275property("ngIf", ctx_r1.isImage(file_r7));
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(file_r7.name);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(ctx_r1.formatSize(file_r7.size));
+    \u0275\u0275advance(2);
+    \u0275\u0275classMap(ctx_r1.removeStyleClass);
+    \u0275\u0275property("disabled", ctx_r1.uploading);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", !ctx_r1.cancelIconTemplate);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngTemplateOutlet", ctx_r1.cancelIconTemplate);
+  }
+}
+function FileUpload_div_0_div_16_div_1_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div");
+    \u0275\u0275template(1, FileUpload_div_0_div_16_div_1_div_1_Template, 11, 8, "div", 30);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(3);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngForOf", ctx_r1.files);
+  }
+}
+function FileUpload_div_0_div_16_div_2_ng_template_1_Template(rf, ctx) {
+}
+function FileUpload_div_0_div_16_div_2_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div");
+    \u0275\u0275template(1, FileUpload_div_0_div_16_div_2_ng_template_1_Template, 0, 0, "ng-template", 36);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(3);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngForOf", ctx_r1.files)("ngForTemplate", ctx_r1.fileTemplate);
+  }
+}
+function FileUpload_div_0_div_16_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 29);
+    \u0275\u0275template(1, FileUpload_div_0_div_16_div_1_Template, 2, 1, "div", 11)(2, FileUpload_div_0_div_16_div_2_Template, 2, 2, "div", 11);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(2);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", !ctx_r1.fileTemplate);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", ctx_r1.fileTemplate);
+  }
+}
+function FileUpload_div_0_ng_container_17_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementContainer(0);
+  }
+}
+function FileUpload_div_0_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r1 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 6)(1, "div", 7)(2, "span", 8);
+    \u0275\u0275listener("focus", function FileUpload_div_0_Template_span_focus_2_listener() {
+      \u0275\u0275restoreView(_r1);
+      const ctx_r1 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r1.onFocus());
+    })("blur", function FileUpload_div_0_Template_span_blur_2_listener() {
+      \u0275\u0275restoreView(_r1);
+      const ctx_r1 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r1.onBlur());
+    })("click", function FileUpload_div_0_Template_span_click_2_listener() {
+      \u0275\u0275restoreView(_r1);
+      const ctx_r1 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r1.choose());
+    })("keydown.enter", function FileUpload_div_0_Template_span_keydown_enter_2_listener() {
+      \u0275\u0275restoreView(_r1);
+      const ctx_r1 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r1.choose());
+    });
+    \u0275\u0275elementStart(3, "input", 9, 0);
+    \u0275\u0275listener("change", function FileUpload_div_0_Template_input_change_3_listener($event) {
+      \u0275\u0275restoreView(_r1);
+      const ctx_r1 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r1.onFileSelect($event));
+    });
+    \u0275\u0275elementEnd();
+    \u0275\u0275template(5, FileUpload_div_0_span_5_Template, 1, 5, "span", 10)(6, FileUpload_div_0_ng_container_6_Template, 3, 2, "ng-container", 11);
+    \u0275\u0275elementStart(7, "span", 12);
+    \u0275\u0275text(8);
+    \u0275\u0275elementEnd()();
+    \u0275\u0275template(9, FileUpload_div_0_p_button_9_Template, 3, 5, "p-button", 13)(10, FileUpload_div_0_p_button_10_Template, 3, 5, "p-button", 13)(11, FileUpload_div_0_ng_container_11_Template, 1, 0, "ng-container", 14);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(12, "div", 15, 1);
+    \u0275\u0275listener("dragenter", function FileUpload_div_0_Template_div_dragenter_12_listener($event) {
+      \u0275\u0275restoreView(_r1);
+      const ctx_r1 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r1.onDragEnter($event));
+    })("dragleave", function FileUpload_div_0_Template_div_dragleave_12_listener($event) {
+      \u0275\u0275restoreView(_r1);
+      const ctx_r1 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r1.onDragLeave($event));
+    })("drop", function FileUpload_div_0_Template_div_drop_12_listener($event) {
+      \u0275\u0275restoreView(_r1);
+      const ctx_r1 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r1.onDrop($event));
+    });
+    \u0275\u0275template(14, FileUpload_div_0_p_progressBar_14_Template, 1, 2, "p-progressBar", 16);
+    \u0275\u0275element(15, "p-messages", 17);
+    \u0275\u0275template(16, FileUpload_div_0_div_16_Template, 3, 2, "div", 18)(17, FileUpload_div_0_ng_container_17_Template, 1, 0, "ng-container", 19);
+    \u0275\u0275elementEnd()();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext();
+    \u0275\u0275classMap(ctx_r1.styleClass);
+    \u0275\u0275property("ngClass", "p-fileupload p-fileupload-advanced p-component")("ngStyle", ctx_r1.style);
+    \u0275\u0275attribute("data-pc-name", "fileupload")("data-pc-section", "root");
+    \u0275\u0275advance();
+    \u0275\u0275attribute("data-pc-section", "buttonbar");
+    \u0275\u0275advance();
+    \u0275\u0275classMap(ctx_r1.chooseStyleClass);
+    \u0275\u0275property("ngClass", \u0275\u0275pureFunction2(31, _c32, ctx_r1.focus, ctx_r1.disabled || ctx_r1.isChooseDisabled()));
+    \u0275\u0275attribute("data-pc-section", "choosebutton");
+    \u0275\u0275advance();
+    \u0275\u0275property("multiple", ctx_r1.multiple)("accept", ctx_r1.accept)("disabled", ctx_r1.disabled || ctx_r1.isChooseDisabled());
+    \u0275\u0275attribute("aria-label", ctx_r1.browseFilesLabel)("title", "")("data-pc-section", "input");
+    \u0275\u0275advance(2);
+    \u0275\u0275property("ngIf", ctx_r1.chooseIcon);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", !ctx_r1.chooseIcon);
+    \u0275\u0275advance();
+    \u0275\u0275attribute("data-pc-section", "choosebuttonlabel");
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate(ctx_r1.chooseButtonLabel);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", !ctx_r1.auto && ctx_r1.showUploadButton);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", !ctx_r1.auto && ctx_r1.showCancelButton);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngTemplateOutlet", ctx_r1.toolbarTemplate);
+    \u0275\u0275advance();
+    \u0275\u0275attribute("data-pc-section", "content");
+    \u0275\u0275advance(2);
+    \u0275\u0275property("ngIf", ctx_r1.hasFiles());
+    \u0275\u0275advance();
+    \u0275\u0275property("value", ctx_r1.msgs)("enableService", false);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", ctx_r1.hasFiles());
+    \u0275\u0275advance();
+    \u0275\u0275property("ngTemplateOutlet", ctx_r1.contentTemplate)("ngTemplateOutletContext", \u0275\u0275pureFunction1(34, _c42, ctx_r1.files));
+  }
+}
+function FileUpload_div_1_ng_container_3_span_1_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275element(0, "span", 27);
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(3);
+    \u0275\u0275property("ngClass", ctx_r1.uploadIcon);
+  }
+}
+function FileUpload_div_1_ng_container_3_ng_container_2_UploadIcon_1_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275element(0, "UploadIcon", 23);
+  }
+  if (rf & 2) {
+    \u0275\u0275property("styleClass", "p-button-icon p-button-icon-left");
+  }
+}
+function FileUpload_div_1_ng_container_3_ng_container_2_span_2_1_ng_template_0_Template(rf, ctx) {
+}
+function FileUpload_div_1_ng_container_3_ng_container_2_span_2_1_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275template(0, FileUpload_div_1_ng_container_3_ng_container_2_span_2_1_ng_template_0_Template, 0, 0, "ng-template");
+  }
+}
+function FileUpload_div_1_ng_container_3_ng_container_2_span_2_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span", 24);
+    \u0275\u0275template(1, FileUpload_div_1_ng_container_3_ng_container_2_span_2_1_Template, 1, 0, null, 14);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(4);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngTemplateOutlet", ctx_r1.uploadIconTemplate);
+  }
+}
+function FileUpload_div_1_ng_container_3_ng_container_2_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementContainerStart(0);
+    \u0275\u0275template(1, FileUpload_div_1_ng_container_3_ng_container_2_UploadIcon_1_Template, 1, 1, "UploadIcon", 21)(2, FileUpload_div_1_ng_container_3_ng_container_2_span_2_Template, 2, 1, "span", 22);
+    \u0275\u0275elementContainerEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(3);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", !ctx_r1.uploadIconTemplate);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", ctx_r1.uploadIconTemplate);
+  }
+}
+function FileUpload_div_1_ng_container_3_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementContainerStart(0);
+    \u0275\u0275template(1, FileUpload_div_1_ng_container_3_span_1_Template, 1, 1, "span", 26)(2, FileUpload_div_1_ng_container_3_ng_container_2_Template, 3, 2, "ng-container", 11);
+    \u0275\u0275elementContainerEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(2);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", ctx_r1.uploadIcon);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", !ctx_r1.uploadIcon);
+  }
+}
+function FileUpload_div_1_ng_template_4_span_0_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275element(0, "span", 43);
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(3);
+    \u0275\u0275property("ngClass", ctx_r1.chooseIcon);
+  }
+}
+function FileUpload_div_1_ng_template_4_ng_container_1_PlusIcon_1_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275element(0, "PlusIcon", 23);
+  }
+  if (rf & 2) {
+    \u0275\u0275property("styleClass", "p-button-icon p-button-icon-left pi");
+    \u0275\u0275attribute("aria-hidden", true)("data-pc-section", "uploadicon");
+  }
+}
+function FileUpload_div_1_ng_template_4_ng_container_1_span_2_1_ng_template_0_Template(rf, ctx) {
+}
+function FileUpload_div_1_ng_template_4_ng_container_1_span_2_1_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275template(0, FileUpload_div_1_ng_template_4_ng_container_1_span_2_1_ng_template_0_Template, 0, 0, "ng-template");
+  }
+}
+function FileUpload_div_1_ng_template_4_ng_container_1_span_2_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span", 45);
+    \u0275\u0275template(1, FileUpload_div_1_ng_template_4_ng_container_1_span_2_1_Template, 1, 0, null, 14);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(4);
+    \u0275\u0275attribute("aria-hidden", true)("data-pc-section", "uploadicon");
+    \u0275\u0275advance();
+    \u0275\u0275property("ngTemplateOutlet", ctx_r1.chooseIconTemplate);
+  }
+}
+function FileUpload_div_1_ng_template_4_ng_container_1_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementContainerStart(0);
+    \u0275\u0275template(1, FileUpload_div_1_ng_template_4_ng_container_1_PlusIcon_1_Template, 1, 3, "PlusIcon", 21)(2, FileUpload_div_1_ng_template_4_ng_container_1_span_2_Template, 2, 3, "span", 44);
+    \u0275\u0275elementContainerEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(3);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", !ctx_r1.chooseIconTemplate);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", ctx_r1.chooseIconTemplate);
+  }
+}
+function FileUpload_div_1_ng_template_4_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275template(0, FileUpload_div_1_ng_template_4_span_0_Template, 1, 1, "span", 42)(1, FileUpload_div_1_ng_template_4_ng_container_1_Template, 3, 2, "ng-container", 11);
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(2);
+    \u0275\u0275property("ngIf", ctx_r1.chooseIcon);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", !ctx_r1.chooseIcon);
+  }
+}
+function FileUpload_div_1_span_6_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span", 12);
+    \u0275\u0275text(1);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(2);
+    \u0275\u0275attribute("data-pc-section", "label");
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate(ctx_r1.basicButtonLabel);
+  }
+}
+function FileUpload_div_1_input_7_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r10 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "input", 46, 3);
+    \u0275\u0275listener("change", function FileUpload_div_1_input_7_Template_input_change_0_listener($event) {
+      \u0275\u0275restoreView(_r10);
+      const ctx_r1 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r1.onFileSelect($event));
+    })("focus", function FileUpload_div_1_input_7_Template_input_focus_0_listener() {
+      \u0275\u0275restoreView(_r10);
+      const ctx_r1 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r1.onFocus());
+    })("blur", function FileUpload_div_1_input_7_Template_input_blur_0_listener() {
+      \u0275\u0275restoreView(_r10);
+      const ctx_r1 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r1.onBlur());
+    });
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(2);
+    \u0275\u0275property("accept", ctx_r1.accept)("multiple", ctx_r1.multiple)("disabled", ctx_r1.disabled);
+    \u0275\u0275attribute("aria-label", ctx_r1.browseFilesLabel)("data-pc-section", "input");
+  }
+}
+function FileUpload_div_1_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r9 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 37);
+    \u0275\u0275element(1, "p-messages", 17);
+    \u0275\u0275elementStart(2, "span", 38);
+    \u0275\u0275listener("click", function FileUpload_div_1_Template_span_click_2_listener() {
+      \u0275\u0275restoreView(_r9);
+      const ctx_r1 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r1.onBasicUploaderClick());
+    })("keydown", function FileUpload_div_1_Template_span_keydown_2_listener($event) {
+      \u0275\u0275restoreView(_r9);
+      const ctx_r1 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r1.onBasicKeydown($event));
+    });
+    \u0275\u0275template(3, FileUpload_div_1_ng_container_3_Template, 3, 2, "ng-container", 39)(4, FileUpload_div_1_ng_template_4_Template, 2, 2, "ng-template", null, 2, \u0275\u0275templateRefExtractor)(6, FileUpload_div_1_span_6_Template, 2, 2, "span", 40)(7, FileUpload_div_1_input_7_Template, 2, 5, "input", 41);
+    \u0275\u0275elementEnd()();
+  }
+  if (rf & 2) {
+    const chooseSection_r11 = \u0275\u0275reference(5);
+    const ctx_r1 = \u0275\u0275nextContext();
+    \u0275\u0275attribute("data-pc-name", "fileupload");
+    \u0275\u0275advance();
+    \u0275\u0275property("value", ctx_r1.msgs)("enableService", false);
+    \u0275\u0275advance();
+    \u0275\u0275classMap(ctx_r1.styleClass);
+    \u0275\u0275property("ngClass", \u0275\u0275pureFunction4(12, _c52, !ctx_r1.basicButtonLabel, ctx_r1.hasFiles(), ctx_r1.focus, ctx_r1.disabled))("ngStyle", ctx_r1.style);
+    \u0275\u0275attribute("data-pc-section", "choosebutton");
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", ctx_r1.hasFiles() && !ctx_r1.auto)("ngIfElse", chooseSection_r11);
+    \u0275\u0275advance(3);
+    \u0275\u0275property("ngIf", ctx_r1.basicButtonLabel);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", !ctx_r1.hasFiles());
+  }
+}
+var FileUpload = class _FileUpload {
+  document;
+  platformId;
+  renderer;
+  el;
+  sanitizer;
+  zone;
+  http;
+  cd;
+  config;
+  /**
+   * Name of the request parameter to identify the files at backend.
+   * @group Props
+   */
+  name;
+  /**
+   * Remote url to upload the files.
+   * @group Props
+   */
+  url;
+  /**
+   * HTTP method to send the files to the url such as "post" and "put".
+   * @group Props
+   */
+  method = "post";
+  /**
+   * Used to select multiple files at once from file dialog.
+   * @group Props
+   */
+  multiple;
+  /**
+   * Comma-separated list of pattern to restrict the allowed file types. Can be any combination of either the MIME types (such as "image/*") or the file extensions (such as ".jpg").
+   * @group Props
+   */
+  accept;
+  /**
+   * Disables the upload functionality.
+   * @group Props
+   */
+  disabled;
+  /**
+   * When enabled, upload begins automatically after selection is completed.
+   * @group Props
+   */
+  auto;
+  /**
+   * Cross-site Access-Control requests should be made using credentials such as cookies, authorization headers or TLS client certificates.
+   * @group Props
+   */
+  withCredentials;
+  /**
+   * Maximum file size allowed in bytes.
+   * @group Props
+   */
+  maxFileSize;
+  /**
+   * Summary message of the invalid file size.
+   * @group Props
+   */
+  invalidFileSizeMessageSummary = "{0}: Invalid file size, ";
+  /**
+   * Detail message of the invalid file size.
+   * @group Props
+   */
+  invalidFileSizeMessageDetail = "maximum upload size is {0}.";
+  /**
+   * Summary message of the invalid file type.
+   * @group Props
+   */
+  invalidFileTypeMessageSummary = "{0}: Invalid file type, ";
+  /**
+   * Detail message of the invalid file type.
+   * @group Props
+   */
+  invalidFileTypeMessageDetail = "allowed file types: {0}.";
+  /**
+   * Detail message of the invalid file type.
+   * @group Props
+   */
+  invalidFileLimitMessageDetail = "limit is {0} at most.";
+  /**
+   * Summary message of the invalid file type.
+   * @group Props
+   */
+  invalidFileLimitMessageSummary = "Maximum number of files exceeded, ";
+  /**
+   * Inline style of the element.
+   * @group Props
+   */
+  style;
+  /**
+   * Class of the element.
+   * @group Props
+   */
+  styleClass;
+  /**
+   * Width of the image thumbnail in pixels.
+   * @group Props
+   */
+  previewWidth = 50;
+  /**
+   * Label of the choose button. Defaults to PrimeNG Locale configuration.
+   * @group Props
+   */
+  chooseLabel;
+  /**
+   * Label of the upload button. Defaults to PrimeNG Locale configuration.
+   * @group Props
+   */
+  uploadLabel;
+  /**
+   * Label of the cancel button. Defaults to PrimeNG Locale configuration.
+   * @group Props
+   */
+  cancelLabel;
+  /**
+   * Icon of the choose button.
+   * @group Props
+   */
+  chooseIcon;
+  /**
+   * Icon of the upload button.
+   * @group Props
+   */
+  uploadIcon;
+  /**
+   * Icon of the cancel button.
+   * @group Props
+   */
+  cancelIcon;
+  /**
+   * Whether to show the upload button.
+   * @group Props
+   */
+  showUploadButton = true;
+  /**
+   * Whether to show the cancel button.
+   * @group Props
+   */
+  showCancelButton = true;
+  /**
+   * Defines the UI of the component.
+   * @group Props
+   */
+  mode = "advanced";
+  /**
+   * HttpHeaders class represents the header configuration options for an HTTP request.
+   * @group Props
+   */
+  headers;
+  /**
+   * Whether to use the default upload or a manual implementation defined in uploadHandler callback. Defaults to PrimeNG Locale configuration.
+   * @group Props
+   */
+  customUpload;
+  /**
+   * Maximum number of files that can be uploaded.
+   * @group Props
+   */
+  fileLimit;
+  /**
+   * Style class of the upload button.
+   * @group Props
+   */
+  uploadStyleClass;
+  /**
+   * Style class of the cancel button.
+   * @group Props
+   */
+  cancelStyleClass;
+  /**
+   * Style class of the remove button.
+   * @group Props
+   */
+  removeStyleClass;
+  /**
+   * Style class of the choose button.
+   * @group Props
+   */
+  chooseStyleClass;
+  /**
+   * Callback to invoke before file upload is initialized.
+   * @param {FileBeforeUploadEvent} event - Custom upload event.
+   * @group Emits
+   */
+  onBeforeUpload = new EventEmitter();
+  /**
+   * An event indicating that the request was sent to the server. Useful when a request may be retried multiple times, to distinguish between retries on the final event stream.
+   * @param {FileSendEvent} event - Custom send event.
+   * @group Emits
+   */
+  onSend = new EventEmitter();
+  /**
+   * Callback to invoke when file upload is complete.
+   * @param {FileUploadEvent} event - Custom upload event.
+   * @group Emits
+   */
+  onUpload = new EventEmitter();
+  /**
+   * Callback to invoke if file upload fails.
+   * @param {FileUploadErrorEvent} event - Custom error event.
+   * @group Emits
+   */
+  onError = new EventEmitter();
+  /**
+   * Callback to invoke when files in queue are removed without uploading using clear all button.
+   * @param {Event} event - Browser event.
+   * @group Emits
+   */
+  onClear = new EventEmitter();
+  /**
+   * Callback to invoke when a file is removed without uploading using clear button of a file.
+   * @param {FileRemoveEvent} event - Remove event.
+   * @group Emits
+   */
+  onRemove = new EventEmitter();
+  /**
+   * Callback to invoke when files are selected.
+   * @param {FileSelectEvent} event - Select event.
+   * @group Emits
+   */
+  onSelect = new EventEmitter();
+  /**
+   * Callback to invoke when files are being uploaded.
+   * @param {FileProgressEvent} event - Progress event.
+   * @group Emits
+   */
+  onProgress = new EventEmitter();
+  /**
+   * Callback to invoke in custom upload mode to upload the files manually.
+   * @param {FileUploadHandlerEvent} event - Upload handler event.
+   * @group Emits
+   */
+  uploadHandler = new EventEmitter();
+  /**
+   * This event is triggered if an error occurs while loading an image file.
+   * @param {Event} event - Browser event.
+   * @group Emits
+   */
+  onImageError = new EventEmitter();
+  templates;
+  advancedFileInput;
+  basicFileInput;
+  content;
+  set files(files) {
+    this._files = [];
+    for (let i = 0; i < files.length; i++) {
+      let file = files[i];
+      if (this.validate(file)) {
+        if (this.isImage(file)) {
+          file.objectURL = this.sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(files[i]));
+        }
+        this._files.push(files[i]);
+      }
+    }
+  }
+  get files() {
+    return this._files;
+  }
+  get basicButtonLabel() {
+    if (this.auto || !this.hasFiles()) {
+      return this.chooseLabel;
+    }
+    return this.uploadLabel ?? this.files[0].name;
+  }
+  _files = [];
+  progress = 0;
+  dragHighlight;
+  msgs;
+  fileTemplate;
+  contentTemplate;
+  toolbarTemplate;
+  chooseIconTemplate;
+  uploadIconTemplate;
+  cancelIconTemplate;
+  uploadedFileCount = 0;
+  focus;
+  uploading;
+  duplicateIEEvent;
+  // flag to recognize duplicate onchange event for file input
+  translationSubscription;
+  dragOverListener;
+  constructor(document2, platformId, renderer, el, sanitizer, zone, http, cd, config2) {
+    this.document = document2;
+    this.platformId = platformId;
+    this.renderer = renderer;
+    this.el = el;
+    this.sanitizer = sanitizer;
+    this.zone = zone;
+    this.http = http;
+    this.cd = cd;
+    this.config = config2;
+  }
+  ngAfterContentInit() {
+    this.templates?.forEach((item) => {
+      switch (item.getType()) {
+        case "file":
+          this.fileTemplate = item.template;
+          break;
+        case "content":
+          this.contentTemplate = item.template;
+          break;
+        case "toolbar":
+          this.toolbarTemplate = item.template;
+          break;
+        case "chooseicon":
+          this.chooseIconTemplate = item.template;
+          break;
+        case "uploadicon":
+          this.uploadIconTemplate = item.template;
+          break;
+        case "cancelicon":
+          this.cancelIconTemplate = item.template;
+          break;
+        default:
+          this.fileTemplate = item.template;
+          break;
+      }
+    });
+  }
+  ngOnInit() {
+    this.translationSubscription = this.config.translationObserver.subscribe(() => {
+      this.cd.markForCheck();
+    });
+  }
+  ngAfterViewInit() {
+    if (isPlatformBrowser2(this.platformId)) {
+      if (this.mode === "advanced") {
+        this.zone.runOutsideAngular(() => {
+          if (this.content) {
+            this.dragOverListener = this.renderer.listen(this.content.nativeElement, "dragover", this.onDragOver.bind(this));
+          }
+        });
+      }
+    }
+  }
+  getTranslation(option) {
+    return this.config.getTranslation(option);
+  }
+  choose() {
+    this.advancedFileInput?.nativeElement.click();
+  }
+  onFileSelect(event2) {
+    if (event2.type !== "drop" && this.isIE11() && this.duplicateIEEvent) {
+      this.duplicateIEEvent = false;
+      return;
+    }
+    this.msgs = [];
+    if (!this.multiple) {
+      this.files = [];
+    }
+    let files = event2.dataTransfer ? event2.dataTransfer.files : event2.target.files;
+    for (let i = 0; i < files.length; i++) {
+      let file = files[i];
+      if (!this.isFileSelected(file)) {
+        if (this.validate(file)) {
+          if (this.isImage(file)) {
+            file.objectURL = this.sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(files[i]));
+          }
+          this.files.push(files[i]);
+        }
+      }
+    }
+    this.onSelect.emit({
+      originalEvent: event2,
+      files,
+      currentFiles: this.files
+    });
+    this.checkFileLimit(files);
+    if (this.hasFiles() && this.auto && (!(this.mode === "advanced") || !this.isFileLimitExceeded())) {
+      this.upload();
+    }
+    if (event2.type !== "drop" && this.isIE11()) {
+      this.clearIEInput();
+    } else {
+      this.clearInputElement();
+    }
+  }
+  isFileSelected(file) {
+    for (let sFile of this.files) {
+      if (sFile.name + sFile.type + sFile.size === file.name + file.type + file.size) {
+        return true;
+      }
+    }
+    return false;
+  }
+  isIE11() {
+    if (isPlatformBrowser2(this.platformId)) {
+      return !!this.document.defaultView["MSInputMethodContext"] && !!this.document["documentMode"];
+    }
+  }
+  validate(file) {
+    this.msgs = this.msgs || [];
+    if (this.accept && !this.isFileTypeValid(file)) {
+      this.msgs.push({
+        severity: "error",
+        summary: this.invalidFileTypeMessageSummary.replace("{0}", file.name),
+        detail: this.invalidFileTypeMessageDetail.replace("{0}", this.accept)
+      });
+      return false;
+    }
+    if (this.maxFileSize && file.size > this.maxFileSize) {
+      this.msgs.push({
+        severity: "error",
+        summary: this.invalidFileSizeMessageSummary.replace("{0}", file.name),
+        detail: this.invalidFileSizeMessageDetail.replace("{0}", this.formatSize(this.maxFileSize))
+      });
+      return false;
+    }
+    return true;
+  }
+  isFileTypeValid(file) {
+    let acceptableTypes = this.accept?.split(",").map((type) => type.trim());
+    for (let type of acceptableTypes) {
+      let acceptable = this.isWildcard(type) ? this.getTypeClass(file.type) === this.getTypeClass(type) : file.type == type || this.getFileExtension(file).toLowerCase() === type.toLowerCase();
+      if (acceptable) {
+        return true;
+      }
+    }
+    return false;
+  }
+  getTypeClass(fileType) {
+    return fileType.substring(0, fileType.indexOf("/"));
+  }
+  isWildcard(fileType) {
+    return fileType.indexOf("*") !== -1;
+  }
+  getFileExtension(file) {
+    return "." + file.name.split(".").pop();
+  }
+  isImage(file) {
+    return /^image\//.test(file.type);
+  }
+  onImageLoad(img) {
+    window.URL.revokeObjectURL(img.src);
+  }
+  /**
+   * Uploads the selected files.
+   * @group Method
+   */
+  upload() {
+    if (this.customUpload) {
+      if (this.fileLimit) {
+        this.uploadedFileCount += this.files.length;
+      }
+      this.uploadHandler.emit({
+        files: this.files
+      });
+      this.cd.markForCheck();
+    } else {
+      this.uploading = true;
+      this.msgs = [];
+      let formData = new FormData();
+      this.onBeforeUpload.emit({
+        formData
+      });
+      for (let i = 0; i < this.files.length; i++) {
+        formData.append(this.name, this.files[i], this.files[i].name);
+      }
+      this.http.request(this.method, this.url, {
+        body: formData,
+        headers: this.headers,
+        reportProgress: true,
+        observe: "events",
+        withCredentials: this.withCredentials
+      }).subscribe((event2) => {
+        switch (event2.type) {
+          case HttpEventType.Sent:
+            this.onSend.emit({
+              originalEvent: event2,
+              formData
+            });
+            break;
+          case HttpEventType.Response:
+            this.uploading = false;
+            this.progress = 0;
+            if (event2["status"] >= 200 && event2["status"] < 300) {
+              if (this.fileLimit) {
+                this.uploadedFileCount += this.files.length;
+              }
+              this.onUpload.emit({
+                originalEvent: event2,
+                files: this.files
+              });
+            } else {
+              this.onError.emit({
+                files: this.files
+              });
+            }
+            this.clear();
+            break;
+          case HttpEventType.UploadProgress: {
+            if (event2["loaded"]) {
+              this.progress = Math.round(event2["loaded"] * 100 / event2["total"]);
+            }
+            this.onProgress.emit({
+              originalEvent: event2,
+              progress: this.progress
+            });
+            break;
+          }
+        }
+        this.cd.markForCheck();
+      }, (error) => {
+        this.uploading = false;
+        this.onError.emit({
+          files: this.files,
+          error
+        });
+      });
+    }
+  }
+  /**
+   * Clears the files list.
+   * @group Method
+   */
+  clear() {
+    this.files = [];
+    this.uploadedFileCount = 0;
+    this.onClear.emit();
+    this.clearInputElement();
+    this.cd.markForCheck();
+  }
+  remove(event2, index) {
+    this.clearInputElement();
+    this.onRemove.emit({
+      originalEvent: event2,
+      file: this.files[index]
+    });
+    this.files.splice(index, 1);
+    this.checkFileLimit(this.files);
+  }
+  isFileLimitExceeded() {
+    const isAutoMode = this.auto;
+    const totalFileCount = isAutoMode ? this.files.length : this.files.length + this.uploadedFileCount;
+    if (this.fileLimit && this.fileLimit <= totalFileCount && this.focus) {
+      this.focus = false;
+    }
+    return this.fileLimit && this.fileLimit < totalFileCount;
+  }
+  isChooseDisabled() {
+    if (this.auto) {
+      return this.fileLimit && this.fileLimit <= this.files.length;
+    } else {
+      return this.fileLimit && this.fileLimit <= this.files.length + this.uploadedFileCount;
+    }
+  }
+  checkFileLimit(files) {
+    this.msgs ??= [];
+    const hasExistingValidationMessages = this.msgs.length > 0 && this.fileLimit < files.length;
+    if (this.isFileLimitExceeded() || hasExistingValidationMessages) {
+      this.msgs.push({
+        severity: "error",
+        summary: this.invalidFileLimitMessageSummary.replace("{0}", this.fileLimit.toString()),
+        detail: this.invalidFileLimitMessageDetail.replace("{0}", this.fileLimit.toString())
+      });
+    }
+  }
+  clearInputElement() {
+    if (this.advancedFileInput && this.advancedFileInput.nativeElement) {
+      this.advancedFileInput.nativeElement.value = "";
+    }
+    if (this.basicFileInput && this.basicFileInput.nativeElement) {
+      this.basicFileInput.nativeElement.value = "";
+    }
+  }
+  clearIEInput() {
+    if (this.advancedFileInput && this.advancedFileInput.nativeElement) {
+      this.duplicateIEEvent = true;
+      this.advancedFileInput.nativeElement.value = "";
+    }
+  }
+  hasFiles() {
+    return this.files && this.files.length > 0;
+  }
+  onDragEnter(e) {
+    if (!this.disabled) {
+      e.stopPropagation();
+      e.preventDefault();
+    }
+  }
+  onDragOver(e) {
+    if (!this.disabled) {
+      DomHandler.addClass(this.content?.nativeElement, "p-fileupload-highlight");
+      this.dragHighlight = true;
+      e.stopPropagation();
+      e.preventDefault();
+    }
+  }
+  onDragLeave(event2) {
+    if (!this.disabled) {
+      DomHandler.removeClass(this.content?.nativeElement, "p-fileupload-highlight");
+    }
+  }
+  onDrop(event2) {
+    if (!this.disabled) {
+      DomHandler.removeClass(this.content?.nativeElement, "p-fileupload-highlight");
+      event2.stopPropagation();
+      event2.preventDefault();
+      let files = event2.dataTransfer ? event2.dataTransfer.files : event2.target.files;
+      let allowDrop = this.multiple || files && files.length === 1;
+      if (allowDrop) {
+        this.onFileSelect(event2);
+      }
+    }
+  }
+  onFocus() {
+    this.focus = true;
+  }
+  onBlur() {
+    this.focus = false;
+  }
+  formatSize(bytes) {
+    const k = 1024;
+    const dm = 3;
+    const sizes = this.getTranslation(TranslationKeys.FILE_SIZE_TYPES);
+    if (bytes === 0) {
+      return `0 ${sizes[0]}`;
+    }
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    const formattedSize = (bytes / Math.pow(k, i)).toFixed(dm);
+    return `${formattedSize} ${sizes[i]}`;
+  }
+  onBasicUploaderClick() {
+    if (this.hasFiles())
+      this.upload();
+    else
+      this.basicFileInput?.nativeElement.click();
+  }
+  onBasicKeydown(event2) {
+    switch (event2.code) {
+      case "Space":
+      case "Enter":
+        this.onBasicUploaderClick();
+        event2.preventDefault();
+        break;
+    }
+  }
+  imageError(event2) {
+    this.onImageError.emit(event2);
+  }
+  getBlockableElement() {
+    return this.el.nativeElement.children[0];
+  }
+  get chooseButtonLabel() {
+    return this.chooseLabel || this.config.getTranslation(TranslationKeys.CHOOSE);
+  }
+  get uploadButtonLabel() {
+    return this.uploadLabel || this.config.getTranslation(TranslationKeys.UPLOAD);
+  }
+  get cancelButtonLabel() {
+    return this.cancelLabel || this.config.getTranslation(TranslationKeys.CANCEL);
+  }
+  get browseFilesLabel() {
+    return this.config.getTranslation(TranslationKeys.ARIA)[TranslationKeys.BROWSE_FILES];
+  }
+  ngOnDestroy() {
+    if (this.content && this.content.nativeElement) {
+      if (this.dragOverListener) {
+        this.dragOverListener();
+        this.dragOverListener = null;
+      }
+    }
+    if (this.translationSubscription) {
+      this.translationSubscription.unsubscribe();
+    }
+  }
+  static \u0275fac = function FileUpload_Factory(t) {
+    return new (t || _FileUpload)(\u0275\u0275directiveInject(DOCUMENT2), \u0275\u0275directiveInject(PLATFORM_ID), \u0275\u0275directiveInject(Renderer2), \u0275\u0275directiveInject(ElementRef), \u0275\u0275directiveInject(DomSanitizer), \u0275\u0275directiveInject(NgZone), \u0275\u0275directiveInject(HttpClient), \u0275\u0275directiveInject(ChangeDetectorRef), \u0275\u0275directiveInject(PrimeNGConfig));
+  };
+  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({
+    type: _FileUpload,
+    selectors: [["p-fileUpload"]],
+    contentQueries: function FileUpload_ContentQueries(rf, ctx, dirIndex) {
+      if (rf & 1) {
+        \u0275\u0275contentQuery(dirIndex, PrimeTemplate, 4);
+      }
+      if (rf & 2) {
+        let _t;
+        \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx.templates = _t);
+      }
+    },
+    viewQuery: function FileUpload_Query(rf, ctx) {
+      if (rf & 1) {
+        \u0275\u0275viewQuery(_c07, 5);
+        \u0275\u0275viewQuery(_c14, 5);
+        \u0275\u0275viewQuery(_c22, 5);
+      }
+      if (rf & 2) {
+        let _t;
+        \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx.advancedFileInput = _t.first);
+        \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx.basicFileInput = _t.first);
+        \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx.content = _t.first);
+      }
+    },
+    hostAttrs: [1, "p-element"],
+    inputs: {
+      name: "name",
+      url: "url",
+      method: "method",
+      multiple: [InputFlags.HasDecoratorInputTransform, "multiple", "multiple", booleanAttribute],
+      accept: "accept",
+      disabled: [InputFlags.HasDecoratorInputTransform, "disabled", "disabled", booleanAttribute],
+      auto: [InputFlags.HasDecoratorInputTransform, "auto", "auto", booleanAttribute],
+      withCredentials: [InputFlags.HasDecoratorInputTransform, "withCredentials", "withCredentials", booleanAttribute],
+      maxFileSize: [InputFlags.HasDecoratorInputTransform, "maxFileSize", "maxFileSize", numberAttribute],
+      invalidFileSizeMessageSummary: "invalidFileSizeMessageSummary",
+      invalidFileSizeMessageDetail: "invalidFileSizeMessageDetail",
+      invalidFileTypeMessageSummary: "invalidFileTypeMessageSummary",
+      invalidFileTypeMessageDetail: "invalidFileTypeMessageDetail",
+      invalidFileLimitMessageDetail: "invalidFileLimitMessageDetail",
+      invalidFileLimitMessageSummary: "invalidFileLimitMessageSummary",
+      style: "style",
+      styleClass: "styleClass",
+      previewWidth: [InputFlags.HasDecoratorInputTransform, "previewWidth", "previewWidth", numberAttribute],
+      chooseLabel: "chooseLabel",
+      uploadLabel: "uploadLabel",
+      cancelLabel: "cancelLabel",
+      chooseIcon: "chooseIcon",
+      uploadIcon: "uploadIcon",
+      cancelIcon: "cancelIcon",
+      showUploadButton: [InputFlags.HasDecoratorInputTransform, "showUploadButton", "showUploadButton", booleanAttribute],
+      showCancelButton: [InputFlags.HasDecoratorInputTransform, "showCancelButton", "showCancelButton", booleanAttribute],
+      mode: "mode",
+      headers: "headers",
+      customUpload: [InputFlags.HasDecoratorInputTransform, "customUpload", "customUpload", booleanAttribute],
+      fileLimit: [InputFlags.HasDecoratorInputTransform, "fileLimit", "fileLimit", numberAttribute],
+      uploadStyleClass: "uploadStyleClass",
+      cancelStyleClass: "cancelStyleClass",
+      removeStyleClass: "removeStyleClass",
+      chooseStyleClass: "chooseStyleClass",
+      files: "files"
+    },
+    outputs: {
+      onBeforeUpload: "onBeforeUpload",
+      onSend: "onSend",
+      onUpload: "onUpload",
+      onError: "onError",
+      onClear: "onClear",
+      onRemove: "onRemove",
+      onSelect: "onSelect",
+      onProgress: "onProgress",
+      uploadHandler: "uploadHandler",
+      onImageError: "onImageError"
+    },
+    features: [\u0275\u0275InputTransformsFeature],
+    decls: 2,
+    vars: 2,
+    consts: [["advancedfileinput", ""], ["content", ""], ["chooseSection", ""], ["basicfileinput", ""], [3, "ngClass", "ngStyle", "class", 4, "ngIf"], ["class", "p-fileupload p-fileupload-basic p-component", 4, "ngIf"], [3, "ngClass", "ngStyle"], [1, "p-fileupload-buttonbar"], ["pRipple", "", "tabindex", "0", 1, "p-button", "p-component", "p-fileupload-choose", 3, "focus", "blur", "click", "keydown.enter", "ngClass"], ["type", "file", 3, "change", "multiple", "accept", "disabled"], [3, "ngClass", "class", 4, "ngIf"], [4, "ngIf"], [1, "p-button-label"], ["type", "button", 3, "label", "disabled", "styleClass", "onClick", 4, "ngIf"], [4, "ngTemplateOutlet"], [1, "p-fileupload-content", 3, "dragenter", "dragleave", "drop"], [3, "value", "showValue", 4, "ngIf"], [3, "value", "enableService"], ["class", "p-fileupload-files", 4, "ngIf"], [4, "ngTemplateOutlet", "ngTemplateOutletContext"], [3, "ngClass"], [3, "styleClass", 4, "ngIf"], ["class", "p-button-icon p-button-icon-left", 4, "ngIf"], [3, "styleClass"], [1, "p-button-icon", "p-button-icon-left"], ["type", "button", 3, "onClick", "label", "disabled", "styleClass"], ["class", "p-button-icon p-button-icon-left", 3, "ngClass", 4, "ngIf"], [1, "p-button-icon", "p-button-icon-left", 3, "ngClass"], [3, "value", "showValue"], [1, "p-fileupload-files"], ["class", "p-fileupload-row", 4, "ngFor", "ngForOf"], [1, "p-fileupload-row"], [3, "src", "width", "error", 4, "ngIf"], [1, "p-fileupload-filename"], ["type", "button", "pButton", "", 1, "p-button-icon-only", 3, "click", "disabled"], [3, "error", "src", "width"], ["ngFor", "", 3, "ngForOf", "ngForTemplate"], [1, "p-fileupload", "p-fileupload-basic", "p-component"], ["tabindex", "0", "pRipple", "", 3, "click", "keydown", "ngClass", "ngStyle"], [4, "ngIf", "ngIfElse"], ["class", "p-button-label", 4, "ngIf"], ["type", "file", 3, "accept", "multiple", "disabled", "change", "focus", "blur", 4, "ngIf"], ["class", "p-button-icon p-button-icon-left pi", 3, "ngClass", 4, "ngIf"], [1, "p-button-icon", "p-button-icon-left", "pi", 3, "ngClass"], ["class", "p-button-icon p-button-icon-left pi", 4, "ngIf"], [1, "p-button-icon", "p-button-icon-left", "pi"], ["type", "file", 3, "change", "focus", "blur", "accept", "multiple", "disabled"]],
+    template: function FileUpload_Template(rf, ctx) {
+      if (rf & 1) {
+        \u0275\u0275template(0, FileUpload_div_0_Template, 18, 36, "div", 4)(1, FileUpload_div_1_Template, 8, 17, "div", 5);
+      }
+      if (rf & 2) {
+        \u0275\u0275property("ngIf", ctx.mode === "advanced");
+        \u0275\u0275advance();
+        \u0275\u0275property("ngIf", ctx.mode === "basic");
+      }
+    },
+    dependencies: () => [NgClass, NgForOf, NgIf, NgTemplateOutlet, NgStyle, ButtonDirective, Button, ProgressBar, Messages, Ripple, PlusIcon, UploadIcon, TimesIcon],
+    styles: ["@layer primeng{.p-fileupload-content{position:relative}.p-fileupload-row{display:flex;align-items:center}.p-fileupload-row>div{flex:1 1 auto;width:25%}.p-fileupload-row>div:last-child{text-align:right}.p-fileupload-content .p-progressbar{width:100%;position:absolute;top:0;left:0}.p-button.p-fileupload-choose{position:relative;overflow:hidden}.p-button.p-fileupload-choose input[type=file],.p-fileupload-choose.p-fileupload-choose-selected input[type=file]{display:none}.p-fluid .p-fileupload .p-button{width:auto}.p-fileupload-filename{word-break:break-all}}\n"],
+    encapsulation: 2,
+    changeDetection: 0
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(FileUpload, [{
+    type: Component,
+    args: [{
+      selector: "p-fileUpload",
+      template: `
+        <div [ngClass]="'p-fileupload p-fileupload-advanced p-component'" [ngStyle]="style" [class]="styleClass" *ngIf="mode === 'advanced'" [attr.data-pc-name]="'fileupload'" [attr.data-pc-section]="'root'">
+            <div class="p-fileupload-buttonbar" [attr.data-pc-section]="'buttonbar'">
+                <span
+                    class="p-button p-component p-fileupload-choose"
+                    [ngClass]="{ 'p-focus': focus, 'p-disabled': disabled || isChooseDisabled() }"
+                    (focus)="onFocus()"
+                    (blur)="onBlur()"
+                    pRipple
+                    (click)="choose()"
+                    (keydown.enter)="choose()"
+                    tabindex="0"
+                    [class]="chooseStyleClass"
+                    [attr.data-pc-section]="'choosebutton'"
+                >
+                    <input
+                        [attr.aria-label]="browseFilesLabel"
+                        #advancedfileinput
+                        type="file"
+                        (change)="onFileSelect($event)"
+                        [multiple]="multiple"
+                        [accept]="accept"
+                        [disabled]="disabled || isChooseDisabled()"
+                        [attr.title]="''"
+                        [attr.data-pc-section]="'input'"
+                    />
+                    <span *ngIf="chooseIcon" [ngClass]="'p-button-icon p-button-icon-left'" [class]="chooseIcon" [attr.aria-label]="true" [attr.data-pc-section]="'chooseicon'"></span>
+                    <ng-container *ngIf="!chooseIcon">
+                        <PlusIcon *ngIf="!chooseIconTemplate" [styleClass]="'p-button-icon p-button-icon-left'" [attr.aria-label]="true" [attr.data-pc-section]="'chooseicon'" />
+                        <span *ngIf="chooseIconTemplate" class="p-button-icon p-button-icon-left" [attr.aria-label]="true" [attr.data-pc-section]="'chooseicon'">
+                            <ng-template *ngTemplateOutlet="chooseIconTemplate"></ng-template>
+                        </span>
+                    </ng-container>
+                    <span class="p-button-label" [attr.data-pc-section]="'choosebuttonlabel'">{{ chooseButtonLabel }}</span>
+                </span>
+
+                <p-button *ngIf="!auto && showUploadButton" type="button" [label]="uploadButtonLabel" (onClick)="upload()" [disabled]="!hasFiles() || isFileLimitExceeded()" [styleClass]="uploadStyleClass">
+                    <span *ngIf="uploadIcon" [ngClass]="uploadIcon" [attr.aria-hidden]="true" class="p-button-icon p-button-icon-left"></span>
+                    <ng-container *ngIf="!uploadIcon">
+                        <UploadIcon *ngIf="!uploadIconTemplate" [styleClass]="'p-button-icon p-button-icon-left'" />
+                        <span *ngIf="uploadIconTemplate" class="p-button-icon p-button-icon-left" [attr.aria-hidden]="true">
+                            <ng-template *ngTemplateOutlet="uploadIconTemplate"></ng-template>
+                        </span>
+                    </ng-container>
+                </p-button>
+                <p-button *ngIf="!auto && showCancelButton" type="button" [label]="cancelButtonLabel" (onClick)="clear()" [disabled]="!hasFiles() || uploading" [styleClass]="cancelStyleClass">
+                    <span *ngIf="cancelIcon" [ngClass]="cancelIcon" class="p-button-icon p-button-icon-left"></span>
+                    <ng-container *ngIf="!cancelIcon">
+                        <TimesIcon *ngIf="!cancelIconTemplate" [styleClass]="'p-button-icon p-button-icon-left'" [attr.aria-hidden]="true" />
+                        <span *ngIf="cancelIconTemplate" class="p-button-icon p-button-icon-left" [attr.aria-hidden]="true">
+                            <ng-template *ngTemplateOutlet="cancelIconTemplate"></ng-template>
+                        </span>
+                    </ng-container>
+                </p-button>
+
+                <ng-container *ngTemplateOutlet="toolbarTemplate"></ng-container>
+            </div>
+            <div #content class="p-fileupload-content" (dragenter)="onDragEnter($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)" [attr.data-pc-section]="'content'">
+                <p-progressBar [value]="progress" [showValue]="false" *ngIf="hasFiles()"></p-progressBar>
+
+                <p-messages [value]="msgs" [enableService]="false"></p-messages>
+
+                <div class="p-fileupload-files" *ngIf="hasFiles()">
+                    <div *ngIf="!fileTemplate">
+                        <div class="p-fileupload-row" *ngFor="let file of files; let i = index">
+                            <div><img [src]="file.objectURL" *ngIf="isImage(file)" [width]="previewWidth" (error)="imageError($event)" /></div>
+                            <div class="p-fileupload-filename">{{ file.name }}</div>
+                            <div>{{ formatSize(file.size) }}</div>
+                            <div>
+                                <button type="button" pButton (click)="remove($event, i)" [disabled]="uploading" class="p-button-icon-only" [class]="removeStyleClass">
+                                    <TimesIcon *ngIf="!cancelIconTemplate" />
+                                    <ng-template *ngTemplateOutlet="cancelIconTemplate"></ng-template>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="fileTemplate">
+                        <ng-template ngFor [ngForOf]="files" [ngForTemplate]="fileTemplate"></ng-template>
+                    </div>
+                </div>
+                <ng-container *ngTemplateOutlet="contentTemplate; context: { $implicit: files }"></ng-container>
+            </div>
+        </div>
+        <div class="p-fileupload p-fileupload-basic p-component" *ngIf="mode === 'basic'" [attr.data-pc-name]="'fileupload'">
+            <p-messages [value]="msgs" [enableService]="false"></p-messages>
+            <span
+                [ngClass]="{ 'p-button p-component p-fileupload-choose': true, 'p-button-icon-only': !basicButtonLabel, 'p-fileupload-choose-selected': hasFiles(), 'p-focus': focus, 'p-disabled': disabled }"
+                [ngStyle]="style"
+                [class]="styleClass"
+                (click)="onBasicUploaderClick()"
+                (keydown)="onBasicKeydown($event)"
+                tabindex="0"
+                pRipple
+                [attr.data-pc-section]="'choosebutton'"
+            >
+                <ng-container *ngIf="hasFiles() && !auto; else chooseSection">
+                    <span *ngIf="uploadIcon" class="p-button-icon p-button-icon-left" [ngClass]="uploadIcon"></span>
+                    <ng-container *ngIf="!uploadIcon">
+                        <UploadIcon *ngIf="!uploadIconTemplate" [styleClass]="'p-button-icon p-button-icon-left'" />
+                        <span *ngIf="uploadIconTemplate" class="p-button-icon p-button-icon-left">
+                            <ng-template *ngTemplateOutlet="uploadIconTemplate"></ng-template>
+                        </span>
+                    </ng-container>
+                </ng-container>
+                <ng-template #chooseSection>
+                    <span *ngIf="chooseIcon" class="p-button-icon p-button-icon-left pi" [ngClass]="chooseIcon"></span>
+                    <ng-container *ngIf="!chooseIcon">
+                        <PlusIcon [styleClass]="'p-button-icon p-button-icon-left pi'" *ngIf="!chooseIconTemplate" [attr.aria-hidden]="true" [attr.data-pc-section]="'uploadicon'" />
+                        <span *ngIf="chooseIconTemplate" class="p-button-icon p-button-icon-left pi" [attr.aria-hidden]="true" [attr.data-pc-section]="'uploadicon'">
+                            <ng-template *ngTemplateOutlet="chooseIconTemplate"></ng-template>
+                        </span>
+                    </ng-container>
+                </ng-template>
+                <span *ngIf="basicButtonLabel" class="p-button-label" [attr.data-pc-section]="'label'">{{ basicButtonLabel }}</span>
+                <input
+                    [attr.aria-label]="browseFilesLabel"
+                    #basicfileinput
+                    type="file"
+                    [accept]="accept"
+                    [multiple]="multiple"
+                    [disabled]="disabled"
+                    (change)="onFileSelect($event)"
+                    *ngIf="!hasFiles()"
+                    (focus)="onFocus()"
+                    (blur)="onBlur()"
+                    [attr.data-pc-section]="'input'"
+                />
+            </span>
+        </div>
+    `,
+      changeDetection: ChangeDetectionStrategy.OnPush,
+      encapsulation: ViewEncapsulation$1.None,
+      host: {
+        class: "p-element"
+      },
+      styles: ["@layer primeng{.p-fileupload-content{position:relative}.p-fileupload-row{display:flex;align-items:center}.p-fileupload-row>div{flex:1 1 auto;width:25%}.p-fileupload-row>div:last-child{text-align:right}.p-fileupload-content .p-progressbar{width:100%;position:absolute;top:0;left:0}.p-button.p-fileupload-choose{position:relative;overflow:hidden}.p-button.p-fileupload-choose input[type=file],.p-fileupload-choose.p-fileupload-choose-selected input[type=file]{display:none}.p-fluid .p-fileupload .p-button{width:auto}.p-fileupload-filename{word-break:break-all}}\n"]
+    }]
+  }], () => [{
+    type: Document,
+    decorators: [{
+      type: Inject,
+      args: [DOCUMENT2]
+    }]
+  }, {
+    type: void 0,
+    decorators: [{
+      type: Inject,
+      args: [PLATFORM_ID]
+    }]
+  }, {
+    type: Renderer2
+  }, {
+    type: ElementRef
+  }, {
+    type: DomSanitizer
+  }, {
+    type: NgZone
+  }, {
+    type: HttpClient
+  }, {
+    type: ChangeDetectorRef
+  }, {
+    type: PrimeNGConfig
+  }], {
+    name: [{
+      type: Input
+    }],
+    url: [{
+      type: Input
+    }],
+    method: [{
+      type: Input
+    }],
+    multiple: [{
+      type: Input,
+      args: [{
+        transform: booleanAttribute
+      }]
+    }],
+    accept: [{
+      type: Input
+    }],
+    disabled: [{
+      type: Input,
+      args: [{
+        transform: booleanAttribute
+      }]
+    }],
+    auto: [{
+      type: Input,
+      args: [{
+        transform: booleanAttribute
+      }]
+    }],
+    withCredentials: [{
+      type: Input,
+      args: [{
+        transform: booleanAttribute
+      }]
+    }],
+    maxFileSize: [{
+      type: Input,
+      args: [{
+        transform: numberAttribute
+      }]
+    }],
+    invalidFileSizeMessageSummary: [{
+      type: Input
+    }],
+    invalidFileSizeMessageDetail: [{
+      type: Input
+    }],
+    invalidFileTypeMessageSummary: [{
+      type: Input
+    }],
+    invalidFileTypeMessageDetail: [{
+      type: Input
+    }],
+    invalidFileLimitMessageDetail: [{
+      type: Input
+    }],
+    invalidFileLimitMessageSummary: [{
+      type: Input
+    }],
+    style: [{
+      type: Input
+    }],
+    styleClass: [{
+      type: Input
+    }],
+    previewWidth: [{
+      type: Input,
+      args: [{
+        transform: numberAttribute
+      }]
+    }],
+    chooseLabel: [{
+      type: Input
+    }],
+    uploadLabel: [{
+      type: Input
+    }],
+    cancelLabel: [{
+      type: Input
+    }],
+    chooseIcon: [{
+      type: Input
+    }],
+    uploadIcon: [{
+      type: Input
+    }],
+    cancelIcon: [{
+      type: Input
+    }],
+    showUploadButton: [{
+      type: Input,
+      args: [{
+        transform: booleanAttribute
+      }]
+    }],
+    showCancelButton: [{
+      type: Input,
+      args: [{
+        transform: booleanAttribute
+      }]
+    }],
+    mode: [{
+      type: Input
+    }],
+    headers: [{
+      type: Input
+    }],
+    customUpload: [{
+      type: Input,
+      args: [{
+        transform: booleanAttribute
+      }]
+    }],
+    fileLimit: [{
+      type: Input,
+      args: [{
+        transform: numberAttribute
+      }]
+    }],
+    uploadStyleClass: [{
+      type: Input
+    }],
+    cancelStyleClass: [{
+      type: Input
+    }],
+    removeStyleClass: [{
+      type: Input
+    }],
+    chooseStyleClass: [{
+      type: Input
+    }],
+    onBeforeUpload: [{
+      type: Output
+    }],
+    onSend: [{
+      type: Output
+    }],
+    onUpload: [{
+      type: Output
+    }],
+    onError: [{
+      type: Output
+    }],
+    onClear: [{
+      type: Output
+    }],
+    onRemove: [{
+      type: Output
+    }],
+    onSelect: [{
+      type: Output
+    }],
+    onProgress: [{
+      type: Output
+    }],
+    uploadHandler: [{
+      type: Output
+    }],
+    onImageError: [{
+      type: Output
+    }],
+    templates: [{
+      type: ContentChildren,
+      args: [PrimeTemplate]
+    }],
+    advancedFileInput: [{
+      type: ViewChild,
+      args: ["advancedfileinput"]
+    }],
+    basicFileInput: [{
+      type: ViewChild,
+      args: ["basicfileinput"]
+    }],
+    content: [{
+      type: ViewChild,
+      args: ["content"]
+    }],
+    files: [{
+      type: Input
+    }]
+  });
+})();
+var FileUploadModule = class _FileUploadModule {
+  static \u0275fac = function FileUploadModule_Factory(t) {
+    return new (t || _FileUploadModule)();
+  };
+  static \u0275mod = /* @__PURE__ */ \u0275\u0275defineNgModule({
+    type: _FileUploadModule
+  });
+  static \u0275inj = /* @__PURE__ */ \u0275\u0275defineInjector({
+    imports: [CommonModule, HttpClientModule, SharedModule, ButtonModule, ProgressBarModule, MessagesModule, RippleModule, PlusIcon, UploadIcon, TimesIcon, SharedModule, ButtonModule, ProgressBarModule, MessagesModule]
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(FileUploadModule, [{
+    type: NgModule,
+    args: [{
+      imports: [CommonModule, HttpClientModule, SharedModule, ButtonModule, ProgressBarModule, MessagesModule, RippleModule, PlusIcon, UploadIcon, TimesIcon],
+      exports: [FileUpload, SharedModule, ButtonModule, ProgressBarModule, MessagesModule],
+      declarations: [FileUpload]
+    }]
+  }], null, null);
+})();
+
+// src/app/components/cliente/cliente-form/cliente-form.component.ts
+function ClienteFormComponent_ng_template_3_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div")(1, "span", 51);
+    \u0275\u0275text(2, "Dados pessoais");
+    \u0275\u0275elementEnd()();
+  }
+}
+function ClienteFormComponent_ng_template_27_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div")(1, "span", 51);
+    \u0275\u0275text(2, "Documentos");
+    \u0275\u0275elementEnd()();
+  }
+}
+function ClienteFormComponent_ng_template_61_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div")(1, "span", 51);
+    \u0275\u0275text(2, "Endere\xE7o");
+    \u0275\u0275elementEnd()();
+  }
+}
+function ClienteFormComponent_ng_template_100_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div")(1, "span", 51);
+    \u0275\u0275text(2, "Outros");
+    \u0275\u0275elementEnd()();
+  }
+}
+function ClienteFormComponent_ng_container_112_ng_template_3_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div")(1, "span", 51);
+    \u0275\u0275text(2, "Anexos");
+    \u0275\u0275elementEnd()();
+  }
+}
+function ClienteFormComponent_ng_container_112_ng_template_5_ul_0_li_1_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r3 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "li")(1, "div", 55)(2, "span", 51);
+    \u0275\u0275text(3);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(4, "p-button", 56);
+    \u0275\u0275listener("click", function ClienteFormComponent_ng_container_112_ng_template_5_ul_0_li_1_Template_p_button_click_4_listener() {
+      const file_r4 = \u0275\u0275restoreView(_r3).$implicit;
+      const ctx_r1 = \u0275\u0275nextContext(4);
+      return \u0275\u0275resetView(ctx_r1.onDownload(file_r4.id));
+    });
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(5, "p-button", 57);
+    \u0275\u0275listener("click", function ClienteFormComponent_ng_container_112_ng_template_5_ul_0_li_1_Template_p_button_click_5_listener() {
+      const file_r4 = \u0275\u0275restoreView(_r3).$implicit;
+      const ctx_r1 = \u0275\u0275nextContext(4);
+      return \u0275\u0275resetView(ctx_r1.confirmRemoveAttachment(file_r4.id));
+    });
+    \u0275\u0275elementEnd()()();
+  }
+  if (rf & 2) {
+    const file_r4 = ctx.$implicit;
+    \u0275\u0275advance(3);
+    \u0275\u0275textInterpolate(file_r4.name);
+    \u0275\u0275advance();
+    \u0275\u0275property("text", true);
+    \u0275\u0275advance();
+    \u0275\u0275property("text", true);
+  }
+}
+function ClienteFormComponent_ng_container_112_ng_template_5_ul_0_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "ul");
+    \u0275\u0275template(1, ClienteFormComponent_ng_container_112_ng_template_5_ul_0_li_1_Template, 6, 3, "li", 54);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(3);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngForOf", ctx_r1.uploadedFiles);
+  }
+}
+function ClienteFormComponent_ng_container_112_ng_template_5_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275template(0, ClienteFormComponent_ng_container_112_ng_template_5_ul_0_Template, 2, 1, "ul", 47);
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(2);
+    \u0275\u0275property("ngIf", ctx_r1.uploadedFiles.length);
+  }
+}
+function ClienteFormComponent_ng_container_112_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r1 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementContainerStart(0);
+    \u0275\u0275elementStart(1, "div", 1)(2, "p-panel", 2);
+    \u0275\u0275template(3, ClienteFormComponent_ng_container_112_ng_template_3_Template, 3, 0, "ng-template", 3);
+    \u0275\u0275elementStart(4, "p-fileUpload", 52);
+    \u0275\u0275listener("onUpload", function ClienteFormComponent_ng_container_112_Template_p_fileUpload_onUpload_4_listener($event) {
+      \u0275\u0275restoreView(_r1);
+      const ctx_r1 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r1.onUpload($event));
+    });
+    \u0275\u0275template(5, ClienteFormComponent_ng_container_112_ng_template_5_Template, 1, 1, "ng-template", 53);
+    \u0275\u0275elementEnd()()();
+    \u0275\u0275elementContainerEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext();
+    \u0275\u0275advance(2);
+    \u0275\u0275property("toggleable", true)("collapsed", ctx_r1.attachmentColapsed);
+    \u0275\u0275advance(2);
+    \u0275\u0275property("url", ctx_r1.uploadUrl)("multiple", false)("auto", true);
+  }
+}
+var _ClienteFormComponent = class _ClienteFormComponent {
+  constructor(fb, clienteService, messageService, confirmationService, activateRoute, router, http) {
+    this.fb = fb;
+    this.clienteService = clienteService;
+    this.messageService = messageService;
+    this.confirmationService = confirmationService;
+    this.activateRoute = activateRoute;
+    this.router = router;
+    this.http = http;
+    this.isCollapsed = false;
+    this.clienteId = null;
+    this.doccumentColapsed = false;
+    this.uploadedFiles = [];
+    this.uploadUrl = "";
+    this.addressCollapsed = true;
+    this.othersCollapsed = true;
+  }
+  ngOnInit() {
+    this.clienteForm = this.getClientFormBuilder();
+    this.activateRoute.params.subscribe((params) => {
+      const id = params["id"];
+      if (id) {
+        this.clienteId = +id;
+        this.loadClienteData(this.clienteId);
+        this.uploadUrl = `${environment.apiUrl}/api/clientes/${this.clienteId}/anexos`;
+      }
+    });
+  }
+  getClientFormBuilder() {
+    return this.fb.group({
+      nome: ["", Validators.required],
+      cpf: ["", Validators.required],
+      rg: ["", Validators.required],
+      dataNascimento: ["", Validators.required],
+      email: ["", [Validators.required, Validators.email]],
+      telefone: ["", [Validators.required]],
+      renda: [""],
+      profissao: [""],
+      cep: [""],
+      rua: [""],
+      numero: [""],
+      complemento: [""],
+      bairro: [""],
+      cidade: [""],
+      estado: [""],
+      numeroPassaporte: [""],
+      paisEmissao: [""],
+      dataEmissao: [""],
+      dataValidade: [""]
+    });
+  }
+  loadClienteData(id) {
+    this.clienteService.getClienteById(id).subscribe((cliente) => {
+      this.clienteForm.patchValue(cliente);
+      this.uploadedFiles = [];
+      if (cliente.anexos.length > 0) {
+        this.uploadedFiles = cliente.anexos.map((value) => {
+          return {
+            id: value.anexo.id,
+            name: value.anexo.nomeOriginal,
+            size: value.anexo.tamanho
+          };
+        });
+      }
+    });
+  }
+  toggleCollapse() {
+    this.isCollapsed = !this.isCollapsed;
+  }
+  goBack() {
+    this.router.navigate(["/cliente"]);
+  }
+  onSubmit() {
+    if (this.clienteForm.invalid) {
+      markAllFieldsAsDirty(this.clienteForm);
+      return;
+    }
+    const cliente = this.clienteForm.value;
+    const clienteObservable = this.clienteId ? this.clienteService.atualizarCliente(this.clienteId, cliente) : this.clienteService.cadastrarCliente(cliente);
+    clienteObservable.subscribe({
+      next: (cliente2) => {
+        const sucessMessage = this.clienteId ? "Cliente atualizado com sucesso!" : "Cliente cadastrado com sucesso!";
+        this.messageService.add({
+          severity: "success",
+          summary: sucessMessage,
+          life: 3e3
+        });
+        this.onEdit(cliente2.id);
+      },
+      error: (_err) => {
+        const errorMessage = this.clienteId ? "Erro ao atualizar cliente" : "Erro ao cadastrar cliente";
+        this.messageService.add({
+          severity: "error",
+          summary: errorMessage,
+          life: 3e3
+        });
+      }
+    });
+  }
+  buscarEnderecoPorCep() {
+    const cep = this.clienteForm.get("cep")?.value;
+    if (cep && cep.length === 8) {
+      this.http.get(`https://viacep.com.br/ws/${cep}/json/`).subscribe({
+        next: (data) => {
+          if (!data.erro) {
+            this.clienteForm.patchValue({
+              rua: data["logradouro"],
+              bairro: data["bairro"],
+              cidade: data["localidade"],
+              estado: data["uf"]
+            });
+          }
+        }
+      });
+    }
+  }
+  onUpload(event2) {
+    for (let file of event2.files) {
+      this.uploadedFiles.push(file);
+    }
+    this.loadClienteData(this.clienteId);
+    this.messageService.add({ severity: "info", summary: "File Uploaded", detail: "" });
+  }
+  openNewTab(url) {
+    window.open(url, "_blank");
+  }
+  onDownload(anexoId) {
+    this.clienteService.downloadAnexo(this.clienteId, anexoId).subscribe({
+      next: (data) => {
+        this.openNewTab(data.url);
+      },
+      error: (err) => {
+        this.messageService.add({ severity: "error", summary: err });
+      }
+    });
+  }
+  onRemove(anexoId) {
+    this.clienteService.removeAnexo(this.clienteId, anexoId).subscribe({
+      next: (_data) => {
+        this.messageService.add({ severity: "info", summary: "Confirmed", detail: "Record deleted" });
+        this.loadClienteData(this.clienteId);
+      }
+    });
+  }
+  confirmRemoveAttachment(attachmentId) {
+    this.confirmationService.confirm({
+      message: "Do you want to delete this record?",
+      header: "Delete Confirmation",
+      icon: "pi pi-info-circle",
+      acceptButtonStyleClass: "p-button-danger p-button-text",
+      rejectButtonStyleClass: "p-button-text p-button-text",
+      acceptIcon: "none",
+      rejectIcon: "none",
+      accept: () => {
+        this.onRemove(attachmentId);
+      },
+      reject: () => {
+        this.messageService.add({ severity: "error", summary: "Rejected", detail: "You have rejected" });
+      }
+    });
+  }
+  onEdit(id) {
+    this.router.navigate(["/cliente/editar", id]);
+  }
+};
+_ClienteFormComponent.\u0275fac = function ClienteFormComponent_Factory(t) {
+  return new (t || _ClienteFormComponent)(\u0275\u0275directiveInject(FormBuilder), \u0275\u0275directiveInject(ClienteService), \u0275\u0275directiveInject(MessageService), \u0275\u0275directiveInject(ConfirmationService), \u0275\u0275directiveInject(ActivatedRoute), \u0275\u0275directiveInject(Router), \u0275\u0275directiveInject(HttpClient));
+};
+_ClienteFormComponent.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _ClienteFormComponent, selectors: [["app-cliente-form"]], decls: 116, vars: 11, consts: [[3, "ngSubmit", "formGroup"], [1, "mt-3"], [3, "toggleable", "collapsed"], ["pTemplate", "header"], [1, "grid"], [1, "p-fluid", "col-12", "md:col-6"], [1, "flex", "flex-column", "gap-2"], ["for", "nome"], ["placeholder", "Nome e Sobrenome", "pInputText", "", "id", "nome", "formControlName", "nome"], ["for", "dataNascimento"], ["pInputText", "", "type", "date", "id", "dataNascimento", "formControlName", "dataNascimento"], [1, "p-fluid", "col-12", "md:col-4"], ["for", "telefone"], ["placeholder", "Digite seu telefone com DDD", "type", "text", "pInputText", "", "id", "telefone", "formControlName", "telefone"], ["for", "email"], ["placeholder", "email@exemplo.com", "type", "email", "pInputText", "", "id", "email", "formControlName", "email"], ["for", "cpf"], ["pInputText", "", "id", "cpf", "formControlName", "cpf"], ["for", "rg"], ["pInputText", "", "id", "rg", "formControlName", "rg"], [1, "p-fluid", "col-12", "md:col-3"], ["for", "numeroPassaporte"], ["pInputText", "", "id", "numeroPassaporte", "formControlName", "numeroPassaporte"], ["for", "paisEmissao"], ["pInputText", "", "id", "paisEmissao", "formControlName", "paisEmissao"], ["for", "dataEmissao"], ["pInputText", "", "type", "date", "id", "dataEmissao", "formControlName", "dataEmissao"], ["for", "dataValidade"], ["pInputText", "", "type", "date", "id", "dataValidade", "formControlName", "dataValidade"], ["for", "cep"], ["pInputText", "", "id", "cep", "formControlName", "cep", 3, "blur"], ["for", "rua"], ["type", "text", "pInputText", "", "id", "rua", "formControlName", "rua"], ["for", "numero"], ["type", "text", "pInputText", "", "id", "numero", "formControlName", "numero"], ["for", "complemento"], ["type", "text", "pInputText", "", "id", "complemento", "placeholder", "Apartamento, Sala, Condom\xEDnio.", "formControlName", "complemento"], ["for", "bairro"], ["type", "text", "pInputText", "", "id", "bairro", "formControlName", "bairro"], ["for", "cidade"], ["type", "text", "pInputText", "", "id", "cidade", "formControlName", "cidade"], ["for", "estado"], ["type", "text", "pInputText", "", "id", "estado", "formControlName", "estado"], ["for", "renda"], ["type", "number", "pInputText", "", "id", "renda", "formControlName", "renda"], ["for", "profissao"], ["type", "text", "pInputText", "", "id", "profissao", "formControlName", "profissao"], [4, "ngIf"], [1, "mt-3", "flex", "flex-row-reverse", "gap-3"], ["pButton", "", "severity", "secondary", "type", "button", "label", "Voltar", 3, "click"], ["pButton", "", "type", "submit", 3, "label"], [1, "font-bold"], ["name", "arquivo", "maxFileSize", "1000000", "chooseLabel", "Enviar", 3, "onUpload", "url", "multiple", "auto"], ["pTemplate", "content"], [4, "ngFor", "ngForOf"], [1, "flex", "gap-1", "align-items-center", "mt-1"], ["icon", "fa-solid fa-file-arrow-down", "pTooltip", "Download", 3, "click", "text"], ["severity", "danger", "icon", "fa-solid fa-trash", "pTooltip", "Remover", 3, "click", "text"]], template: function ClienteFormComponent_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "form", 0);
+    \u0275\u0275listener("ngSubmit", function ClienteFormComponent_Template_form_ngSubmit_0_listener() {
+      return ctx.onSubmit();
+    });
+    \u0275\u0275elementStart(1, "div", 1)(2, "p-panel", 2);
+    \u0275\u0275template(3, ClienteFormComponent_ng_template_3_Template, 3, 0, "ng-template", 3);
+    \u0275\u0275elementStart(4, "div", 4)(5, "div", 5)(6, "div", 6)(7, "label", 7);
+    \u0275\u0275text(8, "Nome Completo");
+    \u0275\u0275elementEnd();
+    \u0275\u0275element(9, "input", 8);
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(10, "div", 5)(11, "div", 6)(12, "label", 9);
+    \u0275\u0275text(13, "Nascimento");
+    \u0275\u0275elementEnd();
+    \u0275\u0275element(14, "input", 10);
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(15, "div", 11)(16, "div", 6)(17, "label", 12);
+    \u0275\u0275text(18, "Telefone");
+    \u0275\u0275elementEnd();
+    \u0275\u0275element(19, "input", 13);
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(20, "div", 11)(21, "div", 6)(22, "label", 14);
+    \u0275\u0275text(23, "Email");
+    \u0275\u0275elementEnd();
+    \u0275\u0275element(24, "input", 15);
+    \u0275\u0275elementEnd()()()()();
+    \u0275\u0275elementStart(25, "div", 1)(26, "p-panel", 2);
+    \u0275\u0275template(27, ClienteFormComponent_ng_template_27_Template, 3, 0, "ng-template", 3);
+    \u0275\u0275elementStart(28, "div", 4)(29, "div", 5)(30, "div", 6)(31, "label", 16);
+    \u0275\u0275text(32, "CPF");
+    \u0275\u0275elementEnd();
+    \u0275\u0275element(33, "input", 17);
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(34, "div", 5)(35, "div", 6)(36, "label", 18);
+    \u0275\u0275text(37, "RG");
+    \u0275\u0275elementEnd();
+    \u0275\u0275element(38, "input", 19);
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(39, "div", 20)(40, "div", 6)(41, "label", 21);
+    \u0275\u0275text(42, "N\xFAmero Passaporte");
+    \u0275\u0275elementEnd();
+    \u0275\u0275element(43, "input", 22);
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(44, "div", 20)(45, "div", 6)(46, "label", 23);
+    \u0275\u0275text(47, "Pa\xEDs Emiss\xE3o");
+    \u0275\u0275elementEnd();
+    \u0275\u0275element(48, "input", 24);
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(49, "div", 20)(50, "div", 6)(51, "label", 25);
+    \u0275\u0275text(52, "Data de Emiss\xE3o");
+    \u0275\u0275elementEnd();
+    \u0275\u0275element(53, "input", 26);
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(54, "div", 20)(55, "div", 6)(56, "label", 27);
+    \u0275\u0275text(57, "Data de Validade");
+    \u0275\u0275elementEnd();
+    \u0275\u0275element(58, "input", 28);
+    \u0275\u0275elementEnd()()()()();
+    \u0275\u0275elementStart(59, "div", 1)(60, "p-panel", 2);
+    \u0275\u0275template(61, ClienteFormComponent_ng_template_61_Template, 3, 0, "ng-template", 3);
+    \u0275\u0275elementStart(62, "div", 4)(63, "div", 11)(64, "div", 6)(65, "label", 29);
+    \u0275\u0275text(66, "Cep");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(67, "input", 30);
+    \u0275\u0275listener("blur", function ClienteFormComponent_Template_input_blur_67_listener() {
+      return ctx.buscarEnderecoPorCep();
+    });
+    \u0275\u0275elementEnd()()();
+    \u0275\u0275elementStart(68, "div", 11)(69, "div", 6)(70, "label", 31);
+    \u0275\u0275text(71, "Rua");
+    \u0275\u0275elementEnd();
+    \u0275\u0275element(72, "input", 32);
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(73, "div", 11)(74, "div", 6)(75, "label", 33);
+    \u0275\u0275text(76, "N\xFAmero");
+    \u0275\u0275elementEnd();
+    \u0275\u0275element(77, "input", 34);
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(78, "div", 11)(79, "div", 6)(80, "label", 35);
+    \u0275\u0275text(81, "Complemento");
+    \u0275\u0275elementEnd();
+    \u0275\u0275element(82, "input", 36);
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(83, "div", 11)(84, "div", 6)(85, "label", 37);
+    \u0275\u0275text(86, "Bairro");
+    \u0275\u0275elementEnd();
+    \u0275\u0275element(87, "input", 38);
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(88, "div", 11)(89, "div", 6)(90, "label", 39);
+    \u0275\u0275text(91, "Cidade");
+    \u0275\u0275elementEnd();
+    \u0275\u0275element(92, "input", 40);
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(93, "div", 11)(94, "div", 6)(95, "label", 41);
+    \u0275\u0275text(96, "Estado");
+    \u0275\u0275elementEnd();
+    \u0275\u0275element(97, "input", 42);
+    \u0275\u0275elementEnd()()()()();
+    \u0275\u0275elementStart(98, "div", 1)(99, "p-panel", 2);
+    \u0275\u0275template(100, ClienteFormComponent_ng_template_100_Template, 3, 0, "ng-template", 3);
+    \u0275\u0275elementStart(101, "div", 4)(102, "div", 11)(103, "div", 6)(104, "label", 43);
+    \u0275\u0275text(105, "Renda");
+    \u0275\u0275elementEnd();
+    \u0275\u0275element(106, "input", 44);
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(107, "div", 11)(108, "div", 6)(109, "label", 45);
+    \u0275\u0275text(110, "Profissao");
+    \u0275\u0275elementEnd();
+    \u0275\u0275element(111, "input", 46);
+    \u0275\u0275elementEnd()()()()();
+    \u0275\u0275template(112, ClienteFormComponent_ng_container_112_Template, 6, 5, "ng-container", 47);
+    \u0275\u0275elementStart(113, "div", 48)(114, "button", 49);
+    \u0275\u0275listener("click", function ClienteFormComponent_Template_button_click_114_listener() {
+      return ctx.goBack();
+    });
+    \u0275\u0275elementEnd();
+    \u0275\u0275element(115, "button", 50);
+    \u0275\u0275elementEnd()();
+  }
+  if (rf & 2) {
+    \u0275\u0275property("formGroup", ctx.clienteForm);
+    \u0275\u0275advance(2);
+    \u0275\u0275property("toggleable", true)("collapsed", ctx.isCollapsed);
+    \u0275\u0275advance(24);
+    \u0275\u0275property("toggleable", true)("collapsed", ctx.doccumentColapsed);
+    \u0275\u0275advance(34);
+    \u0275\u0275property("toggleable", true)("collapsed", ctx.addressCollapsed);
+    \u0275\u0275advance(39);
+    \u0275\u0275property("toggleable", true)("collapsed", ctx.othersCollapsed);
+    \u0275\u0275advance(13);
+    \u0275\u0275property("ngIf", ctx.clienteId);
+    \u0275\u0275advance(3);
+    \u0275\u0275property("label", ctx.clienteId ? "Atualizar" : "Cadastrar");
+  }
+}, dependencies: [NgForOf, NgIf, \u0275NgNoValidate, DefaultValueAccessor, NumberValueAccessor, NgControlStatus, NgControlStatusGroup, FormGroupDirective, FormControlName, Tooltip, PrimeTemplate, ButtonDirective, Button, InputText, Panel, FileUpload] });
+var ClienteFormComponent = _ClienteFormComponent;
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(ClienteFormComponent, { className: "ClienteFormComponent", filePath: "src\\app\\components\\cliente\\cliente-form\\cliente-form.component.ts", lineNumber: 17 });
+})();
+
 // node_modules/primeng/fesm2022/primeng-icons-chevronleft.mjs
 var ChevronLeftIcon = class _ChevronLeftIcon extends BaseIcon {
   static \u0275fac = /* @__PURE__ */ (() => {
@@ -45210,56 +49439,6 @@ var ChevronDownIcon = class _ChevronDownIcon extends BaseIcon {
   }], null, null);
 })();
 
-// node_modules/primeng/fesm2022/primeng-icons-times.mjs
-var TimesIcon = class _TimesIcon extends BaseIcon {
-  static \u0275fac = /* @__PURE__ */ (() => {
-    let \u0275TimesIcon_BaseFactory;
-    return function TimesIcon_Factory(t) {
-      return (\u0275TimesIcon_BaseFactory || (\u0275TimesIcon_BaseFactory = \u0275\u0275getInheritedFactory(_TimesIcon)))(t || _TimesIcon);
-    };
-  })();
-  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({
-    type: _TimesIcon,
-    selectors: [["TimesIcon"]],
-    standalone: true,
-    features: [\u0275\u0275InheritDefinitionFeature, \u0275\u0275StandaloneFeature],
-    decls: 2,
-    vars: 5,
-    consts: [["width", "14", "height", "14", "viewBox", "0 0 14 14", "fill", "none", "xmlns", "http://www.w3.org/2000/svg"], ["d", "M8.01186 7.00933L12.27 2.75116C12.341 2.68501 12.398 2.60524 12.4375 2.51661C12.4769 2.42798 12.4982 2.3323 12.4999 2.23529C12.5016 2.13827 12.4838 2.0419 12.4474 1.95194C12.4111 1.86197 12.357 1.78024 12.2884 1.71163C12.2198 1.64302 12.138 1.58893 12.0481 1.55259C11.9581 1.51625 11.8617 1.4984 11.7647 1.50011C11.6677 1.50182 11.572 1.52306 11.4834 1.56255C11.3948 1.60204 11.315 1.65898 11.2488 1.72997L6.99067 5.98814L2.7325 1.72997C2.59553 1.60234 2.41437 1.53286 2.22718 1.53616C2.03999 1.53946 1.8614 1.61529 1.72901 1.74767C1.59663 1.88006 1.5208 2.05865 1.5175 2.24584C1.5142 2.43303 1.58368 2.61419 1.71131 2.75116L5.96948 7.00933L1.71131 11.2675C1.576 11.403 1.5 11.5866 1.5 11.7781C1.5 11.9696 1.576 12.1532 1.71131 12.2887C1.84679 12.424 2.03043 12.5 2.2219 12.5C2.41338 12.5 2.59702 12.424 2.7325 12.2887L6.99067 8.03052L11.2488 12.2887C11.3843 12.424 11.568 12.5 11.7594 12.5C11.9509 12.5 12.1346 12.424 12.27 12.2887C12.4053 12.1532 12.4813 11.9696 12.4813 11.7781C12.4813 11.5866 12.4053 11.403 12.27 11.2675L8.01186 7.00933Z", "fill", "currentColor"]],
-    template: function TimesIcon_Template(rf, ctx) {
-      if (rf & 1) {
-        \u0275\u0275namespaceSVG();
-        \u0275\u0275elementStart(0, "svg", 0);
-        \u0275\u0275element(1, "path", 1);
-        \u0275\u0275elementEnd();
-      }
-      if (rf & 2) {
-        \u0275\u0275classMap(ctx.getClassNames());
-        \u0275\u0275attribute("aria-label", ctx.ariaLabel)("aria-hidden", ctx.ariaHidden)("role", ctx.role);
-      }
-    },
-    encapsulation: 2
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(TimesIcon, [{
-    type: Component,
-    args: [{
-      selector: "TimesIcon",
-      standalone: true,
-      imports: [BaseIcon],
-      template: `
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" [attr.aria-label]="ariaLabel" [attr.aria-hidden]="ariaHidden" [attr.role]="role" [class]="getClassNames()">
-            <path
-                d="M8.01186 7.00933L12.27 2.75116C12.341 2.68501 12.398 2.60524 12.4375 2.51661C12.4769 2.42798 12.4982 2.3323 12.4999 2.23529C12.5016 2.13827 12.4838 2.0419 12.4474 1.95194C12.4111 1.86197 12.357 1.78024 12.2884 1.71163C12.2198 1.64302 12.138 1.58893 12.0481 1.55259C11.9581 1.51625 11.8617 1.4984 11.7647 1.50011C11.6677 1.50182 11.572 1.52306 11.4834 1.56255C11.3948 1.60204 11.315 1.65898 11.2488 1.72997L6.99067 5.98814L2.7325 1.72997C2.59553 1.60234 2.41437 1.53286 2.22718 1.53616C2.03999 1.53946 1.8614 1.61529 1.72901 1.74767C1.59663 1.88006 1.5208 2.05865 1.5175 2.24584C1.5142 2.43303 1.58368 2.61419 1.71131 2.75116L5.96948 7.00933L1.71131 11.2675C1.576 11.403 1.5 11.5866 1.5 11.7781C1.5 11.9696 1.576 12.1532 1.71131 12.2887C1.84679 12.424 2.03043 12.5 2.2219 12.5C2.41338 12.5 2.59702 12.424 2.7325 12.2887L6.99067 8.03052L11.2488 12.2887C11.3843 12.424 11.568 12.5 11.7594 12.5C11.9509 12.5 12.1346 12.424 12.27 12.2887C12.4053 12.1532 12.4813 11.9696 12.4813 11.7781C12.4813 11.5866 12.4053 11.403 12.27 11.2675L8.01186 7.00933Z"
-                fill="currentColor"
-            />
-        </svg>
-    `
-    }]
-  }], null, null);
-})();
-
 // node_modules/primeng/fesm2022/primeng-icons-calendar.mjs
 var CalendarIcon = class _CalendarIcon extends BaseIcon {
   static \u0275fac = /* @__PURE__ */ (() => {
@@ -45311,12 +49490,12 @@ var CalendarIcon = class _CalendarIcon extends BaseIcon {
 })();
 
 // node_modules/primeng/fesm2022/primeng-calendar.mjs
-var _c04 = ["container"];
-var _c1 = ["inputfield"];
-var _c2 = ["contentWrapper"];
-var _c3 = [[["p-header"]], [["p-footer"]]];
-var _c4 = ["p-header", "p-footer"];
-var _c5 = (a0, a1, a2, a3, a4) => ({
+var _c08 = ["container"];
+var _c15 = ["inputfield"];
+var _c23 = ["contentWrapper"];
+var _c33 = [[["p-header"]], [["p-footer"]]];
+var _c43 = ["p-header", "p-footer"];
+var _c53 = (a0, a1, a2, a3, a4) => ({
   "p-calendar": true,
   "p-input-icon-right": a0,
   "p-calendar-w-btn": a1,
@@ -45324,13 +49503,13 @@ var _c5 = (a0, a1, a2, a3, a4) => ({
   "p-calendar-disabled": a3,
   "p-focus": a4
 });
-var _c6 = (a0) => ({
+var _c62 = (a0) => ({
   clickCallBack: a0
 });
-var _c7 = (a0) => ({
+var _c72 = (a0) => ({
   "p-datepicker-icon": a0
 });
-var _c8 = (a0, a1, a2, a3, a4, a5) => ({
+var _c82 = (a0, a1, a2, a3, a4, a5) => ({
   "p-datepicker p-component": true,
   "p-datepicker-inline": a0,
   "p-disabled": a1,
@@ -45351,18 +49530,18 @@ var _c11 = (a0) => ({
   value: "visible",
   params: a0
 });
-var _c12 = (a0) => ({
+var _c122 = (a0) => ({
   $implicit: a0
 });
-var _c13 = (a0, a1) => ({
+var _c132 = (a0, a1) => ({
   "p-datepicker-other-month": a0,
   "p-datepicker-today": a1
 });
-var _c14 = (a0, a1) => ({
+var _c142 = (a0, a1) => ({
   "p-highlight": a0,
   "p-disabled": a1
 });
-var _c15 = (a0) => [a0];
+var _c152 = (a0) => [a0];
 function Calendar_ng_template_2_ng_container_2_TimesIcon_1_Template(rf, ctx) {
   if (rf & 1) {
     const _r3 = \u0275\u0275getCurrentView();
@@ -45490,7 +49669,7 @@ function Calendar_ng_template_2_ng_container_4_CalendarIcon_1_Template(rf, ctx) 
   }
   if (rf & 2) {
     const ctx_r1 = \u0275\u0275nextContext(3);
-    \u0275\u0275property("ngClass", \u0275\u0275pureFunction1(1, _c7, ctx_r1.showOnFocus));
+    \u0275\u0275property("ngClass", \u0275\u0275pureFunction1(1, _c72, ctx_r1.showOnFocus));
   }
 }
 function Calendar_ng_template_2_ng_container_4_ng_container_2_Template(rf, ctx) {
@@ -45509,7 +49688,7 @@ function Calendar_ng_template_2_ng_container_4_Template(rf, ctx) {
     \u0275\u0275advance();
     \u0275\u0275property("ngIf", !ctx_r1.inputIconTemplate);
     \u0275\u0275advance();
-    \u0275\u0275property("ngTemplateOutlet", ctx_r1.inputIconTemplate)("ngTemplateOutletContext", \u0275\u0275pureFunction1(3, _c6, ctx_r1.onButtonClick.bind(ctx_r1)));
+    \u0275\u0275property("ngTemplateOutlet", ctx_r1.inputIconTemplate)("ngTemplateOutletContext", \u0275\u0275pureFunction1(3, _c62, ctx_r1.onButtonClick.bind(ctx_r1)));
   }
 }
 function Calendar_ng_template_2_Template(rf, ctx) {
@@ -45689,7 +49868,7 @@ function Calendar_div_3_ng_container_4_div_2_span_6_Template(rf, ctx) {
     \u0275\u0275advance();
     \u0275\u0275property("ngIf", !ctx_r1.decadeTemplate);
     \u0275\u0275advance();
-    \u0275\u0275property("ngTemplateOutlet", ctx_r1.decadeTemplate)("ngTemplateOutletContext", \u0275\u0275pureFunction1(3, _c12, ctx_r1.yearPickerValues));
+    \u0275\u0275property("ngTemplateOutlet", ctx_r1.decadeTemplate)("ngTemplateOutletContext", \u0275\u0275pureFunction1(3, _c122, ctx_r1.yearPickerValues));
   }
 }
 function Calendar_div_3_ng_container_4_div_2_ChevronRightIcon_8_Template(rf, ctx) {
@@ -45783,7 +49962,7 @@ function Calendar_div_3_ng_container_4_div_2_div_10_tr_7_td_2_ng_container_1_ng_
     const date_r17 = \u0275\u0275nextContext(2).$implicit;
     const ctx_r1 = \u0275\u0275nextContext(6);
     \u0275\u0275advance();
-    \u0275\u0275property("ngTemplateOutlet", ctx_r1.dateTemplate)("ngTemplateOutletContext", \u0275\u0275pureFunction1(2, _c12, date_r17));
+    \u0275\u0275property("ngTemplateOutlet", ctx_r1.dateTemplate)("ngTemplateOutletContext", \u0275\u0275pureFunction1(2, _c122, date_r17));
   }
 }
 function Calendar_div_3_ng_container_4_div_2_div_10_tr_7_td_2_ng_container_1_ng_container_4_ng_container_1_Template(rf, ctx) {
@@ -45801,7 +49980,7 @@ function Calendar_div_3_ng_container_4_div_2_div_10_tr_7_td_2_ng_container_1_ng_
     const date_r17 = \u0275\u0275nextContext(2).$implicit;
     const ctx_r1 = \u0275\u0275nextContext(6);
     \u0275\u0275advance();
-    \u0275\u0275property("ngTemplateOutlet", ctx_r1.disabledDateTemplate)("ngTemplateOutletContext", \u0275\u0275pureFunction1(2, _c12, date_r17));
+    \u0275\u0275property("ngTemplateOutlet", ctx_r1.disabledDateTemplate)("ngTemplateOutletContext", \u0275\u0275pureFunction1(2, _c122, date_r17));
   }
 }
 function Calendar_div_3_ng_container_4_div_2_div_10_tr_7_td_2_ng_container_1_div_5_Template(rf, ctx) {
@@ -45842,7 +50021,7 @@ function Calendar_div_3_ng_container_4_div_2_div_10_tr_7_td_2_ng_container_1_Tem
     const date_r17 = \u0275\u0275nextContext().$implicit;
     const ctx_r1 = \u0275\u0275nextContext(6);
     \u0275\u0275advance();
-    \u0275\u0275property("ngClass", \u0275\u0275pureFunction2(5, _c14, ctx_r1.isSelected(date_r17) && date_r17.selectable, !date_r17.selectable));
+    \u0275\u0275property("ngClass", \u0275\u0275pureFunction2(5, _c142, ctx_r1.isSelected(date_r17) && date_r17.selectable, !date_r17.selectable));
     \u0275\u0275advance();
     \u0275\u0275property("ngIf", !ctx_r1.dateTemplate && (date_r17.selectable || !ctx_r1.disabledDateTemplate));
     \u0275\u0275advance();
@@ -45862,7 +50041,7 @@ function Calendar_div_3_ng_container_4_div_2_div_10_tr_7_td_2_Template(rf, ctx) 
   if (rf & 2) {
     const date_r17 = ctx.$implicit;
     const ctx_r1 = \u0275\u0275nextContext(6);
-    \u0275\u0275property("ngClass", \u0275\u0275pureFunction2(3, _c13, date_r17.otherMonth, date_r17.today));
+    \u0275\u0275property("ngClass", \u0275\u0275pureFunction2(3, _c132, date_r17.otherMonth, date_r17.today));
     \u0275\u0275attribute("aria-label", date_r17.day);
     \u0275\u0275advance();
     \u0275\u0275property("ngIf", date_r17.otherMonth ? ctx_r1.showOtherMonths : true);
@@ -45981,7 +50160,7 @@ function Calendar_div_3_ng_container_4_div_3_span_1_Template(rf, ctx) {
     const m_r22 = ctx.$implicit;
     const i_r21 = ctx.index;
     const ctx_r1 = \u0275\u0275nextContext(4);
-    \u0275\u0275property("ngClass", \u0275\u0275pureFunction2(3, _c14, ctx_r1.isMonthSelected(i_r21), ctx_r1.isMonthDisabled(i_r21)));
+    \u0275\u0275property("ngClass", \u0275\u0275pureFunction2(3, _c142, ctx_r1.isMonthSelected(i_r21), ctx_r1.isMonthDisabled(i_r21)));
     \u0275\u0275advance();
     \u0275\u0275textInterpolate1(" ", m_r22, " ");
     \u0275\u0275advance();
@@ -46032,7 +50211,7 @@ function Calendar_div_3_ng_container_4_div_4_span_1_Template(rf, ctx) {
   if (rf & 2) {
     const y_r24 = ctx.$implicit;
     const ctx_r1 = \u0275\u0275nextContext(4);
-    \u0275\u0275property("ngClass", \u0275\u0275pureFunction2(3, _c14, ctx_r1.isYearSelected(y_r24), ctx_r1.isYearDisabled(y_r24)));
+    \u0275\u0275property("ngClass", \u0275\u0275pureFunction2(3, _c142, ctx_r1.isYearSelected(y_r24), ctx_r1.isYearDisabled(y_r24)));
     \u0275\u0275advance();
     \u0275\u0275textInterpolate1(" ", y_r24, " ");
     \u0275\u0275advance();
@@ -46590,9 +50769,9 @@ function Calendar_div_3_div_6_Template(rf, ctx) {
   if (rf & 2) {
     const ctx_r1 = \u0275\u0275nextContext(2);
     \u0275\u0275advance();
-    \u0275\u0275property("label", ctx_r1.getTranslation("today"))("ngClass", \u0275\u0275pureFunction1(4, _c15, ctx_r1.todayButtonStyleClass));
+    \u0275\u0275property("label", ctx_r1.getTranslation("today"))("ngClass", \u0275\u0275pureFunction1(4, _c152, ctx_r1.todayButtonStyleClass));
     \u0275\u0275advance();
-    \u0275\u0275property("label", ctx_r1.getTranslation("clear"))("ngClass", \u0275\u0275pureFunction1(6, _c15, ctx_r1.clearButtonStyleClass));
+    \u0275\u0275property("label", ctx_r1.getTranslation("clear"))("ngClass", \u0275\u0275pureFunction1(6, _c152, ctx_r1.clearButtonStyleClass));
   }
 }
 function Calendar_div_3_ng_container_8_Template(rf, ctx) {
@@ -46626,7 +50805,7 @@ function Calendar_div_3_Template(rf, ctx) {
   if (rf & 2) {
     const ctx_r1 = \u0275\u0275nextContext();
     \u0275\u0275classMap(ctx_r1.panelStyleClass);
-    \u0275\u0275property("ngStyle", ctx_r1.panelStyle)("ngClass", \u0275\u0275pureFunction6(15, _c8, ctx_r1.inline, ctx_r1.disabled, ctx_r1.timeOnly, ctx_r1.numberOfMonths > 1, ctx_r1.view === "month", ctx_r1.touchUI))("@overlayAnimation", ctx_r1.touchUI ? \u0275\u0275pureFunction1(25, _c10, \u0275\u0275pureFunction2(22, _c9, ctx_r1.showTransitionOptions, ctx_r1.hideTransitionOptions)) : \u0275\u0275pureFunction1(30, _c11, \u0275\u0275pureFunction2(27, _c9, ctx_r1.showTransitionOptions, ctx_r1.hideTransitionOptions)))("@.disabled", ctx_r1.inline === true);
+    \u0275\u0275property("ngStyle", ctx_r1.panelStyle)("ngClass", \u0275\u0275pureFunction6(15, _c82, ctx_r1.inline, ctx_r1.disabled, ctx_r1.timeOnly, ctx_r1.numberOfMonths > 1, ctx_r1.view === "month", ctx_r1.touchUI))("@overlayAnimation", ctx_r1.touchUI ? \u0275\u0275pureFunction1(25, _c10, \u0275\u0275pureFunction2(22, _c9, ctx_r1.showTransitionOptions, ctx_r1.hideTransitionOptions)) : \u0275\u0275pureFunction1(30, _c11, \u0275\u0275pureFunction2(27, _c9, ctx_r1.showTransitionOptions, ctx_r1.hideTransitionOptions)))("@.disabled", ctx_r1.inline === true);
     \u0275\u0275attribute("id", ctx_r1.panelId)("aria-label", ctx_r1.getTranslation("chooseDate"))("role", ctx_r1.inline ? null : "dialog")("aria-modal", ctx_r1.inline ? null : "true");
     \u0275\u0275advance(3);
     \u0275\u0275property("ngTemplateOutlet", ctx_r1.headerTemplate);
@@ -49388,9 +53567,9 @@ var Calendar = class _Calendar {
     },
     viewQuery: function Calendar_Query(rf, ctx) {
       if (rf & 1) {
-        \u0275\u0275viewQuery(_c04, 5);
-        \u0275\u0275viewQuery(_c1, 5);
-        \u0275\u0275viewQuery(_c2, 5);
+        \u0275\u0275viewQuery(_c08, 5);
+        \u0275\u0275viewQuery(_c15, 5);
+        \u0275\u0275viewQuery(_c23, 5);
       }
       if (rf & 2) {
         let _t;
@@ -49489,20 +53668,20 @@ var Calendar = class _Calendar {
       onShow: "onShow"
     },
     features: [\u0275\u0275ProvidersFeature([CALENDAR_VALUE_ACCESSOR]), \u0275\u0275InputTransformsFeature],
-    ngContentSelectors: _c4,
+    ngContentSelectors: _c43,
     decls: 4,
     vars: 12,
     consts: [["container", ""], ["inputfield", ""], ["contentWrapper", ""], [3, "ngClass", "ngStyle"], [3, "ngIf"], [3, "class", "ngStyle", "ngClass", "click", 4, "ngIf"], ["type", "text", "role", "combobox", "aria-autocomplete", "none", "aria-haspopup", "dialog", "autocomplete", "off", 3, "focus", "keydown", "click", "blur", "input", "value", "readonly", "ngStyle", "placeholder", "disabled", "ngClass"], [4, "ngIf"], ["type", "button", "aria-haspopup", "dialog", "pButton", "", "pRipple", "", "class", "p-datepicker-trigger p-button-icon-only", "tabindex", "0", 3, "disabled", "click", 4, "ngIf"], [3, "styleClass", "click", 4, "ngIf"], ["class", "p-calendar-clear-icon", 3, "click", 4, "ngIf"], [3, "click", "styleClass"], [1, "p-calendar-clear-icon", 3, "click"], [4, "ngTemplateOutlet"], ["type", "button", "aria-haspopup", "dialog", "pButton", "", "pRipple", "", "tabindex", "0", 1, "p-datepicker-trigger", "p-button-icon-only", 3, "click", "disabled"], [3, "ngClass", 4, "ngIf"], [3, "ngClass"], [3, "ngClass", "click", 4, "ngIf"], [4, "ngTemplateOutlet", "ngTemplateOutletContext"], [3, "click", "ngClass"], [3, "click", "ngStyle", "ngClass"], ["class", "p-timepicker", 4, "ngIf"], ["class", "p-datepicker-buttonbar", 4, "ngIf"], [1, "p-datepicker-group-container"], ["class", "p-datepicker-group", 4, "ngFor", "ngForOf"], ["class", "p-monthpicker", 4, "ngIf"], ["class", "p-yearpicker", 4, "ngIf"], [1, "p-datepicker-group"], [1, "p-datepicker-header"], ["class", "p-datepicker-prev p-link", "type", "button", "pRipple", "", 3, "keydown", "click", 4, "ngIf"], [1, "p-datepicker-title"], ["type", "button", "class", "p-datepicker-month p-link", 3, "disabled", "click", "keydown", 4, "ngIf"], ["type", "button", "class", "p-datepicker-year p-link", 3, "disabled", "click", "keydown", 4, "ngIf"], ["class", "p-datepicker-decade", 4, "ngIf"], ["type", "button", "pRipple", "", 1, "p-datepicker-next", "p-link", 3, "keydown", "click"], [3, "styleClass", 4, "ngIf"], ["class", "p-datepicker-next-icon", 4, "ngIf"], ["class", "p-datepicker-calendar-container", 4, "ngIf"], ["type", "button", "pRipple", "", 1, "p-datepicker-prev", "p-link", 3, "keydown", "click"], ["class", "p-datepicker-prev-icon", 4, "ngIf"], [3, "styleClass"], [1, "p-datepicker-prev-icon"], ["type", "button", 1, "p-datepicker-month", "p-link", 3, "click", "keydown", "disabled"], ["type", "button", 1, "p-datepicker-year", "p-link", 3, "click", "keydown", "disabled"], [1, "p-datepicker-decade"], [1, "p-datepicker-next-icon"], [1, "p-datepicker-calendar-container"], ["role", "grid", 1, "p-datepicker-calendar"], ["class", "p-datepicker-weekheader p-disabled", 4, "ngIf"], ["scope", "col", 4, "ngFor", "ngForOf"], [4, "ngFor", "ngForOf"], [1, "p-datepicker-weekheader", "p-disabled"], ["scope", "col"], ["class", "p-datepicker-weeknumber", 4, "ngIf"], [3, "ngClass", 4, "ngFor", "ngForOf"], [1, "p-datepicker-weeknumber"], [1, "p-disabled"], ["draggable", "false", "pRipple", "", 3, "click", "keydown", "ngClass"], ["class", "p-hidden-accessible", "aria-live", "polite", 4, "ngIf"], ["aria-live", "polite", 1, "p-hidden-accessible"], [1, "p-monthpicker"], ["class", "p-monthpicker-month", "pRipple", "", 3, "ngClass", "click", "keydown", 4, "ngFor", "ngForOf"], ["pRipple", "", 1, "p-monthpicker-month", 3, "click", "keydown", "ngClass"], [1, "p-yearpicker"], ["class", "p-yearpicker-year", "pRipple", "", 3, "ngClass", "click", "keydown", 4, "ngFor", "ngForOf"], ["pRipple", "", 1, "p-yearpicker-year", 3, "click", "keydown", "ngClass"], [1, "p-timepicker"], [1, "p-hour-picker"], ["type", "button", "pRipple", "", 1, "p-link", 3, "keydown", "keydown.enter", "keydown.space", "mousedown", "mouseup", "keyup.enter", "keyup.space", "mouseleave"], [1, "p-separator"], [1, "p-minute-picker"], ["class", "p-separator", 4, "ngIf"], ["class", "p-second-picker", 4, "ngIf"], ["class", "p-ampm-picker", 4, "ngIf"], [1, "p-second-picker"], [1, "p-ampm-picker"], ["type", "button", "pRipple", "", 1, "p-link", 3, "keydown", "click", "keydown.enter"], [1, "p-datepicker-buttonbar"], ["type", "button", "pButton", "", "pRipple", "", 3, "keydown", "click", "label", "ngClass"]],
     template: function Calendar_Template(rf, ctx) {
       if (rf & 1) {
-        \u0275\u0275projectionDef(_c3);
+        \u0275\u0275projectionDef(_c33);
         \u0275\u0275elementStart(0, "span", 3, 0);
         \u0275\u0275template(2, Calendar_ng_template_2_Template, 5, 21, "ng-template", 4)(3, Calendar_div_3_Template, 9, 32, "div", 5);
         \u0275\u0275elementEnd();
       }
       if (rf & 2) {
         \u0275\u0275classMap(ctx.styleClass);
-        \u0275\u0275property("ngClass", \u0275\u0275pureFunction5(6, _c5, ctx.showIcon && ctx.iconDisplay === "input", ctx.showIcon && ctx.iconDisplay === "button", ctx.timeOnly, ctx.disabled, ctx.focus || ctx.overlayVisible))("ngStyle", ctx.style);
+        \u0275\u0275property("ngClass", \u0275\u0275pureFunction5(6, _c53, ctx.showIcon && ctx.iconDisplay === "input", ctx.showIcon && ctx.iconDisplay === "button", ctx.timeOnly, ctx.disabled, ctx.focus || ctx.overlayVisible))("ngStyle", ctx.style);
         \u0275\u0275advance(2);
         \u0275\u0275property("ngIf", !ctx.inline);
         \u0275\u0275advance();
@@ -50328,4158 +54507,6 @@ var CalendarModule = class _CalendarModule {
   }], null, null);
 })();
 
-// node_modules/primeng/fesm2022/primeng-icons-minus.mjs
-var MinusIcon = class _MinusIcon extends BaseIcon {
-  static \u0275fac = /* @__PURE__ */ (() => {
-    let \u0275MinusIcon_BaseFactory;
-    return function MinusIcon_Factory(t) {
-      return (\u0275MinusIcon_BaseFactory || (\u0275MinusIcon_BaseFactory = \u0275\u0275getInheritedFactory(_MinusIcon)))(t || _MinusIcon);
-    };
-  })();
-  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({
-    type: _MinusIcon,
-    selectors: [["MinusIcon"]],
-    standalone: true,
-    features: [\u0275\u0275InheritDefinitionFeature, \u0275\u0275StandaloneFeature],
-    decls: 2,
-    vars: 5,
-    consts: [["width", "14", "height", "14", "viewBox", "0 0 14 14", "fill", "none", "xmlns", "http://www.w3.org/2000/svg"], ["d", "M13.2222 7.77778H0.777778C0.571498 7.77778 0.373667 7.69584 0.227806 7.54998C0.0819442 7.40412 0 7.20629 0 7.00001C0 6.79373 0.0819442 6.5959 0.227806 6.45003C0.373667 6.30417 0.571498 6.22223 0.777778 6.22223H13.2222C13.4285 6.22223 13.6263 6.30417 13.7722 6.45003C13.9181 6.5959 14 6.79373 14 7.00001C14 7.20629 13.9181 7.40412 13.7722 7.54998C13.6263 7.69584 13.4285 7.77778 13.2222 7.77778Z", "fill", "currentColor"]],
-    template: function MinusIcon_Template(rf, ctx) {
-      if (rf & 1) {
-        \u0275\u0275namespaceSVG();
-        \u0275\u0275elementStart(0, "svg", 0);
-        \u0275\u0275element(1, "path", 1);
-        \u0275\u0275elementEnd();
-      }
-      if (rf & 2) {
-        \u0275\u0275classMap(ctx.getClassNames());
-        \u0275\u0275attribute("aria-label", ctx.ariaLabel)("aria-hidden", ctx.ariaHidden)("role", ctx.role);
-      }
-    },
-    dependencies: [CommonModule],
-    encapsulation: 2
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(MinusIcon, [{
-    type: Component,
-    args: [{
-      selector: "MinusIcon",
-      standalone: true,
-      imports: [CommonModule, BaseIcon],
-      template: `
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" [attr.aria-label]="ariaLabel" [attr.aria-hidden]="ariaHidden" [attr.role]="role" [class]="getClassNames()">
-            <path
-                d="M13.2222 7.77778H0.777778C0.571498 7.77778 0.373667 7.69584 0.227806 7.54998C0.0819442 7.40412 0 7.20629 0 7.00001C0 6.79373 0.0819442 6.5959 0.227806 6.45003C0.373667 6.30417 0.571498 6.22223 0.777778 6.22223H13.2222C13.4285 6.22223 13.6263 6.30417 13.7722 6.45003C13.9181 6.5959 14 6.79373 14 7.00001C14 7.20629 13.9181 7.40412 13.7722 7.54998C13.6263 7.69584 13.4285 7.77778 13.2222 7.77778Z"
-                fill="currentColor"
-            />
-        </svg>
-    `
-    }]
-  }], null, null);
-})();
-
-// node_modules/primeng/fesm2022/primeng-icons-plus.mjs
-var PlusIcon = class _PlusIcon extends BaseIcon {
-  pathId;
-  ngOnInit() {
-    this.pathId = "url(#" + UniqueComponentId() + ")";
-  }
-  static \u0275fac = /* @__PURE__ */ (() => {
-    let \u0275PlusIcon_BaseFactory;
-    return function PlusIcon_Factory(t) {
-      return (\u0275PlusIcon_BaseFactory || (\u0275PlusIcon_BaseFactory = \u0275\u0275getInheritedFactory(_PlusIcon)))(t || _PlusIcon);
-    };
-  })();
-  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({
-    type: _PlusIcon,
-    selectors: [["PlusIcon"]],
-    standalone: true,
-    features: [\u0275\u0275InheritDefinitionFeature, \u0275\u0275StandaloneFeature],
-    decls: 6,
-    vars: 7,
-    consts: [["width", "14", "height", "14", "viewBox", "0 0 14 14", "fill", "none", "xmlns", "http://www.w3.org/2000/svg"], ["d", "M7.67742 6.32258V0.677419C7.67742 0.497757 7.60605 0.325452 7.47901 0.198411C7.35197 0.0713707 7.17966 0 7 0C6.82034 0 6.64803 0.0713707 6.52099 0.198411C6.39395 0.325452 6.32258 0.497757 6.32258 0.677419V6.32258H0.677419C0.497757 6.32258 0.325452 6.39395 0.198411 6.52099C0.0713707 6.64803 0 6.82034 0 7C0 7.17966 0.0713707 7.35197 0.198411 7.47901C0.325452 7.60605 0.497757 7.67742 0.677419 7.67742H6.32258V13.3226C6.32492 13.5015 6.39704 13.6725 6.52358 13.799C6.65012 13.9255 6.82106 13.9977 7 14C7.17966 14 7.35197 13.9286 7.47901 13.8016C7.60605 13.6745 7.67742 13.5022 7.67742 13.3226V7.67742H13.3226C13.5022 7.67742 13.6745 7.60605 13.8016 7.47901C13.9286 7.35197 14 7.17966 14 7C13.9977 6.82106 13.9255 6.65012 13.799 6.52358C13.6725 6.39704 13.5015 6.32492 13.3226 6.32258H7.67742Z", "fill", "currentColor"], [3, "id"], ["width", "14", "height", "14", "fill", "white"]],
-    template: function PlusIcon_Template(rf, ctx) {
-      if (rf & 1) {
-        \u0275\u0275namespaceSVG();
-        \u0275\u0275elementStart(0, "svg", 0)(1, "g");
-        \u0275\u0275element(2, "path", 1);
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(3, "defs")(4, "clipPath", 2);
-        \u0275\u0275element(5, "rect", 3);
-        \u0275\u0275elementEnd()()();
-      }
-      if (rf & 2) {
-        \u0275\u0275classMap(ctx.getClassNames());
-        \u0275\u0275attribute("aria-label", ctx.ariaLabel)("aria-hidden", ctx.ariaHidden)("role", ctx.role);
-        \u0275\u0275advance();
-        \u0275\u0275attribute("clip-path", ctx.pathId);
-        \u0275\u0275advance(3);
-        \u0275\u0275property("id", ctx.pathId);
-      }
-    },
-    encapsulation: 2
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(PlusIcon, [{
-    type: Component,
-    args: [{
-      selector: "PlusIcon",
-      standalone: true,
-      imports: [BaseIcon],
-      template: `
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" [attr.aria-label]="ariaLabel" [attr.aria-hidden]="ariaHidden" [attr.role]="role" [class]="getClassNames()">
-            <g [attr.clip-path]="pathId">
-                <path
-                    d="M7.67742 6.32258V0.677419C7.67742 0.497757 7.60605 0.325452 7.47901 0.198411C7.35197 0.0713707 7.17966 0 7 0C6.82034 0 6.64803 0.0713707 6.52099 0.198411C6.39395 0.325452 6.32258 0.497757 6.32258 0.677419V6.32258H0.677419C0.497757 6.32258 0.325452 6.39395 0.198411 6.52099C0.0713707 6.64803 0 6.82034 0 7C0 7.17966 0.0713707 7.35197 0.198411 7.47901C0.325452 7.60605 0.497757 7.67742 0.677419 7.67742H6.32258V13.3226C6.32492 13.5015 6.39704 13.6725 6.52358 13.799C6.65012 13.9255 6.82106 13.9977 7 14C7.17966 14 7.35197 13.9286 7.47901 13.8016C7.60605 13.6745 7.67742 13.5022 7.67742 13.3226V7.67742H13.3226C13.5022 7.67742 13.6745 7.60605 13.8016 7.47901C13.9286 7.35197 14 7.17966 14 7C13.9977 6.82106 13.9255 6.65012 13.799 6.52358C13.6725 6.39704 13.5015 6.32492 13.3226 6.32258H7.67742Z"
-                    fill="currentColor"
-                />
-            </g>
-            <defs>
-                <clipPath [id]="pathId">
-                    <rect width="14" height="14" fill="white" />
-                </clipPath>
-            </defs>
-        </svg>
-    `
-    }]
-  }], null, null);
-})();
-
-// node_modules/primeng/fesm2022/primeng-panel.mjs
-var _c05 = ["*", [["p-header"]], [["p-footer"]]];
-var _c16 = ["*", "p-header", "p-footer"];
-var _c22 = (a0, a1) => ({
-  "p-panel p-component": true,
-  "p-panel-toggleable": a0,
-  "p-panel-expanded": a1
-});
-var _c32 = (a0) => ({
-  transitionParams: a0,
-  height: "0",
-  opacity: "0"
-});
-var _c42 = (a0) => ({
-  value: "hidden",
-  params: a0
-});
-var _c52 = (a0) => ({
-  transitionParams: a0,
-  height: "*",
-  opacity: "1"
-});
-var _c62 = (a0) => ({
-  value: "visible",
-  params: a0
-});
-var _c72 = (a0, a1, a2) => ({
-  "p-panel-icons-start": a0,
-  "p-panel-icons-end": a1,
-  "p-panel-icons-center": a2
-});
-var _c82 = (a0) => ({
-  $implicit: a0
-});
-function Panel_div_1_span_1_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "span", 10);
-    \u0275\u0275text(1);
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext(2);
-    \u0275\u0275attribute("id", ctx_r1.id + "_header");
-    \u0275\u0275advance();
-    \u0275\u0275textInterpolate(ctx_r1.header);
-  }
-}
-function Panel_div_1_ng_container_3_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementContainer(0);
-  }
-}
-function Panel_div_1_5_ng_template_0_Template(rf, ctx) {
-}
-function Panel_div_1_5_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275template(0, Panel_div_1_5_ng_template_0_Template, 0, 0, "ng-template");
-  }
-}
-function Panel_div_1_button_6_ng_container_1_ng_container_1_span_1_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275element(0, "span", 16);
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext(5);
-    \u0275\u0275classMap(ctx_r1.expandIcon);
-    \u0275\u0275property("ngClass", ctx_r1.iconClass);
-  }
-}
-function Panel_div_1_button_6_ng_container_1_ng_container_1_MinusIcon_2_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275element(0, "MinusIcon", 17);
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext(5);
-    \u0275\u0275property("styleClass", ctx_r1.iconClass);
-  }
-}
-function Panel_div_1_button_6_ng_container_1_ng_container_1_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementContainerStart(0);
-    \u0275\u0275template(1, Panel_div_1_button_6_ng_container_1_ng_container_1_span_1_Template, 1, 3, "span", 14)(2, Panel_div_1_button_6_ng_container_1_ng_container_1_MinusIcon_2_Template, 1, 1, "MinusIcon", 15);
-    \u0275\u0275elementContainerEnd();
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext(4);
-    \u0275\u0275advance();
-    \u0275\u0275property("ngIf", ctx_r1.expandIcon);
-    \u0275\u0275advance();
-    \u0275\u0275property("ngIf", !ctx_r1.expandIcon);
-  }
-}
-function Panel_div_1_button_6_ng_container_1_ng_container_2_span_1_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275element(0, "span", 16);
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext(5);
-    \u0275\u0275classMap(ctx_r1.collapseIcon);
-    \u0275\u0275property("ngClass", ctx_r1.iconClass);
-  }
-}
-function Panel_div_1_button_6_ng_container_1_ng_container_2_PlusIcon_2_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275element(0, "PlusIcon", 17);
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext(5);
-    \u0275\u0275property("styleClass", ctx_r1.iconClass);
-  }
-}
-function Panel_div_1_button_6_ng_container_1_ng_container_2_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementContainerStart(0);
-    \u0275\u0275template(1, Panel_div_1_button_6_ng_container_1_ng_container_2_span_1_Template, 1, 3, "span", 14)(2, Panel_div_1_button_6_ng_container_1_ng_container_2_PlusIcon_2_Template, 1, 1, "PlusIcon", 15);
-    \u0275\u0275elementContainerEnd();
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext(4);
-    \u0275\u0275advance();
-    \u0275\u0275property("ngIf", ctx_r1.collapseIcon);
-    \u0275\u0275advance();
-    \u0275\u0275property("ngIf", !ctx_r1.collapseIcon);
-  }
-}
-function Panel_div_1_button_6_ng_container_1_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementContainerStart(0);
-    \u0275\u0275template(1, Panel_div_1_button_6_ng_container_1_ng_container_1_Template, 3, 2, "ng-container", 12)(2, Panel_div_1_button_6_ng_container_1_ng_container_2_Template, 3, 2, "ng-container", 12);
-    \u0275\u0275elementContainerEnd();
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext(3);
-    \u0275\u0275advance();
-    \u0275\u0275property("ngIf", !ctx_r1.collapsed);
-    \u0275\u0275advance();
-    \u0275\u0275property("ngIf", ctx_r1.collapsed);
-  }
-}
-function Panel_div_1_button_6_2_ng_template_0_Template(rf, ctx) {
-}
-function Panel_div_1_button_6_2_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275template(0, Panel_div_1_button_6_2_ng_template_0_Template, 0, 0, "ng-template");
-  }
-}
-function Panel_div_1_button_6_Template(rf, ctx) {
-  if (rf & 1) {
-    const _r3 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "button", 11);
-    \u0275\u0275listener("click", function Panel_div_1_button_6_Template_button_click_0_listener($event) {
-      \u0275\u0275restoreView(_r3);
-      const ctx_r1 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r1.onIconClick($event));
-    })("keydown", function Panel_div_1_button_6_Template_button_keydown_0_listener($event) {
-      \u0275\u0275restoreView(_r3);
-      const ctx_r1 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r1.onKeyDown($event));
-    });
-    \u0275\u0275template(1, Panel_div_1_button_6_ng_container_1_Template, 3, 2, "ng-container", 12)(2, Panel_div_1_button_6_2_Template, 1, 0, null, 13);
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext(2);
-    \u0275\u0275attribute("id", ctx_r1.id + "_header")("aria-label", ctx_r1.buttonAriaLabel)("aria-controls", ctx_r1.id + "_content")("aria-expanded", !ctx_r1.collapsed);
-    \u0275\u0275advance();
-    \u0275\u0275property("ngIf", !ctx_r1.headerIconTemplate);
-    \u0275\u0275advance();
-    \u0275\u0275property("ngTemplateOutlet", ctx_r1.headerIconTemplate)("ngTemplateOutletContext", \u0275\u0275pureFunction1(7, _c82, ctx_r1.collapsed));
-  }
-}
-function Panel_div_1_Template(rf, ctx) {
-  if (rf & 1) {
-    const _r1 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 6);
-    \u0275\u0275listener("click", function Panel_div_1_Template_div_click_0_listener($event) {
-      \u0275\u0275restoreView(_r1);
-      const ctx_r1 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r1.onHeaderClick($event));
-    });
-    \u0275\u0275template(1, Panel_div_1_span_1_Template, 2, 2, "span", 7);
-    \u0275\u0275projection(2, 1);
-    \u0275\u0275template(3, Panel_div_1_ng_container_3_Template, 1, 0, "ng-container", 4);
-    \u0275\u0275elementStart(4, "div", 8);
-    \u0275\u0275template(5, Panel_div_1_5_Template, 1, 0, null, 4)(6, Panel_div_1_button_6_Template, 3, 9, "button", 9);
-    \u0275\u0275elementEnd()();
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext();
-    \u0275\u0275attribute("id", ctx_r1.id + "-titlebar");
-    \u0275\u0275advance();
-    \u0275\u0275property("ngIf", ctx_r1.header);
-    \u0275\u0275advance(2);
-    \u0275\u0275property("ngTemplateOutlet", ctx_r1.headerTemplate);
-    \u0275\u0275advance();
-    \u0275\u0275property("ngClass", \u0275\u0275pureFunction3(6, _c72, ctx_r1.iconPos === "start", ctx_r1.iconPos === "end", ctx_r1.iconPos === "center"));
-    \u0275\u0275advance();
-    \u0275\u0275property("ngTemplateOutlet", ctx_r1.iconTemplate);
-    \u0275\u0275advance();
-    \u0275\u0275property("ngIf", ctx_r1.toggleable);
-  }
-}
-function Panel_ng_container_5_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementContainer(0);
-  }
-}
-function Panel_div_6_ng_container_2_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementContainer(0);
-  }
-}
-function Panel_div_6_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 18);
-    \u0275\u0275projection(1, 2);
-    \u0275\u0275template(2, Panel_div_6_ng_container_2_Template, 1, 0, "ng-container", 4);
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext();
-    \u0275\u0275advance(2);
-    \u0275\u0275property("ngTemplateOutlet", ctx_r1.footerTemplate);
-  }
-}
-var Panel = class _Panel {
-  el;
-  /**
-   * Defines if content of panel can be expanded and collapsed.
-   * @group Props
-   */
-  toggleable;
-  /**
-   * Header text of the panel.
-   * @group Props
-   */
-  header;
-  /**
-   * Defines the initial state of panel content, supports one or two-way binding as well.
-   * @group Props
-   */
-  collapsed;
-  /**
-   * Inline style of the component.
-   * @group Props
-   */
-  style;
-  /**
-   * Style class of the component.
-   * @group Props
-   */
-  styleClass;
-  /**
-   * Position of the icons.
-   * @group Props
-   */
-  iconPos = "end";
-  /**
-   * Expand icon of the toggle button.
-   * @group Props
-   * @deprecated since v15.4.2, use `headericons` template instead.
-   */
-  expandIcon;
-  /**
-   * Collapse icon of the toggle button.
-   * @group Props
-   * @deprecated since v15.4.2, use `headericons` template instead.
-   */
-  collapseIcon;
-  /**
-   * Specifies if header of panel cannot be displayed.
-   * @group Props
-   * @deprecated since v15.4.2, use `headericons` template instead.
-   */
-  showHeader = true;
-  /**
-   * Specifies the toggler element to toggle the panel content.
-   * @group Props
-   */
-  toggler = "icon";
-  /**
-   * Transition options of the animation.
-   * @group Props
-   */
-  transitionOptions = "400ms cubic-bezier(0.86, 0, 0.07, 1)";
-  /**
-   * Emitted when the collapsed changes.
-   * @param {boolean} value - New Value.
-   * @group Emits
-   */
-  collapsedChange = new EventEmitter();
-  /**
-   * Callback to invoke before panel toggle.
-   * @param {PanelBeforeToggleEvent} event - Custom panel toggle event
-   * @group Emits
-   */
-  onBeforeToggle = new EventEmitter();
-  /**
-   * Callback to invoke after panel toggle.
-   * @param {PanelAfterToggleEvent} event - Custom panel toggle event
-   * @group Emits
-   */
-  onAfterToggle = new EventEmitter();
-  footerFacet;
-  templates;
-  iconTemplate;
-  animating;
-  headerTemplate;
-  contentTemplate;
-  footerTemplate;
-  headerIconTemplate;
-  id = UniqueComponentId();
-  get buttonAriaLabel() {
-    return this.header;
-  }
-  constructor(el) {
-    this.el = el;
-  }
-  ngAfterContentInit() {
-    this.templates.forEach((item) => {
-      switch (item.getType()) {
-        case "header":
-          this.headerTemplate = item.template;
-          break;
-        case "content":
-          this.contentTemplate = item.template;
-          break;
-        case "footer":
-          this.footerTemplate = item.template;
-          break;
-        case "icons":
-          this.iconTemplate = item.template;
-          break;
-        case "headericons":
-          this.headerIconTemplate = item.template;
-          break;
-        default:
-          this.contentTemplate = item.template;
-          break;
-      }
-    });
-  }
-  onHeaderClick(event2) {
-    if (this.toggler === "header") {
-      this.toggle(event2);
-    }
-  }
-  onIconClick(event2) {
-    if (this.toggler === "icon") {
-      this.toggle(event2);
-    }
-  }
-  toggle(event2) {
-    if (this.animating) {
-      return false;
-    }
-    this.animating = true;
-    this.onBeforeToggle.emit({
-      originalEvent: event2,
-      collapsed: this.collapsed
-    });
-    if (this.toggleable) {
-      if (this.collapsed)
-        this.expand();
-      else
-        this.collapse();
-    }
-    event2.preventDefault();
-  }
-  expand() {
-    this.collapsed = false;
-    this.collapsedChange.emit(this.collapsed);
-  }
-  collapse() {
-    this.collapsed = true;
-    this.collapsedChange.emit(this.collapsed);
-  }
-  getBlockableElement() {
-    return this.el.nativeElement.children[0];
-  }
-  onKeyDown(event2) {
-    if (event2.code === "Enter" || event2.code === "Space") {
-      this.toggle(event2);
-      event2.preventDefault();
-    }
-  }
-  onToggleDone(event2) {
-    this.animating = false;
-    this.onAfterToggle.emit({
-      originalEvent: event2,
-      collapsed: this.collapsed
-    });
-  }
-  static \u0275fac = function Panel_Factory(t) {
-    return new (t || _Panel)(\u0275\u0275directiveInject(ElementRef));
-  };
-  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({
-    type: _Panel,
-    selectors: [["p-panel"]],
-    contentQueries: function Panel_ContentQueries(rf, ctx, dirIndex) {
-      if (rf & 1) {
-        \u0275\u0275contentQuery(dirIndex, Footer, 5);
-        \u0275\u0275contentQuery(dirIndex, PrimeTemplate, 4);
-      }
-      if (rf & 2) {
-        let _t;
-        \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx.footerFacet = _t.first);
-        \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx.templates = _t);
-      }
-    },
-    hostAttrs: [1, "p-element"],
-    inputs: {
-      toggleable: [InputFlags.HasDecoratorInputTransform, "toggleable", "toggleable", booleanAttribute],
-      header: "header",
-      collapsed: [InputFlags.HasDecoratorInputTransform, "collapsed", "collapsed", booleanAttribute],
-      style: "style",
-      styleClass: "styleClass",
-      iconPos: "iconPos",
-      expandIcon: "expandIcon",
-      collapseIcon: "collapseIcon",
-      showHeader: [InputFlags.HasDecoratorInputTransform, "showHeader", "showHeader", booleanAttribute],
-      toggler: "toggler",
-      transitionOptions: "transitionOptions"
-    },
-    outputs: {
-      collapsedChange: "collapsedChange",
-      onBeforeToggle: "onBeforeToggle",
-      onAfterToggle: "onAfterToggle"
-    },
-    features: [\u0275\u0275InputTransformsFeature],
-    ngContentSelectors: _c16,
-    decls: 7,
-    vars: 25,
-    consts: [[3, "ngClass", "ngStyle"], ["class", "p-panel-header", 3, "click", 4, "ngIf"], ["role", "region", 1, "p-toggleable-content", 3, "id"], [1, "p-panel-content"], [4, "ngTemplateOutlet"], ["class", "p-panel-footer", 4, "ngIf"], [1, "p-panel-header", 3, "click"], ["class", "p-panel-title", 4, "ngIf"], [1, "p-panel-icons", 3, "ngClass"], ["pRipple", "", "type", "button", "role", "button", "class", "p-panel-header-icon p-panel-toggler p-link", 3, "click", "keydown", 4, "ngIf"], [1, "p-panel-title"], ["pRipple", "", "type", "button", "role", "button", 1, "p-panel-header-icon", "p-panel-toggler", "p-link", 3, "click", "keydown"], [4, "ngIf"], [4, "ngTemplateOutlet", "ngTemplateOutletContext"], [3, "class", "ngClass", 4, "ngIf"], [3, "styleClass", 4, "ngIf"], [3, "ngClass"], [3, "styleClass"], [1, "p-panel-footer"]],
-    template: function Panel_Template(rf, ctx) {
-      if (rf & 1) {
-        \u0275\u0275projectionDef(_c05);
-        \u0275\u0275elementStart(0, "div", 0);
-        \u0275\u0275template(1, Panel_div_1_Template, 7, 10, "div", 1);
-        \u0275\u0275elementStart(2, "div", 2);
-        \u0275\u0275listener("@panelContent.done", function Panel_Template_div_animation_panelContent_done_2_listener($event) {
-          return ctx.onToggleDone($event);
-        });
-        \u0275\u0275elementStart(3, "div", 3);
-        \u0275\u0275projection(4);
-        \u0275\u0275template(5, Panel_ng_container_5_Template, 1, 0, "ng-container", 4);
-        \u0275\u0275elementEnd();
-        \u0275\u0275template(6, Panel_div_6_Template, 3, 1, "div", 5);
-        \u0275\u0275elementEnd()();
-      }
-      if (rf & 2) {
-        \u0275\u0275classMap(ctx.styleClass);
-        \u0275\u0275property("ngClass", \u0275\u0275pureFunction2(14, _c22, ctx.toggleable, !ctx.collapsed && ctx.toggleable))("ngStyle", ctx.style);
-        \u0275\u0275attribute("id", ctx.id)("data-pc-name", "panel");
-        \u0275\u0275advance();
-        \u0275\u0275property("ngIf", ctx.showHeader);
-        \u0275\u0275advance();
-        \u0275\u0275property("id", ctx.id + "_content")("@panelContent", ctx.collapsed ? \u0275\u0275pureFunction1(19, _c42, \u0275\u0275pureFunction1(17, _c32, ctx.animating ? ctx.transitionOptions : "0ms")) : \u0275\u0275pureFunction1(23, _c62, \u0275\u0275pureFunction1(21, _c52, ctx.animating ? ctx.transitionOptions : "0ms")));
-        \u0275\u0275attribute("aria-labelledby", ctx.id + "_header")("aria-hidden", ctx.collapsed)("tabindex", ctx.collapsed ? "-1" : void 0);
-        \u0275\u0275advance(3);
-        \u0275\u0275property("ngTemplateOutlet", ctx.contentTemplate);
-        \u0275\u0275advance();
-        \u0275\u0275property("ngIf", ctx.footerFacet || ctx.footerTemplate);
-      }
-    },
-    dependencies: () => [NgClass, NgIf, NgTemplateOutlet, NgStyle, Ripple, PlusIcon, MinusIcon],
-    styles: ["@layer primeng{.p-panel-header{display:flex;align-items:center}.p-panel-title{line-height:1;order:1}.p-panel-header-icon{display:inline-flex;justify-content:center;align-items:center;cursor:pointer;text-decoration:none;overflow:hidden;position:relative}.p-panel-toggleable.p-panel-expanded>.p-toggleable-content:not(.ng-animating){overflow:visible}.p-panel-toggleable .p-toggleable-content{overflow:hidden}}\n"],
-    encapsulation: 2,
-    data: {
-      animation: [trigger("panelContent", [state("hidden", style({
-        height: "0"
-      })), state("void", style({
-        height: "{{height}}"
-      }), {
-        params: {
-          height: "0"
-        }
-      }), state("visible", style({
-        height: "*"
-      })), transition("visible <=> hidden", [animate("{{transitionParams}}")]), transition("void => hidden", animate("{{transitionParams}}")), transition("void => visible", animate("{{transitionParams}}"))])]
-    },
-    changeDetection: 0
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(Panel, [{
-    type: Component,
-    args: [{
-      selector: "p-panel",
-      template: `
-        <div [attr.id]="id" [attr.data-pc-name]="'panel'" [ngClass]="{ 'p-panel p-component': true, 'p-panel-toggleable': toggleable, 'p-panel-expanded': !collapsed && toggleable }" [ngStyle]="style" [class]="styleClass">
-            <div class="p-panel-header" *ngIf="showHeader" (click)="onHeaderClick($event)" [attr.id]="id + '-titlebar'">
-                <span class="p-panel-title" *ngIf="header" [attr.id]="id + '_header'">{{ header }}</span>
-                <ng-content select="p-header"></ng-content>
-                <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
-                <div class="p-panel-icons" [ngClass]="{ 'p-panel-icons-start': iconPos === 'start', 'p-panel-icons-end': iconPos === 'end', 'p-panel-icons-center': iconPos === 'center' }">
-                    <ng-template *ngTemplateOutlet="iconTemplate"></ng-template>
-                    <button
-                        *ngIf="toggleable"
-                        [attr.id]="id + '_header'"
-                        pRipple
-                        type="button"
-                        role="button"
-                        class="p-panel-header-icon p-panel-toggler p-link"
-                        [attr.aria-label]="buttonAriaLabel"
-                        [attr.aria-controls]="id + '_content'"
-                        [attr.aria-expanded]="!collapsed"
-                        (click)="onIconClick($event)"
-                        (keydown)="onKeyDown($event)"
-                    >
-                        <ng-container *ngIf="!headerIconTemplate">
-                            <ng-container *ngIf="!collapsed">
-                                <span *ngIf="expandIcon" [class]="expandIcon" [ngClass]="iconClass"></span>
-                                <MinusIcon *ngIf="!expandIcon" [styleClass]="iconClass" />
-                            </ng-container>
-
-                            <ng-container *ngIf="collapsed">
-                                <span *ngIf="collapseIcon" [class]="collapseIcon" [ngClass]="iconClass"></span>
-                                <PlusIcon *ngIf="!collapseIcon" [styleClass]="iconClass" />
-                            </ng-container>
-                        </ng-container>
-
-                        <ng-template *ngTemplateOutlet="headerIconTemplate; context: { $implicit: collapsed }"></ng-template>
-                    </button>
-                </div>
-            </div>
-            <div
-                class="p-toggleable-content"
-                [id]="id + '_content'"
-                role="region"
-                [attr.aria-labelledby]="id + '_header'"
-                [attr.aria-hidden]="collapsed"
-                [attr.tabindex]="collapsed ? '-1' : undefined"
-                [@panelContent]="
-                    collapsed
-                        ? { value: 'hidden', params: { transitionParams: animating ? transitionOptions : '0ms', height: '0', opacity: '0' } }
-                        : { value: 'visible', params: { transitionParams: animating ? transitionOptions : '0ms', height: '*', opacity: '1' } }
-                "
-                (@panelContent.done)="onToggleDone($event)"
-            >
-                <div class="p-panel-content">
-                    <ng-content></ng-content>
-                    <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
-                </div>
-
-                <div class="p-panel-footer" *ngIf="footerFacet || footerTemplate">
-                    <ng-content select="p-footer"></ng-content>
-                    <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
-                </div>
-            </div>
-        </div>
-    `,
-      animations: [trigger("panelContent", [state("hidden", style({
-        height: "0"
-      })), state("void", style({
-        height: "{{height}}"
-      }), {
-        params: {
-          height: "0"
-        }
-      }), state("visible", style({
-        height: "*"
-      })), transition("visible <=> hidden", [animate("{{transitionParams}}")]), transition("void => hidden", animate("{{transitionParams}}")), transition("void => visible", animate("{{transitionParams}}"))])],
-      changeDetection: ChangeDetectionStrategy.OnPush,
-      encapsulation: ViewEncapsulation$1.None,
-      host: {
-        class: "p-element"
-      },
-      styles: ["@layer primeng{.p-panel-header{display:flex;align-items:center}.p-panel-title{line-height:1;order:1}.p-panel-header-icon{display:inline-flex;justify-content:center;align-items:center;cursor:pointer;text-decoration:none;overflow:hidden;position:relative}.p-panel-toggleable.p-panel-expanded>.p-toggleable-content:not(.ng-animating){overflow:visible}.p-panel-toggleable .p-toggleable-content{overflow:hidden}}\n"]
-    }]
-  }], () => [{
-    type: ElementRef
-  }], {
-    toggleable: [{
-      type: Input,
-      args: [{
-        transform: booleanAttribute
-      }]
-    }],
-    header: [{
-      type: Input
-    }],
-    collapsed: [{
-      type: Input,
-      args: [{
-        transform: booleanAttribute
-      }]
-    }],
-    style: [{
-      type: Input
-    }],
-    styleClass: [{
-      type: Input
-    }],
-    iconPos: [{
-      type: Input
-    }],
-    expandIcon: [{
-      type: Input
-    }],
-    collapseIcon: [{
-      type: Input
-    }],
-    showHeader: [{
-      type: Input,
-      args: [{
-        transform: booleanAttribute
-      }]
-    }],
-    toggler: [{
-      type: Input
-    }],
-    transitionOptions: [{
-      type: Input
-    }],
-    collapsedChange: [{
-      type: Output
-    }],
-    onBeforeToggle: [{
-      type: Output
-    }],
-    onAfterToggle: [{
-      type: Output
-    }],
-    footerFacet: [{
-      type: ContentChild,
-      args: [Footer]
-    }],
-    templates: [{
-      type: ContentChildren,
-      args: [PrimeTemplate]
-    }]
-  });
-})();
-var PanelModule = class _PanelModule {
-  static \u0275fac = function PanelModule_Factory(t) {
-    return new (t || _PanelModule)();
-  };
-  static \u0275mod = /* @__PURE__ */ \u0275\u0275defineNgModule({
-    type: _PanelModule
-  });
-  static \u0275inj = /* @__PURE__ */ \u0275\u0275defineInjector({
-    imports: [CommonModule, SharedModule, RippleModule, PlusIcon, MinusIcon, SharedModule]
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(PanelModule, [{
-    type: NgModule,
-    args: [{
-      imports: [CommonModule, SharedModule, RippleModule, PlusIcon, MinusIcon],
-      exports: [Panel, SharedModule],
-      declarations: [Panel]
-    }]
-  }], null, null);
-})();
-
-// node_modules/primeng/fesm2022/primeng-icons-upload.mjs
-var UploadIcon = class _UploadIcon extends BaseIcon {
-  pathId;
-  ngOnInit() {
-    this.pathId = "url(#" + UniqueComponentId() + ")";
-  }
-  static \u0275fac = /* @__PURE__ */ (() => {
-    let \u0275UploadIcon_BaseFactory;
-    return function UploadIcon_Factory(t) {
-      return (\u0275UploadIcon_BaseFactory || (\u0275UploadIcon_BaseFactory = \u0275\u0275getInheritedFactory(_UploadIcon)))(t || _UploadIcon);
-    };
-  })();
-  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({
-    type: _UploadIcon,
-    selectors: [["UploadIcon"]],
-    standalone: true,
-    features: [\u0275\u0275InheritDefinitionFeature, \u0275\u0275StandaloneFeature],
-    decls: 6,
-    vars: 7,
-    consts: [["width", "14", "height", "14", "viewBox", "0 0 14 14", "fill", "none", "xmlns", "http://www.w3.org/2000/svg"], ["fill-rule", "evenodd", "clip-rule", "evenodd", "d", "M6.58942 9.82197C6.70165 9.93405 6.85328 9.99793 7.012 10C7.17071 9.99793 7.32234 9.93405 7.43458 9.82197C7.54681 9.7099 7.61079 9.55849 7.61286 9.4V2.04798L9.79204 4.22402C9.84752 4.28011 9.91365 4.32457 9.98657 4.35479C10.0595 4.38502 10.1377 4.40039 10.2167 4.40002C10.2956 4.40039 10.3738 4.38502 10.4467 4.35479C10.5197 4.32457 10.5858 4.28011 10.6413 4.22402C10.7538 4.11152 10.817 3.95902 10.817 3.80002C10.817 3.64102 10.7538 3.48852 10.6413 3.37602L7.45127 0.190618C7.44656 0.185584 7.44176 0.180622 7.43687 0.175736C7.32419 0.063214 7.17136 0 7.012 0C6.85264 0 6.69981 0.063214 6.58712 0.175736C6.58181 0.181045 6.5766 0.186443 6.5715 0.191927L3.38282 3.37602C3.27669 3.48976 3.2189 3.6402 3.22165 3.79564C3.2244 3.95108 3.28746 4.09939 3.39755 4.20932C3.50764 4.31925 3.65616 4.38222 3.81182 4.38496C3.96749 4.3877 4.11814 4.33001 4.23204 4.22402L6.41113 2.04807V9.4C6.41321 9.55849 6.47718 9.7099 6.58942 9.82197ZM11.9952 14H2.02883C1.751 13.9887 1.47813 13.9228 1.22584 13.8061C0.973545 13.6894 0.746779 13.5241 0.558517 13.3197C0.370254 13.1154 0.22419 12.876 0.128681 12.6152C0.0331723 12.3545 -0.00990605 12.0775 0.0019109 11.8V9.40005C0.0019109 9.24092 0.065216 9.08831 0.1779 8.97579C0.290584 8.86326 0.443416 8.80005 0.602775 8.80005C0.762134 8.80005 0.914966 8.86326 1.02765 8.97579C1.14033 9.08831 1.20364 9.24092 1.20364 9.40005V11.8C1.18295 12.0376 1.25463 12.274 1.40379 12.4602C1.55296 12.6463 1.76817 12.7681 2.00479 12.8H11.9952C12.2318 12.7681 12.447 12.6463 12.5962 12.4602C12.7453 12.274 12.817 12.0376 12.7963 11.8V9.40005C12.7963 9.24092 12.8596 9.08831 12.9723 8.97579C13.085 8.86326 13.2378 8.80005 13.3972 8.80005C13.5565 8.80005 13.7094 8.86326 13.8221 8.97579C13.9347 9.08831 13.998 9.24092 13.998 9.40005V11.8C14.022 12.3563 13.8251 12.8996 13.45 13.3116C13.0749 13.7236 12.552 13.971 11.9952 14Z", "fill", "currentColor"], [3, "id"], ["width", "14", "height", "14", "fill", "white"]],
-    template: function UploadIcon_Template(rf, ctx) {
-      if (rf & 1) {
-        \u0275\u0275namespaceSVG();
-        \u0275\u0275elementStart(0, "svg", 0)(1, "g");
-        \u0275\u0275element(2, "path", 1);
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(3, "defs")(4, "clipPath", 2);
-        \u0275\u0275element(5, "rect", 3);
-        \u0275\u0275elementEnd()()();
-      }
-      if (rf & 2) {
-        \u0275\u0275classMap(ctx.getClassNames());
-        \u0275\u0275attribute("aria-label", ctx.ariaLabel)("aria-hidden", ctx.ariaHidden)("role", ctx.role);
-        \u0275\u0275advance();
-        \u0275\u0275attribute("clip-path", ctx.pathId);
-        \u0275\u0275advance(3);
-        \u0275\u0275property("id", ctx.pathId);
-      }
-    },
-    encapsulation: 2
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(UploadIcon, [{
-    type: Component,
-    args: [{
-      selector: "UploadIcon",
-      standalone: true,
-      imports: [BaseIcon],
-      template: `
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" [attr.aria-label]="ariaLabel" [attr.aria-hidden]="ariaHidden" [attr.role]="role" [class]="getClassNames()">
-            <g [attr.clip-path]="pathId">
-                <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="M6.58942 9.82197C6.70165 9.93405 6.85328 9.99793 7.012 10C7.17071 9.99793 7.32234 9.93405 7.43458 9.82197C7.54681 9.7099 7.61079 9.55849 7.61286 9.4V2.04798L9.79204 4.22402C9.84752 4.28011 9.91365 4.32457 9.98657 4.35479C10.0595 4.38502 10.1377 4.40039 10.2167 4.40002C10.2956 4.40039 10.3738 4.38502 10.4467 4.35479C10.5197 4.32457 10.5858 4.28011 10.6413 4.22402C10.7538 4.11152 10.817 3.95902 10.817 3.80002C10.817 3.64102 10.7538 3.48852 10.6413 3.37602L7.45127 0.190618C7.44656 0.185584 7.44176 0.180622 7.43687 0.175736C7.32419 0.063214 7.17136 0 7.012 0C6.85264 0 6.69981 0.063214 6.58712 0.175736C6.58181 0.181045 6.5766 0.186443 6.5715 0.191927L3.38282 3.37602C3.27669 3.48976 3.2189 3.6402 3.22165 3.79564C3.2244 3.95108 3.28746 4.09939 3.39755 4.20932C3.50764 4.31925 3.65616 4.38222 3.81182 4.38496C3.96749 4.3877 4.11814 4.33001 4.23204 4.22402L6.41113 2.04807V9.4C6.41321 9.55849 6.47718 9.7099 6.58942 9.82197ZM11.9952 14H2.02883C1.751 13.9887 1.47813 13.9228 1.22584 13.8061C0.973545 13.6894 0.746779 13.5241 0.558517 13.3197C0.370254 13.1154 0.22419 12.876 0.128681 12.6152C0.0331723 12.3545 -0.00990605 12.0775 0.0019109 11.8V9.40005C0.0019109 9.24092 0.065216 9.08831 0.1779 8.97579C0.290584 8.86326 0.443416 8.80005 0.602775 8.80005C0.762134 8.80005 0.914966 8.86326 1.02765 8.97579C1.14033 9.08831 1.20364 9.24092 1.20364 9.40005V11.8C1.18295 12.0376 1.25463 12.274 1.40379 12.4602C1.55296 12.6463 1.76817 12.7681 2.00479 12.8H11.9952C12.2318 12.7681 12.447 12.6463 12.5962 12.4602C12.7453 12.274 12.817 12.0376 12.7963 11.8V9.40005C12.7963 9.24092 12.8596 9.08831 12.9723 8.97579C13.085 8.86326 13.2378 8.80005 13.3972 8.80005C13.5565 8.80005 13.7094 8.86326 13.8221 8.97579C13.9347 9.08831 13.998 9.24092 13.998 9.40005V11.8C14.022 12.3563 13.8251 12.8996 13.45 13.3116C13.0749 13.7236 12.552 13.971 11.9952 14Z"
-                    fill="currentColor"
-                />
-            </g>
-            <defs>
-                <clipPath [id]="pathId">
-                    <rect width="14" height="14" fill="white" />
-                </clipPath>
-            </defs>
-        </svg>
-    `
-    }]
-  }], null, null);
-})();
-
-// node_modules/primeng/fesm2022/primeng-icons-check.mjs
-var CheckIcon = class _CheckIcon extends BaseIcon {
-  static \u0275fac = /* @__PURE__ */ (() => {
-    let \u0275CheckIcon_BaseFactory;
-    return function CheckIcon_Factory(t) {
-      return (\u0275CheckIcon_BaseFactory || (\u0275CheckIcon_BaseFactory = \u0275\u0275getInheritedFactory(_CheckIcon)))(t || _CheckIcon);
-    };
-  })();
-  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({
-    type: _CheckIcon,
-    selectors: [["CheckIcon"]],
-    standalone: true,
-    features: [\u0275\u0275InheritDefinitionFeature, \u0275\u0275StandaloneFeature],
-    decls: 2,
-    vars: 5,
-    consts: [["width", "14", "height", "14", "viewBox", "0 0 14 14", "fill", "none", "xmlns", "http://www.w3.org/2000/svg"], ["d", "M4.86199 11.5948C4.78717 11.5923 4.71366 11.5745 4.64596 11.5426C4.57826 11.5107 4.51779 11.4652 4.46827 11.4091L0.753985 7.69483C0.683167 7.64891 0.623706 7.58751 0.580092 7.51525C0.536478 7.44299 0.509851 7.36177 0.502221 7.27771C0.49459 7.19366 0.506156 7.10897 0.536046 7.03004C0.565935 6.95111 0.613367 6.88 0.674759 6.82208C0.736151 6.76416 0.8099 6.72095 0.890436 6.69571C0.970973 6.67046 1.05619 6.66385 1.13966 6.67635C1.22313 6.68886 1.30266 6.72017 1.37226 6.76792C1.44186 6.81567 1.4997 6.8786 1.54141 6.95197L4.86199 10.2503L12.6397 2.49483C12.7444 2.42694 12.8689 2.39617 12.9932 2.40745C13.1174 2.41873 13.2343 2.47141 13.3251 2.55705C13.4159 2.64268 13.4753 2.75632 13.4938 2.87973C13.5123 3.00315 13.4888 3.1292 13.4271 3.23768L5.2557 11.4091C5.20618 11.4652 5.14571 11.5107 5.07801 11.5426C5.01031 11.5745 4.9368 11.5923 4.86199 11.5948Z", "fill", "currentColor"]],
-    template: function CheckIcon_Template(rf, ctx) {
-      if (rf & 1) {
-        \u0275\u0275namespaceSVG();
-        \u0275\u0275elementStart(0, "svg", 0);
-        \u0275\u0275element(1, "path", 1);
-        \u0275\u0275elementEnd();
-      }
-      if (rf & 2) {
-        \u0275\u0275classMap(ctx.getClassNames());
-        \u0275\u0275attribute("aria-label", ctx.ariaLabel)("aria-hidden", ctx.ariaHidden)("role", ctx.role);
-      }
-    },
-    encapsulation: 2
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(CheckIcon, [{
-    type: Component,
-    args: [{
-      selector: "CheckIcon",
-      standalone: true,
-      imports: [BaseIcon],
-      template: `
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" [attr.aria-label]="ariaLabel" [attr.aria-hidden]="ariaHidden" [attr.role]="role" [class]="getClassNames()">
-            <path
-                d="M4.86199 11.5948C4.78717 11.5923 4.71366 11.5745 4.64596 11.5426C4.57826 11.5107 4.51779 11.4652 4.46827 11.4091L0.753985 7.69483C0.683167 7.64891 0.623706 7.58751 0.580092 7.51525C0.536478 7.44299 0.509851 7.36177 0.502221 7.27771C0.49459 7.19366 0.506156 7.10897 0.536046 7.03004C0.565935 6.95111 0.613367 6.88 0.674759 6.82208C0.736151 6.76416 0.8099 6.72095 0.890436 6.69571C0.970973 6.67046 1.05619 6.66385 1.13966 6.67635C1.22313 6.68886 1.30266 6.72017 1.37226 6.76792C1.44186 6.81567 1.4997 6.8786 1.54141 6.95197L4.86199 10.2503L12.6397 2.49483C12.7444 2.42694 12.8689 2.39617 12.9932 2.40745C13.1174 2.41873 13.2343 2.47141 13.3251 2.55705C13.4159 2.64268 13.4753 2.75632 13.4938 2.87973C13.5123 3.00315 13.4888 3.1292 13.4271 3.23768L5.2557 11.4091C5.20618 11.4652 5.14571 11.5107 5.07801 11.5426C5.01031 11.5745 4.9368 11.5923 4.86199 11.5948Z"
-                fill="currentColor"
-            />
-        </svg>
-    `
-    }]
-  }], null, null);
-})();
-
-// node_modules/primeng/fesm2022/primeng-icons-exclamationtriangle.mjs
-var ExclamationTriangleIcon = class _ExclamationTriangleIcon extends BaseIcon {
-  pathId;
-  ngOnInit() {
-    this.pathId = "url(#" + UniqueComponentId() + ")";
-  }
-  static \u0275fac = /* @__PURE__ */ (() => {
-    let \u0275ExclamationTriangleIcon_BaseFactory;
-    return function ExclamationTriangleIcon_Factory(t) {
-      return (\u0275ExclamationTriangleIcon_BaseFactory || (\u0275ExclamationTriangleIcon_BaseFactory = \u0275\u0275getInheritedFactory(_ExclamationTriangleIcon)))(t || _ExclamationTriangleIcon);
-    };
-  })();
-  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({
-    type: _ExclamationTriangleIcon,
-    selectors: [["ExclamationTriangleIcon"]],
-    standalone: true,
-    features: [\u0275\u0275InheritDefinitionFeature, \u0275\u0275StandaloneFeature],
-    decls: 8,
-    vars: 7,
-    consts: [["width", "14", "height", "14", "viewBox", "0 0 14 14", "fill", "none", "xmlns", "http://www.w3.org/2000/svg"], ["d", "M13.4018 13.1893H0.598161C0.49329 13.189 0.390283 13.1615 0.299143 13.1097C0.208003 13.0578 0.131826 12.9832 0.0780112 12.8932C0.0268539 12.8015 0 12.6982 0 12.5931C0 12.4881 0.0268539 12.3848 0.0780112 12.293L6.47985 1.08982C6.53679 1.00399 6.61408 0.933574 6.70484 0.884867C6.7956 0.836159 6.897 0.810669 7 0.810669C7.103 0.810669 7.2044 0.836159 7.29516 0.884867C7.38592 0.933574 7.46321 1.00399 7.52015 1.08982L13.922 12.293C13.9731 12.3848 14 12.4881 14 12.5931C14 12.6982 13.9731 12.8015 13.922 12.8932C13.8682 12.9832 13.792 13.0578 13.7009 13.1097C13.6097 13.1615 13.5067 13.189 13.4018 13.1893ZM1.63046 11.989H12.3695L7 2.59425L1.63046 11.989Z", "fill", "currentColor"], ["d", "M6.99996 8.78801C6.84143 8.78594 6.68997 8.72204 6.57787 8.60993C6.46576 8.49782 6.40186 8.34637 6.39979 8.18784V5.38703C6.39979 5.22786 6.46302 5.0752 6.57557 4.96265C6.68813 4.85009 6.84078 4.78686 6.99996 4.78686C7.15914 4.78686 7.31179 4.85009 7.42435 4.96265C7.5369 5.0752 7.60013 5.22786 7.60013 5.38703V8.18784C7.59806 8.34637 7.53416 8.49782 7.42205 8.60993C7.30995 8.72204 7.15849 8.78594 6.99996 8.78801Z", "fill", "currentColor"], ["d", "M6.99996 11.1887C6.84143 11.1866 6.68997 11.1227 6.57787 11.0106C6.46576 10.8985 6.40186 10.7471 6.39979 10.5885V10.1884C6.39979 10.0292 6.46302 9.87658 6.57557 9.76403C6.68813 9.65147 6.84078 9.58824 6.99996 9.58824C7.15914 9.58824 7.31179 9.65147 7.42435 9.76403C7.5369 9.87658 7.60013 10.0292 7.60013 10.1884V10.5885C7.59806 10.7471 7.53416 10.8985 7.42205 11.0106C7.30995 11.1227 7.15849 11.1866 6.99996 11.1887Z", "fill", "currentColor"], [3, "id"], ["width", "14", "height", "14", "fill", "white"]],
-    template: function ExclamationTriangleIcon_Template(rf, ctx) {
-      if (rf & 1) {
-        \u0275\u0275namespaceSVG();
-        \u0275\u0275elementStart(0, "svg", 0)(1, "g");
-        \u0275\u0275element(2, "path", 1)(3, "path", 2)(4, "path", 3);
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(5, "defs")(6, "clipPath", 4);
-        \u0275\u0275element(7, "rect", 5);
-        \u0275\u0275elementEnd()()();
-      }
-      if (rf & 2) {
-        \u0275\u0275classMap(ctx.getClassNames());
-        \u0275\u0275attribute("aria-label", ctx.ariaLabel)("aria-hidden", ctx.ariaHidden)("role", ctx.role);
-        \u0275\u0275advance();
-        \u0275\u0275attribute("clip-path", ctx.pathId);
-        \u0275\u0275advance(5);
-        \u0275\u0275property("id", ctx.pathId);
-      }
-    },
-    encapsulation: 2
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(ExclamationTriangleIcon, [{
-    type: Component,
-    args: [{
-      selector: "ExclamationTriangleIcon",
-      standalone: true,
-      imports: [BaseIcon],
-      template: `
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" [attr.aria-label]="ariaLabel" [attr.aria-hidden]="ariaHidden" [attr.role]="role" [class]="getClassNames()">
-            <g [attr.clip-path]="pathId">
-                <path
-                    d="M13.4018 13.1893H0.598161C0.49329 13.189 0.390283 13.1615 0.299143 13.1097C0.208003 13.0578 0.131826 12.9832 0.0780112 12.8932C0.0268539 12.8015 0 12.6982 0 12.5931C0 12.4881 0.0268539 12.3848 0.0780112 12.293L6.47985 1.08982C6.53679 1.00399 6.61408 0.933574 6.70484 0.884867C6.7956 0.836159 6.897 0.810669 7 0.810669C7.103 0.810669 7.2044 0.836159 7.29516 0.884867C7.38592 0.933574 7.46321 1.00399 7.52015 1.08982L13.922 12.293C13.9731 12.3848 14 12.4881 14 12.5931C14 12.6982 13.9731 12.8015 13.922 12.8932C13.8682 12.9832 13.792 13.0578 13.7009 13.1097C13.6097 13.1615 13.5067 13.189 13.4018 13.1893ZM1.63046 11.989H12.3695L7 2.59425L1.63046 11.989Z"
-                    fill="currentColor"
-                />
-                <path
-                    d="M6.99996 8.78801C6.84143 8.78594 6.68997 8.72204 6.57787 8.60993C6.46576 8.49782 6.40186 8.34637 6.39979 8.18784V5.38703C6.39979 5.22786 6.46302 5.0752 6.57557 4.96265C6.68813 4.85009 6.84078 4.78686 6.99996 4.78686C7.15914 4.78686 7.31179 4.85009 7.42435 4.96265C7.5369 5.0752 7.60013 5.22786 7.60013 5.38703V8.18784C7.59806 8.34637 7.53416 8.49782 7.42205 8.60993C7.30995 8.72204 7.15849 8.78594 6.99996 8.78801Z"
-                    fill="currentColor"
-                />
-                <path
-                    d="M6.99996 11.1887C6.84143 11.1866 6.68997 11.1227 6.57787 11.0106C6.46576 10.8985 6.40186 10.7471 6.39979 10.5885V10.1884C6.39979 10.0292 6.46302 9.87658 6.57557 9.76403C6.68813 9.65147 6.84078 9.58824 6.99996 9.58824C7.15914 9.58824 7.31179 9.65147 7.42435 9.76403C7.5369 9.87658 7.60013 10.0292 7.60013 10.1884V10.5885C7.59806 10.7471 7.53416 10.8985 7.42205 11.0106C7.30995 11.1227 7.15849 11.1866 6.99996 11.1887Z"
-                    fill="currentColor"
-                />
-            </g>
-            <defs>
-                <clipPath [id]="pathId">
-                    <rect width="14" height="14" fill="white" />
-                </clipPath>
-            </defs>
-        </svg>
-    `
-    }]
-  }], null, null);
-})();
-
-// node_modules/primeng/fesm2022/primeng-icons-infocircle.mjs
-var InfoCircleIcon = class _InfoCircleIcon extends BaseIcon {
-  pathId;
-  ngOnInit() {
-    this.pathId = "url(#" + UniqueComponentId() + ")";
-  }
-  static \u0275fac = /* @__PURE__ */ (() => {
-    let \u0275InfoCircleIcon_BaseFactory;
-    return function InfoCircleIcon_Factory(t) {
-      return (\u0275InfoCircleIcon_BaseFactory || (\u0275InfoCircleIcon_BaseFactory = \u0275\u0275getInheritedFactory(_InfoCircleIcon)))(t || _InfoCircleIcon);
-    };
-  })();
-  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({
-    type: _InfoCircleIcon,
-    selectors: [["InfoCircleIcon"]],
-    standalone: true,
-    features: [\u0275\u0275InheritDefinitionFeature, \u0275\u0275StandaloneFeature],
-    decls: 6,
-    vars: 7,
-    consts: [["width", "14", "height", "14", "viewBox", "0 0 14 14", "fill", "none", "xmlns", "http://www.w3.org/2000/svg"], ["fill-rule", "evenodd", "clip-rule", "evenodd", "d", "M3.11101 12.8203C4.26215 13.5895 5.61553 14 7 14C8.85652 14 10.637 13.2625 11.9497 11.9497C13.2625 10.637 14 8.85652 14 7C14 5.61553 13.5895 4.26215 12.8203 3.11101C12.0511 1.95987 10.9579 1.06266 9.67879 0.532846C8.3997 0.00303296 6.99224 -0.13559 5.63437 0.134506C4.2765 0.404603 3.02922 1.07129 2.05026 2.05026C1.07129 3.02922 0.404603 4.2765 0.134506 5.63437C-0.13559 6.99224 0.00303296 8.3997 0.532846 9.67879C1.06266 10.9579 1.95987 12.0511 3.11101 12.8203ZM3.75918 2.14976C4.71846 1.50879 5.84628 1.16667 7 1.16667C8.5471 1.16667 10.0308 1.78125 11.1248 2.87521C12.2188 3.96918 12.8333 5.45291 12.8333 7C12.8333 8.15373 12.4912 9.28154 11.8502 10.2408C11.2093 11.2001 10.2982 11.9478 9.23232 12.3893C8.16642 12.8308 6.99353 12.9463 5.86198 12.7212C4.73042 12.4962 3.69102 11.9406 2.87521 11.1248C2.05941 10.309 1.50384 9.26958 1.27876 8.13803C1.05367 7.00647 1.16919 5.83358 1.61071 4.76768C2.05222 3.70178 2.79989 2.79074 3.75918 2.14976ZM7.00002 4.8611C6.84594 4.85908 6.69873 4.79698 6.58977 4.68801C6.48081 4.57905 6.4187 4.43185 6.41669 4.27776V3.88888C6.41669 3.73417 6.47815 3.58579 6.58754 3.4764C6.69694 3.367 6.84531 3.30554 7.00002 3.30554C7.15473 3.30554 7.3031 3.367 7.4125 3.4764C7.52189 3.58579 7.58335 3.73417 7.58335 3.88888V4.27776C7.58134 4.43185 7.51923 4.57905 7.41027 4.68801C7.30131 4.79698 7.1541 4.85908 7.00002 4.8611ZM7.00002 10.6945C6.84594 10.6925 6.69873 10.6304 6.58977 10.5214C6.48081 10.4124 6.4187 10.2652 6.41669 10.1111V6.22225C6.41669 6.06754 6.47815 5.91917 6.58754 5.80977C6.69694 5.70037 6.84531 5.63892 7.00002 5.63892C7.15473 5.63892 7.3031 5.70037 7.4125 5.80977C7.52189 5.91917 7.58335 6.06754 7.58335 6.22225V10.1111C7.58134 10.2652 7.51923 10.4124 7.41027 10.5214C7.30131 10.6304 7.1541 10.6925 7.00002 10.6945Z", "fill", "currentColor"], [3, "id"], ["width", "14", "height", "14", "fill", "white"]],
-    template: function InfoCircleIcon_Template(rf, ctx) {
-      if (rf & 1) {
-        \u0275\u0275namespaceSVG();
-        \u0275\u0275elementStart(0, "svg", 0)(1, "g");
-        \u0275\u0275element(2, "path", 1);
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(3, "defs")(4, "clipPath", 2);
-        \u0275\u0275element(5, "rect", 3);
-        \u0275\u0275elementEnd()()();
-      }
-      if (rf & 2) {
-        \u0275\u0275classMap(ctx.getClassNames());
-        \u0275\u0275attribute("aria-label", ctx.ariaLabel)("aria-hidden", ctx.ariaHidden)("role", ctx.role);
-        \u0275\u0275advance();
-        \u0275\u0275attribute("clip-path", ctx.pathId);
-        \u0275\u0275advance(3);
-        \u0275\u0275property("id", ctx.pathId);
-      }
-    },
-    encapsulation: 2
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(InfoCircleIcon, [{
-    type: Component,
-    args: [{
-      selector: "InfoCircleIcon",
-      standalone: true,
-      imports: [BaseIcon],
-      template: `
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" [attr.aria-label]="ariaLabel" [attr.aria-hidden]="ariaHidden" [attr.role]="role" [class]="getClassNames()">
-            <g [attr.clip-path]="pathId">
-                <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="M3.11101 12.8203C4.26215 13.5895 5.61553 14 7 14C8.85652 14 10.637 13.2625 11.9497 11.9497C13.2625 10.637 14 8.85652 14 7C14 5.61553 13.5895 4.26215 12.8203 3.11101C12.0511 1.95987 10.9579 1.06266 9.67879 0.532846C8.3997 0.00303296 6.99224 -0.13559 5.63437 0.134506C4.2765 0.404603 3.02922 1.07129 2.05026 2.05026C1.07129 3.02922 0.404603 4.2765 0.134506 5.63437C-0.13559 6.99224 0.00303296 8.3997 0.532846 9.67879C1.06266 10.9579 1.95987 12.0511 3.11101 12.8203ZM3.75918 2.14976C4.71846 1.50879 5.84628 1.16667 7 1.16667C8.5471 1.16667 10.0308 1.78125 11.1248 2.87521C12.2188 3.96918 12.8333 5.45291 12.8333 7C12.8333 8.15373 12.4912 9.28154 11.8502 10.2408C11.2093 11.2001 10.2982 11.9478 9.23232 12.3893C8.16642 12.8308 6.99353 12.9463 5.86198 12.7212C4.73042 12.4962 3.69102 11.9406 2.87521 11.1248C2.05941 10.309 1.50384 9.26958 1.27876 8.13803C1.05367 7.00647 1.16919 5.83358 1.61071 4.76768C2.05222 3.70178 2.79989 2.79074 3.75918 2.14976ZM7.00002 4.8611C6.84594 4.85908 6.69873 4.79698 6.58977 4.68801C6.48081 4.57905 6.4187 4.43185 6.41669 4.27776V3.88888C6.41669 3.73417 6.47815 3.58579 6.58754 3.4764C6.69694 3.367 6.84531 3.30554 7.00002 3.30554C7.15473 3.30554 7.3031 3.367 7.4125 3.4764C7.52189 3.58579 7.58335 3.73417 7.58335 3.88888V4.27776C7.58134 4.43185 7.51923 4.57905 7.41027 4.68801C7.30131 4.79698 7.1541 4.85908 7.00002 4.8611ZM7.00002 10.6945C6.84594 10.6925 6.69873 10.6304 6.58977 10.5214C6.48081 10.4124 6.4187 10.2652 6.41669 10.1111V6.22225C6.41669 6.06754 6.47815 5.91917 6.58754 5.80977C6.69694 5.70037 6.84531 5.63892 7.00002 5.63892C7.15473 5.63892 7.3031 5.70037 7.4125 5.80977C7.52189 5.91917 7.58335 6.06754 7.58335 6.22225V10.1111C7.58134 10.2652 7.51923 10.4124 7.41027 10.5214C7.30131 10.6304 7.1541 10.6925 7.00002 10.6945Z"
-                    fill="currentColor"
-                />
-            </g>
-            <defs>
-                <clipPath [id]="pathId">
-                    <rect width="14" height="14" fill="white" />
-                </clipPath>
-            </defs>
-        </svg>
-    `
-    }]
-  }], null, null);
-})();
-
-// node_modules/primeng/fesm2022/primeng-icons-timescircle.mjs
-var TimesCircleIcon = class _TimesCircleIcon extends BaseIcon {
-  pathId;
-  ngOnInit() {
-    this.pathId = "url(#" + UniqueComponentId() + ")";
-  }
-  static \u0275fac = /* @__PURE__ */ (() => {
-    let \u0275TimesCircleIcon_BaseFactory;
-    return function TimesCircleIcon_Factory(t) {
-      return (\u0275TimesCircleIcon_BaseFactory || (\u0275TimesCircleIcon_BaseFactory = \u0275\u0275getInheritedFactory(_TimesCircleIcon)))(t || _TimesCircleIcon);
-    };
-  })();
-  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({
-    type: _TimesCircleIcon,
-    selectors: [["TimesCircleIcon"]],
-    standalone: true,
-    features: [\u0275\u0275InheritDefinitionFeature, \u0275\u0275StandaloneFeature],
-    decls: 6,
-    vars: 7,
-    consts: [["width", "14", "height", "14", "viewBox", "0 0 14 14", "fill", "none", "xmlns", "http://www.w3.org/2000/svg"], ["fill-rule", "evenodd", "clip-rule", "evenodd", "d", "M7 14C5.61553 14 4.26215 13.5895 3.11101 12.8203C1.95987 12.0511 1.06266 10.9579 0.532846 9.67879C0.00303296 8.3997 -0.13559 6.99224 0.134506 5.63437C0.404603 4.2765 1.07129 3.02922 2.05026 2.05026C3.02922 1.07129 4.2765 0.404603 5.63437 0.134506C6.99224 -0.13559 8.3997 0.00303296 9.67879 0.532846C10.9579 1.06266 12.0511 1.95987 12.8203 3.11101C13.5895 4.26215 14 5.61553 14 7C14 8.85652 13.2625 10.637 11.9497 11.9497C10.637 13.2625 8.85652 14 7 14ZM7 1.16667C5.84628 1.16667 4.71846 1.50879 3.75918 2.14976C2.79989 2.79074 2.05222 3.70178 1.61071 4.76768C1.16919 5.83358 1.05367 7.00647 1.27876 8.13803C1.50384 9.26958 2.05941 10.309 2.87521 11.1248C3.69102 11.9406 4.73042 12.4962 5.86198 12.7212C6.99353 12.9463 8.16642 12.8308 9.23232 12.3893C10.2982 11.9478 11.2093 11.2001 11.8502 10.2408C12.4912 9.28154 12.8333 8.15373 12.8333 7C12.8333 5.45291 12.2188 3.96918 11.1248 2.87521C10.0308 1.78125 8.5471 1.16667 7 1.16667ZM4.66662 9.91668C4.58998 9.91704 4.51404 9.90209 4.44325 9.87271C4.37246 9.84333 4.30826 9.8001 4.2544 9.74557C4.14516 9.6362 4.0838 9.48793 4.0838 9.33335C4.0838 9.17876 4.14516 9.0305 4.2544 8.92113L6.17553 7L4.25443 5.07891C4.15139 4.96832 4.09529 4.82207 4.09796 4.67094C4.10063 4.51982 4.16185 4.37563 4.26872 4.26876C4.3756 4.16188 4.51979 4.10066 4.67091 4.09799C4.82204 4.09532 4.96829 4.15142 5.07887 4.25446L6.99997 6.17556L8.92106 4.25446C9.03164 4.15142 9.1779 4.09532 9.32903 4.09799C9.48015 4.10066 9.62434 4.16188 9.73121 4.26876C9.83809 4.37563 9.89931 4.51982 9.90198 4.67094C9.90464 4.82207 9.84855 4.96832 9.74551 5.07891L7.82441 7L9.74554 8.92113C9.85478 9.0305 9.91614 9.17876 9.91614 9.33335C9.91614 9.48793 9.85478 9.6362 9.74554 9.74557C9.69168 9.8001 9.62748 9.84333 9.55669 9.87271C9.4859 9.90209 9.40996 9.91704 9.33332 9.91668C9.25668 9.91704 9.18073 9.90209 9.10995 9.87271C9.03916 9.84333 8.97495 9.8001 8.9211 9.74557L6.99997 7.82444L5.07884 9.74557C5.02499 9.8001 4.96078 9.84333 4.88999 9.87271C4.81921 9.90209 4.74326 9.91704 4.66662 9.91668Z", "fill", "currentColor"], [3, "id"], ["width", "14", "height", "14", "fill", "white"]],
-    template: function TimesCircleIcon_Template(rf, ctx) {
-      if (rf & 1) {
-        \u0275\u0275namespaceSVG();
-        \u0275\u0275elementStart(0, "svg", 0)(1, "g");
-        \u0275\u0275element(2, "path", 1);
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(3, "defs")(4, "clipPath", 2);
-        \u0275\u0275element(5, "rect", 3);
-        \u0275\u0275elementEnd()()();
-      }
-      if (rf & 2) {
-        \u0275\u0275classMap(ctx.getClassNames());
-        \u0275\u0275attribute("aria-label", ctx.ariaLabel)("aria-hidden", ctx.ariaHidden)("role", ctx.role);
-        \u0275\u0275advance();
-        \u0275\u0275attribute("clip-path", ctx.pathId);
-        \u0275\u0275advance(3);
-        \u0275\u0275property("id", ctx.pathId);
-      }
-    },
-    encapsulation: 2
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(TimesCircleIcon, [{
-    type: Component,
-    args: [{
-      selector: "TimesCircleIcon",
-      standalone: true,
-      imports: [BaseIcon],
-      template: `
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" [attr.aria-label]="ariaLabel" [attr.aria-hidden]="ariaHidden" [attr.role]="role" [class]="getClassNames()">
-            <g [attr.clip-path]="pathId">
-                <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="M7 14C5.61553 14 4.26215 13.5895 3.11101 12.8203C1.95987 12.0511 1.06266 10.9579 0.532846 9.67879C0.00303296 8.3997 -0.13559 6.99224 0.134506 5.63437C0.404603 4.2765 1.07129 3.02922 2.05026 2.05026C3.02922 1.07129 4.2765 0.404603 5.63437 0.134506C6.99224 -0.13559 8.3997 0.00303296 9.67879 0.532846C10.9579 1.06266 12.0511 1.95987 12.8203 3.11101C13.5895 4.26215 14 5.61553 14 7C14 8.85652 13.2625 10.637 11.9497 11.9497C10.637 13.2625 8.85652 14 7 14ZM7 1.16667C5.84628 1.16667 4.71846 1.50879 3.75918 2.14976C2.79989 2.79074 2.05222 3.70178 1.61071 4.76768C1.16919 5.83358 1.05367 7.00647 1.27876 8.13803C1.50384 9.26958 2.05941 10.309 2.87521 11.1248C3.69102 11.9406 4.73042 12.4962 5.86198 12.7212C6.99353 12.9463 8.16642 12.8308 9.23232 12.3893C10.2982 11.9478 11.2093 11.2001 11.8502 10.2408C12.4912 9.28154 12.8333 8.15373 12.8333 7C12.8333 5.45291 12.2188 3.96918 11.1248 2.87521C10.0308 1.78125 8.5471 1.16667 7 1.16667ZM4.66662 9.91668C4.58998 9.91704 4.51404 9.90209 4.44325 9.87271C4.37246 9.84333 4.30826 9.8001 4.2544 9.74557C4.14516 9.6362 4.0838 9.48793 4.0838 9.33335C4.0838 9.17876 4.14516 9.0305 4.2544 8.92113L6.17553 7L4.25443 5.07891C4.15139 4.96832 4.09529 4.82207 4.09796 4.67094C4.10063 4.51982 4.16185 4.37563 4.26872 4.26876C4.3756 4.16188 4.51979 4.10066 4.67091 4.09799C4.82204 4.09532 4.96829 4.15142 5.07887 4.25446L6.99997 6.17556L8.92106 4.25446C9.03164 4.15142 9.1779 4.09532 9.32903 4.09799C9.48015 4.10066 9.62434 4.16188 9.73121 4.26876C9.83809 4.37563 9.89931 4.51982 9.90198 4.67094C9.90464 4.82207 9.84855 4.96832 9.74551 5.07891L7.82441 7L9.74554 8.92113C9.85478 9.0305 9.91614 9.17876 9.91614 9.33335C9.91614 9.48793 9.85478 9.6362 9.74554 9.74557C9.69168 9.8001 9.62748 9.84333 9.55669 9.87271C9.4859 9.90209 9.40996 9.91704 9.33332 9.91668C9.25668 9.91704 9.18073 9.90209 9.10995 9.87271C9.03916 9.84333 8.97495 9.8001 8.9211 9.74557L6.99997 7.82444L5.07884 9.74557C5.02499 9.8001 4.96078 9.84333 4.88999 9.87271C4.81921 9.90209 4.74326 9.91704 4.66662 9.91668Z"
-                    fill="currentColor"
-                />
-            </g>
-            <defs>
-                <clipPath [id]="pathId">
-                    <rect width="14" height="14" fill="white" />
-                </clipPath>
-            </defs>
-        </svg>
-    `
-    }]
-  }], null, null);
-})();
-
-// node_modules/primeng/fesm2022/primeng-messages.mjs
-var _c06 = (a0, a1) => ({
-  showTransitionParams: a0,
-  hideTransitionParams: a1
-});
-var _c17 = (a0) => ({
-  value: "visible",
-  params: a0
-});
-function Messages_ng_container_1_div_1_span_2_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275element(0, "span");
-  }
-  if (rf & 2) {
-    const msg_r1 = \u0275\u0275nextContext().$implicit;
-    \u0275\u0275classMap("p-message-icon pi " + msg_r1.icon);
-    \u0275\u0275attribute("data-pc-section", "icon");
-  }
-}
-function Messages_ng_container_1_div_1_span_3_CheckIcon_2_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275element(0, "CheckIcon");
-  }
-  if (rf & 2) {
-    \u0275\u0275attribute("data-pc-section", "icon");
-  }
-}
-function Messages_ng_container_1_div_1_span_3_InfoCircleIcon_3_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275element(0, "InfoCircleIcon");
-  }
-  if (rf & 2) {
-    \u0275\u0275attribute("data-pc-section", "icon");
-  }
-}
-function Messages_ng_container_1_div_1_span_3_TimesCircleIcon_4_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275element(0, "TimesCircleIcon");
-  }
-  if (rf & 2) {
-    \u0275\u0275attribute("data-pc-section", "icon");
-  }
-}
-function Messages_ng_container_1_div_1_span_3_ExclamationTriangleIcon_5_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275element(0, "ExclamationTriangleIcon");
-  }
-  if (rf & 2) {
-    \u0275\u0275attribute("data-pc-section", "icon");
-  }
-}
-function Messages_ng_container_1_div_1_span_3_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "span", 10);
-    \u0275\u0275elementContainerStart(1);
-    \u0275\u0275template(2, Messages_ng_container_1_div_1_span_3_CheckIcon_2_Template, 1, 1, "CheckIcon", 11)(3, Messages_ng_container_1_div_1_span_3_InfoCircleIcon_3_Template, 1, 1, "InfoCircleIcon", 11)(4, Messages_ng_container_1_div_1_span_3_TimesCircleIcon_4_Template, 1, 1, "TimesCircleIcon", 11)(5, Messages_ng_container_1_div_1_span_3_ExclamationTriangleIcon_5_Template, 1, 1, "ExclamationTriangleIcon", 11);
-    \u0275\u0275elementContainerEnd();
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const msg_r1 = \u0275\u0275nextContext().$implicit;
-    \u0275\u0275advance(2);
-    \u0275\u0275property("ngIf", msg_r1.severity === "success");
-    \u0275\u0275advance();
-    \u0275\u0275property("ngIf", msg_r1.severity === "info");
-    \u0275\u0275advance();
-    \u0275\u0275property("ngIf", msg_r1.severity === "error");
-    \u0275\u0275advance();
-    \u0275\u0275property("ngIf", msg_r1.severity === "warn");
-  }
-}
-function Messages_ng_container_1_div_1_ng_container_4_span_1_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275element(0, "span", 14);
-  }
-  if (rf & 2) {
-    const msg_r1 = \u0275\u0275nextContext(2).$implicit;
-    \u0275\u0275property("innerHTML", msg_r1.summary, \u0275\u0275sanitizeHtml);
-    \u0275\u0275attribute("data-pc-section", "summary");
-  }
-}
-function Messages_ng_container_1_div_1_ng_container_4_span_2_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275element(0, "span", 15);
-  }
-  if (rf & 2) {
-    const msg_r1 = \u0275\u0275nextContext(2).$implicit;
-    \u0275\u0275property("innerHTML", msg_r1.detail, \u0275\u0275sanitizeHtml);
-    \u0275\u0275attribute("data-pc-section", "detail");
-  }
-}
-function Messages_ng_container_1_div_1_ng_container_4_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementContainerStart(0);
-    \u0275\u0275template(1, Messages_ng_container_1_div_1_ng_container_4_span_1_Template, 1, 2, "span", 12)(2, Messages_ng_container_1_div_1_ng_container_4_span_2_Template, 1, 2, "span", 13);
-    \u0275\u0275elementContainerEnd();
-  }
-  if (rf & 2) {
-    const msg_r1 = \u0275\u0275nextContext().$implicit;
-    \u0275\u0275advance();
-    \u0275\u0275property("ngIf", msg_r1.summary);
-    \u0275\u0275advance();
-    \u0275\u0275property("ngIf", msg_r1.detail);
-  }
-}
-function Messages_ng_container_1_div_1_ng_template_5_span_0_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "span", 18);
-    \u0275\u0275text(1);
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const msg_r1 = \u0275\u0275nextContext(2).$implicit;
-    \u0275\u0275attribute("data-pc-section", "summary");
-    \u0275\u0275advance();
-    \u0275\u0275textInterpolate(msg_r1.summary);
-  }
-}
-function Messages_ng_container_1_div_1_ng_template_5_span_1_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "span", 19);
-    \u0275\u0275text(1);
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const msg_r1 = \u0275\u0275nextContext(2).$implicit;
-    \u0275\u0275attribute("data-pc-section", "detail");
-    \u0275\u0275advance();
-    \u0275\u0275textInterpolate(msg_r1.detail);
-  }
-}
-function Messages_ng_container_1_div_1_ng_template_5_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275template(0, Messages_ng_container_1_div_1_ng_template_5_span_0_Template, 2, 2, "span", 16)(1, Messages_ng_container_1_div_1_ng_template_5_span_1_Template, 2, 2, "span", 17);
-  }
-  if (rf & 2) {
-    const msg_r1 = \u0275\u0275nextContext().$implicit;
-    \u0275\u0275property("ngIf", msg_r1.summary);
-    \u0275\u0275advance();
-    \u0275\u0275property("ngIf", msg_r1.detail);
-  }
-}
-function Messages_ng_container_1_div_1_button_7_Template(rf, ctx) {
-  if (rf & 1) {
-    const _r2 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "button", 20);
-    \u0275\u0275listener("click", function Messages_ng_container_1_div_1_button_7_Template_button_click_0_listener() {
-      \u0275\u0275restoreView(_r2);
-      const i_r3 = \u0275\u0275nextContext().index;
-      const ctx_r3 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r3.removeMessage(i_r3));
-    });
-    \u0275\u0275element(1, "TimesIcon", 21);
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const ctx_r3 = \u0275\u0275nextContext(3);
-    \u0275\u0275attribute("aria-label", ctx_r3.closeAriaLabel)("data-pc-section", "closebutton");
-    \u0275\u0275advance();
-    \u0275\u0275property("styleClass", "p-message-close-icon");
-    \u0275\u0275attribute("data-pc-section", "closeicon");
-  }
-}
-function Messages_ng_container_1_div_1_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 5)(1, "div", 6);
-    \u0275\u0275template(2, Messages_ng_container_1_div_1_span_2_Template, 1, 3, "span", 7)(3, Messages_ng_container_1_div_1_span_3_Template, 6, 4, "span", 8)(4, Messages_ng_container_1_div_1_ng_container_4_Template, 3, 2, "ng-container", 3)(5, Messages_ng_container_1_div_1_ng_template_5_Template, 2, 2, "ng-template", null, 1, \u0275\u0275templateRefExtractor)(7, Messages_ng_container_1_div_1_button_7_Template, 2, 4, "button", 9);
-    \u0275\u0275elementEnd()();
-  }
-  if (rf & 2) {
-    const msg_r1 = ctx.$implicit;
-    const escapeOut_r5 = \u0275\u0275reference(6);
-    const ctx_r3 = \u0275\u0275nextContext(2);
-    \u0275\u0275classMap("p-message p-message-" + msg_r1.severity);
-    \u0275\u0275property("@messageAnimation", \u0275\u0275pureFunction1(12, _c17, \u0275\u0275pureFunction2(9, _c06, ctx_r3.showTransitionOptions, ctx_r3.hideTransitionOptions)));
-    \u0275\u0275advance();
-    \u0275\u0275attribute("data-pc-section", "wrapper");
-    \u0275\u0275advance();
-    \u0275\u0275property("ngIf", msg_r1.icon);
-    \u0275\u0275advance();
-    \u0275\u0275property("ngIf", !msg_r1.icon);
-    \u0275\u0275advance();
-    \u0275\u0275property("ngIf", !ctx_r3.escape)("ngIfElse", escapeOut_r5);
-    \u0275\u0275advance(3);
-    \u0275\u0275property("ngIf", ctx_r3.closable);
-  }
-}
-function Messages_ng_container_1_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementContainerStart(0);
-    \u0275\u0275template(1, Messages_ng_container_1_div_1_Template, 8, 14, "div", 4);
-    \u0275\u0275elementContainerEnd();
-  }
-  if (rf & 2) {
-    const ctx_r3 = \u0275\u0275nextContext();
-    \u0275\u0275advance();
-    \u0275\u0275property("ngForOf", ctx_r3.messages);
-  }
-}
-function Messages_ng_template_2_ng_container_2_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementContainer(0);
-  }
-}
-function Messages_ng_template_2_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 22)(1, "div", 6);
-    \u0275\u0275template(2, Messages_ng_template_2_ng_container_2_Template, 1, 0, "ng-container", 23);
-    \u0275\u0275elementEnd()();
-  }
-  if (rf & 2) {
-    const ctx_r3 = \u0275\u0275nextContext();
-    \u0275\u0275property("ngClass", "p-message p-message-" + ctx_r3.severity);
-    \u0275\u0275advance(2);
-    \u0275\u0275property("ngTemplateOutlet", ctx_r3.contentTemplate);
-  }
-}
-var Messages = class _Messages {
-  messageService;
-  el;
-  cd;
-  config;
-  /**
-   * An array of messages to display.
-   * @group Props
-   */
-  set value(messages) {
-    this.messages = messages;
-    this.startMessageLifes(this.messages);
-  }
-  /**
-   * Defines if message box can be closed by the click icon.
-   * @group Props
-   */
-  closable = true;
-  /**
-   * Inline style of the component.
-   * @group Props
-   */
-  style;
-  /**
-   * Style class of the component.
-   * @group Props
-   */
-  styleClass;
-  /**
-   * Whether displaying services messages are enabled.
-   * @group Props
-   */
-  enableService = true;
-  /**
-   * Id to match the key of the message to enable scoping in service based messaging.
-   * @group Props
-   */
-  key;
-  /**
-   * Whether displaying messages would be escaped or not.
-   * @group Props
-   */
-  escape = true;
-  /**
-   * Severity level of the message.
-   * @group Props
-   */
-  severity;
-  /**
-   * Transition options of the show animation.
-   * @group Props
-   */
-  showTransitionOptions = "300ms ease-out";
-  /**
-   * Transition options of the hide animation.
-   * @group Props
-   */
-  hideTransitionOptions = "200ms cubic-bezier(0.86, 0, 0.07, 1)";
-  /**
-   * This function is executed when the value changes.
-   * @param {Message[]} value - messages value.
-   * @group Emits
-   */
-  valueChange = new EventEmitter();
-  /**
-   * This function is executed when a message is closed.
-   * @param {Message} value - Closed message.
-   * @group Emits
-   */
-  onClose = new EventEmitter();
-  templates;
-  messages;
-  messageSubscription;
-  clearSubscription;
-  timerSubscriptions = [];
-  contentTemplate;
-  constructor(messageService, el, cd, config2) {
-    this.messageService = messageService;
-    this.el = el;
-    this.cd = cd;
-    this.config = config2;
-  }
-  ngAfterContentInit() {
-    this.templates?.forEach((item) => {
-      switch (item.getType()) {
-        case "content":
-          this.contentTemplate = item.template;
-          break;
-        default:
-          this.contentTemplate = item.template;
-          break;
-      }
-    });
-    if (this.messageService && this.enableService && !this.contentTemplate) {
-      this.messageSubscription = this.messageService.messageObserver.subscribe((messages) => {
-        if (messages) {
-          if (!Array.isArray(messages)) {
-            messages = [messages];
-          }
-          const filteredMessages = messages.filter((m) => this.key === m.key);
-          this.messages = this.messages ? [...this.messages, ...filteredMessages] : [...filteredMessages];
-          this.startMessageLifes(filteredMessages);
-          this.cd.markForCheck();
-        }
-      });
-      this.clearSubscription = this.messageService.clearObserver.subscribe((key) => {
-        if (key) {
-          if (this.key === key) {
-            this.messages = null;
-          }
-        } else {
-          this.messages = null;
-        }
-        this.cd.markForCheck();
-      });
-    }
-  }
-  hasMessages() {
-    let parentEl = this.el.nativeElement.parentElement;
-    if (parentEl && parentEl.offsetParent) {
-      return this.contentTemplate != null || this.messages && this.messages.length > 0;
-    }
-    return false;
-  }
-  clear() {
-    this.messages = [];
-    this.valueChange.emit(this.messages);
-  }
-  removeMessage(i) {
-    this.messages = this.messages?.filter((msg, index) => index !== i);
-    this.messages[i] && this.onClose.emit(this.messages[i]);
-    this.valueChange.emit(this.messages);
-  }
-  get icon() {
-    const severity = this.severity || (this.hasMessages() ? this.messages[0].severity : null);
-    if (this.hasMessages()) {
-      switch (severity) {
-        case "success":
-          return "pi-check";
-        case "info":
-          return "pi-info-circle";
-        case "error":
-          return "pi-times";
-        case "warn":
-          return "pi-exclamation-triangle";
-        default:
-          return "pi-info-circle";
-      }
-    }
-    return null;
-  }
-  get closeAriaLabel() {
-    return this.config.translation.aria ? this.config.translation.aria.close : void 0;
-  }
-  ngOnDestroy() {
-    if (this.messageSubscription) {
-      this.messageSubscription.unsubscribe();
-    }
-    if (this.clearSubscription) {
-      this.clearSubscription.unsubscribe();
-    }
-    this.timerSubscriptions?.forEach((subscription) => subscription.unsubscribe());
-  }
-  startMessageLifes(messages) {
-    messages?.forEach((message) => message.life && this.startMessageLife(message));
-  }
-  startMessageLife(message) {
-    const timerSubsctiption = timer(message.life).subscribe(() => {
-      this.messages = this.messages?.filter((msgEl) => msgEl !== message);
-      this.timerSubscriptions = this.timerSubscriptions?.filter((timerEl) => timerEl !== timerSubsctiption);
-      this.valueChange.emit(this.messages);
-      this.cd.markForCheck();
-    });
-    this.timerSubscriptions.push(timerSubsctiption);
-  }
-  static \u0275fac = function Messages_Factory(t) {
-    return new (t || _Messages)(\u0275\u0275directiveInject(MessageService, 8), \u0275\u0275directiveInject(ElementRef), \u0275\u0275directiveInject(ChangeDetectorRef), \u0275\u0275directiveInject(PrimeNGConfig));
-  };
-  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({
-    type: _Messages,
-    selectors: [["p-messages"]],
-    contentQueries: function Messages_ContentQueries(rf, ctx, dirIndex) {
-      if (rf & 1) {
-        \u0275\u0275contentQuery(dirIndex, PrimeTemplate, 4);
-      }
-      if (rf & 2) {
-        let _t;
-        \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx.templates = _t);
-      }
-    },
-    hostAttrs: [1, "p-element"],
-    inputs: {
-      value: "value",
-      closable: [InputFlags.HasDecoratorInputTransform, "closable", "closable", booleanAttribute],
-      style: "style",
-      styleClass: "styleClass",
-      enableService: [InputFlags.HasDecoratorInputTransform, "enableService", "enableService", booleanAttribute],
-      key: "key",
-      escape: [InputFlags.HasDecoratorInputTransform, "escape", "escape", booleanAttribute],
-      severity: "severity",
-      showTransitionOptions: "showTransitionOptions",
-      hideTransitionOptions: "hideTransitionOptions"
-    },
-    outputs: {
-      valueChange: "valueChange",
-      onClose: "onClose"
-    },
-    features: [\u0275\u0275InputTransformsFeature],
-    decls: 4,
-    vars: 8,
-    consts: [["staticMessage", ""], ["escapeOut", ""], ["role", "alert", 1, "p-messages", "p-component", 3, "ngStyle"], [4, "ngIf", "ngIfElse"], ["role", "alert", 3, "class", 4, "ngFor", "ngForOf"], ["role", "alert"], [1, "p-message-wrapper"], [3, "class", 4, "ngIf"], ["class", "p-message-icon", 4, "ngIf"], ["class", "p-message-close p-link", "type", "button", "pRipple", "", 3, "click", 4, "ngIf"], [1, "p-message-icon"], [4, "ngIf"], ["class", "p-message-summary", 3, "innerHTML", 4, "ngIf"], ["class", "p-message-detail", 3, "innerHTML", 4, "ngIf"], [1, "p-message-summary", 3, "innerHTML"], [1, "p-message-detail", 3, "innerHTML"], ["class", "p-message-summary", 4, "ngIf"], ["class", "p-message-detail", 4, "ngIf"], [1, "p-message-summary"], [1, "p-message-detail"], ["type", "button", "pRipple", "", 1, "p-message-close", "p-link", 3, "click"], [3, "styleClass"], ["role", "alert", 3, "ngClass"], [4, "ngTemplateOutlet"]],
-    template: function Messages_Template(rf, ctx) {
-      if (rf & 1) {
-        \u0275\u0275elementStart(0, "div", 2);
-        \u0275\u0275template(1, Messages_ng_container_1_Template, 2, 1, "ng-container", 3)(2, Messages_ng_template_2_Template, 3, 2, "ng-template", null, 0, \u0275\u0275templateRefExtractor);
-        \u0275\u0275elementEnd();
-      }
-      if (rf & 2) {
-        const staticMessage_r6 = \u0275\u0275reference(3);
-        \u0275\u0275classMap(ctx.styleClass);
-        \u0275\u0275property("ngStyle", ctx.style);
-        \u0275\u0275attribute("aria-atomic", true)("aria-live", "assertive")("data-pc-name", "message");
-        \u0275\u0275advance();
-        \u0275\u0275property("ngIf", !ctx.contentTemplate)("ngIfElse", staticMessage_r6);
-      }
-    },
-    dependencies: () => [NgClass, NgForOf, NgIf, NgTemplateOutlet, NgStyle, Ripple, CheckIcon, InfoCircleIcon, TimesCircleIcon, ExclamationTriangleIcon, TimesIcon],
-    styles: ["@layer primeng{.p-message-wrapper{display:flex;align-items:center}.p-message-close{display:flex;align-items:center;justify-content:center;flex:none}.p-message-close.p-link{margin-left:auto;overflow:hidden;position:relative}.p-messages .p-message.ng-animating{overflow:hidden}}\n"],
-    encapsulation: 2,
-    data: {
-      animation: [trigger("messageAnimation", [transition(":enter", [style({
-        opacity: 0,
-        transform: "translateY(-25%)"
-      }), animate("{{showTransitionParams}}")]), transition(":leave", [animate("{{hideTransitionParams}}", style({
-        height: 0,
-        marginTop: 0,
-        marginBottom: 0,
-        marginLeft: 0,
-        marginRight: 0,
-        opacity: 0
-      }))])])]
-    },
-    changeDetection: 0
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(Messages, [{
-    type: Component,
-    args: [{
-      selector: "p-messages",
-      template: `
-        <div class="p-messages p-component" role="alert" [ngStyle]="style" [class]="styleClass" [attr.aria-atomic]="true" [attr.aria-live]="'assertive'" [attr.data-pc-name]="'message'">
-            <ng-container *ngIf="!contentTemplate; else staticMessage">
-                <div
-                    *ngFor="let msg of messages; let i = index"
-                    [class]="'p-message p-message-' + msg.severity"
-                    role="alert"
-                    [@messageAnimation]="{ value: 'visible', params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions } }"
-                >
-                    <div class="p-message-wrapper" [attr.data-pc-section]="'wrapper'">
-                        <span *ngIf="msg.icon" [class]="'p-message-icon pi ' + msg.icon" [attr.data-pc-section]="'icon'"> </span>
-                        <span class="p-message-icon" *ngIf="!msg.icon">
-                            <ng-container>
-                                <CheckIcon *ngIf="msg.severity === 'success'" [attr.data-pc-section]="'icon'" />
-                                <InfoCircleIcon *ngIf="msg.severity === 'info'" [attr.data-pc-section]="'icon'" />
-                                <TimesCircleIcon *ngIf="msg.severity === 'error'" [attr.data-pc-section]="'icon'" />
-                                <ExclamationTriangleIcon *ngIf="msg.severity === 'warn'" [attr.data-pc-section]="'icon'" />
-                            </ng-container>
-                        </span>
-                        <ng-container *ngIf="!escape; else escapeOut">
-                            <span *ngIf="msg.summary" class="p-message-summary" [innerHTML]="msg.summary" [attr.data-pc-section]="'summary'"></span>
-                            <span *ngIf="msg.detail" class="p-message-detail" [innerHTML]="msg.detail" [attr.data-pc-section]="'detail'"></span>
-                        </ng-container>
-                        <ng-template #escapeOut>
-                            <span *ngIf="msg.summary" class="p-message-summary" [attr.data-pc-section]="'summary'">{{ msg.summary }}</span>
-                            <span *ngIf="msg.detail" class="p-message-detail" [attr.data-pc-section]="'detail'">{{ msg.detail }}</span>
-                        </ng-template>
-                        <button class="p-message-close p-link" (click)="removeMessage(i)" *ngIf="closable" type="button" pRipple [attr.aria-label]="closeAriaLabel" [attr.data-pc-section]="'closebutton'">
-                            <TimesIcon [styleClass]="'p-message-close-icon'" [attr.data-pc-section]="'closeicon'" />
-                        </button>
-                    </div>
-                </div>
-            </ng-container>
-            <ng-template #staticMessage>
-                <div [ngClass]="'p-message p-message-' + severity" role="alert">
-                    <div class="p-message-wrapper">
-                        <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
-                    </div>
-                </div>
-            </ng-template>
-        </div>
-    `,
-      animations: [trigger("messageAnimation", [transition(":enter", [style({
-        opacity: 0,
-        transform: "translateY(-25%)"
-      }), animate("{{showTransitionParams}}")]), transition(":leave", [animate("{{hideTransitionParams}}", style({
-        height: 0,
-        marginTop: 0,
-        marginBottom: 0,
-        marginLeft: 0,
-        marginRight: 0,
-        opacity: 0
-      }))])])],
-      changeDetection: ChangeDetectionStrategy.OnPush,
-      encapsulation: ViewEncapsulation$1.None,
-      host: {
-        class: "p-element"
-      },
-      styles: ["@layer primeng{.p-message-wrapper{display:flex;align-items:center}.p-message-close{display:flex;align-items:center;justify-content:center;flex:none}.p-message-close.p-link{margin-left:auto;overflow:hidden;position:relative}.p-messages .p-message.ng-animating{overflow:hidden}}\n"]
-    }]
-  }], () => [{
-    type: MessageService,
-    decorators: [{
-      type: Optional
-    }]
-  }, {
-    type: ElementRef
-  }, {
-    type: ChangeDetectorRef
-  }, {
-    type: PrimeNGConfig
-  }], {
-    value: [{
-      type: Input
-    }],
-    closable: [{
-      type: Input,
-      args: [{
-        transform: booleanAttribute
-      }]
-    }],
-    style: [{
-      type: Input
-    }],
-    styleClass: [{
-      type: Input
-    }],
-    enableService: [{
-      type: Input,
-      args: [{
-        transform: booleanAttribute
-      }]
-    }],
-    key: [{
-      type: Input
-    }],
-    escape: [{
-      type: Input,
-      args: [{
-        transform: booleanAttribute
-      }]
-    }],
-    severity: [{
-      type: Input
-    }],
-    showTransitionOptions: [{
-      type: Input
-    }],
-    hideTransitionOptions: [{
-      type: Input
-    }],
-    valueChange: [{
-      type: Output
-    }],
-    onClose: [{
-      type: Output
-    }],
-    templates: [{
-      type: ContentChildren,
-      args: [PrimeTemplate]
-    }]
-  });
-})();
-var MessagesModule = class _MessagesModule {
-  static \u0275fac = function MessagesModule_Factory(t) {
-    return new (t || _MessagesModule)();
-  };
-  static \u0275mod = /* @__PURE__ */ \u0275\u0275defineNgModule({
-    type: _MessagesModule
-  });
-  static \u0275inj = /* @__PURE__ */ \u0275\u0275defineInjector({
-    imports: [CommonModule, RippleModule, CheckIcon, InfoCircleIcon, TimesCircleIcon, ExclamationTriangleIcon, TimesIcon]
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(MessagesModule, [{
-    type: NgModule,
-    args: [{
-      imports: [CommonModule, RippleModule, CheckIcon, InfoCircleIcon, TimesCircleIcon, ExclamationTriangleIcon, TimesIcon],
-      exports: [Messages],
-      declarations: [Messages]
-    }]
-  }], null, null);
-})();
-
-// node_modules/primeng/fesm2022/primeng-progressbar.mjs
-var _c07 = (a0, a1) => ({
-  "p-progressbar p-component": true,
-  "p-progressbar-determinate": a0,
-  "p-progressbar-indeterminate": a1
-});
-var _c18 = (a0) => ({
-  $implicit: a0
-});
-function ProgressBar_div_1_div_2_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div");
-    \u0275\u0275text(1);
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const ctx_r0 = \u0275\u0275nextContext(2);
-    \u0275\u0275styleProp("display", ctx_r0.value != null && ctx_r0.value !== 0 ? "flex" : "none");
-    \u0275\u0275attribute("data-pc-section", "label");
-    \u0275\u0275advance();
-    \u0275\u0275textInterpolate2("", ctx_r0.value, "", ctx_r0.unit, "");
-  }
-}
-function ProgressBar_div_1_ng_container_3_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementContainer(0);
-  }
-}
-function ProgressBar_div_1_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 3)(1, "div", 4);
-    \u0275\u0275template(2, ProgressBar_div_1_div_2_Template, 2, 5, "div", 5)(3, ProgressBar_div_1_ng_container_3_Template, 1, 0, "ng-container", 6);
-    \u0275\u0275elementEnd()();
-  }
-  if (rf & 2) {
-    const ctx_r0 = \u0275\u0275nextContext();
-    \u0275\u0275styleProp("width", ctx_r0.value + "%")("background", ctx_r0.color);
-    \u0275\u0275attribute("data-pc-section", "value");
-    \u0275\u0275advance(2);
-    \u0275\u0275property("ngIf", ctx_r0.showValue && !ctx_r0.contentTemplate);
-    \u0275\u0275advance();
-    \u0275\u0275property("ngTemplateOutlet", ctx_r0.contentTemplate)("ngTemplateOutletContext", \u0275\u0275pureFunction1(8, _c18, ctx_r0.value));
-  }
-}
-function ProgressBar_div_2_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 7);
-    \u0275\u0275element(1, "div", 8);
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const ctx_r0 = \u0275\u0275nextContext();
-    \u0275\u0275attribute("data-pc-section", "container");
-    \u0275\u0275advance();
-    \u0275\u0275styleProp("background", ctx_r0.color);
-    \u0275\u0275attribute("data-pc-section", "value");
-  }
-}
-var ProgressBar = class _ProgressBar {
-  /**
-   * Current value of the progress.
-   * @group Props
-   */
-  value;
-  /**
-   * Whether to display the progress bar value.
-   * @group Props
-   */
-  showValue = true;
-  /**
-   * Class of the element.
-   * @group Props
-   */
-  styleClass;
-  /**
-   * Inline style of the element.
-   * @group Props
-   */
-  style;
-  /**
-   * Unit sign appended to the value.
-   * @group Props
-   */
-  unit = "%";
-  /**
-   * Defines the mode of the progress
-   * @group Props
-   */
-  mode = "determinate";
-  /**
-   * Color for the background of the progress.
-   * @group Props
-   */
-  color;
-  templates;
-  contentTemplate;
-  ngAfterContentInit() {
-    this.templates?.forEach((item) => {
-      switch (item.getType()) {
-        case "content":
-          this.contentTemplate = item.template;
-          break;
-        default:
-          this.contentTemplate = item.template;
-      }
-    });
-  }
-  static \u0275fac = function ProgressBar_Factory(t) {
-    return new (t || _ProgressBar)();
-  };
-  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({
-    type: _ProgressBar,
-    selectors: [["p-progressBar"]],
-    contentQueries: function ProgressBar_ContentQueries(rf, ctx, dirIndex) {
-      if (rf & 1) {
-        \u0275\u0275contentQuery(dirIndex, PrimeTemplate, 4);
-      }
-      if (rf & 2) {
-        let _t;
-        \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx.templates = _t);
-      }
-    },
-    hostAttrs: [1, "p-element"],
-    inputs: {
-      value: [InputFlags.HasDecoratorInputTransform, "value", "value", numberAttribute],
-      showValue: [InputFlags.HasDecoratorInputTransform, "showValue", "showValue", booleanAttribute],
-      styleClass: "styleClass",
-      style: "style",
-      unit: "unit",
-      mode: "mode",
-      color: "color"
-    },
-    features: [\u0275\u0275InputTransformsFeature],
-    decls: 3,
-    vars: 14,
-    consts: [["role", "progressbar", 3, "ngStyle", "ngClass"], ["class", "p-progressbar-value p-progressbar-value-animate", "style", "display:flex", 3, "width", "background", 4, "ngIf"], ["class", "p-progressbar-indeterminate-container", 4, "ngIf"], [1, "p-progressbar-value", "p-progressbar-value-animate", 2, "display", "flex"], [1, "p-progressbar-label"], [3, "display", 4, "ngIf"], [4, "ngTemplateOutlet", "ngTemplateOutletContext"], [1, "p-progressbar-indeterminate-container"], [1, "p-progressbar-value", "p-progressbar-value-animate"]],
-    template: function ProgressBar_Template(rf, ctx) {
-      if (rf & 1) {
-        \u0275\u0275elementStart(0, "div", 0);
-        \u0275\u0275template(1, ProgressBar_div_1_Template, 4, 10, "div", 1)(2, ProgressBar_div_2_Template, 2, 4, "div", 2);
-        \u0275\u0275elementEnd();
-      }
-      if (rf & 2) {
-        \u0275\u0275classMap(ctx.styleClass);
-        \u0275\u0275property("ngStyle", ctx.style)("ngClass", \u0275\u0275pureFunction2(11, _c07, ctx.mode === "determinate", ctx.mode === "indeterminate"));
-        \u0275\u0275attribute("aria-valuemin", 0)("aria-valuenow", ctx.value)("aria-valuemax", 100)("data-pc-name", "progressbar")("data-pc-section", "root");
-        \u0275\u0275advance();
-        \u0275\u0275property("ngIf", ctx.mode === "determinate");
-        \u0275\u0275advance();
-        \u0275\u0275property("ngIf", ctx.mode === "indeterminate");
-      }
-    },
-    dependencies: [NgClass, NgIf, NgTemplateOutlet, NgStyle],
-    styles: ['@layer primeng{.p-progressbar{position:relative;overflow:hidden}.p-progressbar-determinate .p-progressbar-value{height:100%;width:0%;position:absolute;display:none;border:0 none;display:flex;align-items:center;justify-content:center;overflow:hidden}.p-progressbar-determinate .p-progressbar-label{display:inline-flex}.p-progressbar-determinate .p-progressbar-value-animate{transition:width 1s ease-in-out}.p-progressbar-indeterminate .p-progressbar-value:before{content:"";position:absolute;background-color:inherit;top:0;left:0;bottom:0;will-change:left,right;-webkit-animation:p-progressbar-indeterminate-anim 2.1s cubic-bezier(.65,.815,.735,.395) infinite;animation:p-progressbar-indeterminate-anim 2.1s cubic-bezier(.65,.815,.735,.395) infinite}.p-progressbar-indeterminate .p-progressbar-value:after{content:"";position:absolute;background-color:inherit;top:0;left:0;bottom:0;will-change:left,right;-webkit-animation:p-progressbar-indeterminate-anim-short 2.1s cubic-bezier(.165,.84,.44,1) infinite;animation:p-progressbar-indeterminate-anim-short 2.1s cubic-bezier(.165,.84,.44,1) infinite;-webkit-animation-delay:1.15s;animation-delay:1.15s}}@-webkit-keyframes p-progressbar-indeterminate-anim{0%{left:-35%;right:100%}60%{left:100%;right:-90%}to{left:100%;right:-90%}}@keyframes p-progressbar-indeterminate-anim{0%{left:-35%;right:100%}60%{left:100%;right:-90%}to{left:100%;right:-90%}}@-webkit-keyframes p-progressbar-indeterminate-anim-short{0%{left:-200%;right:100%}60%{left:107%;right:-8%}to{left:107%;right:-8%}}@keyframes p-progressbar-indeterminate-anim-short{0%{left:-200%;right:100%}60%{left:107%;right:-8%}to{left:107%;right:-8%}}\n'],
-    encapsulation: 2,
-    changeDetection: 0
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(ProgressBar, [{
-    type: Component,
-    args: [{
-      selector: "p-progressBar",
-      template: `
-        <div
-            role="progressbar"
-            [class]="styleClass"
-            [ngStyle]="style"
-            [attr.aria-valuemin]="0"
-            [attr.aria-valuenow]="value"
-            [attr.aria-valuemax]="100"
-            [attr.data-pc-name]="'progressbar'"
-            [attr.data-pc-section]="'root'"
-            [ngClass]="{ 'p-progressbar p-component': true, 'p-progressbar-determinate': mode === 'determinate', 'p-progressbar-indeterminate': mode === 'indeterminate' }"
-        >
-            <div *ngIf="mode === 'determinate'" class="p-progressbar-value p-progressbar-value-animate" [style.width]="value + '%'" style="display:flex" [style.background]="color" [attr.data-pc-section]="'value'">
-                <div class="p-progressbar-label">
-                    <div *ngIf="showValue && !contentTemplate" [style.display]="value != null && value !== 0 ? 'flex' : 'none'" [attr.data-pc-section]="'label'">{{ value }}{{ unit }}</div>
-                    <ng-container *ngTemplateOutlet="contentTemplate; context: { $implicit: value }"></ng-container>
-                </div>
-            </div>
-            <div *ngIf="mode === 'indeterminate'" class="p-progressbar-indeterminate-container" [attr.data-pc-section]="'container'">
-                <div class="p-progressbar-value p-progressbar-value-animate" [style.background]="color" [attr.data-pc-section]="'value'"></div>
-            </div>
-        </div>
-    `,
-      changeDetection: ChangeDetectionStrategy.OnPush,
-      encapsulation: ViewEncapsulation$1.None,
-      host: {
-        class: "p-element"
-      },
-      styles: ['@layer primeng{.p-progressbar{position:relative;overflow:hidden}.p-progressbar-determinate .p-progressbar-value{height:100%;width:0%;position:absolute;display:none;border:0 none;display:flex;align-items:center;justify-content:center;overflow:hidden}.p-progressbar-determinate .p-progressbar-label{display:inline-flex}.p-progressbar-determinate .p-progressbar-value-animate{transition:width 1s ease-in-out}.p-progressbar-indeterminate .p-progressbar-value:before{content:"";position:absolute;background-color:inherit;top:0;left:0;bottom:0;will-change:left,right;-webkit-animation:p-progressbar-indeterminate-anim 2.1s cubic-bezier(.65,.815,.735,.395) infinite;animation:p-progressbar-indeterminate-anim 2.1s cubic-bezier(.65,.815,.735,.395) infinite}.p-progressbar-indeterminate .p-progressbar-value:after{content:"";position:absolute;background-color:inherit;top:0;left:0;bottom:0;will-change:left,right;-webkit-animation:p-progressbar-indeterminate-anim-short 2.1s cubic-bezier(.165,.84,.44,1) infinite;animation:p-progressbar-indeterminate-anim-short 2.1s cubic-bezier(.165,.84,.44,1) infinite;-webkit-animation-delay:1.15s;animation-delay:1.15s}}@-webkit-keyframes p-progressbar-indeterminate-anim{0%{left:-35%;right:100%}60%{left:100%;right:-90%}to{left:100%;right:-90%}}@keyframes p-progressbar-indeterminate-anim{0%{left:-35%;right:100%}60%{left:100%;right:-90%}to{left:100%;right:-90%}}@-webkit-keyframes p-progressbar-indeterminate-anim-short{0%{left:-200%;right:100%}60%{left:107%;right:-8%}to{left:107%;right:-8%}}@keyframes p-progressbar-indeterminate-anim-short{0%{left:-200%;right:100%}60%{left:107%;right:-8%}to{left:107%;right:-8%}}\n']
-    }]
-  }], null, {
-    value: [{
-      type: Input,
-      args: [{
-        transform: numberAttribute
-      }]
-    }],
-    showValue: [{
-      type: Input,
-      args: [{
-        transform: booleanAttribute
-      }]
-    }],
-    styleClass: [{
-      type: Input
-    }],
-    style: [{
-      type: Input
-    }],
-    unit: [{
-      type: Input
-    }],
-    mode: [{
-      type: Input
-    }],
-    color: [{
-      type: Input
-    }],
-    templates: [{
-      type: ContentChildren,
-      args: [PrimeTemplate]
-    }]
-  });
-})();
-var ProgressBarModule = class _ProgressBarModule {
-  static \u0275fac = function ProgressBarModule_Factory(t) {
-    return new (t || _ProgressBarModule)();
-  };
-  static \u0275mod = /* @__PURE__ */ \u0275\u0275defineNgModule({
-    type: _ProgressBarModule
-  });
-  static \u0275inj = /* @__PURE__ */ \u0275\u0275defineInjector({
-    imports: [CommonModule]
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(ProgressBarModule, [{
-    type: NgModule,
-    args: [{
-      imports: [CommonModule],
-      exports: [ProgressBar],
-      declarations: [ProgressBar]
-    }]
-  }], null, null);
-})();
-
-// node_modules/primeng/fesm2022/primeng-fileupload.mjs
-var _c08 = ["advancedfileinput"];
-var _c19 = ["basicfileinput"];
-var _c23 = ["content"];
-var _c33 = (a0, a1) => ({
-  "p-focus": a0,
-  "p-disabled": a1
-});
-var _c43 = (a0) => ({
-  $implicit: a0
-});
-var _c53 = (a0, a1, a2, a3) => ({
-  "p-button p-component p-fileupload-choose": true,
-  "p-button-icon-only": a0,
-  "p-fileupload-choose-selected": a1,
-  "p-focus": a2,
-  "p-disabled": a3
-});
-function FileUpload_div_0_span_5_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275element(0, "span", 20);
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext(2);
-    \u0275\u0275classMap(ctx_r1.chooseIcon);
-    \u0275\u0275property("ngClass", "p-button-icon p-button-icon-left");
-    \u0275\u0275attribute("aria-label", true)("data-pc-section", "chooseicon");
-  }
-}
-function FileUpload_div_0_ng_container_6_PlusIcon_1_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275element(0, "PlusIcon", 23);
-  }
-  if (rf & 2) {
-    \u0275\u0275property("styleClass", "p-button-icon p-button-icon-left");
-    \u0275\u0275attribute("aria-label", true)("data-pc-section", "chooseicon");
-  }
-}
-function FileUpload_div_0_ng_container_6_span_2_1_ng_template_0_Template(rf, ctx) {
-}
-function FileUpload_div_0_ng_container_6_span_2_1_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275template(0, FileUpload_div_0_ng_container_6_span_2_1_ng_template_0_Template, 0, 0, "ng-template");
-  }
-}
-function FileUpload_div_0_ng_container_6_span_2_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "span", 24);
-    \u0275\u0275template(1, FileUpload_div_0_ng_container_6_span_2_1_Template, 1, 0, null, 14);
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext(3);
-    \u0275\u0275attribute("aria-label", true)("data-pc-section", "chooseicon");
-    \u0275\u0275advance();
-    \u0275\u0275property("ngTemplateOutlet", ctx_r1.chooseIconTemplate);
-  }
-}
-function FileUpload_div_0_ng_container_6_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementContainerStart(0);
-    \u0275\u0275template(1, FileUpload_div_0_ng_container_6_PlusIcon_1_Template, 1, 3, "PlusIcon", 21)(2, FileUpload_div_0_ng_container_6_span_2_Template, 2, 3, "span", 22);
-    \u0275\u0275elementContainerEnd();
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext(2);
-    \u0275\u0275advance();
-    \u0275\u0275property("ngIf", !ctx_r1.chooseIconTemplate);
-    \u0275\u0275advance();
-    \u0275\u0275property("ngIf", ctx_r1.chooseIconTemplate);
-  }
-}
-function FileUpload_div_0_p_button_9_span_1_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275element(0, "span", 27);
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext(3);
-    \u0275\u0275property("ngClass", ctx_r1.uploadIcon);
-    \u0275\u0275attribute("aria-hidden", true);
-  }
-}
-function FileUpload_div_0_p_button_9_ng_container_2_UploadIcon_1_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275element(0, "UploadIcon", 23);
-  }
-  if (rf & 2) {
-    \u0275\u0275property("styleClass", "p-button-icon p-button-icon-left");
-  }
-}
-function FileUpload_div_0_p_button_9_ng_container_2_span_2_1_ng_template_0_Template(rf, ctx) {
-}
-function FileUpload_div_0_p_button_9_ng_container_2_span_2_1_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275template(0, FileUpload_div_0_p_button_9_ng_container_2_span_2_1_ng_template_0_Template, 0, 0, "ng-template");
-  }
-}
-function FileUpload_div_0_p_button_9_ng_container_2_span_2_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "span", 24);
-    \u0275\u0275template(1, FileUpload_div_0_p_button_9_ng_container_2_span_2_1_Template, 1, 0, null, 14);
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext(4);
-    \u0275\u0275attribute("aria-hidden", true);
-    \u0275\u0275advance();
-    \u0275\u0275property("ngTemplateOutlet", ctx_r1.uploadIconTemplate);
-  }
-}
-function FileUpload_div_0_p_button_9_ng_container_2_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementContainerStart(0);
-    \u0275\u0275template(1, FileUpload_div_0_p_button_9_ng_container_2_UploadIcon_1_Template, 1, 1, "UploadIcon", 21)(2, FileUpload_div_0_p_button_9_ng_container_2_span_2_Template, 2, 2, "span", 22);
-    \u0275\u0275elementContainerEnd();
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext(3);
-    \u0275\u0275advance();
-    \u0275\u0275property("ngIf", !ctx_r1.uploadIconTemplate);
-    \u0275\u0275advance();
-    \u0275\u0275property("ngIf", ctx_r1.uploadIconTemplate);
-  }
-}
-function FileUpload_div_0_p_button_9_Template(rf, ctx) {
-  if (rf & 1) {
-    const _r3 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "p-button", 25);
-    \u0275\u0275listener("onClick", function FileUpload_div_0_p_button_9_Template_p_button_onClick_0_listener() {
-      \u0275\u0275restoreView(_r3);
-      const ctx_r1 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r1.upload());
-    });
-    \u0275\u0275template(1, FileUpload_div_0_p_button_9_span_1_Template, 1, 2, "span", 26)(2, FileUpload_div_0_p_button_9_ng_container_2_Template, 3, 2, "ng-container", 11);
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext(2);
-    \u0275\u0275property("label", ctx_r1.uploadButtonLabel)("disabled", !ctx_r1.hasFiles() || ctx_r1.isFileLimitExceeded())("styleClass", ctx_r1.uploadStyleClass);
-    \u0275\u0275advance();
-    \u0275\u0275property("ngIf", ctx_r1.uploadIcon);
-    \u0275\u0275advance();
-    \u0275\u0275property("ngIf", !ctx_r1.uploadIcon);
-  }
-}
-function FileUpload_div_0_p_button_10_span_1_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275element(0, "span", 27);
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext(3);
-    \u0275\u0275property("ngClass", ctx_r1.cancelIcon);
-  }
-}
-function FileUpload_div_0_p_button_10_ng_container_2_TimesIcon_1_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275element(0, "TimesIcon", 23);
-  }
-  if (rf & 2) {
-    \u0275\u0275property("styleClass", "p-button-icon p-button-icon-left");
-    \u0275\u0275attribute("aria-hidden", true);
-  }
-}
-function FileUpload_div_0_p_button_10_ng_container_2_span_2_1_ng_template_0_Template(rf, ctx) {
-}
-function FileUpload_div_0_p_button_10_ng_container_2_span_2_1_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275template(0, FileUpload_div_0_p_button_10_ng_container_2_span_2_1_ng_template_0_Template, 0, 0, "ng-template");
-  }
-}
-function FileUpload_div_0_p_button_10_ng_container_2_span_2_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "span", 24);
-    \u0275\u0275template(1, FileUpload_div_0_p_button_10_ng_container_2_span_2_1_Template, 1, 0, null, 14);
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext(4);
-    \u0275\u0275attribute("aria-hidden", true);
-    \u0275\u0275advance();
-    \u0275\u0275property("ngTemplateOutlet", ctx_r1.cancelIconTemplate);
-  }
-}
-function FileUpload_div_0_p_button_10_ng_container_2_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementContainerStart(0);
-    \u0275\u0275template(1, FileUpload_div_0_p_button_10_ng_container_2_TimesIcon_1_Template, 1, 2, "TimesIcon", 21)(2, FileUpload_div_0_p_button_10_ng_container_2_span_2_Template, 2, 2, "span", 22);
-    \u0275\u0275elementContainerEnd();
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext(3);
-    \u0275\u0275advance();
-    \u0275\u0275property("ngIf", !ctx_r1.cancelIconTemplate);
-    \u0275\u0275advance();
-    \u0275\u0275property("ngIf", ctx_r1.cancelIconTemplate);
-  }
-}
-function FileUpload_div_0_p_button_10_Template(rf, ctx) {
-  if (rf & 1) {
-    const _r4 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "p-button", 25);
-    \u0275\u0275listener("onClick", function FileUpload_div_0_p_button_10_Template_p_button_onClick_0_listener() {
-      \u0275\u0275restoreView(_r4);
-      const ctx_r1 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r1.clear());
-    });
-    \u0275\u0275template(1, FileUpload_div_0_p_button_10_span_1_Template, 1, 1, "span", 26)(2, FileUpload_div_0_p_button_10_ng_container_2_Template, 3, 2, "ng-container", 11);
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext(2);
-    \u0275\u0275property("label", ctx_r1.cancelButtonLabel)("disabled", !ctx_r1.hasFiles() || ctx_r1.uploading)("styleClass", ctx_r1.cancelStyleClass);
-    \u0275\u0275advance();
-    \u0275\u0275property("ngIf", ctx_r1.cancelIcon);
-    \u0275\u0275advance();
-    \u0275\u0275property("ngIf", !ctx_r1.cancelIcon);
-  }
-}
-function FileUpload_div_0_ng_container_11_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementContainer(0);
-  }
-}
-function FileUpload_div_0_p_progressBar_14_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275element(0, "p-progressBar", 28);
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext(2);
-    \u0275\u0275property("value", ctx_r1.progress)("showValue", false);
-  }
-}
-function FileUpload_div_0_div_16_div_1_div_1_img_2_Template(rf, ctx) {
-  if (rf & 1) {
-    const _r6 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "img", 35);
-    \u0275\u0275listener("error", function FileUpload_div_0_div_16_div_1_div_1_img_2_Template_img_error_0_listener($event) {
-      \u0275\u0275restoreView(_r6);
-      const ctx_r1 = \u0275\u0275nextContext(5);
-      return \u0275\u0275resetView(ctx_r1.imageError($event));
-    });
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const file_r7 = \u0275\u0275nextContext().$implicit;
-    const ctx_r1 = \u0275\u0275nextContext(4);
-    \u0275\u0275property("src", file_r7.objectURL, \u0275\u0275sanitizeUrl)("width", ctx_r1.previewWidth);
-  }
-}
-function FileUpload_div_0_div_16_div_1_div_1_TimesIcon_9_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275element(0, "TimesIcon");
-  }
-}
-function FileUpload_div_0_div_16_div_1_div_1_10_ng_template_0_Template(rf, ctx) {
-}
-function FileUpload_div_0_div_16_div_1_div_1_10_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275template(0, FileUpload_div_0_div_16_div_1_div_1_10_ng_template_0_Template, 0, 0, "ng-template");
-  }
-}
-function FileUpload_div_0_div_16_div_1_div_1_Template(rf, ctx) {
-  if (rf & 1) {
-    const _r5 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 31)(1, "div");
-    \u0275\u0275template(2, FileUpload_div_0_div_16_div_1_div_1_img_2_Template, 1, 2, "img", 32);
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "div", 33);
-    \u0275\u0275text(4);
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "div");
-    \u0275\u0275text(6);
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(7, "div")(8, "button", 34);
-    \u0275\u0275listener("click", function FileUpload_div_0_div_16_div_1_div_1_Template_button_click_8_listener($event) {
-      const i_r8 = \u0275\u0275restoreView(_r5).index;
-      const ctx_r1 = \u0275\u0275nextContext(4);
-      return \u0275\u0275resetView(ctx_r1.remove($event, i_r8));
-    });
-    \u0275\u0275template(9, FileUpload_div_0_div_16_div_1_div_1_TimesIcon_9_Template, 1, 0, "TimesIcon", 11)(10, FileUpload_div_0_div_16_div_1_div_1_10_Template, 1, 0, null, 14);
-    \u0275\u0275elementEnd()()();
-  }
-  if (rf & 2) {
-    const file_r7 = ctx.$implicit;
-    const ctx_r1 = \u0275\u0275nextContext(4);
-    \u0275\u0275advance(2);
-    \u0275\u0275property("ngIf", ctx_r1.isImage(file_r7));
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(file_r7.name);
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(ctx_r1.formatSize(file_r7.size));
-    \u0275\u0275advance(2);
-    \u0275\u0275classMap(ctx_r1.removeStyleClass);
-    \u0275\u0275property("disabled", ctx_r1.uploading);
-    \u0275\u0275advance();
-    \u0275\u0275property("ngIf", !ctx_r1.cancelIconTemplate);
-    \u0275\u0275advance();
-    \u0275\u0275property("ngTemplateOutlet", ctx_r1.cancelIconTemplate);
-  }
-}
-function FileUpload_div_0_div_16_div_1_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div");
-    \u0275\u0275template(1, FileUpload_div_0_div_16_div_1_div_1_Template, 11, 8, "div", 30);
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext(3);
-    \u0275\u0275advance();
-    \u0275\u0275property("ngForOf", ctx_r1.files);
-  }
-}
-function FileUpload_div_0_div_16_div_2_ng_template_1_Template(rf, ctx) {
-}
-function FileUpload_div_0_div_16_div_2_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div");
-    \u0275\u0275template(1, FileUpload_div_0_div_16_div_2_ng_template_1_Template, 0, 0, "ng-template", 36);
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext(3);
-    \u0275\u0275advance();
-    \u0275\u0275property("ngForOf", ctx_r1.files)("ngForTemplate", ctx_r1.fileTemplate);
-  }
-}
-function FileUpload_div_0_div_16_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 29);
-    \u0275\u0275template(1, FileUpload_div_0_div_16_div_1_Template, 2, 1, "div", 11)(2, FileUpload_div_0_div_16_div_2_Template, 2, 2, "div", 11);
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext(2);
-    \u0275\u0275advance();
-    \u0275\u0275property("ngIf", !ctx_r1.fileTemplate);
-    \u0275\u0275advance();
-    \u0275\u0275property("ngIf", ctx_r1.fileTemplate);
-  }
-}
-function FileUpload_div_0_ng_container_17_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementContainer(0);
-  }
-}
-function FileUpload_div_0_Template(rf, ctx) {
-  if (rf & 1) {
-    const _r1 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 6)(1, "div", 7)(2, "span", 8);
-    \u0275\u0275listener("focus", function FileUpload_div_0_Template_span_focus_2_listener() {
-      \u0275\u0275restoreView(_r1);
-      const ctx_r1 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r1.onFocus());
-    })("blur", function FileUpload_div_0_Template_span_blur_2_listener() {
-      \u0275\u0275restoreView(_r1);
-      const ctx_r1 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r1.onBlur());
-    })("click", function FileUpload_div_0_Template_span_click_2_listener() {
-      \u0275\u0275restoreView(_r1);
-      const ctx_r1 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r1.choose());
-    })("keydown.enter", function FileUpload_div_0_Template_span_keydown_enter_2_listener() {
-      \u0275\u0275restoreView(_r1);
-      const ctx_r1 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r1.choose());
-    });
-    \u0275\u0275elementStart(3, "input", 9, 0);
-    \u0275\u0275listener("change", function FileUpload_div_0_Template_input_change_3_listener($event) {
-      \u0275\u0275restoreView(_r1);
-      const ctx_r1 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r1.onFileSelect($event));
-    });
-    \u0275\u0275elementEnd();
-    \u0275\u0275template(5, FileUpload_div_0_span_5_Template, 1, 5, "span", 10)(6, FileUpload_div_0_ng_container_6_Template, 3, 2, "ng-container", 11);
-    \u0275\u0275elementStart(7, "span", 12);
-    \u0275\u0275text(8);
-    \u0275\u0275elementEnd()();
-    \u0275\u0275template(9, FileUpload_div_0_p_button_9_Template, 3, 5, "p-button", 13)(10, FileUpload_div_0_p_button_10_Template, 3, 5, "p-button", 13)(11, FileUpload_div_0_ng_container_11_Template, 1, 0, "ng-container", 14);
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(12, "div", 15, 1);
-    \u0275\u0275listener("dragenter", function FileUpload_div_0_Template_div_dragenter_12_listener($event) {
-      \u0275\u0275restoreView(_r1);
-      const ctx_r1 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r1.onDragEnter($event));
-    })("dragleave", function FileUpload_div_0_Template_div_dragleave_12_listener($event) {
-      \u0275\u0275restoreView(_r1);
-      const ctx_r1 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r1.onDragLeave($event));
-    })("drop", function FileUpload_div_0_Template_div_drop_12_listener($event) {
-      \u0275\u0275restoreView(_r1);
-      const ctx_r1 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r1.onDrop($event));
-    });
-    \u0275\u0275template(14, FileUpload_div_0_p_progressBar_14_Template, 1, 2, "p-progressBar", 16);
-    \u0275\u0275element(15, "p-messages", 17);
-    \u0275\u0275template(16, FileUpload_div_0_div_16_Template, 3, 2, "div", 18)(17, FileUpload_div_0_ng_container_17_Template, 1, 0, "ng-container", 19);
-    \u0275\u0275elementEnd()();
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext();
-    \u0275\u0275classMap(ctx_r1.styleClass);
-    \u0275\u0275property("ngClass", "p-fileupload p-fileupload-advanced p-component")("ngStyle", ctx_r1.style);
-    \u0275\u0275attribute("data-pc-name", "fileupload")("data-pc-section", "root");
-    \u0275\u0275advance();
-    \u0275\u0275attribute("data-pc-section", "buttonbar");
-    \u0275\u0275advance();
-    \u0275\u0275classMap(ctx_r1.chooseStyleClass);
-    \u0275\u0275property("ngClass", \u0275\u0275pureFunction2(31, _c33, ctx_r1.focus, ctx_r1.disabled || ctx_r1.isChooseDisabled()));
-    \u0275\u0275attribute("data-pc-section", "choosebutton");
-    \u0275\u0275advance();
-    \u0275\u0275property("multiple", ctx_r1.multiple)("accept", ctx_r1.accept)("disabled", ctx_r1.disabled || ctx_r1.isChooseDisabled());
-    \u0275\u0275attribute("aria-label", ctx_r1.browseFilesLabel)("title", "")("data-pc-section", "input");
-    \u0275\u0275advance(2);
-    \u0275\u0275property("ngIf", ctx_r1.chooseIcon);
-    \u0275\u0275advance();
-    \u0275\u0275property("ngIf", !ctx_r1.chooseIcon);
-    \u0275\u0275advance();
-    \u0275\u0275attribute("data-pc-section", "choosebuttonlabel");
-    \u0275\u0275advance();
-    \u0275\u0275textInterpolate(ctx_r1.chooseButtonLabel);
-    \u0275\u0275advance();
-    \u0275\u0275property("ngIf", !ctx_r1.auto && ctx_r1.showUploadButton);
-    \u0275\u0275advance();
-    \u0275\u0275property("ngIf", !ctx_r1.auto && ctx_r1.showCancelButton);
-    \u0275\u0275advance();
-    \u0275\u0275property("ngTemplateOutlet", ctx_r1.toolbarTemplate);
-    \u0275\u0275advance();
-    \u0275\u0275attribute("data-pc-section", "content");
-    \u0275\u0275advance(2);
-    \u0275\u0275property("ngIf", ctx_r1.hasFiles());
-    \u0275\u0275advance();
-    \u0275\u0275property("value", ctx_r1.msgs)("enableService", false);
-    \u0275\u0275advance();
-    \u0275\u0275property("ngIf", ctx_r1.hasFiles());
-    \u0275\u0275advance();
-    \u0275\u0275property("ngTemplateOutlet", ctx_r1.contentTemplate)("ngTemplateOutletContext", \u0275\u0275pureFunction1(34, _c43, ctx_r1.files));
-  }
-}
-function FileUpload_div_1_ng_container_3_span_1_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275element(0, "span", 27);
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext(3);
-    \u0275\u0275property("ngClass", ctx_r1.uploadIcon);
-  }
-}
-function FileUpload_div_1_ng_container_3_ng_container_2_UploadIcon_1_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275element(0, "UploadIcon", 23);
-  }
-  if (rf & 2) {
-    \u0275\u0275property("styleClass", "p-button-icon p-button-icon-left");
-  }
-}
-function FileUpload_div_1_ng_container_3_ng_container_2_span_2_1_ng_template_0_Template(rf, ctx) {
-}
-function FileUpload_div_1_ng_container_3_ng_container_2_span_2_1_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275template(0, FileUpload_div_1_ng_container_3_ng_container_2_span_2_1_ng_template_0_Template, 0, 0, "ng-template");
-  }
-}
-function FileUpload_div_1_ng_container_3_ng_container_2_span_2_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "span", 24);
-    \u0275\u0275template(1, FileUpload_div_1_ng_container_3_ng_container_2_span_2_1_Template, 1, 0, null, 14);
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext(4);
-    \u0275\u0275advance();
-    \u0275\u0275property("ngTemplateOutlet", ctx_r1.uploadIconTemplate);
-  }
-}
-function FileUpload_div_1_ng_container_3_ng_container_2_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementContainerStart(0);
-    \u0275\u0275template(1, FileUpload_div_1_ng_container_3_ng_container_2_UploadIcon_1_Template, 1, 1, "UploadIcon", 21)(2, FileUpload_div_1_ng_container_3_ng_container_2_span_2_Template, 2, 1, "span", 22);
-    \u0275\u0275elementContainerEnd();
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext(3);
-    \u0275\u0275advance();
-    \u0275\u0275property("ngIf", !ctx_r1.uploadIconTemplate);
-    \u0275\u0275advance();
-    \u0275\u0275property("ngIf", ctx_r1.uploadIconTemplate);
-  }
-}
-function FileUpload_div_1_ng_container_3_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementContainerStart(0);
-    \u0275\u0275template(1, FileUpload_div_1_ng_container_3_span_1_Template, 1, 1, "span", 26)(2, FileUpload_div_1_ng_container_3_ng_container_2_Template, 3, 2, "ng-container", 11);
-    \u0275\u0275elementContainerEnd();
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext(2);
-    \u0275\u0275advance();
-    \u0275\u0275property("ngIf", ctx_r1.uploadIcon);
-    \u0275\u0275advance();
-    \u0275\u0275property("ngIf", !ctx_r1.uploadIcon);
-  }
-}
-function FileUpload_div_1_ng_template_4_span_0_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275element(0, "span", 43);
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext(3);
-    \u0275\u0275property("ngClass", ctx_r1.chooseIcon);
-  }
-}
-function FileUpload_div_1_ng_template_4_ng_container_1_PlusIcon_1_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275element(0, "PlusIcon", 23);
-  }
-  if (rf & 2) {
-    \u0275\u0275property("styleClass", "p-button-icon p-button-icon-left pi");
-    \u0275\u0275attribute("aria-hidden", true)("data-pc-section", "uploadicon");
-  }
-}
-function FileUpload_div_1_ng_template_4_ng_container_1_span_2_1_ng_template_0_Template(rf, ctx) {
-}
-function FileUpload_div_1_ng_template_4_ng_container_1_span_2_1_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275template(0, FileUpload_div_1_ng_template_4_ng_container_1_span_2_1_ng_template_0_Template, 0, 0, "ng-template");
-  }
-}
-function FileUpload_div_1_ng_template_4_ng_container_1_span_2_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "span", 45);
-    \u0275\u0275template(1, FileUpload_div_1_ng_template_4_ng_container_1_span_2_1_Template, 1, 0, null, 14);
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext(4);
-    \u0275\u0275attribute("aria-hidden", true)("data-pc-section", "uploadicon");
-    \u0275\u0275advance();
-    \u0275\u0275property("ngTemplateOutlet", ctx_r1.chooseIconTemplate);
-  }
-}
-function FileUpload_div_1_ng_template_4_ng_container_1_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementContainerStart(0);
-    \u0275\u0275template(1, FileUpload_div_1_ng_template_4_ng_container_1_PlusIcon_1_Template, 1, 3, "PlusIcon", 21)(2, FileUpload_div_1_ng_template_4_ng_container_1_span_2_Template, 2, 3, "span", 44);
-    \u0275\u0275elementContainerEnd();
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext(3);
-    \u0275\u0275advance();
-    \u0275\u0275property("ngIf", !ctx_r1.chooseIconTemplate);
-    \u0275\u0275advance();
-    \u0275\u0275property("ngIf", ctx_r1.chooseIconTemplate);
-  }
-}
-function FileUpload_div_1_ng_template_4_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275template(0, FileUpload_div_1_ng_template_4_span_0_Template, 1, 1, "span", 42)(1, FileUpload_div_1_ng_template_4_ng_container_1_Template, 3, 2, "ng-container", 11);
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext(2);
-    \u0275\u0275property("ngIf", ctx_r1.chooseIcon);
-    \u0275\u0275advance();
-    \u0275\u0275property("ngIf", !ctx_r1.chooseIcon);
-  }
-}
-function FileUpload_div_1_span_6_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "span", 12);
-    \u0275\u0275text(1);
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext(2);
-    \u0275\u0275attribute("data-pc-section", "label");
-    \u0275\u0275advance();
-    \u0275\u0275textInterpolate(ctx_r1.basicButtonLabel);
-  }
-}
-function FileUpload_div_1_input_7_Template(rf, ctx) {
-  if (rf & 1) {
-    const _r10 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "input", 46, 3);
-    \u0275\u0275listener("change", function FileUpload_div_1_input_7_Template_input_change_0_listener($event) {
-      \u0275\u0275restoreView(_r10);
-      const ctx_r1 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r1.onFileSelect($event));
-    })("focus", function FileUpload_div_1_input_7_Template_input_focus_0_listener() {
-      \u0275\u0275restoreView(_r10);
-      const ctx_r1 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r1.onFocus());
-    })("blur", function FileUpload_div_1_input_7_Template_input_blur_0_listener() {
-      \u0275\u0275restoreView(_r10);
-      const ctx_r1 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r1.onBlur());
-    });
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext(2);
-    \u0275\u0275property("accept", ctx_r1.accept)("multiple", ctx_r1.multiple)("disabled", ctx_r1.disabled);
-    \u0275\u0275attribute("aria-label", ctx_r1.browseFilesLabel)("data-pc-section", "input");
-  }
-}
-function FileUpload_div_1_Template(rf, ctx) {
-  if (rf & 1) {
-    const _r9 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 37);
-    \u0275\u0275element(1, "p-messages", 17);
-    \u0275\u0275elementStart(2, "span", 38);
-    \u0275\u0275listener("click", function FileUpload_div_1_Template_span_click_2_listener() {
-      \u0275\u0275restoreView(_r9);
-      const ctx_r1 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r1.onBasicUploaderClick());
-    })("keydown", function FileUpload_div_1_Template_span_keydown_2_listener($event) {
-      \u0275\u0275restoreView(_r9);
-      const ctx_r1 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r1.onBasicKeydown($event));
-    });
-    \u0275\u0275template(3, FileUpload_div_1_ng_container_3_Template, 3, 2, "ng-container", 39)(4, FileUpload_div_1_ng_template_4_Template, 2, 2, "ng-template", null, 2, \u0275\u0275templateRefExtractor)(6, FileUpload_div_1_span_6_Template, 2, 2, "span", 40)(7, FileUpload_div_1_input_7_Template, 2, 5, "input", 41);
-    \u0275\u0275elementEnd()();
-  }
-  if (rf & 2) {
-    const chooseSection_r11 = \u0275\u0275reference(5);
-    const ctx_r1 = \u0275\u0275nextContext();
-    \u0275\u0275attribute("data-pc-name", "fileupload");
-    \u0275\u0275advance();
-    \u0275\u0275property("value", ctx_r1.msgs)("enableService", false);
-    \u0275\u0275advance();
-    \u0275\u0275classMap(ctx_r1.styleClass);
-    \u0275\u0275property("ngClass", \u0275\u0275pureFunction4(12, _c53, !ctx_r1.basicButtonLabel, ctx_r1.hasFiles(), ctx_r1.focus, ctx_r1.disabled))("ngStyle", ctx_r1.style);
-    \u0275\u0275attribute("data-pc-section", "choosebutton");
-    \u0275\u0275advance();
-    \u0275\u0275property("ngIf", ctx_r1.hasFiles() && !ctx_r1.auto)("ngIfElse", chooseSection_r11);
-    \u0275\u0275advance(3);
-    \u0275\u0275property("ngIf", ctx_r1.basicButtonLabel);
-    \u0275\u0275advance();
-    \u0275\u0275property("ngIf", !ctx_r1.hasFiles());
-  }
-}
-var FileUpload = class _FileUpload {
-  document;
-  platformId;
-  renderer;
-  el;
-  sanitizer;
-  zone;
-  http;
-  cd;
-  config;
-  /**
-   * Name of the request parameter to identify the files at backend.
-   * @group Props
-   */
-  name;
-  /**
-   * Remote url to upload the files.
-   * @group Props
-   */
-  url;
-  /**
-   * HTTP method to send the files to the url such as "post" and "put".
-   * @group Props
-   */
-  method = "post";
-  /**
-   * Used to select multiple files at once from file dialog.
-   * @group Props
-   */
-  multiple;
-  /**
-   * Comma-separated list of pattern to restrict the allowed file types. Can be any combination of either the MIME types (such as "image/*") or the file extensions (such as ".jpg").
-   * @group Props
-   */
-  accept;
-  /**
-   * Disables the upload functionality.
-   * @group Props
-   */
-  disabled;
-  /**
-   * When enabled, upload begins automatically after selection is completed.
-   * @group Props
-   */
-  auto;
-  /**
-   * Cross-site Access-Control requests should be made using credentials such as cookies, authorization headers or TLS client certificates.
-   * @group Props
-   */
-  withCredentials;
-  /**
-   * Maximum file size allowed in bytes.
-   * @group Props
-   */
-  maxFileSize;
-  /**
-   * Summary message of the invalid file size.
-   * @group Props
-   */
-  invalidFileSizeMessageSummary = "{0}: Invalid file size, ";
-  /**
-   * Detail message of the invalid file size.
-   * @group Props
-   */
-  invalidFileSizeMessageDetail = "maximum upload size is {0}.";
-  /**
-   * Summary message of the invalid file type.
-   * @group Props
-   */
-  invalidFileTypeMessageSummary = "{0}: Invalid file type, ";
-  /**
-   * Detail message of the invalid file type.
-   * @group Props
-   */
-  invalidFileTypeMessageDetail = "allowed file types: {0}.";
-  /**
-   * Detail message of the invalid file type.
-   * @group Props
-   */
-  invalidFileLimitMessageDetail = "limit is {0} at most.";
-  /**
-   * Summary message of the invalid file type.
-   * @group Props
-   */
-  invalidFileLimitMessageSummary = "Maximum number of files exceeded, ";
-  /**
-   * Inline style of the element.
-   * @group Props
-   */
-  style;
-  /**
-   * Class of the element.
-   * @group Props
-   */
-  styleClass;
-  /**
-   * Width of the image thumbnail in pixels.
-   * @group Props
-   */
-  previewWidth = 50;
-  /**
-   * Label of the choose button. Defaults to PrimeNG Locale configuration.
-   * @group Props
-   */
-  chooseLabel;
-  /**
-   * Label of the upload button. Defaults to PrimeNG Locale configuration.
-   * @group Props
-   */
-  uploadLabel;
-  /**
-   * Label of the cancel button. Defaults to PrimeNG Locale configuration.
-   * @group Props
-   */
-  cancelLabel;
-  /**
-   * Icon of the choose button.
-   * @group Props
-   */
-  chooseIcon;
-  /**
-   * Icon of the upload button.
-   * @group Props
-   */
-  uploadIcon;
-  /**
-   * Icon of the cancel button.
-   * @group Props
-   */
-  cancelIcon;
-  /**
-   * Whether to show the upload button.
-   * @group Props
-   */
-  showUploadButton = true;
-  /**
-   * Whether to show the cancel button.
-   * @group Props
-   */
-  showCancelButton = true;
-  /**
-   * Defines the UI of the component.
-   * @group Props
-   */
-  mode = "advanced";
-  /**
-   * HttpHeaders class represents the header configuration options for an HTTP request.
-   * @group Props
-   */
-  headers;
-  /**
-   * Whether to use the default upload or a manual implementation defined in uploadHandler callback. Defaults to PrimeNG Locale configuration.
-   * @group Props
-   */
-  customUpload;
-  /**
-   * Maximum number of files that can be uploaded.
-   * @group Props
-   */
-  fileLimit;
-  /**
-   * Style class of the upload button.
-   * @group Props
-   */
-  uploadStyleClass;
-  /**
-   * Style class of the cancel button.
-   * @group Props
-   */
-  cancelStyleClass;
-  /**
-   * Style class of the remove button.
-   * @group Props
-   */
-  removeStyleClass;
-  /**
-   * Style class of the choose button.
-   * @group Props
-   */
-  chooseStyleClass;
-  /**
-   * Callback to invoke before file upload is initialized.
-   * @param {FileBeforeUploadEvent} event - Custom upload event.
-   * @group Emits
-   */
-  onBeforeUpload = new EventEmitter();
-  /**
-   * An event indicating that the request was sent to the server. Useful when a request may be retried multiple times, to distinguish between retries on the final event stream.
-   * @param {FileSendEvent} event - Custom send event.
-   * @group Emits
-   */
-  onSend = new EventEmitter();
-  /**
-   * Callback to invoke when file upload is complete.
-   * @param {FileUploadEvent} event - Custom upload event.
-   * @group Emits
-   */
-  onUpload = new EventEmitter();
-  /**
-   * Callback to invoke if file upload fails.
-   * @param {FileUploadErrorEvent} event - Custom error event.
-   * @group Emits
-   */
-  onError = new EventEmitter();
-  /**
-   * Callback to invoke when files in queue are removed without uploading using clear all button.
-   * @param {Event} event - Browser event.
-   * @group Emits
-   */
-  onClear = new EventEmitter();
-  /**
-   * Callback to invoke when a file is removed without uploading using clear button of a file.
-   * @param {FileRemoveEvent} event - Remove event.
-   * @group Emits
-   */
-  onRemove = new EventEmitter();
-  /**
-   * Callback to invoke when files are selected.
-   * @param {FileSelectEvent} event - Select event.
-   * @group Emits
-   */
-  onSelect = new EventEmitter();
-  /**
-   * Callback to invoke when files are being uploaded.
-   * @param {FileProgressEvent} event - Progress event.
-   * @group Emits
-   */
-  onProgress = new EventEmitter();
-  /**
-   * Callback to invoke in custom upload mode to upload the files manually.
-   * @param {FileUploadHandlerEvent} event - Upload handler event.
-   * @group Emits
-   */
-  uploadHandler = new EventEmitter();
-  /**
-   * This event is triggered if an error occurs while loading an image file.
-   * @param {Event} event - Browser event.
-   * @group Emits
-   */
-  onImageError = new EventEmitter();
-  templates;
-  advancedFileInput;
-  basicFileInput;
-  content;
-  set files(files) {
-    this._files = [];
-    for (let i = 0; i < files.length; i++) {
-      let file = files[i];
-      if (this.validate(file)) {
-        if (this.isImage(file)) {
-          file.objectURL = this.sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(files[i]));
-        }
-        this._files.push(files[i]);
-      }
-    }
-  }
-  get files() {
-    return this._files;
-  }
-  get basicButtonLabel() {
-    if (this.auto || !this.hasFiles()) {
-      return this.chooseLabel;
-    }
-    return this.uploadLabel ?? this.files[0].name;
-  }
-  _files = [];
-  progress = 0;
-  dragHighlight;
-  msgs;
-  fileTemplate;
-  contentTemplate;
-  toolbarTemplate;
-  chooseIconTemplate;
-  uploadIconTemplate;
-  cancelIconTemplate;
-  uploadedFileCount = 0;
-  focus;
-  uploading;
-  duplicateIEEvent;
-  // flag to recognize duplicate onchange event for file input
-  translationSubscription;
-  dragOverListener;
-  constructor(document2, platformId, renderer, el, sanitizer, zone, http, cd, config2) {
-    this.document = document2;
-    this.platformId = platformId;
-    this.renderer = renderer;
-    this.el = el;
-    this.sanitizer = sanitizer;
-    this.zone = zone;
-    this.http = http;
-    this.cd = cd;
-    this.config = config2;
-  }
-  ngAfterContentInit() {
-    this.templates?.forEach((item) => {
-      switch (item.getType()) {
-        case "file":
-          this.fileTemplate = item.template;
-          break;
-        case "content":
-          this.contentTemplate = item.template;
-          break;
-        case "toolbar":
-          this.toolbarTemplate = item.template;
-          break;
-        case "chooseicon":
-          this.chooseIconTemplate = item.template;
-          break;
-        case "uploadicon":
-          this.uploadIconTemplate = item.template;
-          break;
-        case "cancelicon":
-          this.cancelIconTemplate = item.template;
-          break;
-        default:
-          this.fileTemplate = item.template;
-          break;
-      }
-    });
-  }
-  ngOnInit() {
-    this.translationSubscription = this.config.translationObserver.subscribe(() => {
-      this.cd.markForCheck();
-    });
-  }
-  ngAfterViewInit() {
-    if (isPlatformBrowser2(this.platformId)) {
-      if (this.mode === "advanced") {
-        this.zone.runOutsideAngular(() => {
-          if (this.content) {
-            this.dragOverListener = this.renderer.listen(this.content.nativeElement, "dragover", this.onDragOver.bind(this));
-          }
-        });
-      }
-    }
-  }
-  getTranslation(option) {
-    return this.config.getTranslation(option);
-  }
-  choose() {
-    this.advancedFileInput?.nativeElement.click();
-  }
-  onFileSelect(event2) {
-    if (event2.type !== "drop" && this.isIE11() && this.duplicateIEEvent) {
-      this.duplicateIEEvent = false;
-      return;
-    }
-    this.msgs = [];
-    if (!this.multiple) {
-      this.files = [];
-    }
-    let files = event2.dataTransfer ? event2.dataTransfer.files : event2.target.files;
-    for (let i = 0; i < files.length; i++) {
-      let file = files[i];
-      if (!this.isFileSelected(file)) {
-        if (this.validate(file)) {
-          if (this.isImage(file)) {
-            file.objectURL = this.sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(files[i]));
-          }
-          this.files.push(files[i]);
-        }
-      }
-    }
-    this.onSelect.emit({
-      originalEvent: event2,
-      files,
-      currentFiles: this.files
-    });
-    this.checkFileLimit(files);
-    if (this.hasFiles() && this.auto && (!(this.mode === "advanced") || !this.isFileLimitExceeded())) {
-      this.upload();
-    }
-    if (event2.type !== "drop" && this.isIE11()) {
-      this.clearIEInput();
-    } else {
-      this.clearInputElement();
-    }
-  }
-  isFileSelected(file) {
-    for (let sFile of this.files) {
-      if (sFile.name + sFile.type + sFile.size === file.name + file.type + file.size) {
-        return true;
-      }
-    }
-    return false;
-  }
-  isIE11() {
-    if (isPlatformBrowser2(this.platformId)) {
-      return !!this.document.defaultView["MSInputMethodContext"] && !!this.document["documentMode"];
-    }
-  }
-  validate(file) {
-    this.msgs = this.msgs || [];
-    if (this.accept && !this.isFileTypeValid(file)) {
-      this.msgs.push({
-        severity: "error",
-        summary: this.invalidFileTypeMessageSummary.replace("{0}", file.name),
-        detail: this.invalidFileTypeMessageDetail.replace("{0}", this.accept)
-      });
-      return false;
-    }
-    if (this.maxFileSize && file.size > this.maxFileSize) {
-      this.msgs.push({
-        severity: "error",
-        summary: this.invalidFileSizeMessageSummary.replace("{0}", file.name),
-        detail: this.invalidFileSizeMessageDetail.replace("{0}", this.formatSize(this.maxFileSize))
-      });
-      return false;
-    }
-    return true;
-  }
-  isFileTypeValid(file) {
-    let acceptableTypes = this.accept?.split(",").map((type) => type.trim());
-    for (let type of acceptableTypes) {
-      let acceptable = this.isWildcard(type) ? this.getTypeClass(file.type) === this.getTypeClass(type) : file.type == type || this.getFileExtension(file).toLowerCase() === type.toLowerCase();
-      if (acceptable) {
-        return true;
-      }
-    }
-    return false;
-  }
-  getTypeClass(fileType) {
-    return fileType.substring(0, fileType.indexOf("/"));
-  }
-  isWildcard(fileType) {
-    return fileType.indexOf("*") !== -1;
-  }
-  getFileExtension(file) {
-    return "." + file.name.split(".").pop();
-  }
-  isImage(file) {
-    return /^image\//.test(file.type);
-  }
-  onImageLoad(img) {
-    window.URL.revokeObjectURL(img.src);
-  }
-  /**
-   * Uploads the selected files.
-   * @group Method
-   */
-  upload() {
-    if (this.customUpload) {
-      if (this.fileLimit) {
-        this.uploadedFileCount += this.files.length;
-      }
-      this.uploadHandler.emit({
-        files: this.files
-      });
-      this.cd.markForCheck();
-    } else {
-      this.uploading = true;
-      this.msgs = [];
-      let formData = new FormData();
-      this.onBeforeUpload.emit({
-        formData
-      });
-      for (let i = 0; i < this.files.length; i++) {
-        formData.append(this.name, this.files[i], this.files[i].name);
-      }
-      this.http.request(this.method, this.url, {
-        body: formData,
-        headers: this.headers,
-        reportProgress: true,
-        observe: "events",
-        withCredentials: this.withCredentials
-      }).subscribe((event2) => {
-        switch (event2.type) {
-          case HttpEventType.Sent:
-            this.onSend.emit({
-              originalEvent: event2,
-              formData
-            });
-            break;
-          case HttpEventType.Response:
-            this.uploading = false;
-            this.progress = 0;
-            if (event2["status"] >= 200 && event2["status"] < 300) {
-              if (this.fileLimit) {
-                this.uploadedFileCount += this.files.length;
-              }
-              this.onUpload.emit({
-                originalEvent: event2,
-                files: this.files
-              });
-            } else {
-              this.onError.emit({
-                files: this.files
-              });
-            }
-            this.clear();
-            break;
-          case HttpEventType.UploadProgress: {
-            if (event2["loaded"]) {
-              this.progress = Math.round(event2["loaded"] * 100 / event2["total"]);
-            }
-            this.onProgress.emit({
-              originalEvent: event2,
-              progress: this.progress
-            });
-            break;
-          }
-        }
-        this.cd.markForCheck();
-      }, (error) => {
-        this.uploading = false;
-        this.onError.emit({
-          files: this.files,
-          error
-        });
-      });
-    }
-  }
-  /**
-   * Clears the files list.
-   * @group Method
-   */
-  clear() {
-    this.files = [];
-    this.uploadedFileCount = 0;
-    this.onClear.emit();
-    this.clearInputElement();
-    this.cd.markForCheck();
-  }
-  remove(event2, index) {
-    this.clearInputElement();
-    this.onRemove.emit({
-      originalEvent: event2,
-      file: this.files[index]
-    });
-    this.files.splice(index, 1);
-    this.checkFileLimit(this.files);
-  }
-  isFileLimitExceeded() {
-    const isAutoMode = this.auto;
-    const totalFileCount = isAutoMode ? this.files.length : this.files.length + this.uploadedFileCount;
-    if (this.fileLimit && this.fileLimit <= totalFileCount && this.focus) {
-      this.focus = false;
-    }
-    return this.fileLimit && this.fileLimit < totalFileCount;
-  }
-  isChooseDisabled() {
-    if (this.auto) {
-      return this.fileLimit && this.fileLimit <= this.files.length;
-    } else {
-      return this.fileLimit && this.fileLimit <= this.files.length + this.uploadedFileCount;
-    }
-  }
-  checkFileLimit(files) {
-    this.msgs ??= [];
-    const hasExistingValidationMessages = this.msgs.length > 0 && this.fileLimit < files.length;
-    if (this.isFileLimitExceeded() || hasExistingValidationMessages) {
-      this.msgs.push({
-        severity: "error",
-        summary: this.invalidFileLimitMessageSummary.replace("{0}", this.fileLimit.toString()),
-        detail: this.invalidFileLimitMessageDetail.replace("{0}", this.fileLimit.toString())
-      });
-    }
-  }
-  clearInputElement() {
-    if (this.advancedFileInput && this.advancedFileInput.nativeElement) {
-      this.advancedFileInput.nativeElement.value = "";
-    }
-    if (this.basicFileInput && this.basicFileInput.nativeElement) {
-      this.basicFileInput.nativeElement.value = "";
-    }
-  }
-  clearIEInput() {
-    if (this.advancedFileInput && this.advancedFileInput.nativeElement) {
-      this.duplicateIEEvent = true;
-      this.advancedFileInput.nativeElement.value = "";
-    }
-  }
-  hasFiles() {
-    return this.files && this.files.length > 0;
-  }
-  onDragEnter(e) {
-    if (!this.disabled) {
-      e.stopPropagation();
-      e.preventDefault();
-    }
-  }
-  onDragOver(e) {
-    if (!this.disabled) {
-      DomHandler.addClass(this.content?.nativeElement, "p-fileupload-highlight");
-      this.dragHighlight = true;
-      e.stopPropagation();
-      e.preventDefault();
-    }
-  }
-  onDragLeave(event2) {
-    if (!this.disabled) {
-      DomHandler.removeClass(this.content?.nativeElement, "p-fileupload-highlight");
-    }
-  }
-  onDrop(event2) {
-    if (!this.disabled) {
-      DomHandler.removeClass(this.content?.nativeElement, "p-fileupload-highlight");
-      event2.stopPropagation();
-      event2.preventDefault();
-      let files = event2.dataTransfer ? event2.dataTransfer.files : event2.target.files;
-      let allowDrop = this.multiple || files && files.length === 1;
-      if (allowDrop) {
-        this.onFileSelect(event2);
-      }
-    }
-  }
-  onFocus() {
-    this.focus = true;
-  }
-  onBlur() {
-    this.focus = false;
-  }
-  formatSize(bytes) {
-    const k = 1024;
-    const dm = 3;
-    const sizes = this.getTranslation(TranslationKeys.FILE_SIZE_TYPES);
-    if (bytes === 0) {
-      return `0 ${sizes[0]}`;
-    }
-    const i = Math.floor(Math.log(bytes) / Math.log(k));
-    const formattedSize = (bytes / Math.pow(k, i)).toFixed(dm);
-    return `${formattedSize} ${sizes[i]}`;
-  }
-  onBasicUploaderClick() {
-    if (this.hasFiles())
-      this.upload();
-    else
-      this.basicFileInput?.nativeElement.click();
-  }
-  onBasicKeydown(event2) {
-    switch (event2.code) {
-      case "Space":
-      case "Enter":
-        this.onBasicUploaderClick();
-        event2.preventDefault();
-        break;
-    }
-  }
-  imageError(event2) {
-    this.onImageError.emit(event2);
-  }
-  getBlockableElement() {
-    return this.el.nativeElement.children[0];
-  }
-  get chooseButtonLabel() {
-    return this.chooseLabel || this.config.getTranslation(TranslationKeys.CHOOSE);
-  }
-  get uploadButtonLabel() {
-    return this.uploadLabel || this.config.getTranslation(TranslationKeys.UPLOAD);
-  }
-  get cancelButtonLabel() {
-    return this.cancelLabel || this.config.getTranslation(TranslationKeys.CANCEL);
-  }
-  get browseFilesLabel() {
-    return this.config.getTranslation(TranslationKeys.ARIA)[TranslationKeys.BROWSE_FILES];
-  }
-  ngOnDestroy() {
-    if (this.content && this.content.nativeElement) {
-      if (this.dragOverListener) {
-        this.dragOverListener();
-        this.dragOverListener = null;
-      }
-    }
-    if (this.translationSubscription) {
-      this.translationSubscription.unsubscribe();
-    }
-  }
-  static \u0275fac = function FileUpload_Factory(t) {
-    return new (t || _FileUpload)(\u0275\u0275directiveInject(DOCUMENT2), \u0275\u0275directiveInject(PLATFORM_ID), \u0275\u0275directiveInject(Renderer2), \u0275\u0275directiveInject(ElementRef), \u0275\u0275directiveInject(DomSanitizer), \u0275\u0275directiveInject(NgZone), \u0275\u0275directiveInject(HttpClient), \u0275\u0275directiveInject(ChangeDetectorRef), \u0275\u0275directiveInject(PrimeNGConfig));
-  };
-  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({
-    type: _FileUpload,
-    selectors: [["p-fileUpload"]],
-    contentQueries: function FileUpload_ContentQueries(rf, ctx, dirIndex) {
-      if (rf & 1) {
-        \u0275\u0275contentQuery(dirIndex, PrimeTemplate, 4);
-      }
-      if (rf & 2) {
-        let _t;
-        \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx.templates = _t);
-      }
-    },
-    viewQuery: function FileUpload_Query(rf, ctx) {
-      if (rf & 1) {
-        \u0275\u0275viewQuery(_c08, 5);
-        \u0275\u0275viewQuery(_c19, 5);
-        \u0275\u0275viewQuery(_c23, 5);
-      }
-      if (rf & 2) {
-        let _t;
-        \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx.advancedFileInput = _t.first);
-        \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx.basicFileInput = _t.first);
-        \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx.content = _t.first);
-      }
-    },
-    hostAttrs: [1, "p-element"],
-    inputs: {
-      name: "name",
-      url: "url",
-      method: "method",
-      multiple: [InputFlags.HasDecoratorInputTransform, "multiple", "multiple", booleanAttribute],
-      accept: "accept",
-      disabled: [InputFlags.HasDecoratorInputTransform, "disabled", "disabled", booleanAttribute],
-      auto: [InputFlags.HasDecoratorInputTransform, "auto", "auto", booleanAttribute],
-      withCredentials: [InputFlags.HasDecoratorInputTransform, "withCredentials", "withCredentials", booleanAttribute],
-      maxFileSize: [InputFlags.HasDecoratorInputTransform, "maxFileSize", "maxFileSize", numberAttribute],
-      invalidFileSizeMessageSummary: "invalidFileSizeMessageSummary",
-      invalidFileSizeMessageDetail: "invalidFileSizeMessageDetail",
-      invalidFileTypeMessageSummary: "invalidFileTypeMessageSummary",
-      invalidFileTypeMessageDetail: "invalidFileTypeMessageDetail",
-      invalidFileLimitMessageDetail: "invalidFileLimitMessageDetail",
-      invalidFileLimitMessageSummary: "invalidFileLimitMessageSummary",
-      style: "style",
-      styleClass: "styleClass",
-      previewWidth: [InputFlags.HasDecoratorInputTransform, "previewWidth", "previewWidth", numberAttribute],
-      chooseLabel: "chooseLabel",
-      uploadLabel: "uploadLabel",
-      cancelLabel: "cancelLabel",
-      chooseIcon: "chooseIcon",
-      uploadIcon: "uploadIcon",
-      cancelIcon: "cancelIcon",
-      showUploadButton: [InputFlags.HasDecoratorInputTransform, "showUploadButton", "showUploadButton", booleanAttribute],
-      showCancelButton: [InputFlags.HasDecoratorInputTransform, "showCancelButton", "showCancelButton", booleanAttribute],
-      mode: "mode",
-      headers: "headers",
-      customUpload: [InputFlags.HasDecoratorInputTransform, "customUpload", "customUpload", booleanAttribute],
-      fileLimit: [InputFlags.HasDecoratorInputTransform, "fileLimit", "fileLimit", numberAttribute],
-      uploadStyleClass: "uploadStyleClass",
-      cancelStyleClass: "cancelStyleClass",
-      removeStyleClass: "removeStyleClass",
-      chooseStyleClass: "chooseStyleClass",
-      files: "files"
-    },
-    outputs: {
-      onBeforeUpload: "onBeforeUpload",
-      onSend: "onSend",
-      onUpload: "onUpload",
-      onError: "onError",
-      onClear: "onClear",
-      onRemove: "onRemove",
-      onSelect: "onSelect",
-      onProgress: "onProgress",
-      uploadHandler: "uploadHandler",
-      onImageError: "onImageError"
-    },
-    features: [\u0275\u0275InputTransformsFeature],
-    decls: 2,
-    vars: 2,
-    consts: [["advancedfileinput", ""], ["content", ""], ["chooseSection", ""], ["basicfileinput", ""], [3, "ngClass", "ngStyle", "class", 4, "ngIf"], ["class", "p-fileupload p-fileupload-basic p-component", 4, "ngIf"], [3, "ngClass", "ngStyle"], [1, "p-fileupload-buttonbar"], ["pRipple", "", "tabindex", "0", 1, "p-button", "p-component", "p-fileupload-choose", 3, "focus", "blur", "click", "keydown.enter", "ngClass"], ["type", "file", 3, "change", "multiple", "accept", "disabled"], [3, "ngClass", "class", 4, "ngIf"], [4, "ngIf"], [1, "p-button-label"], ["type", "button", 3, "label", "disabled", "styleClass", "onClick", 4, "ngIf"], [4, "ngTemplateOutlet"], [1, "p-fileupload-content", 3, "dragenter", "dragleave", "drop"], [3, "value", "showValue", 4, "ngIf"], [3, "value", "enableService"], ["class", "p-fileupload-files", 4, "ngIf"], [4, "ngTemplateOutlet", "ngTemplateOutletContext"], [3, "ngClass"], [3, "styleClass", 4, "ngIf"], ["class", "p-button-icon p-button-icon-left", 4, "ngIf"], [3, "styleClass"], [1, "p-button-icon", "p-button-icon-left"], ["type", "button", 3, "onClick", "label", "disabled", "styleClass"], ["class", "p-button-icon p-button-icon-left", 3, "ngClass", 4, "ngIf"], [1, "p-button-icon", "p-button-icon-left", 3, "ngClass"], [3, "value", "showValue"], [1, "p-fileupload-files"], ["class", "p-fileupload-row", 4, "ngFor", "ngForOf"], [1, "p-fileupload-row"], [3, "src", "width", "error", 4, "ngIf"], [1, "p-fileupload-filename"], ["type", "button", "pButton", "", 1, "p-button-icon-only", 3, "click", "disabled"], [3, "error", "src", "width"], ["ngFor", "", 3, "ngForOf", "ngForTemplate"], [1, "p-fileupload", "p-fileupload-basic", "p-component"], ["tabindex", "0", "pRipple", "", 3, "click", "keydown", "ngClass", "ngStyle"], [4, "ngIf", "ngIfElse"], ["class", "p-button-label", 4, "ngIf"], ["type", "file", 3, "accept", "multiple", "disabled", "change", "focus", "blur", 4, "ngIf"], ["class", "p-button-icon p-button-icon-left pi", 3, "ngClass", 4, "ngIf"], [1, "p-button-icon", "p-button-icon-left", "pi", 3, "ngClass"], ["class", "p-button-icon p-button-icon-left pi", 4, "ngIf"], [1, "p-button-icon", "p-button-icon-left", "pi"], ["type", "file", 3, "change", "focus", "blur", "accept", "multiple", "disabled"]],
-    template: function FileUpload_Template(rf, ctx) {
-      if (rf & 1) {
-        \u0275\u0275template(0, FileUpload_div_0_Template, 18, 36, "div", 4)(1, FileUpload_div_1_Template, 8, 17, "div", 5);
-      }
-      if (rf & 2) {
-        \u0275\u0275property("ngIf", ctx.mode === "advanced");
-        \u0275\u0275advance();
-        \u0275\u0275property("ngIf", ctx.mode === "basic");
-      }
-    },
-    dependencies: () => [NgClass, NgForOf, NgIf, NgTemplateOutlet, NgStyle, ButtonDirective, Button, ProgressBar, Messages, Ripple, PlusIcon, UploadIcon, TimesIcon],
-    styles: ["@layer primeng{.p-fileupload-content{position:relative}.p-fileupload-row{display:flex;align-items:center}.p-fileupload-row>div{flex:1 1 auto;width:25%}.p-fileupload-row>div:last-child{text-align:right}.p-fileupload-content .p-progressbar{width:100%;position:absolute;top:0;left:0}.p-button.p-fileupload-choose{position:relative;overflow:hidden}.p-button.p-fileupload-choose input[type=file],.p-fileupload-choose.p-fileupload-choose-selected input[type=file]{display:none}.p-fluid .p-fileupload .p-button{width:auto}.p-fileupload-filename{word-break:break-all}}\n"],
-    encapsulation: 2,
-    changeDetection: 0
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(FileUpload, [{
-    type: Component,
-    args: [{
-      selector: "p-fileUpload",
-      template: `
-        <div [ngClass]="'p-fileupload p-fileupload-advanced p-component'" [ngStyle]="style" [class]="styleClass" *ngIf="mode === 'advanced'" [attr.data-pc-name]="'fileupload'" [attr.data-pc-section]="'root'">
-            <div class="p-fileupload-buttonbar" [attr.data-pc-section]="'buttonbar'">
-                <span
-                    class="p-button p-component p-fileupload-choose"
-                    [ngClass]="{ 'p-focus': focus, 'p-disabled': disabled || isChooseDisabled() }"
-                    (focus)="onFocus()"
-                    (blur)="onBlur()"
-                    pRipple
-                    (click)="choose()"
-                    (keydown.enter)="choose()"
-                    tabindex="0"
-                    [class]="chooseStyleClass"
-                    [attr.data-pc-section]="'choosebutton'"
-                >
-                    <input
-                        [attr.aria-label]="browseFilesLabel"
-                        #advancedfileinput
-                        type="file"
-                        (change)="onFileSelect($event)"
-                        [multiple]="multiple"
-                        [accept]="accept"
-                        [disabled]="disabled || isChooseDisabled()"
-                        [attr.title]="''"
-                        [attr.data-pc-section]="'input'"
-                    />
-                    <span *ngIf="chooseIcon" [ngClass]="'p-button-icon p-button-icon-left'" [class]="chooseIcon" [attr.aria-label]="true" [attr.data-pc-section]="'chooseicon'"></span>
-                    <ng-container *ngIf="!chooseIcon">
-                        <PlusIcon *ngIf="!chooseIconTemplate" [styleClass]="'p-button-icon p-button-icon-left'" [attr.aria-label]="true" [attr.data-pc-section]="'chooseicon'" />
-                        <span *ngIf="chooseIconTemplate" class="p-button-icon p-button-icon-left" [attr.aria-label]="true" [attr.data-pc-section]="'chooseicon'">
-                            <ng-template *ngTemplateOutlet="chooseIconTemplate"></ng-template>
-                        </span>
-                    </ng-container>
-                    <span class="p-button-label" [attr.data-pc-section]="'choosebuttonlabel'">{{ chooseButtonLabel }}</span>
-                </span>
-
-                <p-button *ngIf="!auto && showUploadButton" type="button" [label]="uploadButtonLabel" (onClick)="upload()" [disabled]="!hasFiles() || isFileLimitExceeded()" [styleClass]="uploadStyleClass">
-                    <span *ngIf="uploadIcon" [ngClass]="uploadIcon" [attr.aria-hidden]="true" class="p-button-icon p-button-icon-left"></span>
-                    <ng-container *ngIf="!uploadIcon">
-                        <UploadIcon *ngIf="!uploadIconTemplate" [styleClass]="'p-button-icon p-button-icon-left'" />
-                        <span *ngIf="uploadIconTemplate" class="p-button-icon p-button-icon-left" [attr.aria-hidden]="true">
-                            <ng-template *ngTemplateOutlet="uploadIconTemplate"></ng-template>
-                        </span>
-                    </ng-container>
-                </p-button>
-                <p-button *ngIf="!auto && showCancelButton" type="button" [label]="cancelButtonLabel" (onClick)="clear()" [disabled]="!hasFiles() || uploading" [styleClass]="cancelStyleClass">
-                    <span *ngIf="cancelIcon" [ngClass]="cancelIcon" class="p-button-icon p-button-icon-left"></span>
-                    <ng-container *ngIf="!cancelIcon">
-                        <TimesIcon *ngIf="!cancelIconTemplate" [styleClass]="'p-button-icon p-button-icon-left'" [attr.aria-hidden]="true" />
-                        <span *ngIf="cancelIconTemplate" class="p-button-icon p-button-icon-left" [attr.aria-hidden]="true">
-                            <ng-template *ngTemplateOutlet="cancelIconTemplate"></ng-template>
-                        </span>
-                    </ng-container>
-                </p-button>
-
-                <ng-container *ngTemplateOutlet="toolbarTemplate"></ng-container>
-            </div>
-            <div #content class="p-fileupload-content" (dragenter)="onDragEnter($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)" [attr.data-pc-section]="'content'">
-                <p-progressBar [value]="progress" [showValue]="false" *ngIf="hasFiles()"></p-progressBar>
-
-                <p-messages [value]="msgs" [enableService]="false"></p-messages>
-
-                <div class="p-fileupload-files" *ngIf="hasFiles()">
-                    <div *ngIf="!fileTemplate">
-                        <div class="p-fileupload-row" *ngFor="let file of files; let i = index">
-                            <div><img [src]="file.objectURL" *ngIf="isImage(file)" [width]="previewWidth" (error)="imageError($event)" /></div>
-                            <div class="p-fileupload-filename">{{ file.name }}</div>
-                            <div>{{ formatSize(file.size) }}</div>
-                            <div>
-                                <button type="button" pButton (click)="remove($event, i)" [disabled]="uploading" class="p-button-icon-only" [class]="removeStyleClass">
-                                    <TimesIcon *ngIf="!cancelIconTemplate" />
-                                    <ng-template *ngTemplateOutlet="cancelIconTemplate"></ng-template>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div *ngIf="fileTemplate">
-                        <ng-template ngFor [ngForOf]="files" [ngForTemplate]="fileTemplate"></ng-template>
-                    </div>
-                </div>
-                <ng-container *ngTemplateOutlet="contentTemplate; context: { $implicit: files }"></ng-container>
-            </div>
-        </div>
-        <div class="p-fileupload p-fileupload-basic p-component" *ngIf="mode === 'basic'" [attr.data-pc-name]="'fileupload'">
-            <p-messages [value]="msgs" [enableService]="false"></p-messages>
-            <span
-                [ngClass]="{ 'p-button p-component p-fileupload-choose': true, 'p-button-icon-only': !basicButtonLabel, 'p-fileupload-choose-selected': hasFiles(), 'p-focus': focus, 'p-disabled': disabled }"
-                [ngStyle]="style"
-                [class]="styleClass"
-                (click)="onBasicUploaderClick()"
-                (keydown)="onBasicKeydown($event)"
-                tabindex="0"
-                pRipple
-                [attr.data-pc-section]="'choosebutton'"
-            >
-                <ng-container *ngIf="hasFiles() && !auto; else chooseSection">
-                    <span *ngIf="uploadIcon" class="p-button-icon p-button-icon-left" [ngClass]="uploadIcon"></span>
-                    <ng-container *ngIf="!uploadIcon">
-                        <UploadIcon *ngIf="!uploadIconTemplate" [styleClass]="'p-button-icon p-button-icon-left'" />
-                        <span *ngIf="uploadIconTemplate" class="p-button-icon p-button-icon-left">
-                            <ng-template *ngTemplateOutlet="uploadIconTemplate"></ng-template>
-                        </span>
-                    </ng-container>
-                </ng-container>
-                <ng-template #chooseSection>
-                    <span *ngIf="chooseIcon" class="p-button-icon p-button-icon-left pi" [ngClass]="chooseIcon"></span>
-                    <ng-container *ngIf="!chooseIcon">
-                        <PlusIcon [styleClass]="'p-button-icon p-button-icon-left pi'" *ngIf="!chooseIconTemplate" [attr.aria-hidden]="true" [attr.data-pc-section]="'uploadicon'" />
-                        <span *ngIf="chooseIconTemplate" class="p-button-icon p-button-icon-left pi" [attr.aria-hidden]="true" [attr.data-pc-section]="'uploadicon'">
-                            <ng-template *ngTemplateOutlet="chooseIconTemplate"></ng-template>
-                        </span>
-                    </ng-container>
-                </ng-template>
-                <span *ngIf="basicButtonLabel" class="p-button-label" [attr.data-pc-section]="'label'">{{ basicButtonLabel }}</span>
-                <input
-                    [attr.aria-label]="browseFilesLabel"
-                    #basicfileinput
-                    type="file"
-                    [accept]="accept"
-                    [multiple]="multiple"
-                    [disabled]="disabled"
-                    (change)="onFileSelect($event)"
-                    *ngIf="!hasFiles()"
-                    (focus)="onFocus()"
-                    (blur)="onBlur()"
-                    [attr.data-pc-section]="'input'"
-                />
-            </span>
-        </div>
-    `,
-      changeDetection: ChangeDetectionStrategy.OnPush,
-      encapsulation: ViewEncapsulation$1.None,
-      host: {
-        class: "p-element"
-      },
-      styles: ["@layer primeng{.p-fileupload-content{position:relative}.p-fileupload-row{display:flex;align-items:center}.p-fileupload-row>div{flex:1 1 auto;width:25%}.p-fileupload-row>div:last-child{text-align:right}.p-fileupload-content .p-progressbar{width:100%;position:absolute;top:0;left:0}.p-button.p-fileupload-choose{position:relative;overflow:hidden}.p-button.p-fileupload-choose input[type=file],.p-fileupload-choose.p-fileupload-choose-selected input[type=file]{display:none}.p-fluid .p-fileupload .p-button{width:auto}.p-fileupload-filename{word-break:break-all}}\n"]
-    }]
-  }], () => [{
-    type: Document,
-    decorators: [{
-      type: Inject,
-      args: [DOCUMENT2]
-    }]
-  }, {
-    type: void 0,
-    decorators: [{
-      type: Inject,
-      args: [PLATFORM_ID]
-    }]
-  }, {
-    type: Renderer2
-  }, {
-    type: ElementRef
-  }, {
-    type: DomSanitizer
-  }, {
-    type: NgZone
-  }, {
-    type: HttpClient
-  }, {
-    type: ChangeDetectorRef
-  }, {
-    type: PrimeNGConfig
-  }], {
-    name: [{
-      type: Input
-    }],
-    url: [{
-      type: Input
-    }],
-    method: [{
-      type: Input
-    }],
-    multiple: [{
-      type: Input,
-      args: [{
-        transform: booleanAttribute
-      }]
-    }],
-    accept: [{
-      type: Input
-    }],
-    disabled: [{
-      type: Input,
-      args: [{
-        transform: booleanAttribute
-      }]
-    }],
-    auto: [{
-      type: Input,
-      args: [{
-        transform: booleanAttribute
-      }]
-    }],
-    withCredentials: [{
-      type: Input,
-      args: [{
-        transform: booleanAttribute
-      }]
-    }],
-    maxFileSize: [{
-      type: Input,
-      args: [{
-        transform: numberAttribute
-      }]
-    }],
-    invalidFileSizeMessageSummary: [{
-      type: Input
-    }],
-    invalidFileSizeMessageDetail: [{
-      type: Input
-    }],
-    invalidFileTypeMessageSummary: [{
-      type: Input
-    }],
-    invalidFileTypeMessageDetail: [{
-      type: Input
-    }],
-    invalidFileLimitMessageDetail: [{
-      type: Input
-    }],
-    invalidFileLimitMessageSummary: [{
-      type: Input
-    }],
-    style: [{
-      type: Input
-    }],
-    styleClass: [{
-      type: Input
-    }],
-    previewWidth: [{
-      type: Input,
-      args: [{
-        transform: numberAttribute
-      }]
-    }],
-    chooseLabel: [{
-      type: Input
-    }],
-    uploadLabel: [{
-      type: Input
-    }],
-    cancelLabel: [{
-      type: Input
-    }],
-    chooseIcon: [{
-      type: Input
-    }],
-    uploadIcon: [{
-      type: Input
-    }],
-    cancelIcon: [{
-      type: Input
-    }],
-    showUploadButton: [{
-      type: Input,
-      args: [{
-        transform: booleanAttribute
-      }]
-    }],
-    showCancelButton: [{
-      type: Input,
-      args: [{
-        transform: booleanAttribute
-      }]
-    }],
-    mode: [{
-      type: Input
-    }],
-    headers: [{
-      type: Input
-    }],
-    customUpload: [{
-      type: Input,
-      args: [{
-        transform: booleanAttribute
-      }]
-    }],
-    fileLimit: [{
-      type: Input,
-      args: [{
-        transform: numberAttribute
-      }]
-    }],
-    uploadStyleClass: [{
-      type: Input
-    }],
-    cancelStyleClass: [{
-      type: Input
-    }],
-    removeStyleClass: [{
-      type: Input
-    }],
-    chooseStyleClass: [{
-      type: Input
-    }],
-    onBeforeUpload: [{
-      type: Output
-    }],
-    onSend: [{
-      type: Output
-    }],
-    onUpload: [{
-      type: Output
-    }],
-    onError: [{
-      type: Output
-    }],
-    onClear: [{
-      type: Output
-    }],
-    onRemove: [{
-      type: Output
-    }],
-    onSelect: [{
-      type: Output
-    }],
-    onProgress: [{
-      type: Output
-    }],
-    uploadHandler: [{
-      type: Output
-    }],
-    onImageError: [{
-      type: Output
-    }],
-    templates: [{
-      type: ContentChildren,
-      args: [PrimeTemplate]
-    }],
-    advancedFileInput: [{
-      type: ViewChild,
-      args: ["advancedfileinput"]
-    }],
-    basicFileInput: [{
-      type: ViewChild,
-      args: ["basicfileinput"]
-    }],
-    content: [{
-      type: ViewChild,
-      args: ["content"]
-    }],
-    files: [{
-      type: Input
-    }]
-  });
-})();
-var FileUploadModule = class _FileUploadModule {
-  static \u0275fac = function FileUploadModule_Factory(t) {
-    return new (t || _FileUploadModule)();
-  };
-  static \u0275mod = /* @__PURE__ */ \u0275\u0275defineNgModule({
-    type: _FileUploadModule
-  });
-  static \u0275inj = /* @__PURE__ */ \u0275\u0275defineInjector({
-    imports: [CommonModule, HttpClientModule, SharedModule, ButtonModule, ProgressBarModule, MessagesModule, RippleModule, PlusIcon, UploadIcon, TimesIcon, SharedModule, ButtonModule, ProgressBarModule, MessagesModule]
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(FileUploadModule, [{
-    type: NgModule,
-    args: [{
-      imports: [CommonModule, HttpClientModule, SharedModule, ButtonModule, ProgressBarModule, MessagesModule, RippleModule, PlusIcon, UploadIcon, TimesIcon],
-      exports: [FileUpload, SharedModule, ButtonModule, ProgressBarModule, MessagesModule],
-      declarations: [FileUpload]
-    }]
-  }], null, null);
-})();
-
-// src/app/components/cliente/cliente-form/cliente-form.component.ts
-function ClienteFormComponent_ng_template_3_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div")(1, "span", 51);
-    \u0275\u0275text(2, "Dados pessoais");
-    \u0275\u0275elementEnd()();
-  }
-}
-function ClienteFormComponent_ng_template_27_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div")(1, "span", 51);
-    \u0275\u0275text(2, "Documentos");
-    \u0275\u0275elementEnd()();
-  }
-}
-function ClienteFormComponent_ng_template_61_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div")(1, "span", 51);
-    \u0275\u0275text(2, "Endere\xE7o");
-    \u0275\u0275elementEnd()();
-  }
-}
-function ClienteFormComponent_ng_template_100_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div")(1, "span", 51);
-    \u0275\u0275text(2, "Outros");
-    \u0275\u0275elementEnd()();
-  }
-}
-function ClienteFormComponent_ng_container_112_ng_template_3_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div")(1, "span", 51);
-    \u0275\u0275text(2, "Anexos");
-    \u0275\u0275elementEnd()();
-  }
-}
-function ClienteFormComponent_ng_container_112_ng_template_5_ul_0_li_1_Template(rf, ctx) {
-  if (rf & 1) {
-    const _r3 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "li")(1, "div", 55)(2, "span", 51);
-    \u0275\u0275text(3);
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(4, "p-button", 56);
-    \u0275\u0275listener("click", function ClienteFormComponent_ng_container_112_ng_template_5_ul_0_li_1_Template_p_button_click_4_listener() {
-      const file_r4 = \u0275\u0275restoreView(_r3).$implicit;
-      const ctx_r1 = \u0275\u0275nextContext(4);
-      return \u0275\u0275resetView(ctx_r1.onDownload(file_r4.id));
-    });
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "p-button", 57);
-    \u0275\u0275listener("click", function ClienteFormComponent_ng_container_112_ng_template_5_ul_0_li_1_Template_p_button_click_5_listener() {
-      const file_r4 = \u0275\u0275restoreView(_r3).$implicit;
-      const ctx_r1 = \u0275\u0275nextContext(4);
-      return \u0275\u0275resetView(ctx_r1.onRemove(file_r4.id));
-    });
-    \u0275\u0275elementEnd()()();
-  }
-  if (rf & 2) {
-    const file_r4 = ctx.$implicit;
-    \u0275\u0275advance(3);
-    \u0275\u0275textInterpolate(file_r4.name);
-    \u0275\u0275advance();
-    \u0275\u0275property("text", true);
-    \u0275\u0275advance();
-    \u0275\u0275property("text", true);
-  }
-}
-function ClienteFormComponent_ng_container_112_ng_template_5_ul_0_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "ul");
-    \u0275\u0275template(1, ClienteFormComponent_ng_container_112_ng_template_5_ul_0_li_1_Template, 6, 3, "li", 54);
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext(3);
-    \u0275\u0275advance();
-    \u0275\u0275property("ngForOf", ctx_r1.uploadedFiles);
-  }
-}
-function ClienteFormComponent_ng_container_112_ng_template_5_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275template(0, ClienteFormComponent_ng_container_112_ng_template_5_ul_0_Template, 2, 1, "ul", 47);
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext(2);
-    \u0275\u0275property("ngIf", ctx_r1.uploadedFiles.length);
-  }
-}
-function ClienteFormComponent_ng_container_112_Template(rf, ctx) {
-  if (rf & 1) {
-    const _r1 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementContainerStart(0);
-    \u0275\u0275elementStart(1, "div", 1)(2, "p-panel", 2);
-    \u0275\u0275template(3, ClienteFormComponent_ng_container_112_ng_template_3_Template, 3, 0, "ng-template", 3);
-    \u0275\u0275elementStart(4, "p-fileUpload", 52);
-    \u0275\u0275listener("onUpload", function ClienteFormComponent_ng_container_112_Template_p_fileUpload_onUpload_4_listener($event) {
-      \u0275\u0275restoreView(_r1);
-      const ctx_r1 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r1.onUpload($event));
-    });
-    \u0275\u0275template(5, ClienteFormComponent_ng_container_112_ng_template_5_Template, 1, 1, "ng-template", 53);
-    \u0275\u0275elementEnd()()();
-    \u0275\u0275elementContainerEnd();
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext();
-    \u0275\u0275advance(2);
-    \u0275\u0275property("toggleable", true)("collapsed", ctx_r1.attachmentColapsed);
-    \u0275\u0275advance(2);
-    \u0275\u0275property("url", ctx_r1.uploadUrl)("multiple", false)("auto", true);
-  }
-}
-var _ClienteFormComponent = class _ClienteFormComponent {
-  constructor(fb, clienteService, messageService, activateRoute, router, http) {
-    this.fb = fb;
-    this.clienteService = clienteService;
-    this.messageService = messageService;
-    this.activateRoute = activateRoute;
-    this.router = router;
-    this.http = http;
-    this.isCollapsed = false;
-    this.clienteId = null;
-    this.doccumentColapsed = false;
-    this.uploadedFiles = [];
-    this.uploadUrl = "";
-    this.addressCollapsed = true;
-    this.othersCollapsed = true;
-  }
-  ngOnInit() {
-    this.clienteForm = this.getClientFormBuilder();
-    this.activateRoute.params.subscribe((params) => {
-      const id = params["id"];
-      if (id) {
-        this.clienteId = +id;
-        this.loadClienteData(this.clienteId);
-        this.uploadUrl = `${environment.apiUrl}/api/clientes/${this.clienteId}/anexos`;
-      }
-    });
-  }
-  getClientFormBuilder() {
-    return this.fb.group({
-      nome: ["", Validators.required],
-      cpf: ["", Validators.required],
-      rg: ["", Validators.required],
-      dataNascimento: ["", Validators.required],
-      email: ["", [Validators.required, Validators.email]],
-      telefone: ["", [Validators.required]],
-      renda: [""],
-      profissao: [""],
-      cep: [""],
-      rua: [""],
-      numero: [""],
-      complemento: [""],
-      bairro: [""],
-      cidade: [""],
-      estado: [""],
-      numeroPassaporte: [""],
-      paisEmissao: [""],
-      dataEmissao: [""],
-      dataValidade: [""]
-    });
-  }
-  loadClienteData(id) {
-    this.clienteService.getClienteById(id).subscribe((cliente) => {
-      this.clienteForm.patchValue(cliente);
-      this.uploadedFiles = [];
-      if (cliente.anexos.length > 0) {
-        this.uploadedFiles = cliente.anexos.map((value) => {
-          return {
-            id: value.anexo.id,
-            name: value.anexo.nomeOriginal,
-            size: value.anexo.tamanho
-          };
-        });
-      }
-    });
-  }
-  toggleCollapse() {
-    this.isCollapsed = !this.isCollapsed;
-  }
-  goBack() {
-    this.router.navigate(["/cliente"]);
-  }
-  onSubmit() {
-    if (this.clienteForm.invalid) {
-      return;
-    }
-    const cliente = this.clienteForm.value;
-    const clienteObservable = this.clienteId ? this.clienteService.atualizarCliente(this.clienteId, cliente) : this.clienteService.cadastrarCliente(cliente);
-    clienteObservable.subscribe({
-      next: (cliente2) => {
-        const sucessMessage = this.clienteId ? "Cliente atualizado com sucesso!" : "Cliente cadastrado com sucesso!";
-        this.messageService.add({
-          severity: "success",
-          summary: sucessMessage,
-          life: 3e3
-        });
-        this.onEdit(cliente2.id);
-      },
-      error: (_err) => {
-        const errorMessage = this.clienteId ? "Erro ao atualizar cliente" : "Erro ao cadastrar cliente";
-        this.messageService.add({
-          severity: "error",
-          summary: errorMessage,
-          life: 3e3
-        });
-      }
-    });
-  }
-  buscarEnderecoPorCep() {
-    const cep = this.clienteForm.get("cep")?.value;
-    if (cep && cep.length === 8) {
-      this.http.get(`https://viacep.com.br/ws/${cep}/json/`).subscribe({
-        next: (data) => {
-          if (!data.erro) {
-            this.clienteForm.patchValue({
-              rua: data["logradouro"],
-              bairro: data["bairro"],
-              cidade: data["localidade"],
-              estado: data["uf"]
-            });
-          }
-        }
-      });
-    }
-  }
-  onUpload(event2) {
-    for (let file of event2.files) {
-      this.uploadedFiles.push(file);
-    }
-    this.loadClienteData(this.clienteId);
-    this.messageService.add({ severity: "info", summary: "File Uploaded", detail: "" });
-  }
-  openNewTab(url) {
-    window.open(url, "_blank");
-  }
-  onDownload(anexoId) {
-    this.clienteService.downloadAnexo(this.clienteId, anexoId).subscribe({
-      next: (data) => {
-        this.openNewTab(data.url);
-      },
-      error: (err) => {
-        this.messageService.add({ severity: "error", summary: err });
-      }
-    });
-  }
-  onRemove(anexoId) {
-    this.clienteService.removeAnexo(this.clienteId, anexoId).subscribe({
-      next: (_data) => {
-        this.loadClienteData(this.clienteId);
-      }
-    });
-  }
-  onEdit(id) {
-    this.router.navigate(["/cliente/editar", id]);
-  }
-};
-_ClienteFormComponent.\u0275fac = function ClienteFormComponent_Factory(t) {
-  return new (t || _ClienteFormComponent)(\u0275\u0275directiveInject(FormBuilder), \u0275\u0275directiveInject(ClienteService), \u0275\u0275directiveInject(MessageService), \u0275\u0275directiveInject(ActivatedRoute), \u0275\u0275directiveInject(Router), \u0275\u0275directiveInject(HttpClient));
-};
-_ClienteFormComponent.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _ClienteFormComponent, selectors: [["app-cliente-form"]], decls: 116, vars: 12, consts: [[3, "ngSubmit", "formGroup"], [1, "mt-3"], [3, "toggleable", "collapsed"], ["pTemplate", "header"], [1, "grid"], [1, "p-fluid", "col-12", "md:col-6"], [1, "flex", "flex-column", "gap-2"], ["for", "nome"], ["placeholder", "Nome e Sobrenome", "pInputText", "", "id", "nome", "formControlName", "nome"], ["for", "dataNascimento"], ["placeholder", "dd/mm/aaaa", "id", "dataNascimento", "formControlName", "dataNascimento", "dateFormat", "dd/mm/yy"], [1, "p-fluid", "col-12", "md:col-4"], ["for", "telefone"], ["placeholder", "Digite seu telefone com DDD", "type", "text", "pInputText", "", "id", "telefone", "formControlName", "telefone"], ["for", "email"], ["placeholder", "email@exemplo.com", "type", "email", "pInputText", "", "id", "email", "formControlName", "email"], ["for", "cpf"], ["pInputText", "", "id", "cpf", "formControlName", "cpf"], ["for", "rg"], ["pInputText", "", "id", "rg", "formControlName", "rg"], [1, "p-fluid", "col-12", "md:col-3"], ["for", "numeroPassaporte"], ["pInputText", "", "id", "numeroPassaporte", "formControlName", "numeroPassaporte"], ["for", "paisEmissao"], ["pInputText", "", "id", "paisEmissao", "formControlName", "paisEmissao"], ["for", "dataEmissao"], ["pInputText", "", "type", "date", "id", "dataEmissao", "formControlName", "dataEmissao"], ["for", "dataValidade"], ["pInputText", "", "type", "date", "id", "dataValidade", "formControlName", "dataValidade"], ["for", "cep"], ["pInputText", "", "id", "cep", "formControlName", "cep", 3, "blur"], ["for", "rua"], ["type", "text", "pInputText", "", "id", "rua", "formControlName", "rua"], ["for", "numero"], ["type", "text", "pInputText", "", "id", "numero", "formControlName", "numero"], ["for", "complemento"], ["type", "text", "pInputText", "", "id", "complemento", "placeholder", "Apartamento, Sala, Condom\xEDnio.", "formControlName", "complemento"], ["for", "bairro"], ["type", "text", "pInputText", "", "id", "bairro", "formControlName", "bairro"], ["for", "cidade"], ["type", "text", "pInputText", "", "id", "cidade", "formControlName", "cidade"], ["for", "estado"], ["type", "text", "pInputText", "", "id", "estado", "formControlName", "estado"], ["for", "renda"], ["type", "number", "pInputText", "", "id", "renda", "formControlName", "renda"], ["for", "profissao"], ["type", "text", "pInputText", "", "id", "profissao", "formControlName", "profissao"], [4, "ngIf"], [1, "mt-3", "flex", "flex-row-reverse", "gap-3"], ["pButton", "", "severity", "secondary", "type", "button", "label", "Voltar", 3, "click"], ["pButton", "", "type", "submit", 3, "disabled", "label"], [1, "font-bold"], ["name", "arquivo", "maxFileSize", "1000000", "chooseLabel", "Enviar", 3, "onUpload", "url", "multiple", "auto"], ["pTemplate", "content"], [4, "ngFor", "ngForOf"], [1, "flex", "gap-1", "align-items-center", "mt-1"], ["icon", "fa-solid fa-file-arrow-down", "pTooltip", "Download", 3, "click", "text"], ["severity", "danger", "icon", "fa-solid fa-trash", "pTooltip", "Remover", 3, "click", "text"]], template: function ClienteFormComponent_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "form", 0);
-    \u0275\u0275listener("ngSubmit", function ClienteFormComponent_Template_form_ngSubmit_0_listener() {
-      return ctx.onSubmit();
-    });
-    \u0275\u0275elementStart(1, "div", 1)(2, "p-panel", 2);
-    \u0275\u0275template(3, ClienteFormComponent_ng_template_3_Template, 3, 0, "ng-template", 3);
-    \u0275\u0275elementStart(4, "div", 4)(5, "div", 5)(6, "div", 6)(7, "label", 7);
-    \u0275\u0275text(8, "Nome Completo");
-    \u0275\u0275elementEnd();
-    \u0275\u0275element(9, "input", 8);
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(10, "div", 5)(11, "div", 6)(12, "label", 9);
-    \u0275\u0275text(13, "Nascimento");
-    \u0275\u0275elementEnd();
-    \u0275\u0275element(14, "p-calendar", 10);
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(15, "div", 11)(16, "div", 6)(17, "label", 12);
-    \u0275\u0275text(18, "Telefone");
-    \u0275\u0275elementEnd();
-    \u0275\u0275element(19, "input", 13);
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(20, "div", 11)(21, "div", 6)(22, "label", 14);
-    \u0275\u0275text(23, "Email");
-    \u0275\u0275elementEnd();
-    \u0275\u0275element(24, "input", 15);
-    \u0275\u0275elementEnd()()()()();
-    \u0275\u0275elementStart(25, "div", 1)(26, "p-panel", 2);
-    \u0275\u0275template(27, ClienteFormComponent_ng_template_27_Template, 3, 0, "ng-template", 3);
-    \u0275\u0275elementStart(28, "div", 4)(29, "div", 5)(30, "div", 6)(31, "label", 16);
-    \u0275\u0275text(32, "CPF");
-    \u0275\u0275elementEnd();
-    \u0275\u0275element(33, "input", 17);
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(34, "div", 5)(35, "div", 6)(36, "label", 18);
-    \u0275\u0275text(37, "RG");
-    \u0275\u0275elementEnd();
-    \u0275\u0275element(38, "input", 19);
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(39, "div", 20)(40, "div", 6)(41, "label", 21);
-    \u0275\u0275text(42, "N\xFAmero Passaporte");
-    \u0275\u0275elementEnd();
-    \u0275\u0275element(43, "input", 22);
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(44, "div", 20)(45, "div", 6)(46, "label", 23);
-    \u0275\u0275text(47, "Pa\xEDs Emiss\xE3o");
-    \u0275\u0275elementEnd();
-    \u0275\u0275element(48, "input", 24);
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(49, "div", 20)(50, "div", 6)(51, "label", 25);
-    \u0275\u0275text(52, "Data de Emiss\xE3o");
-    \u0275\u0275elementEnd();
-    \u0275\u0275element(53, "input", 26);
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(54, "div", 20)(55, "div", 6)(56, "label", 27);
-    \u0275\u0275text(57, "Data de Validade");
-    \u0275\u0275elementEnd();
-    \u0275\u0275element(58, "input", 28);
-    \u0275\u0275elementEnd()()()()();
-    \u0275\u0275elementStart(59, "div", 1)(60, "p-panel", 2);
-    \u0275\u0275template(61, ClienteFormComponent_ng_template_61_Template, 3, 0, "ng-template", 3);
-    \u0275\u0275elementStart(62, "div", 4)(63, "div", 11)(64, "div", 6)(65, "label", 29);
-    \u0275\u0275text(66, "Cep");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(67, "input", 30);
-    \u0275\u0275listener("blur", function ClienteFormComponent_Template_input_blur_67_listener() {
-      return ctx.buscarEnderecoPorCep();
-    });
-    \u0275\u0275elementEnd()()();
-    \u0275\u0275elementStart(68, "div", 11)(69, "div", 6)(70, "label", 31);
-    \u0275\u0275text(71, "Rua");
-    \u0275\u0275elementEnd();
-    \u0275\u0275element(72, "input", 32);
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(73, "div", 11)(74, "div", 6)(75, "label", 33);
-    \u0275\u0275text(76, "N\xFAmero");
-    \u0275\u0275elementEnd();
-    \u0275\u0275element(77, "input", 34);
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(78, "div", 11)(79, "div", 6)(80, "label", 35);
-    \u0275\u0275text(81, "Complemento");
-    \u0275\u0275elementEnd();
-    \u0275\u0275element(82, "input", 36);
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(83, "div", 11)(84, "div", 6)(85, "label", 37);
-    \u0275\u0275text(86, "Bairro");
-    \u0275\u0275elementEnd();
-    \u0275\u0275element(87, "input", 38);
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(88, "div", 11)(89, "div", 6)(90, "label", 39);
-    \u0275\u0275text(91, "Cidade");
-    \u0275\u0275elementEnd();
-    \u0275\u0275element(92, "input", 40);
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(93, "div", 11)(94, "div", 6)(95, "label", 41);
-    \u0275\u0275text(96, "Estado");
-    \u0275\u0275elementEnd();
-    \u0275\u0275element(97, "input", 42);
-    \u0275\u0275elementEnd()()()()();
-    \u0275\u0275elementStart(98, "div", 1)(99, "p-panel", 2);
-    \u0275\u0275template(100, ClienteFormComponent_ng_template_100_Template, 3, 0, "ng-template", 3);
-    \u0275\u0275elementStart(101, "div", 4)(102, "div", 11)(103, "div", 6)(104, "label", 43);
-    \u0275\u0275text(105, "Renda");
-    \u0275\u0275elementEnd();
-    \u0275\u0275element(106, "input", 44);
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(107, "div", 11)(108, "div", 6)(109, "label", 45);
-    \u0275\u0275text(110, "Profissao");
-    \u0275\u0275elementEnd();
-    \u0275\u0275element(111, "input", 46);
-    \u0275\u0275elementEnd()()()()();
-    \u0275\u0275template(112, ClienteFormComponent_ng_container_112_Template, 6, 5, "ng-container", 47);
-    \u0275\u0275elementStart(113, "div", 48)(114, "button", 49);
-    \u0275\u0275listener("click", function ClienteFormComponent_Template_button_click_114_listener() {
-      return ctx.goBack();
-    });
-    \u0275\u0275elementEnd();
-    \u0275\u0275element(115, "button", 50);
-    \u0275\u0275elementEnd()();
-  }
-  if (rf & 2) {
-    \u0275\u0275property("formGroup", ctx.clienteForm);
-    \u0275\u0275advance(2);
-    \u0275\u0275property("toggleable", true)("collapsed", ctx.isCollapsed);
-    \u0275\u0275advance(24);
-    \u0275\u0275property("toggleable", true)("collapsed", ctx.doccumentColapsed);
-    \u0275\u0275advance(34);
-    \u0275\u0275property("toggleable", true)("collapsed", ctx.addressCollapsed);
-    \u0275\u0275advance(39);
-    \u0275\u0275property("toggleable", true)("collapsed", ctx.othersCollapsed);
-    \u0275\u0275advance(13);
-    \u0275\u0275property("ngIf", ctx.clienteId);
-    \u0275\u0275advance(3);
-    \u0275\u0275property("disabled", ctx.clienteForm.invalid)("label", ctx.clienteId ? "Atualizar" : "Cadastrar");
-  }
-}, dependencies: [NgForOf, NgIf, \u0275NgNoValidate, DefaultValueAccessor, NumberValueAccessor, NgControlStatus, NgControlStatusGroup, FormGroupDirective, FormControlName, Tooltip, PrimeTemplate, ButtonDirective, Button, InputText, Calendar, Panel, FileUpload] });
-var ClienteFormComponent = _ClienteFormComponent;
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(ClienteFormComponent, { className: "ClienteFormComponent", filePath: "src\\app\\components\\cliente\\cliente-form\\cliente-form.component.ts", lineNumber: 16 });
-})();
-
 // node_modules/primeng/fesm2022/primeng-autofocus.mjs
 var AutoFocus = class _AutoFocus {
   host;
@@ -54565,7 +54592,7 @@ var AutoFocusModule = class _AutoFocusModule {
 
 // node_modules/primeng/fesm2022/primeng-overlay.mjs
 var _c09 = ["overlay"];
-var _c110 = ["content"];
+var _c16 = ["content"];
 var _c24 = ["*"];
 var _c34 = (a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13) => ({
   "p-overlay p-component": true,
@@ -55198,7 +55225,7 @@ var Overlay = class _Overlay {
     viewQuery: function Overlay_Query(rf, ctx) {
       if (rf & 1) {
         \u0275\u0275viewQuery(_c09, 5);
-        \u0275\u0275viewQuery(_c110, 5);
+        \u0275\u0275viewQuery(_c16, 5);
       }
       if (rf & 2) {
         let _t;
@@ -55440,7 +55467,7 @@ var OverlayModule = class _OverlayModule {
 
 // node_modules/primeng/fesm2022/primeng-scroller.mjs
 var _c010 = ["element"];
-var _c111 = ["content"];
+var _c17 = ["content"];
 var _c25 = ["*"];
 var _c35 = (a0, a1, a2) => ({
   "p-scroller": true,
@@ -56677,7 +56704,7 @@ var Scroller = class _Scroller {
     viewQuery: function Scroller_Query(rf, ctx) {
       if (rf & 1) {
         \u0275\u0275viewQuery(_c010, 5);
-        \u0275\u0275viewQuery(_c111, 5);
+        \u0275\u0275viewQuery(_c17, 5);
       }
       if (rf & 2) {
         let _t;
@@ -57011,7 +57038,7 @@ var SearchIcon = class _SearchIcon extends BaseIcon {
 var _c011 = (a0) => ({
   height: a0
 });
-var _c112 = (a0, a1, a2) => ({
+var _c18 = (a0, a1, a2) => ({
   "p-dropdown-item": true,
   "p-highlight": a0,
   "p-disabled": a1,
@@ -57046,15 +57073,15 @@ var _c75 = ["items"];
 var _c84 = ["scroller"];
 var _c93 = ["overlay"];
 var _c103 = ["firstHiddenFocusableEl"];
-var _c113 = ["lastHiddenFocusableEl"];
-var _c122 = (a0) => ({
+var _c112 = ["lastHiddenFocusableEl"];
+var _c123 = (a0) => ({
   options: a0
 });
-var _c132 = (a0, a1) => ({
+var _c133 = (a0, a1) => ({
   $implicit: a0,
   options: a1
 });
-var _c142 = () => ({});
+var _c143 = () => ({});
 function Dropdown_span_2_ng_container_2_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275elementContainerStart(0);
@@ -57283,7 +57310,7 @@ function Dropdown_ng_template_10_div_4_ng_container_1_Template(rf, ctx) {
   if (rf & 2) {
     const ctx_r2 = \u0275\u0275nextContext(3);
     \u0275\u0275advance();
-    \u0275\u0275property("ngTemplateOutlet", ctx_r2.filterTemplate)("ngTemplateOutletContext", \u0275\u0275pureFunction1(2, _c122, ctx_r2.filterOptions));
+    \u0275\u0275property("ngTemplateOutlet", ctx_r2.filterTemplate)("ngTemplateOutletContext", \u0275\u0275pureFunction1(2, _c123, ctx_r2.filterOptions));
   }
 }
 function Dropdown_ng_template_10_div_4_ng_template_2_SearchIcon_3_Template(rf, ctx) {
@@ -57377,7 +57404,7 @@ function Dropdown_ng_template_10_p_scroller_6_ng_template_2_Template(rf, ctx) {
     const scrollerOptions_r14 = ctx.options;
     \u0275\u0275nextContext(2);
     const buildInItems_r15 = \u0275\u0275reference(9);
-    \u0275\u0275property("ngTemplateOutlet", buildInItems_r15)("ngTemplateOutletContext", \u0275\u0275pureFunction2(2, _c132, items_r13, scrollerOptions_r14));
+    \u0275\u0275property("ngTemplateOutlet", buildInItems_r15)("ngTemplateOutletContext", \u0275\u0275pureFunction2(2, _c133, items_r13, scrollerOptions_r14));
   }
 }
 function Dropdown_ng_template_10_p_scroller_6_ng_container_3_ng_template_1_ng_container_0_Template(rf, ctx) {
@@ -57392,7 +57419,7 @@ function Dropdown_ng_template_10_p_scroller_6_ng_container_3_ng_template_1_Templ
   if (rf & 2) {
     const scrollerOptions_r16 = ctx.options;
     const ctx_r2 = \u0275\u0275nextContext(4);
-    \u0275\u0275property("ngTemplateOutlet", ctx_r2.loaderTemplate)("ngTemplateOutletContext", \u0275\u0275pureFunction1(2, _c122, scrollerOptions_r16));
+    \u0275\u0275property("ngTemplateOutlet", ctx_r2.loaderTemplate)("ngTemplateOutletContext", \u0275\u0275pureFunction1(2, _c123, scrollerOptions_r16));
   }
 }
 function Dropdown_ng_template_10_p_scroller_6_ng_container_3_Template(rf, ctx) {
@@ -57438,7 +57465,7 @@ function Dropdown_ng_template_10_ng_container_7_Template(rf, ctx) {
     const buildInItems_r15 = \u0275\u0275reference(9);
     const ctx_r2 = \u0275\u0275nextContext();
     \u0275\u0275advance();
-    \u0275\u0275property("ngTemplateOutlet", buildInItems_r15)("ngTemplateOutletContext", \u0275\u0275pureFunction2(3, _c132, ctx_r2.visibleOptions(), \u0275\u0275pureFunction0(2, _c142)));
+    \u0275\u0275property("ngTemplateOutlet", buildInItems_r15)("ngTemplateOutletContext", \u0275\u0275pureFunction2(3, _c133, ctx_r2.visibleOptions(), \u0275\u0275pureFunction0(2, _c143)));
   }
 }
 function Dropdown_ng_template_10_ng_template_8_ng_template_2_ng_container_0_span_2_Template(rf, ctx) {
@@ -57728,7 +57755,7 @@ var DropdownItem = class _DropdownItem {
         \u0275\u0275elementEnd();
       }
       if (rf & 2) {
-        \u0275\u0275property("id", ctx.id)("ngStyle", \u0275\u0275pureFunction1(13, _c011, ctx.itemSize + "px"))("ngClass", \u0275\u0275pureFunction3(15, _c112, ctx.selected, ctx.disabled, ctx.focused));
+        \u0275\u0275property("id", ctx.id)("ngStyle", \u0275\u0275pureFunction1(13, _c011, ctx.itemSize + "px"))("ngClass", \u0275\u0275pureFunction3(15, _c18, ctx.selected, ctx.disabled, ctx.focused));
         \u0275\u0275attribute("aria-label", ctx.label)("aria-setsize", ctx.ariaSetSize)("aria-posinset", ctx.ariaPosInset)("aria-selected", ctx.selected)("data-p-focused", ctx.focused)("data-p-highlight", ctx.selected)("data-p-disabled", ctx.disabled);
         \u0275\u0275advance();
         \u0275\u0275property("ngIf", !ctx.template);
@@ -59136,7 +59163,7 @@ var Dropdown = class _Dropdown {
         \u0275\u0275viewQuery(_c84, 5);
         \u0275\u0275viewQuery(_c93, 5);
         \u0275\u0275viewQuery(_c103, 5);
-        \u0275\u0275viewQuery(_c113, 5);
+        \u0275\u0275viewQuery(_c112, 5);
       }
       if (rf & 2) {
         let _t;
@@ -60500,7 +60527,7 @@ var AngleUpIcon = class _AngleUpIcon extends BaseIcon {
 
 // node_modules/primeng/fesm2022/primeng-inputnumber.mjs
 var _c012 = ["input"];
-var _c114 = (a0, a1, a2) => ({
+var _c19 = (a0, a1, a2) => ({
   "p-inputnumber p-component": true,
   "p-inputnumber-buttons-stacked": a0,
   "p-inputnumber-buttons-horizontal": a1,
@@ -62096,7 +62123,7 @@ var InputNumber = class _InputNumber {
       }
       if (rf & 2) {
         \u0275\u0275classMap(ctx.styleClass);
-        \u0275\u0275property("ngClass", \u0275\u0275pureFunction3(35, _c114, ctx.showButtons && ctx.buttonLayout === "stacked", ctx.showButtons && ctx.buttonLayout === "horizontal", ctx.showButtons && ctx.buttonLayout === "vertical"))("ngStyle", ctx.style);
+        \u0275\u0275property("ngClass", \u0275\u0275pureFunction3(35, _c19, ctx.showButtons && ctx.buttonLayout === "stacked", ctx.showButtons && ctx.buttonLayout === "horizontal", ctx.showButtons && ctx.buttonLayout === "vertical"))("ngStyle", ctx.style);
         \u0275\u0275attribute("data-pc-name", "inputnumber")("data-pc-section", "root");
         \u0275\u0275advance();
         \u0275\u0275classMap(ctx.inputStyleClass);
@@ -62720,7 +62747,7 @@ var AngleRightIcon = class _AngleRightIcon extends BaseIcon {
 var _c013 = (a0) => ({
   "p-disabled": a0
 });
-var _c115 = (a0) => ({
+var _c110 = (a0) => ({
   $implicit: a0
 });
 var _c28 = (a0) => ({
@@ -62741,7 +62768,7 @@ function Paginator_div_0_div_1_Template(rf, ctx) {
     const ctx_r1 = \u0275\u0275nextContext(2);
     \u0275\u0275attribute("data-pc-section", "start");
     \u0275\u0275advance();
-    \u0275\u0275property("ngTemplateOutlet", ctx_r1.templateLeft)("ngTemplateOutletContext", \u0275\u0275pureFunction1(3, _c115, ctx_r1.paginatorState));
+    \u0275\u0275property("ngTemplateOutlet", ctx_r1.templateLeft)("ngTemplateOutletContext", \u0275\u0275pureFunction1(3, _c110, ctx_r1.paginatorState));
   }
 }
 function Paginator_div_0_span_2_Template(rf, ctx) {
@@ -62886,7 +62913,7 @@ function Paginator_div_0_p_dropdown_8_ng_container_2_ng_template_1_Template(rf, 
   if (rf & 2) {
     const item_r7 = ctx.$implicit;
     const ctx_r1 = \u0275\u0275nextContext(4);
-    \u0275\u0275property("ngTemplateOutlet", ctx_r1.jumpToPageItemTemplate)("ngTemplateOutletContext", \u0275\u0275pureFunction1(2, _c115, item_r7));
+    \u0275\u0275property("ngTemplateOutlet", ctx_r1.jumpToPageItemTemplate)("ngTemplateOutletContext", \u0275\u0275pureFunction1(2, _c110, item_r7));
   }
 }
 function Paginator_div_0_p_dropdown_8_ng_container_2_Template(rf, ctx) {
@@ -63041,7 +63068,7 @@ function Paginator_div_0_p_dropdown_14_ng_container_1_ng_template_1_Template(rf,
   if (rf & 2) {
     const item_r11 = ctx.$implicit;
     const ctx_r1 = \u0275\u0275nextContext(4);
-    \u0275\u0275property("ngTemplateOutlet", ctx_r1.dropdownItemTemplate)("ngTemplateOutletContext", \u0275\u0275pureFunction1(2, _c115, item_r11));
+    \u0275\u0275property("ngTemplateOutlet", ctx_r1.dropdownItemTemplate)("ngTemplateOutletContext", \u0275\u0275pureFunction1(2, _c110, item_r11));
   }
 }
 function Paginator_div_0_p_dropdown_14_ng_container_1_Template(rf, ctx) {
@@ -63114,7 +63141,7 @@ function Paginator_div_0_div_15_Template(rf, ctx) {
     const ctx_r1 = \u0275\u0275nextContext(2);
     \u0275\u0275attribute("data-pc-section", "end");
     \u0275\u0275advance();
-    \u0275\u0275property("ngTemplateOutlet", ctx_r1.templateRight)("ngTemplateOutletContext", \u0275\u0275pureFunction1(3, _c115, ctx_r1.paginatorState));
+    \u0275\u0275property("ngTemplateOutlet", ctx_r1.templateRight)("ngTemplateOutletContext", \u0275\u0275pureFunction1(3, _c110, ctx_r1.paginatorState));
   }
 }
 function Paginator_div_0_Template(rf, ctx) {
@@ -63841,7 +63868,7 @@ var PaginatorModule = class _PaginatorModule {
 
 // node_modules/primeng/fesm2022/primeng-selectbutton.mjs
 var _c014 = ["container"];
-var _c116 = (a0, a1, a2) => ({
+var _c111 = (a0, a1, a2) => ({
   "p-highlight": a0,
   "p-disabled": a1,
   "p-button-icon-only": a2
@@ -63932,7 +63959,7 @@ function SelectButton_div_2_Template(rf, ctx) {
     const customcontent_r8 = \u0275\u0275reference(3);
     const ctx_r4 = \u0275\u0275nextContext();
     \u0275\u0275classMap(option_r3.styleClass);
-    \u0275\u0275property("role", ctx_r4.multiple ? "checkbox" : "radio")("ngClass", \u0275\u0275pureFunction3(14, _c116, ctx_r4.isSelected(option_r3), ctx_r4.disabled || ctx_r4.isOptionDisabled(option_r3), option_r3.icon && !ctx_r4.getOptionLabel(option_r3)));
+    \u0275\u0275property("role", ctx_r4.multiple ? "checkbox" : "radio")("ngClass", \u0275\u0275pureFunction3(14, _c111, ctx_r4.isSelected(option_r3), ctx_r4.disabled || ctx_r4.isOptionDisabled(option_r3), option_r3.icon && !ctx_r4.getOptionLabel(option_r3)));
     \u0275\u0275attribute("tabindex", i_r4 === ctx_r4.focusedIndex ? "0" : "-1")("aria-label", option_r3.label)("aria-checked", ctx_r4.isSelected(option_r3))("aria-disabled", ctx_r4.optionDisabled)("aria-pressed", ctx_r4.isSelected(option_r3))("title", option_r3.title)("aria-labelledby", ctx_r4.getOptionLabel(option_r3))("data-pc-section", "button");
     \u0275\u0275advance();
     \u0275\u0275property("ngIf", !ctx_r4.itemTemplate)("ngIfElse", customcontent_r8);
@@ -64382,7 +64409,7 @@ var _c015 = (a0, a1) => ({
   "p-checkbox-disabled": a0,
   "p-checkbox-focused": a1
 });
-var _c117 = (a0, a1, a2) => ({
+var _c113 = (a0, a1, a2) => ({
   "p-highlight": a0,
   "p-disabled": a1,
   "p-focus": a2
@@ -64762,7 +64789,7 @@ var TriStateCheckbox = class _TriStateCheckbox {
         \u0275\u0275property("name", ctx.name)("readonly", ctx.readonly)("disabled", ctx.disabled);
         \u0275\u0275attribute("id", ctx.inputId)("tabindex", ctx.tabindex)("aria-labelledby", ctx.ariaLabelledBy)("aria-label", ctx.ariaLabel)("data-pc-section", "hiddenInput");
         \u0275\u0275advance(2);
-        \u0275\u0275property("ngClass", \u0275\u0275pureFunction3(22, _c117, ctx.value != null, ctx.disabled, ctx.focused));
+        \u0275\u0275property("ngClass", \u0275\u0275pureFunction3(22, _c113, ctx.value != null, ctx.disabled, ctx.focused));
         \u0275\u0275attribute("aria-checked", ctx.value === true);
         \u0275\u0275advance();
         \u0275\u0275property("ngIf", ctx.value === true);
@@ -64920,7 +64947,7 @@ var TriStateCheckboxModule = class _TriStateCheckboxModule {
 
 // node_modules/primeng/fesm2022/primeng-table.mjs
 var _c016 = ["container"];
-var _c118 = ["resizeHelper"];
+var _c114 = ["resizeHelper"];
 var _c211 = ["reorderIndicatorUp"];
 var _c38 = ["reorderIndicatorDown"];
 var _c47 = ["wrapper"];
@@ -64937,23 +64964,23 @@ var _c94 = (a0, a1, a2) => ({
 var _c104 = (a0) => ({
   maxHeight: a0
 });
-var _c119 = (a0) => ({
+var _c115 = (a0) => ({
   height: a0
 });
-var _c123 = (a0, a1) => ({
+var _c124 = (a0, a1) => ({
   $implicit: a0,
   options: a1
 });
-var _c133 = (a0) => ({
+var _c134 = (a0) => ({
   columns: a0
 });
-var _c143 = (a0, a1, a2) => ({
+var _c144 = (a0, a1, a2) => ({
   "p-datatable-table": true,
   "p-datatable-scrollable-table": a0,
   "p-datatable-resizable-table": a1,
   "p-datatable-resizable-table-fit": a2
 });
-var _c152 = (a0) => ({
+var _c153 = (a0) => ({
   $implicit: a0
 });
 function Table_div_2_i_1_Template(rf, ctx) {
@@ -65173,7 +65200,7 @@ function Table_p_scroller_7_ng_template_2_Template(rf, ctx) {
     const scrollerOptions_r5 = ctx.options;
     \u0275\u0275nextContext(2);
     const buildInTable_r6 = \u0275\u0275reference(10);
-    \u0275\u0275property("ngTemplateOutlet", buildInTable_r6)("ngTemplateOutletContext", \u0275\u0275pureFunction2(2, _c123, items_r4, scrollerOptions_r5));
+    \u0275\u0275property("ngTemplateOutlet", buildInTable_r6)("ngTemplateOutletContext", \u0275\u0275pureFunction2(2, _c124, items_r4, scrollerOptions_r5));
   }
 }
 function Table_p_scroller_7_Template(rf, ctx) {
@@ -65190,7 +65217,7 @@ function Table_p_scroller_7_Template(rf, ctx) {
   }
   if (rf & 2) {
     const ctx_r0 = \u0275\u0275nextContext();
-    \u0275\u0275styleMap(\u0275\u0275pureFunction1(15, _c119, ctx_r0.scrollHeight !== "flex" ? ctx_r0.scrollHeight : void 0));
+    \u0275\u0275styleMap(\u0275\u0275pureFunction1(15, _c115, ctx_r0.scrollHeight !== "flex" ? ctx_r0.scrollHeight : void 0));
     \u0275\u0275property("items", ctx_r0.processedData)("columns", ctx_r0.columns)("scrollHeight", ctx_r0.scrollHeight !== "flex" ? void 0 : "100%")("itemSize", ctx_r0.virtualScrollItemSize || ctx_r0._virtualRowHeight)("step", ctx_r0.rows)("delay", ctx_r0.lazy ? ctx_r0.virtualScrollDelay : 0)("inline", true)("lazy", ctx_r0.lazy)("loaderDisabled", true)("showSpacer", false)("showLoader", ctx_r0.loadingBodyTemplate)("options", ctx_r0.virtualScrollOptions)("autoSize", true);
   }
 }
@@ -65209,7 +65236,7 @@ function Table_ng_container_8_Template(rf, ctx) {
     const ctx_r0 = \u0275\u0275nextContext();
     const buildInTable_r6 = \u0275\u0275reference(10);
     \u0275\u0275advance();
-    \u0275\u0275property("ngTemplateOutlet", buildInTable_r6)("ngTemplateOutletContext", \u0275\u0275pureFunction2(4, _c123, ctx_r0.processedData, \u0275\u0275pureFunction1(2, _c133, ctx_r0.columns)));
+    \u0275\u0275property("ngTemplateOutlet", buildInTable_r6)("ngTemplateOutletContext", \u0275\u0275pureFunction2(4, _c124, ctx_r0.processedData, \u0275\u0275pureFunction1(2, _c134, ctx_r0.columns)));
   }
 }
 function Table_ng_template_9_ng_container_2_Template(rf, ctx) {
@@ -65256,7 +65283,7 @@ function Table_ng_template_9_tfoot_9_Template(rf, ctx) {
     const scrollerOptions_r7 = \u0275\u0275nextContext().options;
     const ctx_r0 = \u0275\u0275nextContext();
     \u0275\u0275advance(2);
-    \u0275\u0275property("ngTemplateOutlet", ctx_r0.footerGroupedTemplate || ctx_r0.footerTemplate)("ngTemplateOutletContext", \u0275\u0275pureFunction1(2, _c152, scrollerOptions_r7.columns));
+    \u0275\u0275property("ngTemplateOutlet", ctx_r0.footerGroupedTemplate || ctx_r0.footerTemplate)("ngTemplateOutletContext", \u0275\u0275pureFunction1(2, _c153, scrollerOptions_r7.columns));
   }
 }
 function Table_ng_template_9_Template(rf, ctx) {
@@ -65276,12 +65303,12 @@ function Table_ng_template_9_Template(rf, ctx) {
     const ctx_r0 = \u0275\u0275nextContext();
     \u0275\u0275styleMap(ctx_r0.tableStyle);
     \u0275\u0275classMap(ctx_r0.tableStyleClass);
-    \u0275\u0275property("ngClass", \u0275\u0275pureFunction3(20, _c143, ctx_r0.scrollable, ctx_r0.resizableColumns, ctx_r0.resizableColumns && ctx_r0.columnResizeMode === "fit"));
+    \u0275\u0275property("ngClass", \u0275\u0275pureFunction3(20, _c144, ctx_r0.scrollable, ctx_r0.resizableColumns, ctx_r0.resizableColumns && ctx_r0.columnResizeMode === "fit"));
     \u0275\u0275attribute("id", ctx_r0.id + "-table");
     \u0275\u0275advance(2);
-    \u0275\u0275property("ngTemplateOutlet", ctx_r0.colGroupTemplate)("ngTemplateOutletContext", \u0275\u0275pureFunction1(24, _c152, scrollerOptions_r7.columns));
+    \u0275\u0275property("ngTemplateOutlet", ctx_r0.colGroupTemplate)("ngTemplateOutletContext", \u0275\u0275pureFunction1(24, _c153, scrollerOptions_r7.columns));
     \u0275\u0275advance(3);
-    \u0275\u0275property("ngTemplateOutlet", ctx_r0.headerGroupedTemplate || ctx_r0.headerTemplate)("ngTemplateOutletContext", \u0275\u0275pureFunction1(26, _c152, scrollerOptions_r7.columns));
+    \u0275\u0275property("ngTemplateOutlet", ctx_r0.headerGroupedTemplate || ctx_r0.headerTemplate)("ngTemplateOutletContext", \u0275\u0275pureFunction1(26, _c153, scrollerOptions_r7.columns));
     \u0275\u0275advance();
     \u0275\u0275property("ngIf", ctx_r0.frozenValue || ctx_r0.frozenBodyTemplate);
     \u0275\u0275advance();
@@ -65882,7 +65909,7 @@ function SortIcon_span_1_Template(rf, ctx) {
   if (rf & 2) {
     const ctx_r0 = \u0275\u0275nextContext();
     \u0275\u0275advance();
-    \u0275\u0275property("ngTemplateOutlet", ctx_r0.dt.sortIconTemplate)("ngTemplateOutletContext", \u0275\u0275pureFunction1(2, _c152, ctx_r0.sortOrder));
+    \u0275\u0275property("ngTemplateOutlet", ctx_r0.dt.sortIconTemplate)("ngTemplateOutletContext", \u0275\u0275pureFunction1(2, _c153, ctx_r0.sortOrder));
   }
 }
 function SortIcon_span_2_Template(rf, ctx) {
@@ -65989,7 +66016,7 @@ function TableCheckbox_span_6_Template(rf, ctx) {
   if (rf & 2) {
     const ctx_r1 = \u0275\u0275nextContext();
     \u0275\u0275advance();
-    \u0275\u0275property("ngTemplateOutlet", ctx_r1.dt.checkboxIconTemplate)("ngTemplateOutletContext", \u0275\u0275pureFunction1(2, _c152, ctx_r1.checked));
+    \u0275\u0275property("ngTemplateOutlet", ctx_r1.dt.checkboxIconTemplate)("ngTemplateOutletContext", \u0275\u0275pureFunction1(2, _c153, ctx_r1.checked));
   }
 }
 var _c272 = (a0, a1, a2) => ({
@@ -66034,7 +66061,7 @@ function TableHeaderCheckbox_span_7_Template(rf, ctx) {
   if (rf & 2) {
     const ctx_r1 = \u0275\u0275nextContext();
     \u0275\u0275advance();
-    \u0275\u0275property("ngTemplateOutlet", ctx_r1.dt.headerCheckboxIconTemplate)("ngTemplateOutletContext", \u0275\u0275pureFunction1(2, _c152, ctx_r1.checked));
+    \u0275\u0275property("ngTemplateOutlet", ctx_r1.dt.headerCheckboxIconTemplate)("ngTemplateOutletContext", \u0275\u0275pureFunction1(2, _c153, ctx_r1.checked));
   }
 }
 var _c282 = ["icon"];
@@ -66444,11 +66471,11 @@ function ColumnFilter_div_4_Template(rf, ctx) {
     \u0275\u0275property("ngClass", \u0275\u0275pureFunction1(10, _c332, ctx_r0.display === "menu"))("id", ctx_r0.overlayId)("@overlayAnimation", "visible");
     \u0275\u0275attribute("aria-modal", true);
     \u0275\u0275advance();
-    \u0275\u0275property("ngTemplateOutlet", ctx_r0.headerTemplate)("ngTemplateOutletContext", \u0275\u0275pureFunction1(12, _c152, ctx_r0.field));
+    \u0275\u0275property("ngTemplateOutlet", ctx_r0.headerTemplate)("ngTemplateOutletContext", \u0275\u0275pureFunction1(12, _c153, ctx_r0.field));
     \u0275\u0275advance();
     \u0275\u0275property("ngIf", ctx_r0.display === "row")("ngIfElse", menu_r16);
     \u0275\u0275advance(3);
-    \u0275\u0275property("ngTemplateOutlet", ctx_r0.footerTemplate)("ngTemplateOutletContext", \u0275\u0275pureFunction1(14, _c152, ctx_r0.field));
+    \u0275\u0275property("ngTemplateOutlet", ctx_r0.footerTemplate)("ngTemplateOutletContext", \u0275\u0275pureFunction1(14, _c153, ctx_r0.field));
   }
 }
 var _c352 = (a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15) => ({
@@ -69059,7 +69086,7 @@ var Table = class _Table {
     viewQuery: function Table_Query(rf, ctx) {
       if (rf & 1) {
         \u0275\u0275viewQuery(_c016, 5);
-        \u0275\u0275viewQuery(_c118, 5);
+        \u0275\u0275viewQuery(_c114, 5);
         \u0275\u0275viewQuery(_c211, 5);
         \u0275\u0275viewQuery(_c38, 5);
         \u0275\u0275viewQuery(_c47, 5);
@@ -73983,7 +74010,7 @@ var TableModule = class _TableModule {
 
 // node_modules/primeng/fesm2022/primeng-card.mjs
 var _c017 = ["*", [["p-header"]], [["p-footer"]]];
-var _c120 = ["*", "p-header", "p-footer"];
+var _c116 = ["*", "p-header", "p-footer"];
 function Card_div_1_ng_container_2_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275elementContainer(0);
@@ -74151,7 +74178,7 @@ var Card = class _Card {
       style: "style",
       styleClass: "styleClass"
     },
-    ngContentSelectors: _c120,
+    ngContentSelectors: _c116,
     decls: 9,
     vars: 10,
     consts: [[3, "ngClass", "ngStyle"], ["class", "p-card-header", 4, "ngIf"], [1, "p-card-body"], ["class", "p-card-title", 4, "ngIf"], ["class", "p-card-subtitle", 4, "ngIf"], [1, "p-card-content"], [4, "ngTemplateOutlet"], ["class", "p-card-footer", 4, "ngIf"], [1, "p-card-header"], [1, "p-card-title"], [1, "p-card-subtitle"], [1, "p-card-footer"]],
@@ -74381,30 +74408,614 @@ _ClienteRoutingModule.\u0275mod = /* @__PURE__ */ \u0275\u0275defineNgModule({ t
 _ClienteRoutingModule.\u0275inj = /* @__PURE__ */ \u0275\u0275defineInjector({ imports: [RouterModule.forChild(routes), RouterModule] });
 var ClienteRoutingModule = _ClienteRoutingModule;
 
-// src/app/services/produto.service.ts
-var _ProdutoService = class _ProdutoService {
+// src/app/models/servico.model.ts
+var ServicoType;
+(function(ServicoType2) {
+  ServicoType2["AEREO"] = "AEREO";
+  ServicoType2["CRUZEIRO"] = "CRUZEIRO";
+  ServicoType2["CIRCUITO"] = "CIRCUITO";
+  ServicoType2["HOSPEDAGEM"] = "HOSPEDAGEM";
+  ServicoType2["INGRESSO"] = "INGRESSO";
+  ServicoType2["LOCACAO_CARRO"] = "LOCACAO_CARRO";
+  ServicoType2["PACOTE"] = "PACOTE";
+  ServicoType2["RODOVIARIO"] = "RODOVIARIO";
+  ServicoType2["SEGURO"] = "SEGURO";
+  ServicoType2["TRANSFER"] = "TRANSFER";
+  ServicoType2["OUTROS"] = "OUTROS";
+})(ServicoType || (ServicoType = {}));
+var Servico = [
+  { nome: "A\xE9reo", valor: ServicoType.AEREO },
+  { nome: "Cruzeiro", valor: ServicoType.CRUZEIRO },
+  { nome: "Circuito", valor: ServicoType.CIRCUITO },
+  { nome: "Hospedagem", valor: ServicoType.HOSPEDAGEM },
+  { nome: "Ingressos", valor: ServicoType.INGRESSO },
+  { nome: "Loca\xE7\xE3o de Carro", valor: ServicoType.LOCACAO_CARRO },
+  { nome: "Pacote", valor: ServicoType.PACOTE },
+  { nome: "Rodovi\xE1rio", valor: ServicoType.RODOVIARIO },
+  { nome: "Seguro", valor: ServicoType.SEGURO },
+  { nome: "Transfer", valor: ServicoType.TRANSFER },
+  { nome: "Outros", valor: ServicoType.OUTROS }
+];
+
+// src/app/models/status.model.ts
+var StatusType;
+(function(StatusType2) {
+  StatusType2["COTACAO"] = "COTACAO";
+  StatusType2["CANCELADO"] = "CANCELADO";
+  StatusType2["EM_ANDAMENTO"] = "EM_ANDAMENTO";
+  StatusType2["FINALIZADO"] = "FINALIZADO";
+  StatusType2["PENDENTE"] = "PENDENTE";
+  StatusType2["POS_VENDA"] = "POS_VENDA";
+})(StatusType || (StatusType = {}));
+var Status = [
+  { valor: StatusType.COTACAO, nome: "Cota\xE7\xE3o" },
+  { valor: StatusType.CANCELADO, nome: "Cancelado" },
+  { valor: StatusType.EM_ANDAMENTO, nome: "Em andamento" },
+  { valor: StatusType.FINALIZADO, nome: "Finalizado" },
+  { valor: StatusType.PENDENTE, nome: "Pendente" },
+  { valor: StatusType.POS_VENDA, nome: "P\xF3s-venda" }
+];
+
+// src/app/services/venda.service.ts
+var _VendaService = class _VendaService {
   constructor(http) {
     this.http = http;
-    this.baseUrl = `${environment.apiUrl}/api/produtos`;
+    this.baseUrl = `${environment.apiUrl}/api/vendas`;
   }
-  cadastrarProduto(produto) {
-    return this.http.post(this.baseUrl, produto);
+  cadastrar(venda) {
+    return this.http.post(this.baseUrl, venda);
   }
-  getProdutos() {
+  cadastrarItem(vendaId, itemVenda) {
+    return this.http.post(`${this.baseUrl}/${vendaId}/item`, itemVenda);
+  }
+  listar() {
     return this.http.get(this.baseUrl);
   }
-  getProdutoById(id) {
+  buscarPorId(id) {
     return this.http.get(`${this.baseUrl}/${id}`);
   }
-  atualizarProduto(id, produto) {
-    return this.http.put(`${this.baseUrl}/${id}`, produto);
+  atualizar(id, venda) {
+    return this.http.put(`${this.baseUrl}/${id}`, venda);
+  }
+  downloadAnexo(vendaId, anexoId) {
+    return this.http.get(`${this.baseUrl}/${vendaId}/anexos/${anexoId}`);
+  }
+  removeAnexo(vendaId, anexoId) {
+    return this.http.delete(`${this.baseUrl}/${vendaId}/anexos/${anexoId}`);
   }
 };
-_ProdutoService.\u0275fac = function ProdutoService_Factory(t) {
-  return new (t || _ProdutoService)(\u0275\u0275inject(HttpClient));
+_VendaService.\u0275fac = function VendaService_Factory(t) {
+  return new (t || _VendaService)(\u0275\u0275inject(HttpClient));
 };
-_ProdutoService.\u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({ token: _ProdutoService, factory: _ProdutoService.\u0275fac, providedIn: "root" });
-var ProdutoService = _ProdutoService;
+_VendaService.\u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({ token: _VendaService, factory: _VendaService.\u0275fac, providedIn: "root" });
+var VendaService = _VendaService;
+
+// node_modules/primeng/fesm2022/primeng-tag.mjs
+var _c019 = ["*"];
+function Tag_ng_container_2_span_1_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275element(0, "span", 5);
+  }
+  if (rf & 2) {
+    const ctx_r0 = \u0275\u0275nextContext(2);
+    \u0275\u0275property("ngClass", ctx_r0.icon);
+  }
+}
+function Tag_ng_container_2_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementContainerStart(0);
+    \u0275\u0275template(1, Tag_ng_container_2_span_1_Template, 1, 1, "span", 4);
+    \u0275\u0275elementContainerEnd();
+  }
+  if (rf & 2) {
+    const ctx_r0 = \u0275\u0275nextContext();
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", ctx_r0.icon);
+  }
+}
+function Tag_span_3_1_ng_template_0_Template(rf, ctx) {
+}
+function Tag_span_3_1_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275template(0, Tag_span_3_1_ng_template_0_Template, 0, 0, "ng-template");
+  }
+}
+function Tag_span_3_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span", 6);
+    \u0275\u0275template(1, Tag_span_3_1_Template, 1, 0, null, 7);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r0 = \u0275\u0275nextContext();
+    \u0275\u0275advance();
+    \u0275\u0275property("ngTemplateOutlet", ctx_r0.iconTemplate);
+  }
+}
+var Tag = class _Tag {
+  cd;
+  /**
+   * Inline style of the component.
+   * @group Props
+   */
+  get style() {
+    return this._style;
+  }
+  set style(value) {
+    this._style = value;
+    this.cd.markForCheck();
+  }
+  /**
+   * Style class of the component.
+   * @group Props
+   */
+  styleClass;
+  /**
+   * Severity type of the tag.
+   * @group Props
+   */
+  severity;
+  /**
+   * Value to display inside the tag.
+   * @group Props
+   */
+  value;
+  /**
+   * Icon of the tag to display next to the value.
+   * @group Props
+   * @deprecated since 15.4.2. Use 'icon' template.
+   */
+  icon;
+  /**
+   * Whether the corners of the tag are rounded.
+   * @group Props
+   */
+  rounded;
+  templates;
+  iconTemplate;
+  _style;
+  ngAfterContentInit() {
+    this.templates?.forEach((item) => {
+      switch (item.getType()) {
+        case "icon":
+          this.iconTemplate = item.template;
+          break;
+      }
+    });
+  }
+  constructor(cd) {
+    this.cd = cd;
+  }
+  containerClass() {
+    return {
+      "p-tag p-component": true,
+      "p-tag-info": this.severity === "info",
+      "p-tag-success": this.severity === "success",
+      "p-tag-warning": this.severity === "warning",
+      "p-tag-danger": this.severity === "danger",
+      "p-tag-rounded": this.rounded
+    };
+  }
+  static \u0275fac = function Tag_Factory(t) {
+    return new (t || _Tag)(\u0275\u0275directiveInject(ChangeDetectorRef));
+  };
+  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({
+    type: _Tag,
+    selectors: [["p-tag"]],
+    contentQueries: function Tag_ContentQueries(rf, ctx, dirIndex) {
+      if (rf & 1) {
+        \u0275\u0275contentQuery(dirIndex, PrimeTemplate, 4);
+      }
+      if (rf & 2) {
+        let _t;
+        \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx.templates = _t);
+      }
+    },
+    hostAttrs: [1, "p-element"],
+    inputs: {
+      style: "style",
+      styleClass: "styleClass",
+      severity: "severity",
+      value: "value",
+      icon: "icon",
+      rounded: [InputFlags.HasDecoratorInputTransform, "rounded", "rounded", booleanAttribute]
+    },
+    features: [\u0275\u0275InputTransformsFeature],
+    ngContentSelectors: _c019,
+    decls: 6,
+    vars: 7,
+    consts: [[3, "ngClass", "ngStyle"], [4, "ngIf"], ["class", "p-tag-icon", 4, "ngIf"], [1, "p-tag-value"], ["class", "p-tag-icon", 3, "ngClass", 4, "ngIf"], [1, "p-tag-icon", 3, "ngClass"], [1, "p-tag-icon"], [4, "ngTemplateOutlet"]],
+    template: function Tag_Template(rf, ctx) {
+      if (rf & 1) {
+        \u0275\u0275projectionDef();
+        \u0275\u0275elementStart(0, "span", 0);
+        \u0275\u0275projection(1);
+        \u0275\u0275template(2, Tag_ng_container_2_Template, 2, 1, "ng-container", 1)(3, Tag_span_3_Template, 2, 1, "span", 2);
+        \u0275\u0275elementStart(4, "span", 3);
+        \u0275\u0275text(5);
+        \u0275\u0275elementEnd()();
+      }
+      if (rf & 2) {
+        \u0275\u0275classMap(ctx.styleClass);
+        \u0275\u0275property("ngClass", ctx.containerClass())("ngStyle", ctx.style);
+        \u0275\u0275advance(2);
+        \u0275\u0275property("ngIf", !ctx.iconTemplate);
+        \u0275\u0275advance();
+        \u0275\u0275property("ngIf", ctx.iconTemplate);
+        \u0275\u0275advance(2);
+        \u0275\u0275textInterpolate(ctx.value);
+      }
+    },
+    dependencies: [NgClass, NgIf, NgTemplateOutlet, NgStyle],
+    styles: ["@layer primeng{.p-tag{display:inline-flex;align-items:center;justify-content:center}.p-tag-icon,.p-tag-value,.p-tag-icon.pi{line-height:1.5}.p-tag.p-tag-rounded{border-radius:10rem}}\n"],
+    encapsulation: 2,
+    changeDetection: 0
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(Tag, [{
+    type: Component,
+    args: [{
+      selector: "p-tag",
+      template: `
+        <span [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style">
+            <ng-content></ng-content>
+            <ng-container *ngIf="!iconTemplate">
+                <span class="p-tag-icon" [ngClass]="icon" *ngIf="icon"></span>
+            </ng-container>
+            <span class="p-tag-icon" *ngIf="iconTemplate">
+                <ng-template *ngTemplateOutlet="iconTemplate"></ng-template>
+            </span>
+            <span class="p-tag-value">{{ value }}</span>
+        </span>
+    `,
+      changeDetection: ChangeDetectionStrategy.OnPush,
+      encapsulation: ViewEncapsulation$1.None,
+      host: {
+        class: "p-element"
+      },
+      styles: ["@layer primeng{.p-tag{display:inline-flex;align-items:center;justify-content:center}.p-tag-icon,.p-tag-value,.p-tag-icon.pi{line-height:1.5}.p-tag.p-tag-rounded{border-radius:10rem}}\n"]
+    }]
+  }], () => [{
+    type: ChangeDetectorRef
+  }], {
+    style: [{
+      type: Input
+    }],
+    styleClass: [{
+      type: Input
+    }],
+    severity: [{
+      type: Input
+    }],
+    value: [{
+      type: Input
+    }],
+    icon: [{
+      type: Input
+    }],
+    rounded: [{
+      type: Input,
+      args: [{
+        transform: booleanAttribute
+      }]
+    }],
+    templates: [{
+      type: ContentChildren,
+      args: [PrimeTemplate]
+    }]
+  });
+})();
+var TagModule = class _TagModule {
+  static \u0275fac = function TagModule_Factory(t) {
+    return new (t || _TagModule)();
+  };
+  static \u0275mod = /* @__PURE__ */ \u0275\u0275defineNgModule({
+    type: _TagModule
+  });
+  static \u0275inj = /* @__PURE__ */ \u0275\u0275defineInjector({
+    imports: [CommonModule, SharedModule, SharedModule]
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(TagModule, [{
+    type: NgModule,
+    args: [{
+      imports: [CommonModule, SharedModule],
+      exports: [Tag, SharedModule],
+      declarations: [Tag]
+    }]
+  }], null, null);
+})();
+
+// src/app/components/venda/venda-list/venda-list.component.ts
+var _c020 = () => ({ "min-width": "50rem" });
+function VendaListComponent_ng_template_3_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "tr")(1, "th");
+    \u0275\u0275text(2, "Cliente");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(3, "th");
+    \u0275\u0275text(4, "Servi\xE7o");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(5, "th");
+    \u0275\u0275text(6, "Data de Embarque");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(7, "th");
+    \u0275\u0275text(8, "Data de Desembarque");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(9, "th");
+    \u0275\u0275text(10, "Status");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(11, "th");
+    \u0275\u0275text(12, "A\xE7\xF5es");
+    \u0275\u0275elementEnd()();
+  }
+}
+function VendaListComponent_ng_template_4_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r1 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "tr")(1, "td");
+    \u0275\u0275text(2);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(3, "td");
+    \u0275\u0275text(4);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(5, "td");
+    \u0275\u0275text(6);
+    \u0275\u0275pipe(7, "date");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(8, "td");
+    \u0275\u0275text(9);
+    \u0275\u0275pipe(10, "date");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(11, "td");
+    \u0275\u0275element(12, "p-tag", 5);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(13, "td")(14, "button", 6);
+    \u0275\u0275listener("click", function VendaListComponent_ng_template_4_Template_button_click_14_listener() {
+      const venda_r2 = \u0275\u0275restoreView(_r1).$implicit;
+      const ctx_r2 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r2.onEdit(venda_r2.id));
+    });
+    \u0275\u0275elementEnd()()();
+  }
+  if (rf & 2) {
+    const venda_r2 = ctx.$implicit;
+    const ctx_r2 = \u0275\u0275nextContext();
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(venda_r2.cliente.nome);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(ctx_r2.getServiceName(venda_r2.servico));
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(\u0275\u0275pipeBind2(7, 6, venda_r2.dataEmbarque, "dd/MM/yyyy"));
+    \u0275\u0275advance(3);
+    \u0275\u0275textInterpolate(\u0275\u0275pipeBind2(10, 9, venda_r2.dataDesembarque, "dd/MM/yyyy"));
+    \u0275\u0275advance(3);
+    \u0275\u0275property("severity", ctx_r2.getStatusSeverity(venda_r2.status))("value", ctx_r2.getStatusName(venda_r2.status));
+  }
+}
+var _VendaListComponent = class _VendaListComponent {
+  constructor(pedidoService, router) {
+    this.pedidoService = pedidoService;
+    this.router = router;
+    this.vendas = [];
+  }
+  ngOnInit() {
+    this.pedidoService.listar().subscribe((pedidos) => this.vendas = pedidos);
+  }
+  onEdit(id) {
+    this.router.navigate(["/venda/editar", id]);
+  }
+  getServiceName(value) {
+    const service = Servico.find((s) => s.valor === value);
+    return service ? service.nome : "Servi\xE7o Desconhecido";
+  }
+  getStatusName(value) {
+    const status = Status.find((s) => s.valor === value);
+    return status ? status.nome : "Status Desconhecido";
+  }
+  onRemove(id) {
+  }
+  getStatusSeverity(status) {
+    switch (status) {
+      case StatusType.COTACAO:
+      case StatusType.EM_ANDAMENTO:
+      case StatusType.POS_VENDA:
+        return "info";
+      case StatusType.FINALIZADO:
+        return "success";
+      case StatusType.CANCELADO:
+        return "danger";
+      case StatusType.PENDENTE:
+        return "warning";
+      default:
+        return "warning";
+    }
+  }
+};
+_VendaListComponent.\u0275fac = function VendaListComponent_Factory(t) {
+  return new (t || _VendaListComponent)(\u0275\u0275directiveInject(VendaService), \u0275\u0275directiveInject(Router));
+};
+_VendaListComponent.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _VendaListComponent, selectors: [["app-venda-list"]], decls: 5, vars: 3, consts: [[1, "mt-2"], ["header", "Vendas"], ["styleClass", "p-datatable-striped", "responsiveLayout", "stack", 3, "value", "tableStyle"], ["pTemplate", "header"], ["pTemplate", "body"], [3, "severity", "value"], ["aria-label", "editar", "pButton", "", "icon", "pi pi-pencil", "pTooltip", "Editar", 2, "margin", "0 5px", 3, "click"]], template: function VendaListComponent_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 0)(1, "p-card", 1)(2, "p-table", 2);
+    \u0275\u0275template(3, VendaListComponent_ng_template_3_Template, 13, 0, "ng-template", 3)(4, VendaListComponent_ng_template_4_Template, 15, 12, "ng-template", 4);
+    \u0275\u0275elementEnd()()();
+  }
+  if (rf & 2) {
+    \u0275\u0275advance(2);
+    \u0275\u0275property("value", ctx.vendas)("tableStyle", \u0275\u0275pureFunction0(2, _c020));
+  }
+}, dependencies: [Tooltip, PrimeTemplate, Table, ButtonDirective, Card, Tag, DatePipe] });
+var VendaListComponent = _VendaListComponent;
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(VendaListComponent, { className: "VendaListComponent", filePath: "src\\app\\components\\venda\\venda-list\\venda-list.component.ts", lineNumber: 13 });
+})();
+
+// src/app/services/fornecedor.service.ts
+var _FornecedorService = class _FornecedorService {
+  constructor(http) {
+    this.http = http;
+    this.baseUrl = `${environment.apiUrl}/api/fornecedores`;
+  }
+  cadastrar(fornecedor) {
+    return this.http.post(this.baseUrl, fornecedor);
+  }
+  listar() {
+    return this.http.get(this.baseUrl);
+  }
+  buscarPorId(id) {
+    return this.http.get(`${this.baseUrl}/${id}`);
+  }
+  atualizar(id, fornecedor) {
+    return this.http.put(`${this.baseUrl}/${id}`, fornecedor);
+  }
+};
+_FornecedorService.\u0275fac = function FornecedorService_Factory(t) {
+  return new (t || _FornecedorService)(\u0275\u0275inject(HttpClient));
+};
+_FornecedorService.\u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({ token: _FornecedorService, factory: _FornecedorService.\u0275fac, providedIn: "root" });
+var FornecedorService = _FornecedorService;
+
+// node_modules/primeng/fesm2022/primeng-divider.mjs
+var _c021 = ["*"];
+var Divider = class _Divider {
+  /**
+   * Inline style of the component.
+   * @group Props
+   */
+  style;
+  /**
+   * Style class of the component.
+   * @group Props
+   */
+  styleClass;
+  /**
+   * Specifies the orientation.
+   * @group Props
+   */
+  layout = "horizontal";
+  /**
+   * Border style type.
+   * @group Props
+   */
+  type = "solid";
+  /**
+   * Alignment of the content.
+   * @group Props
+   */
+  align;
+  containerClass() {
+    return {
+      "p-divider p-component": true,
+      "p-divider-horizontal": this.layout === "horizontal",
+      "p-divider-vertical": this.layout === "vertical",
+      "p-divider-solid": this.type === "solid",
+      "p-divider-dashed": this.type === "dashed",
+      "p-divider-dotted": this.type === "dotted",
+      "p-divider-left": this.layout === "horizontal" && (!this.align || this.align === "left"),
+      "p-divider-center": this.layout === "horizontal" && this.align === "center" || this.layout === "vertical" && (!this.align || this.align === "center"),
+      "p-divider-right": this.layout === "horizontal" && this.align === "right",
+      "p-divider-top": this.layout === "vertical" && this.align === "top",
+      "p-divider-bottom": this.layout === "vertical" && this.align === "bottom"
+    };
+  }
+  static \u0275fac = function Divider_Factory(t) {
+    return new (t || _Divider)();
+  };
+  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({
+    type: _Divider,
+    selectors: [["p-divider"]],
+    hostAttrs: [1, "p-element"],
+    inputs: {
+      style: "style",
+      styleClass: "styleClass",
+      layout: "layout",
+      type: "type",
+      align: "align"
+    },
+    ngContentSelectors: _c021,
+    decls: 3,
+    vars: 6,
+    consts: [["role", "separator", 3, "ngClass", "ngStyle"], [1, "p-divider-content"]],
+    template: function Divider_Template(rf, ctx) {
+      if (rf & 1) {
+        \u0275\u0275projectionDef();
+        \u0275\u0275elementStart(0, "div", 0)(1, "div", 1);
+        \u0275\u0275projection(2);
+        \u0275\u0275elementEnd()();
+      }
+      if (rf & 2) {
+        \u0275\u0275classMap(ctx.styleClass);
+        \u0275\u0275property("ngClass", ctx.containerClass())("ngStyle", ctx.style);
+        \u0275\u0275attribute("aria-orientation", ctx.layout)("data-pc-name", "divider");
+      }
+    },
+    dependencies: [NgClass, NgStyle],
+    styles: ['@layer primeng{.p-divider-horizontal{display:flex;width:100%;position:relative;align-items:center}.p-divider-horizontal:before{position:absolute;display:block;top:50%;left:0;width:100%;content:""}.p-divider-horizontal.p-divider-left{justify-content:flex-start}.p-divider-horizontal.p-divider-right{justify-content:flex-end}.p-divider-horizontal.p-divider-center{justify-content:center}.p-divider-content{z-index:1}.p-divider-vertical{min-height:100%;margin:0 1rem;display:flex;position:relative;justify-content:center}.p-divider-vertical:before{position:absolute;display:block;top:0;left:50%;height:100%;content:""}.p-divider-vertical.p-divider-top{align-items:flex-start}.p-divider-vertical.p-divider-center{align-items:center}.p-divider-vertical.p-divider-bottom{align-items:flex-end}.p-divider-solid.p-divider-horizontal:before{border-top-style:solid}.p-divider-solid.p-divider-vertical:before{border-left-style:solid}.p-divider-dashed.p-divider-horizontal:before{border-top-style:dashed}.p-divider-dashed.p-divider-vertical:before{border-left-style:dashed}.p-divider-dotted.p-divider-horizontal:before{border-top-style:dotted}.p-divider-dotted.p-divider-horizontal:before{border-left-style:dotted}}\n'],
+    encapsulation: 2,
+    changeDetection: 0
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(Divider, [{
+    type: Component,
+    args: [{
+      selector: "p-divider",
+      template: `
+        <div [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style" role="separator" [attr.aria-orientation]="layout" [attr.data-pc-name]="'divider'">
+            <div class="p-divider-content">
+                <ng-content></ng-content>
+            </div>
+        </div>
+    `,
+      changeDetection: ChangeDetectionStrategy.OnPush,
+      encapsulation: ViewEncapsulation$1.None,
+      host: {
+        class: "p-element"
+      },
+      styles: ['@layer primeng{.p-divider-horizontal{display:flex;width:100%;position:relative;align-items:center}.p-divider-horizontal:before{position:absolute;display:block;top:50%;left:0;width:100%;content:""}.p-divider-horizontal.p-divider-left{justify-content:flex-start}.p-divider-horizontal.p-divider-right{justify-content:flex-end}.p-divider-horizontal.p-divider-center{justify-content:center}.p-divider-content{z-index:1}.p-divider-vertical{min-height:100%;margin:0 1rem;display:flex;position:relative;justify-content:center}.p-divider-vertical:before{position:absolute;display:block;top:0;left:50%;height:100%;content:""}.p-divider-vertical.p-divider-top{align-items:flex-start}.p-divider-vertical.p-divider-center{align-items:center}.p-divider-vertical.p-divider-bottom{align-items:flex-end}.p-divider-solid.p-divider-horizontal:before{border-top-style:solid}.p-divider-solid.p-divider-vertical:before{border-left-style:solid}.p-divider-dashed.p-divider-horizontal:before{border-top-style:dashed}.p-divider-dashed.p-divider-vertical:before{border-left-style:dashed}.p-divider-dotted.p-divider-horizontal:before{border-top-style:dotted}.p-divider-dotted.p-divider-horizontal:before{border-left-style:dotted}}\n']
+    }]
+  }], null, {
+    style: [{
+      type: Input
+    }],
+    styleClass: [{
+      type: Input
+    }],
+    layout: [{
+      type: Input
+    }],
+    type: [{
+      type: Input
+    }],
+    align: [{
+      type: Input
+    }]
+  });
+})();
+var DividerModule = class _DividerModule {
+  static \u0275fac = function DividerModule_Factory(t) {
+    return new (t || _DividerModule)();
+  };
+  static \u0275mod = /* @__PURE__ */ \u0275\u0275defineNgModule({
+    type: _DividerModule
+  });
+  static \u0275inj = /* @__PURE__ */ \u0275\u0275defineInjector({
+    imports: [CommonModule]
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(DividerModule, [{
+    type: NgModule,
+    args: [{
+      imports: [CommonModule],
+      exports: [Divider],
+      declarations: [Divider]
+    }]
+  }], null, null);
+})();
 
 // node_modules/primeng/fesm2022/primeng-inputtextarea.mjs
 var InputTextarea = class _InputTextarea {
@@ -74571,697 +75182,6 @@ var InputTextareaModule = class _InputTextareaModule {
     }]
   }], null, null);
 })();
-
-// src/app/components/produto/produto-form/produto-form.component.ts
-function ProdutoFormComponent_ng_template_3_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div")(1, "span", 16);
-    \u0275\u0275text(2, "Detalhes do Produto");
-    \u0275\u0275elementEnd()();
-  }
-}
-var _ProdutoFormComponent = class _ProdutoFormComponent {
-  constructor(fb, produtoService, messageService, activateRoute, router) {
-    this.fb = fb;
-    this.produtoService = produtoService;
-    this.messageService = messageService;
-    this.activateRoute = activateRoute;
-    this.router = router;
-    this.isCollapsed = false;
-    this.produtoId = null;
-  }
-  ngOnInit() {
-    this.produtoForm = this.getProdutoFormBuilder();
-    this.activateRoute.params.subscribe((params) => {
-      const id = params["id"];
-      if (id) {
-        this.produtoId = +id;
-        this.loadProdutoData(this.produtoId);
-      }
-    });
-  }
-  getProdutoFormBuilder() {
-    return this.fb.group({
-      nome: ["", Validators.required],
-      descricao: [""],
-      preco: ["", Validators.required]
-    });
-  }
-  loadProdutoData(id) {
-    this.produtoService.getProdutoById(id).subscribe((produto) => {
-      this.produtoForm.patchValue(produto);
-    });
-  }
-  toggleCollapse() {
-    this.isCollapsed = !this.isCollapsed;
-  }
-  goBack() {
-    this.router.navigate(["/produto"]);
-  }
-  onSubmit() {
-    if (this.produtoForm.invalid) {
-      return;
-    }
-    const produto = this.produtoForm.value;
-    const produtoObservable = this.produtoId ? this.produtoService.atualizarProduto(this.produtoId, produto) : this.produtoService.cadastrarProduto(produto);
-    produtoObservable.subscribe({
-      next: () => {
-        const sucessoMessage = this.produtoId ? "Produto atualizado com sucesso!" : "Produto cadastrado com sucesso!";
-        this.messageService.add({
-          severity: "success",
-          summary: sucessoMessage,
-          life: 3e3
-        });
-        this.produtoForm.reset();
-        this.goBack();
-      },
-      error: () => {
-        const errorMessage = this.produtoId ? "Erro ao atualizar produto" : "Erro ao cadastrar produto";
-        this.messageService.add({
-          severity: "error",
-          summary: errorMessage,
-          life: 3e3
-        });
-      }
-    });
-  }
-};
-_ProdutoFormComponent.\u0275fac = function ProdutoFormComponent_Factory(t) {
-  return new (t || _ProdutoFormComponent)(\u0275\u0275directiveInject(FormBuilder), \u0275\u0275directiveInject(ProdutoService), \u0275\u0275directiveInject(MessageService), \u0275\u0275directiveInject(ActivatedRoute), \u0275\u0275directiveInject(Router));
-};
-_ProdutoFormComponent.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _ProdutoFormComponent, selectors: [["app-produto-form"]], decls: 23, vars: 5, consts: [[3, "ngSubmit", "formGroup"], [1, "mt-3"], [3, "toggleable", "collapsed"], ["pTemplate", "header"], [1, "grid"], [1, "p-fluid", "col-12", "md:col-6"], [1, "flex", "flex-column", "gap-2"], ["for", "nome"], ["pInputText", "", "id", "nome", "formControlName", "nome"], ["for", "preco"], ["pInputText", "", "id", "preco", "type", "number", "formControlName", "preco"], ["for", "descricao"], ["formControlName", "descricao", "id", "descricao", "pInputTextarea", "", "rows", "3", "type", "text"], [1, "mt-3", "flex", "flex-row-reverse", "gap-3"], ["pButton", "", "severity", "secondary", "type", "button", "label", "Voltar", 3, "click"], ["pButton", "", "type", "submit", 3, "disabled", "label"], [1, "font-bold"]], template: function ProdutoFormComponent_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "form", 0);
-    \u0275\u0275listener("ngSubmit", function ProdutoFormComponent_Template_form_ngSubmit_0_listener() {
-      return ctx.onSubmit();
-    });
-    \u0275\u0275elementStart(1, "div", 1)(2, "p-panel", 2);
-    \u0275\u0275template(3, ProdutoFormComponent_ng_template_3_Template, 3, 0, "ng-template", 3);
-    \u0275\u0275elementStart(4, "div", 4)(5, "div", 5)(6, "div", 6)(7, "label", 7);
-    \u0275\u0275text(8, "Nome");
-    \u0275\u0275elementEnd();
-    \u0275\u0275element(9, "input", 8);
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(10, "div", 5)(11, "div", 6)(12, "label", 9);
-    \u0275\u0275text(13, "Pre\xE7o");
-    \u0275\u0275elementEnd();
-    \u0275\u0275element(14, "input", 10);
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(15, "div", 5)(16, "div", 6)(17, "label", 11);
-    \u0275\u0275text(18, "Descri\xE7\xE3o");
-    \u0275\u0275elementEnd();
-    \u0275\u0275element(19, "textarea", 12);
-    \u0275\u0275elementEnd()()()()();
-    \u0275\u0275elementStart(20, "div", 13)(21, "button", 14);
-    \u0275\u0275listener("click", function ProdutoFormComponent_Template_button_click_21_listener() {
-      return ctx.goBack();
-    });
-    \u0275\u0275elementEnd();
-    \u0275\u0275element(22, "button", 15);
-    \u0275\u0275elementEnd()();
-  }
-  if (rf & 2) {
-    \u0275\u0275property("formGroup", ctx.produtoForm);
-    \u0275\u0275advance(2);
-    \u0275\u0275property("toggleable", true)("collapsed", ctx.isCollapsed);
-    \u0275\u0275advance(20);
-    \u0275\u0275property("disabled", ctx.produtoForm.invalid)("label", ctx.produtoId ? "Atualizar" : "Cadastrar");
-  }
-}, dependencies: [\u0275NgNoValidate, DefaultValueAccessor, NumberValueAccessor, NgControlStatus, NgControlStatusGroup, FormGroupDirective, FormControlName, PrimeTemplate, ButtonDirective, InputText, Panel, InputTextarea] });
-var ProdutoFormComponent = _ProdutoFormComponent;
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(ProdutoFormComponent, { className: "ProdutoFormComponent", filePath: "src\\app\\components\\produto\\produto-form\\produto-form.component.ts", lineNumber: 13 });
-})();
-
-// src/app/components/produto/produto-list/produto-list.component.ts
-var _c019 = () => ({ "min-width": "50rem" });
-function ProdutoListComponent_ng_template_3_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "tr")(1, "th");
-    \u0275\u0275text(2, "Nome");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "th");
-    \u0275\u0275text(4, "Descri\xE7\xE3o");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "th");
-    \u0275\u0275text(6, "Pre\xE7o");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(7, "th");
-    \u0275\u0275text(8, "A\xE7\xF5es");
-    \u0275\u0275elementEnd()();
-  }
-}
-function ProdutoListComponent_ng_template_4_Template(rf, ctx) {
-  if (rf & 1) {
-    const _r1 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "tr")(1, "td");
-    \u0275\u0275text(2);
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "td");
-    \u0275\u0275text(4);
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "td");
-    \u0275\u0275text(6);
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(7, "td")(8, "button", 5);
-    \u0275\u0275listener("click", function ProdutoListComponent_ng_template_4_Template_button_click_8_listener() {
-      const produto_r2 = \u0275\u0275restoreView(_r1).$implicit;
-      const ctx_r2 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r2.onEdit(produto_r2.id));
-    });
-    \u0275\u0275elementEnd()()();
-  }
-  if (rf & 2) {
-    const produto_r2 = ctx.$implicit;
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(produto_r2.nome);
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(produto_r2.descricao);
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(produto_r2.preco);
-  }
-}
-var _ProdutoListComponent = class _ProdutoListComponent {
-  constructor(produtoService, router) {
-    this.produtoService = produtoService;
-    this.router = router;
-    this.produtos = [];
-  }
-  ngOnInit() {
-    this.produtoService.getProdutos().subscribe((produtos) => this.produtos = produtos);
-  }
-  onEdit(id) {
-    this.router.navigate(["/produto/editar", id]);
-  }
-  // Método para remoção de produto
-  onRemove(id) {
-  }
-};
-_ProdutoListComponent.\u0275fac = function ProdutoListComponent_Factory(t) {
-  return new (t || _ProdutoListComponent)(\u0275\u0275directiveInject(ProdutoService), \u0275\u0275directiveInject(Router));
-};
-_ProdutoListComponent.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _ProdutoListComponent, selectors: [["app-produto-list"]], decls: 5, vars: 3, consts: [[1, "mt-2"], ["header", "Produtos"], ["styleClass", "p-datatable-striped", "responsiveLayout", "stack", 3, "value", "tableStyle"], ["pTemplate", "header"], ["pTemplate", "body"], ["aria-label", "editar", "pButton", "", "icon", "pi pi-pencil", "pTooltip", "Editar", 2, "margin", "0 5px", 3, "click"]], template: function ProdutoListComponent_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 0)(1, "p-card", 1)(2, "p-table", 2);
-    \u0275\u0275template(3, ProdutoListComponent_ng_template_3_Template, 9, 0, "ng-template", 3)(4, ProdutoListComponent_ng_template_4_Template, 9, 3, "ng-template", 4);
-    \u0275\u0275elementEnd()()();
-  }
-  if (rf & 2) {
-    \u0275\u0275advance(2);
-    \u0275\u0275property("value", ctx.produtos)("tableStyle", \u0275\u0275pureFunction0(2, _c019));
-  }
-}, dependencies: [Tooltip, PrimeTemplate, Table, ButtonDirective, Card] });
-var ProdutoListComponent = _ProdutoListComponent;
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(ProdutoListComponent, { className: "ProdutoListComponent", filePath: "src\\app\\components\\produto\\produto-list\\produto-list.component.ts", lineNumber: 11 });
-})();
-
-// src/app/components/produto/produto-routing.module.ts
-var routes2 = [
-  { path: "", redirectTo: "list", pathMatch: "full" },
-  { path: "new", component: ProdutoFormComponent },
-  { path: "list", component: ProdutoListComponent },
-  { path: "editar/:id", component: ProdutoFormComponent }
-  // Rota para editar venda com ID
-];
-var _ProdutoRoutingModule = class _ProdutoRoutingModule {
-};
-_ProdutoRoutingModule.\u0275fac = function ProdutoRoutingModule_Factory(t) {
-  return new (t || _ProdutoRoutingModule)();
-};
-_ProdutoRoutingModule.\u0275mod = /* @__PURE__ */ \u0275\u0275defineNgModule({ type: _ProdutoRoutingModule });
-_ProdutoRoutingModule.\u0275inj = /* @__PURE__ */ \u0275\u0275defineInjector({ imports: [RouterModule.forChild(routes2), RouterModule] });
-var ProdutoRoutingModule = _ProdutoRoutingModule;
-
-// src/app/models/servico.model.ts
-var ServicoType;
-(function(ServicoType2) {
-  ServicoType2["AEREO"] = "AEREO";
-  ServicoType2["CRUZEIRO"] = "CRUZEIRO";
-  ServicoType2["CIRCUITO"] = "CIRCUITO";
-  ServicoType2["HOSPEDAGEM"] = "HOSPEDAGEM";
-  ServicoType2["INGRESSO"] = "INGRESSO";
-  ServicoType2["LOCACAO_CARRO"] = "LOCACAO_CARRO";
-  ServicoType2["PACOTE"] = "PACOTE";
-  ServicoType2["RODOVIARIO"] = "RODOVIARIO";
-  ServicoType2["SEGURO"] = "SEGURO";
-  ServicoType2["TRANSFER"] = "TRANSFER";
-  ServicoType2["OUTROS"] = "OUTROS";
-})(ServicoType || (ServicoType = {}));
-var Servico = [
-  { nome: "A\xE9reo", valor: ServicoType.AEREO },
-  { nome: "Cruzeiro", valor: ServicoType.CRUZEIRO },
-  { nome: "Circuito", valor: ServicoType.CIRCUITO },
-  { nome: "Hospedagem", valor: ServicoType.HOSPEDAGEM },
-  { nome: "Ingressos", valor: ServicoType.INGRESSO },
-  { nome: "Loca\xE7\xE3o de Carro", valor: ServicoType.LOCACAO_CARRO },
-  { nome: "Pacote", valor: ServicoType.PACOTE },
-  { nome: "Rodovi\xE1rio", valor: ServicoType.RODOVIARIO },
-  { nome: "Seguro", valor: ServicoType.SEGURO },
-  { nome: "Transfer", valor: ServicoType.TRANSFER },
-  { nome: "Outros", valor: ServicoType.OUTROS }
-];
-
-// src/app/models/status.model.ts
-var StatusType;
-(function(StatusType2) {
-  StatusType2["COTACAO"] = "COTACAO";
-  StatusType2["CANCELADO"] = "CANCELADO";
-  StatusType2["EM_ANDAMENTO"] = "EM_ANDAMENTO";
-  StatusType2["FINALIZADO"] = "FINALIZADO";
-  StatusType2["PENDENTE"] = "PENDENTE";
-  StatusType2["POS_VENDA"] = "POS_VENDA";
-})(StatusType || (StatusType = {}));
-var Status = [
-  { valor: StatusType.COTACAO, nome: "Cota\xE7\xE3o" },
-  { valor: StatusType.CANCELADO, nome: "Cancelado" },
-  { valor: StatusType.EM_ANDAMENTO, nome: "Em andamento" },
-  { valor: StatusType.FINALIZADO, nome: "Finalizado" },
-  { valor: StatusType.PENDENTE, nome: "Pendente" },
-  { valor: StatusType.POS_VENDA, nome: "P\xF3s-venda" }
-];
-
-// src/app/services/venda.service.ts
-var _VendaService = class _VendaService {
-  constructor(http) {
-    this.http = http;
-    this.baseUrl = `${environment.apiUrl}/api/vendas`;
-  }
-  cadastrar(venda) {
-    return this.http.post(this.baseUrl, venda);
-  }
-  cadastrarItem(vendaId, itemVenda) {
-    return this.http.post(`${this.baseUrl}/${vendaId}/item`, itemVenda);
-  }
-  listar() {
-    return this.http.get(this.baseUrl);
-  }
-  buscarPorId(id) {
-    return this.http.get(`${this.baseUrl}/${id}`);
-  }
-  atualizar(id, venda) {
-    return this.http.put(`${this.baseUrl}/${id}`, venda);
-  }
-  downloadAnexo(vendaId, anexoId) {
-    return this.http.get(`${this.baseUrl}/${vendaId}/anexos/${anexoId}`);
-  }
-  removeAnexo(vendaId, anexoId) {
-    return this.http.delete(`${this.baseUrl}/${vendaId}/anexos/${anexoId}`);
-  }
-};
-_VendaService.\u0275fac = function VendaService_Factory(t) {
-  return new (t || _VendaService)(\u0275\u0275inject(HttpClient));
-};
-_VendaService.\u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({ token: _VendaService, factory: _VendaService.\u0275fac, providedIn: "root" });
-var VendaService = _VendaService;
-
-// node_modules/primeng/fesm2022/primeng-tag.mjs
-var _c020 = ["*"];
-function Tag_ng_container_2_span_1_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275element(0, "span", 5);
-  }
-  if (rf & 2) {
-    const ctx_r0 = \u0275\u0275nextContext(2);
-    \u0275\u0275property("ngClass", ctx_r0.icon);
-  }
-}
-function Tag_ng_container_2_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementContainerStart(0);
-    \u0275\u0275template(1, Tag_ng_container_2_span_1_Template, 1, 1, "span", 4);
-    \u0275\u0275elementContainerEnd();
-  }
-  if (rf & 2) {
-    const ctx_r0 = \u0275\u0275nextContext();
-    \u0275\u0275advance();
-    \u0275\u0275property("ngIf", ctx_r0.icon);
-  }
-}
-function Tag_span_3_1_ng_template_0_Template(rf, ctx) {
-}
-function Tag_span_3_1_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275template(0, Tag_span_3_1_ng_template_0_Template, 0, 0, "ng-template");
-  }
-}
-function Tag_span_3_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "span", 6);
-    \u0275\u0275template(1, Tag_span_3_1_Template, 1, 0, null, 7);
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const ctx_r0 = \u0275\u0275nextContext();
-    \u0275\u0275advance();
-    \u0275\u0275property("ngTemplateOutlet", ctx_r0.iconTemplate);
-  }
-}
-var Tag = class _Tag {
-  cd;
-  /**
-   * Inline style of the component.
-   * @group Props
-   */
-  get style() {
-    return this._style;
-  }
-  set style(value) {
-    this._style = value;
-    this.cd.markForCheck();
-  }
-  /**
-   * Style class of the component.
-   * @group Props
-   */
-  styleClass;
-  /**
-   * Severity type of the tag.
-   * @group Props
-   */
-  severity;
-  /**
-   * Value to display inside the tag.
-   * @group Props
-   */
-  value;
-  /**
-   * Icon of the tag to display next to the value.
-   * @group Props
-   * @deprecated since 15.4.2. Use 'icon' template.
-   */
-  icon;
-  /**
-   * Whether the corners of the tag are rounded.
-   * @group Props
-   */
-  rounded;
-  templates;
-  iconTemplate;
-  _style;
-  ngAfterContentInit() {
-    this.templates?.forEach((item) => {
-      switch (item.getType()) {
-        case "icon":
-          this.iconTemplate = item.template;
-          break;
-      }
-    });
-  }
-  constructor(cd) {
-    this.cd = cd;
-  }
-  containerClass() {
-    return {
-      "p-tag p-component": true,
-      "p-tag-info": this.severity === "info",
-      "p-tag-success": this.severity === "success",
-      "p-tag-warning": this.severity === "warning",
-      "p-tag-danger": this.severity === "danger",
-      "p-tag-rounded": this.rounded
-    };
-  }
-  static \u0275fac = function Tag_Factory(t) {
-    return new (t || _Tag)(\u0275\u0275directiveInject(ChangeDetectorRef));
-  };
-  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({
-    type: _Tag,
-    selectors: [["p-tag"]],
-    contentQueries: function Tag_ContentQueries(rf, ctx, dirIndex) {
-      if (rf & 1) {
-        \u0275\u0275contentQuery(dirIndex, PrimeTemplate, 4);
-      }
-      if (rf & 2) {
-        let _t;
-        \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx.templates = _t);
-      }
-    },
-    hostAttrs: [1, "p-element"],
-    inputs: {
-      style: "style",
-      styleClass: "styleClass",
-      severity: "severity",
-      value: "value",
-      icon: "icon",
-      rounded: [InputFlags.HasDecoratorInputTransform, "rounded", "rounded", booleanAttribute]
-    },
-    features: [\u0275\u0275InputTransformsFeature],
-    ngContentSelectors: _c020,
-    decls: 6,
-    vars: 7,
-    consts: [[3, "ngClass", "ngStyle"], [4, "ngIf"], ["class", "p-tag-icon", 4, "ngIf"], [1, "p-tag-value"], ["class", "p-tag-icon", 3, "ngClass", 4, "ngIf"], [1, "p-tag-icon", 3, "ngClass"], [1, "p-tag-icon"], [4, "ngTemplateOutlet"]],
-    template: function Tag_Template(rf, ctx) {
-      if (rf & 1) {
-        \u0275\u0275projectionDef();
-        \u0275\u0275elementStart(0, "span", 0);
-        \u0275\u0275projection(1);
-        \u0275\u0275template(2, Tag_ng_container_2_Template, 2, 1, "ng-container", 1)(3, Tag_span_3_Template, 2, 1, "span", 2);
-        \u0275\u0275elementStart(4, "span", 3);
-        \u0275\u0275text(5);
-        \u0275\u0275elementEnd()();
-      }
-      if (rf & 2) {
-        \u0275\u0275classMap(ctx.styleClass);
-        \u0275\u0275property("ngClass", ctx.containerClass())("ngStyle", ctx.style);
-        \u0275\u0275advance(2);
-        \u0275\u0275property("ngIf", !ctx.iconTemplate);
-        \u0275\u0275advance();
-        \u0275\u0275property("ngIf", ctx.iconTemplate);
-        \u0275\u0275advance(2);
-        \u0275\u0275textInterpolate(ctx.value);
-      }
-    },
-    dependencies: [NgClass, NgIf, NgTemplateOutlet, NgStyle],
-    styles: ["@layer primeng{.p-tag{display:inline-flex;align-items:center;justify-content:center}.p-tag-icon,.p-tag-value,.p-tag-icon.pi{line-height:1.5}.p-tag.p-tag-rounded{border-radius:10rem}}\n"],
-    encapsulation: 2,
-    changeDetection: 0
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(Tag, [{
-    type: Component,
-    args: [{
-      selector: "p-tag",
-      template: `
-        <span [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style">
-            <ng-content></ng-content>
-            <ng-container *ngIf="!iconTemplate">
-                <span class="p-tag-icon" [ngClass]="icon" *ngIf="icon"></span>
-            </ng-container>
-            <span class="p-tag-icon" *ngIf="iconTemplate">
-                <ng-template *ngTemplateOutlet="iconTemplate"></ng-template>
-            </span>
-            <span class="p-tag-value">{{ value }}</span>
-        </span>
-    `,
-      changeDetection: ChangeDetectionStrategy.OnPush,
-      encapsulation: ViewEncapsulation$1.None,
-      host: {
-        class: "p-element"
-      },
-      styles: ["@layer primeng{.p-tag{display:inline-flex;align-items:center;justify-content:center}.p-tag-icon,.p-tag-value,.p-tag-icon.pi{line-height:1.5}.p-tag.p-tag-rounded{border-radius:10rem}}\n"]
-    }]
-  }], () => [{
-    type: ChangeDetectorRef
-  }], {
-    style: [{
-      type: Input
-    }],
-    styleClass: [{
-      type: Input
-    }],
-    severity: [{
-      type: Input
-    }],
-    value: [{
-      type: Input
-    }],
-    icon: [{
-      type: Input
-    }],
-    rounded: [{
-      type: Input,
-      args: [{
-        transform: booleanAttribute
-      }]
-    }],
-    templates: [{
-      type: ContentChildren,
-      args: [PrimeTemplate]
-    }]
-  });
-})();
-var TagModule = class _TagModule {
-  static \u0275fac = function TagModule_Factory(t) {
-    return new (t || _TagModule)();
-  };
-  static \u0275mod = /* @__PURE__ */ \u0275\u0275defineNgModule({
-    type: _TagModule
-  });
-  static \u0275inj = /* @__PURE__ */ \u0275\u0275defineInjector({
-    imports: [CommonModule, SharedModule, SharedModule]
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(TagModule, [{
-    type: NgModule,
-    args: [{
-      imports: [CommonModule, SharedModule],
-      exports: [Tag, SharedModule],
-      declarations: [Tag]
-    }]
-  }], null, null);
-})();
-
-// src/app/components/venda/venda-list/venda-list.component.ts
-var _c021 = () => ({ "min-width": "50rem" });
-function VendaListComponent_ng_template_3_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "tr")(1, "th");
-    \u0275\u0275text(2, "Cliente");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "th");
-    \u0275\u0275text(4, "Servi\xE7o");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "th");
-    \u0275\u0275text(6, "Data de Embarque");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(7, "th");
-    \u0275\u0275text(8, "Data de Desembarque");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(9, "th");
-    \u0275\u0275text(10, "Status");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(11, "th");
-    \u0275\u0275text(12, "A\xE7\xF5es");
-    \u0275\u0275elementEnd()();
-  }
-}
-function VendaListComponent_ng_template_4_Template(rf, ctx) {
-  if (rf & 1) {
-    const _r1 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "tr")(1, "td");
-    \u0275\u0275text(2);
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "td");
-    \u0275\u0275text(4);
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "td");
-    \u0275\u0275text(6);
-    \u0275\u0275pipe(7, "date");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(8, "td");
-    \u0275\u0275text(9);
-    \u0275\u0275pipe(10, "date");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(11, "td");
-    \u0275\u0275element(12, "p-tag", 5);
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(13, "td")(14, "button", 6);
-    \u0275\u0275listener("click", function VendaListComponent_ng_template_4_Template_button_click_14_listener() {
-      const venda_r2 = \u0275\u0275restoreView(_r1).$implicit;
-      const ctx_r2 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r2.onEdit(venda_r2.id));
-    });
-    \u0275\u0275elementEnd()()();
-  }
-  if (rf & 2) {
-    const venda_r2 = ctx.$implicit;
-    const ctx_r2 = \u0275\u0275nextContext();
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(venda_r2.cliente.nome);
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(ctx_r2.getServiceName(venda_r2.servico));
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(\u0275\u0275pipeBind2(7, 6, venda_r2.dataEmbarque, "dd/MM/yyyy"));
-    \u0275\u0275advance(3);
-    \u0275\u0275textInterpolate(\u0275\u0275pipeBind2(10, 9, venda_r2.dataDesembarque, "dd/MM/yyyy"));
-    \u0275\u0275advance(3);
-    \u0275\u0275property("severity", ctx_r2.getStatusSeverity(venda_r2.status))("value", ctx_r2.getStatusName(venda_r2.status));
-  }
-}
-var _VendaListComponent = class _VendaListComponent {
-  constructor(pedidoService, router) {
-    this.pedidoService = pedidoService;
-    this.router = router;
-    this.vendas = [];
-  }
-  ngOnInit() {
-    this.pedidoService.listar().subscribe((pedidos) => this.vendas = pedidos);
-  }
-  onEdit(id) {
-    this.router.navigate(["/venda/editar", id]);
-  }
-  getServiceName(value) {
-    const service = Servico.find((s) => s.valor === value);
-    return service ? service.nome : "Servi\xE7o Desconhecido";
-  }
-  getStatusName(value) {
-    const status = Status.find((s) => s.valor === value);
-    return status ? status.nome : "Status Desconhecido";
-  }
-  onRemove(id) {
-  }
-  getStatusSeverity(status) {
-    switch (status) {
-      case StatusType.COTACAO:
-      case StatusType.EM_ANDAMENTO:
-      case StatusType.POS_VENDA:
-        return "info";
-      case StatusType.FINALIZADO:
-        return "success";
-      case StatusType.CANCELADO:
-        return "danger";
-      case StatusType.PENDENTE:
-        return "warning";
-      default:
-        return "warning";
-    }
-  }
-};
-_VendaListComponent.\u0275fac = function VendaListComponent_Factory(t) {
-  return new (t || _VendaListComponent)(\u0275\u0275directiveInject(VendaService), \u0275\u0275directiveInject(Router));
-};
-_VendaListComponent.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _VendaListComponent, selectors: [["app-venda-list"]], decls: 5, vars: 3, consts: [[1, "mt-2"], ["header", "Vendas"], ["styleClass", "p-datatable-striped", "responsiveLayout", "stack", 3, "value", "tableStyle"], ["pTemplate", "header"], ["pTemplate", "body"], [3, "severity", "value"], ["aria-label", "editar", "pButton", "", "icon", "pi pi-pencil", "pTooltip", "Editar", 2, "margin", "0 5px", 3, "click"]], template: function VendaListComponent_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 0)(1, "p-card", 1)(2, "p-table", 2);
-    \u0275\u0275template(3, VendaListComponent_ng_template_3_Template, 13, 0, "ng-template", 3)(4, VendaListComponent_ng_template_4_Template, 15, 12, "ng-template", 4);
-    \u0275\u0275elementEnd()()();
-  }
-  if (rf & 2) {
-    \u0275\u0275advance(2);
-    \u0275\u0275property("value", ctx.vendas)("tableStyle", \u0275\u0275pureFunction0(2, _c021));
-  }
-}, dependencies: [Tooltip, PrimeTemplate, Table, ButtonDirective, Card, Tag, DatePipe] });
-var VendaListComponent = _VendaListComponent;
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(VendaListComponent, { className: "VendaListComponent", filePath: "src\\app\\components\\venda\\venda-list\\venda-list.component.ts", lineNumber: 13 });
-})();
-
-// src/app/services/fornecedor.service.ts
-var _FornecedorService = class _FornecedorService {
-  constructor(http) {
-    this.http = http;
-    this.baseUrl = `${environment.apiUrl}/api/fornecedores`;
-  }
-  cadastrar(fornecedor) {
-    return this.http.post(this.baseUrl, fornecedor);
-  }
-  listar() {
-    return this.http.get(this.baseUrl);
-  }
-  buscarPorId(id) {
-    return this.http.get(`${this.baseUrl}/${id}`);
-  }
-  atualizar(id, fornecedor) {
-    return this.http.put(`${this.baseUrl}/${id}`, fornecedor);
-  }
-};
-_FornecedorService.\u0275fac = function FornecedorService_Factory(t) {
-  return new (t || _FornecedorService)(\u0275\u0275inject(HttpClient));
-};
-_FornecedorService.\u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({ token: _FornecedorService, factory: _FornecedorService.\u0275fac, providedIn: "root" });
-var FornecedorService = _FornecedorService;
 
 // node_modules/primeng/fesm2022/primeng-focustrap.mjs
 var FocusTrap = class _FocusTrap {
@@ -75492,7 +75412,7 @@ var WindowMinimizeIcon = class _WindowMinimizeIcon extends BaseIcon {
 
 // node_modules/primeng/fesm2022/primeng-dialog.mjs
 var _c022 = ["titlebar"];
-var _c121 = ["content"];
+var _c117 = ["content"];
 var _c212 = ["footer"];
 var _c39 = ["*", [["p-header"]], [["p-footer"]]];
 var _c48 = ["*", "p-header", "p-footer"];
@@ -76699,7 +76619,7 @@ var Dialog = class _Dialog {
     viewQuery: function Dialog_Query(rf, ctx) {
       if (rf & 1) {
         \u0275\u0275viewQuery(_c022, 5);
-        \u0275\u0275viewQuery(_c121, 5);
+        \u0275\u0275viewQuery(_c117, 5);
         \u0275\u0275viewQuery(_c212, 5);
       }
       if (rf & 2) {
@@ -77157,9 +77077,167 @@ var DialogModule = class _DialogModule {
   }], null, null);
 })();
 
+// node_modules/primeng/fesm2022/primeng-inputicon.mjs
+var _c023 = ["*"];
+var InputIcon = class _InputIcon {
+  /**
+   * Style class of the element.
+   * @group Props
+   */
+  styleClass;
+  static \u0275fac = function InputIcon_Factory(t) {
+    return new (t || _InputIcon)();
+  };
+  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({
+    type: _InputIcon,
+    selectors: [["p-inputIcon"]],
+    inputs: {
+      styleClass: "styleClass"
+    },
+    ngContentSelectors: _c023,
+    decls: 2,
+    vars: 1,
+    consts: [[1, "p-input-icon", 3, "ngClass"]],
+    template: function InputIcon_Template(rf, ctx) {
+      if (rf & 1) {
+        \u0275\u0275projectionDef();
+        \u0275\u0275elementStart(0, "span", 0);
+        \u0275\u0275projection(1);
+        \u0275\u0275elementEnd();
+      }
+      if (rf & 2) {
+        \u0275\u0275property("ngClass", ctx.styleClass);
+      }
+    },
+    dependencies: [NgClass],
+    styles: ["@layer primeng{.p-fluid .p-icon-field-left,.p-fluid .p-icon-field-right{width:100%}}\n"],
+    encapsulation: 2,
+    changeDetection: 0
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(InputIcon, [{
+    type: Component,
+    args: [{
+      selector: "p-inputIcon",
+      template: `<span class="p-input-icon" [ngClass]="styleClass"><ng-content></ng-content></span>`,
+      encapsulation: ViewEncapsulation$1.None,
+      changeDetection: ChangeDetectionStrategy.OnPush,
+      styles: ["@layer primeng{.p-fluid .p-icon-field-left,.p-fluid .p-icon-field-right{width:100%}}\n"]
+    }]
+  }], null, {
+    styleClass: [{
+      type: Input
+    }]
+  });
+})();
+var InputIconModule = class _InputIconModule {
+  static \u0275fac = function InputIconModule_Factory(t) {
+    return new (t || _InputIconModule)();
+  };
+  static \u0275mod = /* @__PURE__ */ \u0275\u0275defineNgModule({
+    type: _InputIconModule
+  });
+  static \u0275inj = /* @__PURE__ */ \u0275\u0275defineInjector({
+    imports: [CommonModule, SharedModule]
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(InputIconModule, [{
+    type: NgModule,
+    args: [{
+      imports: [CommonModule],
+      exports: [InputIcon, SharedModule],
+      declarations: [InputIcon]
+    }]
+  }], null, null);
+})();
+
+// node_modules/primeng/fesm2022/primeng-iconfield.mjs
+var _c024 = ["*"];
+var IconField = class _IconField {
+  /**
+   * Position of the icon.
+   * @group Props
+   */
+  iconPosition = "left";
+  get containerClass() {
+    return {
+      "p-icon-field-left": this.iconPosition === "left",
+      "p-icon-field-right": this.iconPosition === "right"
+    };
+  }
+  static \u0275fac = function IconField_Factory(t) {
+    return new (t || _IconField)();
+  };
+  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({
+    type: _IconField,
+    selectors: [["p-iconField"]],
+    inputs: {
+      iconPosition: "iconPosition"
+    },
+    ngContentSelectors: _c024,
+    decls: 2,
+    vars: 1,
+    consts: [[1, "p-icon-field", 3, "ngClass"]],
+    template: function IconField_Template(rf, ctx) {
+      if (rf & 1) {
+        \u0275\u0275projectionDef();
+        \u0275\u0275elementStart(0, "span", 0);
+        \u0275\u0275projection(1);
+        \u0275\u0275elementEnd();
+      }
+      if (rf & 2) {
+        \u0275\u0275property("ngClass", ctx.containerClass);
+      }
+    },
+    dependencies: [NgClass],
+    styles: ["@layer primeng{.p-icon-field{position:relative}}\n"],
+    encapsulation: 2,
+    changeDetection: 0
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(IconField, [{
+    type: Component,
+    args: [{
+      selector: "p-iconField",
+      template: ` <span class="p-icon-field" [ngClass]="containerClass"><ng-content></ng-content> </span>`,
+      encapsulation: ViewEncapsulation$1.None,
+      changeDetection: ChangeDetectionStrategy.OnPush,
+      styles: ["@layer primeng{.p-icon-field{position:relative}}\n"]
+    }]
+  }], null, {
+    iconPosition: [{
+      type: Input
+    }]
+  });
+})();
+var IconFieldModule = class _IconFieldModule {
+  static \u0275fac = function IconFieldModule_Factory(t) {
+    return new (t || _IconFieldModule)();
+  };
+  static \u0275mod = /* @__PURE__ */ \u0275\u0275defineNgModule({
+    type: _IconFieldModule
+  });
+  static \u0275inj = /* @__PURE__ */ \u0275\u0275defineInjector({
+    imports: [CommonModule, SharedModule]
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(IconFieldModule, [{
+    type: NgModule,
+    args: [{
+      imports: [CommonModule],
+      exports: [IconField, SharedModule],
+      declarations: [IconField]
+    }]
+  }], null, null);
+})();
+
 // src/app/components/venda/venda-form/venda-form.component.ts
-var _c023 = () => ({ "min-width": "50rem" });
-var _c124 = () => ({ width: "50rem" });
+var _c025 = () => ({ "min-width": "50rem" });
+var _c118 = () => ({ width: "50rem" });
 function VendaFormComponent_ng_template_3_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275elementStart(0, "div")(1, "span", 26);
@@ -77189,13 +77267,7 @@ function VendaFormComponent_ng_container_43_ng_template_5_Template(rf, ctx) {
     \u0275\u0275text(8, "Valor Total");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(9, "th");
-    \u0275\u0275text(10, "Comiss\xE3o Recebida");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(11, "th");
-    \u0275\u0275text(12, "Comissao a Receber");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(13, "th");
-    \u0275\u0275text(14, "A\xE7\xF5es");
+    \u0275\u0275text(10, "A\xE7\xF5es");
     \u0275\u0275elementEnd()();
   }
 }
@@ -77215,16 +77287,8 @@ function VendaFormComponent_ng_container_43_ng_template_6_Template(rf, ctx) {
     \u0275\u0275text(8);
     \u0275\u0275pipe(9, "currency");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(10, "td");
-    \u0275\u0275text(11);
-    \u0275\u0275pipe(12, "currency");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(13, "td");
-    \u0275\u0275text(14);
-    \u0275\u0275pipe(15, "currency");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(16, "td")(17, "button", 48);
-    \u0275\u0275listener("click", function VendaFormComponent_ng_container_43_ng_template_6_Template_button_click_17_listener() {
+    \u0275\u0275elementStart(10, "td")(11, "button", 60);
+    \u0275\u0275listener("click", function VendaFormComponent_ng_container_43_ng_template_6_Template_button_click_11_listener() {
       const item_r3 = \u0275\u0275restoreView(_r2).$implicit;
       const ctx_r3 = \u0275\u0275nextContext(2);
       return \u0275\u0275resetView(ctx_r3.onEditItemVenda(item_r3));
@@ -77240,38 +77304,34 @@ function VendaFormComponent_ng_container_43_ng_template_6_Template(rf, ctx) {
     \u0275\u0275advance(2);
     \u0275\u0275textInterpolate(item_r3.formaPagamento);
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(\u0275\u0275pipeBind3(9, 6, item_r3.valorTotal, "BRL", "symbol"));
-    \u0275\u0275advance(3);
-    \u0275\u0275textInterpolate(\u0275\u0275pipeBind3(12, 10, item_r3.comissaoRecebida, "BRL", "symbol"));
-    \u0275\u0275advance(3);
-    \u0275\u0275textInterpolate(\u0275\u0275pipeBind3(15, 14, item_r3.comissaoAReceber, "BRL", "symbol"));
+    \u0275\u0275textInterpolate(\u0275\u0275pipeBind3(9, 4, item_r3.valorTotal, "BRL", "symbol"));
   }
 }
-function VendaFormComponent_ng_container_43_ng_template_52_Template(rf, ctx) {
+function VendaFormComponent_ng_container_43_ng_template_93_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275elementStart(0, "div")(1, "span", 26);
     \u0275\u0275text(2, "Anexos");
     \u0275\u0275elementEnd()();
   }
 }
-function VendaFormComponent_ng_container_43_ng_template_54_ul_0_li_1_Template(rf, ctx) {
+function VendaFormComponent_ng_container_43_ng_template_95_ul_0_li_1_Template(rf, ctx) {
   if (rf & 1) {
     const _r5 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "li")(1, "div", 50)(2, "span", 26);
+    \u0275\u0275elementStart(0, "li")(1, "div", 62)(2, "span", 26);
     \u0275\u0275text(3);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(4, "p-button", 51);
-    \u0275\u0275listener("click", function VendaFormComponent_ng_container_43_ng_template_54_ul_0_li_1_Template_p_button_click_4_listener() {
+    \u0275\u0275elementStart(4, "p-button", 63);
+    \u0275\u0275listener("click", function VendaFormComponent_ng_container_43_ng_template_95_ul_0_li_1_Template_p_button_click_4_listener() {
       const file_r6 = \u0275\u0275restoreView(_r5).$implicit;
       const ctx_r3 = \u0275\u0275nextContext(4);
       return \u0275\u0275resetView(ctx_r3.onDownload(file_r6.id));
     });
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "p-button", 52);
-    \u0275\u0275listener("click", function VendaFormComponent_ng_container_43_ng_template_54_ul_0_li_1_Template_p_button_click_5_listener() {
+    \u0275\u0275elementStart(5, "p-button", 64);
+    \u0275\u0275listener("click", function VendaFormComponent_ng_container_43_ng_template_95_ul_0_li_1_Template_p_button_click_5_listener() {
       const file_r6 = \u0275\u0275restoreView(_r5).$implicit;
       const ctx_r3 = \u0275\u0275nextContext(4);
-      return \u0275\u0275resetView(ctx_r3.onRemove(file_r6.id));
+      return \u0275\u0275resetView(ctx_r3.confirmRemoveAttachment(file_r6.id));
     });
     \u0275\u0275elementEnd()()();
   }
@@ -77285,10 +77345,10 @@ function VendaFormComponent_ng_container_43_ng_template_54_ul_0_li_1_Template(rf
     \u0275\u0275property("text", true);
   }
 }
-function VendaFormComponent_ng_container_43_ng_template_54_ul_0_Template(rf, ctx) {
+function VendaFormComponent_ng_container_43_ng_template_95_ul_0_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275elementStart(0, "ul");
-    \u0275\u0275template(1, VendaFormComponent_ng_container_43_ng_template_54_ul_0_li_1_Template, 6, 3, "li", 49);
+    \u0275\u0275template(1, VendaFormComponent_ng_container_43_ng_template_95_ul_0_li_1_Template, 6, 3, "li", 61);
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
@@ -77297,9 +77357,9 @@ function VendaFormComponent_ng_container_43_ng_template_54_ul_0_Template(rf, ctx
     \u0275\u0275property("ngForOf", ctx_r3.uploadedFiles);
   }
 }
-function VendaFormComponent_ng_container_43_ng_template_54_Template(rf, ctx) {
+function VendaFormComponent_ng_container_43_ng_template_95_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275template(0, VendaFormComponent_ng_container_43_ng_template_54_ul_0_Template, 2, 1, "ul", 25);
+    \u0275\u0275template(0, VendaFormComponent_ng_container_43_ng_template_95_ul_0_Template, 2, 1, "ul", 25);
   }
   if (rf & 2) {
     const ctx_r3 = \u0275\u0275nextContext(2);
@@ -77313,7 +77373,7 @@ function VendaFormComponent_ng_container_43_Template(rf, ctx) {
     \u0275\u0275elementStart(1, "div", 1)(2, "p-panel", 2);
     \u0275\u0275template(3, VendaFormComponent_ng_container_43_ng_template_3_Template, 3, 0, "ng-template", 3);
     \u0275\u0275elementStart(4, "p-table", 27);
-    \u0275\u0275template(5, VendaFormComponent_ng_container_43_ng_template_5_Template, 15, 0, "ng-template", 3)(6, VendaFormComponent_ng_container_43_ng_template_6_Template, 18, 18, "ng-template", 28);
+    \u0275\u0275template(5, VendaFormComponent_ng_container_43_ng_template_5_Template, 11, 0, "ng-template", 3)(6, VendaFormComponent_ng_container_43_ng_template_6_Template, 12, 8, "ng-template", 28);
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(7, "p-dialog", 29);
     \u0275\u0275twoWayListener("visibleChange", function VendaFormComponent_ng_container_43_Template_p_dialog_visibleChange_7_listener($event) {
@@ -77334,60 +77394,93 @@ function VendaFormComponent_ng_container_43_Template(rf, ctx) {
     \u0275\u0275element(15, "input", 31);
     \u0275\u0275elementEnd()();
     \u0275\u0275elementStart(16, "div", 13)(17, "div", 6)(18, "label", 32);
-    \u0275\u0275text(19, "Fornecedor");
+    \u0275\u0275text(19, "Localizador");
     \u0275\u0275elementEnd();
-    \u0275\u0275element(20, "p-dropdown", 33);
+    \u0275\u0275element(20, "input", 33);
     \u0275\u0275elementEnd()();
     \u0275\u0275elementStart(21, "div", 13)(22, "div", 6)(23, "label", 34);
-    \u0275\u0275text(24, "Valor Total");
+    \u0275\u0275text(24, "Atendente");
     \u0275\u0275elementEnd();
     \u0275\u0275element(25, "input", 35);
     \u0275\u0275elementEnd()();
     \u0275\u0275elementStart(26, "div", 13)(27, "div", 6)(28, "label", 36);
-    \u0275\u0275text(29, "Forma de Pagamento");
+    \u0275\u0275text(29, "Fornecedor");
     \u0275\u0275elementEnd();
-    \u0275\u0275element(30, "input", 37);
+    \u0275\u0275element(30, "p-dropdown", 37);
     \u0275\u0275elementEnd()();
     \u0275\u0275elementStart(31, "div", 13)(32, "div", 6)(33, "label", 38);
-    \u0275\u0275text(34, "Comiss\xE3o Recebida");
+    \u0275\u0275text(34, "Forma de Pagamento");
     \u0275\u0275elementEnd();
     \u0275\u0275element(35, "input", 39);
     \u0275\u0275elementEnd()();
     \u0275\u0275elementStart(36, "div", 13)(37, "div", 6)(38, "label", 40);
-    \u0275\u0275text(39, "Comiss\xE3o a Receber");
+    \u0275\u0275text(39, "Anota\xE7\xE3o");
     \u0275\u0275elementEnd();
-    \u0275\u0275element(40, "input", 41);
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(41, "div", 13)(42, "div", 6)(43, "label", 42);
-    \u0275\u0275text(44, "Anota\xE7\xE3o");
-    \u0275\u0275elementEnd();
-    \u0275\u0275element(45, "textarea", 43);
+    \u0275\u0275element(40, "textarea", 41);
     \u0275\u0275elementEnd()()();
-    \u0275\u0275elementStart(46, "div", 22)(47, "button", 23);
-    \u0275\u0275listener("click", function VendaFormComponent_ng_container_43_Template_button_click_47_listener() {
+    \u0275\u0275element(41, "p-divider");
+    \u0275\u0275elementStart(42, "div", 4)(43, "div", 5)(44, "div", 6)(45, "label", 42);
+    \u0275\u0275text(46, "Valor Total");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(47, "p-iconField", 43);
+    \u0275\u0275element(48, "p-inputIcon", 44)(49, "input", 45);
+    \u0275\u0275elementEnd()()();
+    \u0275\u0275elementStart(50, "div", 5)(51, "div", 6)(52, "label", 46);
+    \u0275\u0275text(53, "Desconto");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(54, "p-iconField", 43);
+    \u0275\u0275element(55, "p-inputIcon", 44)(56, "input", 47);
+    \u0275\u0275elementEnd()()();
+    \u0275\u0275elementStart(57, "div", 5)(58, "div", 6)(59, "label", 48);
+    \u0275\u0275text(60, "Quantidade");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(61, "p-iconField", 43);
+    \u0275\u0275element(62, "p-inputIcon", 44)(63, "input", 49);
+    \u0275\u0275elementEnd()()()();
+    \u0275\u0275element(64, "p-divider");
+    \u0275\u0275elementStart(65, "div", 4)(66, "div", 5)(67, "div", 6)(68, "label", 50);
+    \u0275\u0275text(69, "Valor Fornecedor");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(70, "p-iconField", 43);
+    \u0275\u0275element(71, "p-inputIcon", 44)(72, "input", 51);
+    \u0275\u0275elementEnd()()();
+    \u0275\u0275elementStart(73, "div", 5)(74, "div", 6)(75, "label", 52);
+    \u0275\u0275text(76, "Desconto Fornecedor");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(77, "p-iconField", 43);
+    \u0275\u0275element(78, "p-inputIcon", 44)(79, "input", 53);
+    \u0275\u0275elementEnd()()();
+    \u0275\u0275elementStart(80, "div", 5)(81, "div", 6)(82, "label", 54);
+    \u0275\u0275text(83, "Quantidade Fornecedor");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(84, "p-iconField", 43);
+    \u0275\u0275element(85, "p-inputIcon", 44)(86, "input", 55);
+    \u0275\u0275elementEnd()()()();
+    \u0275\u0275elementStart(87, "div", 22)(88, "button", 23);
+    \u0275\u0275listener("click", function VendaFormComponent_ng_container_43_Template_button_click_88_listener() {
       \u0275\u0275restoreView(_r1);
       const ctx_r3 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r3.closeItemVendaModal());
     });
     \u0275\u0275elementEnd();
-    \u0275\u0275element(48, "button", 44);
+    \u0275\u0275element(89, "button", 56);
     \u0275\u0275elementEnd()()()();
-    \u0275\u0275elementStart(49, "button", 45);
-    \u0275\u0275listener("click", function VendaFormComponent_ng_container_43_Template_button_click_49_listener() {
+    \u0275\u0275elementStart(90, "button", 57);
+    \u0275\u0275listener("click", function VendaFormComponent_ng_container_43_Template_button_click_90_listener() {
       \u0275\u0275restoreView(_r1);
       const ctx_r3 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r3.handlerItemVendaModal());
     });
     \u0275\u0275elementEnd()()();
-    \u0275\u0275elementStart(50, "div", 1)(51, "p-panel", 2);
-    \u0275\u0275template(52, VendaFormComponent_ng_container_43_ng_template_52_Template, 3, 0, "ng-template", 3);
-    \u0275\u0275elementStart(53, "p-fileUpload", 46);
-    \u0275\u0275listener("onUpload", function VendaFormComponent_ng_container_43_Template_p_fileUpload_onUpload_53_listener($event) {
+    \u0275\u0275elementStart(91, "div", 1)(92, "p-panel", 2);
+    \u0275\u0275template(93, VendaFormComponent_ng_container_43_ng_template_93_Template, 3, 0, "ng-template", 3);
+    \u0275\u0275elementStart(94, "p-fileUpload", 58);
+    \u0275\u0275listener("onUpload", function VendaFormComponent_ng_container_43_Template_p_fileUpload_onUpload_94_listener($event) {
       \u0275\u0275restoreView(_r1);
       const ctx_r3 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r3.onUpload($event));
     });
-    \u0275\u0275template(54, VendaFormComponent_ng_container_43_ng_template_54_Template, 1, 1, "ng-template", 47);
+    \u0275\u0275template(95, VendaFormComponent_ng_container_43_ng_template_95_Template, 1, 1, "ng-template", 59);
     \u0275\u0275elementEnd()()();
     \u0275\u0275elementContainerEnd();
   }
@@ -77396,29 +77489,30 @@ function VendaFormComponent_ng_container_43_Template(rf, ctx) {
     \u0275\u0275advance(2);
     \u0275\u0275property("toggleable", true)("collapsed", ctx_r3.hasItems);
     \u0275\u0275advance(2);
-    \u0275\u0275property("value", ctx_r3.vendaForm.get("itens").value)("tableStyle", \u0275\u0275pureFunction0(15, _c023));
+    \u0275\u0275property("value", ctx_r3.vendaForm.get("itens").value)("tableStyle", \u0275\u0275pureFunction0(15, _c025));
     \u0275\u0275advance(3);
-    \u0275\u0275styleMap(\u0275\u0275pureFunction0(16, _c124));
+    \u0275\u0275styleMap(\u0275\u0275pureFunction0(16, _c118));
     \u0275\u0275property("modal", true);
     \u0275\u0275twoWayProperty("visible", ctx_r3.itemVendaModal);
     \u0275\u0275advance();
     \u0275\u0275property("formGroup", ctx_r3.itemVendaFrom);
-    \u0275\u0275advance(12);
+    \u0275\u0275advance(22);
     \u0275\u0275property("options", ctx_r3.fornecedores);
-    \u0275\u0275advance(31);
+    \u0275\u0275advance(62);
     \u0275\u0275property("toggleable", true)("collapsed", ctx_r3.attachmentColapsed);
     \u0275\u0275advance(2);
     \u0275\u0275property("url", ctx_r3.uploadUrl)("multiple", false)("auto", true);
   }
 }
 var _VendaFormComponent = class _VendaFormComponent {
-  constructor(fb, vendaService, messageService, activateRoute, clienteService, fornecedorService, router) {
+  constructor(fb, vendaService, messageService, activateRoute, clienteService, fornecedorService, confirmationService, router) {
     this.fb = fb;
     this.vendaService = vendaService;
     this.messageService = messageService;
     this.activateRoute = activateRoute;
     this.clienteService = clienteService;
     this.fornecedorService = fornecedorService;
+    this.confirmationService = confirmationService;
     this.router = router;
     this.isCollapsed = false;
     this.vendaId = null;
@@ -77457,13 +77551,20 @@ var _VendaFormComponent = class _VendaFormComponent {
   }
   getItemVendaFormBuilder() {
     return this.fb.group({
+      id: [""],
       valorTotal: ["", Validators.required],
       formaPagamento: ["", Validators.required],
       fornecedor: [""],
       descricao: ["", Validators.required],
       anotacao: [""],
       comissaoRecebida: [""],
-      comissaoAReceber: [""]
+      comissaoAReceber: [""],
+      localizador: [""],
+      atendente: [""],
+      quantidade: [""],
+      desconto: [""],
+      valorFornecedor: [""],
+      descontoFornecedor: [""]
     });
   }
   loadVendaData(id) {
@@ -77516,6 +77617,7 @@ var _VendaFormComponent = class _VendaFormComponent {
   }
   onSubmit() {
     if (this.vendaForm.invalid) {
+      markAllFieldsAsDirty(this.vendaForm);
       return;
     }
     const venda = this.vendaForm.value;
@@ -77563,7 +77665,25 @@ var _VendaFormComponent = class _VendaFormComponent {
   onRemove(anexoId) {
     this.vendaService.removeAnexo(this.vendaId, anexoId).subscribe({
       next: (_data) => {
+        this.messageService.add({ severity: "info", summary: "Confirmed", detail: "Record deleted" });
         this.loadVendaData(this.vendaId);
+      }
+    });
+  }
+  confirmRemoveAttachment(attachmentId) {
+    this.confirmationService.confirm({
+      message: "Do you want to delete this record?",
+      header: "Delete Confirmation",
+      icon: "pi pi-info-circle",
+      acceptButtonStyleClass: "p-button-danger p-button-text",
+      rejectButtonStyleClass: "p-button-text p-button-text",
+      acceptIcon: "none",
+      rejectIcon: "none",
+      accept: () => {
+        this.onRemove(attachmentId);
+      },
+      reject: () => {
+        this.messageService.add({ severity: "error", summary: "Rejected", detail: "You have rejected" });
       }
     });
   }
@@ -77572,6 +77692,7 @@ var _VendaFormComponent = class _VendaFormComponent {
   }
   handlerItemVenda() {
     if (this.itemVendaFrom.invalid) {
+      markAllFieldsAsDirty(this.itemVendaFrom);
       return;
     }
     const itemVenda = this.itemVendaFrom.value;
@@ -77605,9 +77726,9 @@ var _VendaFormComponent = class _VendaFormComponent {
   }
 };
 _VendaFormComponent.\u0275fac = function VendaFormComponent_Factory(t) {
-  return new (t || _VendaFormComponent)(\u0275\u0275directiveInject(FormBuilder), \u0275\u0275directiveInject(VendaService), \u0275\u0275directiveInject(MessageService), \u0275\u0275directiveInject(ActivatedRoute), \u0275\u0275directiveInject(ClienteService), \u0275\u0275directiveInject(FornecedorService), \u0275\u0275directiveInject(Router));
+  return new (t || _VendaFormComponent)(\u0275\u0275directiveInject(FormBuilder), \u0275\u0275directiveInject(VendaService), \u0275\u0275directiveInject(MessageService), \u0275\u0275directiveInject(ActivatedRoute), \u0275\u0275directiveInject(ClienteService), \u0275\u0275directiveInject(FornecedorService), \u0275\u0275directiveInject(ConfirmationService), \u0275\u0275directiveInject(Router));
 };
-_VendaFormComponent.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _VendaFormComponent, selectors: [["app-venda-form"]], decls: 44, vars: 9, consts: [[3, "ngSubmit", "formGroup"], [1, "mt-3"], [3, "toggleable", "collapsed"], ["pTemplate", "header"], [1, "grid"], [1, "p-fluid", "col-12", "md:col-4"], [1, "flex", "flex-column", "gap-2"], ["for", "cliente"], ["id", "cliente", "formControlName", "cliente", "optionLabel", "nome", "placeholder", "Selecione um cliente", 3, "options"], ["for", "servico"], ["id", "servico", "formControlName", "servico", "optionLabel", "nome", "placeholder", "Selecione um servi\xE7o", "optionValue", "valor", "filter", "true", "filterPlaceholder", "Pesquisar servi\xE7o", 3, "options"], ["for", "status"], ["id", "status", "formControlName", "status", "optionLabel", "nome", "placeholder", "Selecione um status", "optionValue", "valor", "filter", "true", "filterPlaceholder", "Pesquisar status", 3, "options"], [1, "p-fluid", "col-12", "md:col-6"], ["for", "dataEmbarque"], ["pInputText", "", "id", "dataEmbarque", "type", "date", "formControlName", "dataEmbarque"], ["for", "dataDesembarque"], ["pInputText", "", "id", "dataDesembarque", "type", "date", "formControlName", "dataDesembarque"], ["for", "origem"], ["pInputText", "", "id", "origem", "formControlName", "origem"], ["for", "destino"], ["pInputText", "", "id", "destino", "formControlName", "destino"], [1, "mt-3", "flex", "flex-row-reverse", "gap-3"], ["pButton", "", "severity", "secondary", "type", "button", "label", "Voltar", 3, "click"], ["pButton", "", "type", "submit", 3, "disabled", "label"], [4, "ngIf"], [1, "font-bold"], ["styleClass", "p-datatable-striped", "responsiveLayout", "stack", 3, "value", "tableStyle"], ["pTemplate", "body"], ["header", "Adicionar item", 3, "visibleChange", "modal", "visible"], ["for", "descricao"], ["pInputText", "", "id", "descricao", "type", "text", "formControlName", "descricao"], ["for", "fornecedor"], ["id", "fornecedor", "formControlName", "fornecedor", "optionLabel", "nome", "placeholder", "Selecione um fornecedor", "filterPlaceholder", "Pesquisar fornecedor", "filter", "true", 3, "options"], ["for", "valorTotal"], ["pInputText", "", "id", "valorTotal", "type", "number", "formControlName", "valorTotal"], ["for", "formaPagamento"], ["pInputText", "", "id", "formaPagamento", "type", "text", "formControlName", "formaPagamento"], ["for", "comissaoRecebida"], ["pInputText", "", "id", "comissaoRecebida", "type", "number", "formControlName", "comissaoRecebida"], ["for", "comissaoAReceber"], ["pInputText", "", "id", "comissaoAReceber", "type", "number", "formControlName", "comissaoAReceber"], ["for", "anotacao"], ["formControlName", "anotacao", "id", "anotacao", "pInputTextarea", "", "rows", "3", "type", "text"], ["pButton", "", "type", "submit", "label", "Adicionar"], ["icon", "fa-solid fa-plus", "pButton", "", "type", "button", "label", "Adicionar", 1, "mt-3", 3, "click"], ["name", "arquivo", "maxFileSize", "1000000", "chooseLabel", "Enviar", 3, "onUpload", "url", "multiple", "auto"], ["pTemplate", "content"], ["aria-label", "editar", "pButton", "", "icon", "pi pi-pencil", "pTooltip", "Editar", 2, "margin", "0 5px", 3, "click"], [4, "ngFor", "ngForOf"], [1, "flex", "gap-1", "align-items-center", "mt-1"], ["icon", "fa-solid fa-file-arrow-down", "pTooltip", "Download", 3, "click", "text"], ["severity", "danger", "icon", "fa-solid fa-trash", "pTooltip", "Remover", 3, "click", "text"]], template: function VendaFormComponent_Template(rf, ctx) {
+_VendaFormComponent.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _VendaFormComponent, selectors: [["app-venda-form"]], decls: 44, vars: 8, consts: [[3, "ngSubmit", "formGroup"], [1, "mt-3"], [3, "toggleable", "collapsed"], ["pTemplate", "header"], [1, "grid"], [1, "p-fluid", "col-12", "md:col-4"], [1, "flex", "flex-column", "gap-2"], ["for", "cliente"], ["id", "cliente", "formControlName", "cliente", "optionLabel", "nome", "placeholder", "Selecione um cliente", 3, "options"], ["for", "servico"], ["id", "servico", "formControlName", "servico", "optionLabel", "nome", "placeholder", "Selecione um servi\xE7o", "optionValue", "valor", "filter", "true", "filterPlaceholder", "Pesquisar servi\xE7o", 3, "options"], ["for", "status"], ["id", "status", "formControlName", "status", "optionLabel", "nome", "placeholder", "Selecione um status", "optionValue", "valor", "filter", "true", "filterPlaceholder", "Pesquisar status", 3, "options"], [1, "p-fluid", "col-12", "md:col-6"], ["for", "dataEmbarque"], ["pInputText", "", "id", "dataEmbarque", "type", "date", "formControlName", "dataEmbarque"], ["for", "dataDesembarque"], ["pInputText", "", "id", "dataDesembarque", "type", "date", "formControlName", "dataDesembarque"], ["for", "origem"], ["pInputText", "", "id", "origem", "formControlName", "origem"], ["for", "destino"], ["pInputText", "", "id", "destino", "formControlName", "destino"], [1, "mt-3", "flex", "flex-row-reverse", "gap-3"], ["pButton", "", "severity", "secondary", "type", "button", "label", "Voltar", 3, "click"], ["pButton", "", "type", "submit", 3, "label"], [4, "ngIf"], [1, "font-bold"], ["styleClass", "p-datatable-striped", "responsiveLayout", "stack", 3, "value", "tableStyle"], ["pTemplate", "body"], ["header", "Adicionar item", 3, "visibleChange", "modal", "visible"], ["for", "descricao"], ["pInputText", "", "id", "descricao", "type", "text", "formControlName", "descricao"], ["for", "localizador"], ["pInputText", "", "id", "localizador", "type", "text", "formControlName", "localizador"], ["for", "atendente"], ["pInputText", "", "id", "atendente", "type", "text", "formControlName", "atendente"], ["for", "fornecedor"], ["id", "fornecedor", "formControlName", "fornecedor", "optionLabel", "nome", "placeholder", "Selecione um fornecedor", "filterPlaceholder", "Pesquisar fornecedor", "filter", "true", 3, "options"], ["for", "formaPagamento"], ["pInputText", "", "id", "formaPagamento", "type", "text", "formControlName", "formaPagamento"], ["for", "anotacao"], ["formControlName", "anotacao", "id", "anotacao", "pInputTextarea", "", "rows", "3", "type", "text"], ["for", "valorTotal"], ["iconPosition", "left"], ["styleClass", "fa-solid fa-brazilian-real-sign"], ["pInputText", "", "id", "valorTotal", "type", "number", "min", "0", "formControlName", "valorTotal"], ["for", "desconto"], ["pInputText", "", "id", "desconto", "type", "number", "min", "0", "formControlName", "desconto"], ["for", "quantidade"], ["pInputText", "", "id", "quantidade", "type", "number", "min", "0", "formControlName", "quantidade"], ["for", "valorFornecedor"], ["pInputText", "", "id", "valorFornecedor", "type", "number", "min", "0", "formControlName", "valorFornecedor"], ["for", "descontoFornecedor"], ["pInputText", "", "id", "descontoFornecedor", "type", "number", "min", "0", "formControlName", "descontoFornecedor"], ["for", "quantidadeFornecedor"], ["pInputText", "", "id", "quantidadeFornecedor", "type", "number", "min", "0", "formControlName", "quantidadeFornecedor"], ["pButton", "", "type", "submit", "label", "Adicionar"], ["icon", "fa-solid fa-plus", "pButton", "", "type", "button", "label", "Adicionar", 1, "mt-3", 3, "click"], ["name", "arquivo", "maxFileSize", "1000000", "chooseLabel", "Enviar", 3, "onUpload", "url", "multiple", "auto"], ["pTemplate", "content"], ["aria-label", "editar", "pButton", "", "icon", "pi pi-pencil", "pTooltip", "Editar", 2, "margin", "0 5px", 3, "click"], [4, "ngFor", "ngForOf"], [1, "flex", "gap-1", "align-items-center", "mt-1"], ["icon", "fa-solid fa-file-arrow-down", "pTooltip", "Download", 3, "click", "text"], ["severity", "danger", "icon", "fa-solid fa-trash", "pTooltip", "Remover", 3, "click", "text"]], template: function VendaFormComponent_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275elementStart(0, "form", 0);
     \u0275\u0275listener("ngSubmit", function VendaFormComponent_Template_form_ngSubmit_0_listener() {
@@ -77657,7 +77778,7 @@ _VendaFormComponent.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ ty
     \u0275\u0275elementEnd();
     \u0275\u0275element(42, "button", 24);
     \u0275\u0275elementEnd()()()();
-    \u0275\u0275template(43, VendaFormComponent_ng_container_43_Template, 55, 17, "ng-container", 25);
+    \u0275\u0275template(43, VendaFormComponent_ng_container_43_Template, 96, 17, "ng-container", 25);
   }
   if (rf & 2) {
     \u0275\u0275property("formGroup", ctx.vendaForm);
@@ -77670,18 +77791,18 @@ _VendaFormComponent.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ ty
     \u0275\u0275advance(5);
     \u0275\u0275property("options", ctx.status);
     \u0275\u0275advance(23);
-    \u0275\u0275property("disabled", ctx.vendaForm.invalid)("label", ctx.vendaId ? "Atualizar" : "Cadastrar");
+    \u0275\u0275property("label", ctx.vendaId ? "Atualizar" : "Cadastrar");
     \u0275\u0275advance();
     \u0275\u0275property("ngIf", ctx.vendaId);
   }
-}, dependencies: [NgForOf, NgIf, \u0275NgNoValidate, DefaultValueAccessor, NumberValueAccessor, NgControlStatus, NgControlStatusGroup, FormGroupDirective, FormControlName, Tooltip, PrimeTemplate, Table, ButtonDirective, Button, Dropdown, InputText, Panel, InputTextarea, FileUpload, Dialog, CurrencyPipe] });
+}, dependencies: [NgForOf, NgIf, \u0275NgNoValidate, DefaultValueAccessor, NumberValueAccessor, NgControlStatus, NgControlStatusGroup, MinValidator, FormGroupDirective, FormControlName, Tooltip, PrimeTemplate, Table, ButtonDirective, Button, Dropdown, InputText, Panel, Divider, InputTextarea, FileUpload, Dialog, InputIcon, IconField, CurrencyPipe] });
 var VendaFormComponent = _VendaFormComponent;
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(VendaFormComponent, { className: "VendaFormComponent", filePath: "src\\app\\components\\venda\\venda-form\\venda-form.component.ts", lineNumber: 23 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(VendaFormComponent, { className: "VendaFormComponent", filePath: "src\\app\\components\\venda\\venda-form\\venda-form.component.ts", lineNumber: 24 });
 })();
 
 // src/app/components/venda/venda-routing.module.ts
-var routes3 = [
+var routes2 = [
   { path: "", redirectTo: "list", pathMatch: "full" },
   { path: "new", component: VendaFormComponent },
   { path: "list", component: VendaListComponent },
@@ -77693,11 +77814,11 @@ _VendaRoutingModule.\u0275fac = function VendaRoutingModule_Factory(t) {
   return new (t || _VendaRoutingModule)();
 };
 _VendaRoutingModule.\u0275mod = /* @__PURE__ */ \u0275\u0275defineNgModule({ type: _VendaRoutingModule });
-_VendaRoutingModule.\u0275inj = /* @__PURE__ */ \u0275\u0275defineInjector({ imports: [RouterModule.forChild(routes3), RouterModule] });
+_VendaRoutingModule.\u0275inj = /* @__PURE__ */ \u0275\u0275defineInjector({ imports: [RouterModule.forChild(routes2), RouterModule] });
 var VendaRoutingModule = _VendaRoutingModule;
 
 // src/app/components/fornecedor/fornecedor-list/fornecedor-list.component.ts
-var _c024 = () => ({ "min-width": "50rem" });
+var _c026 = () => ({ "min-width": "50rem" });
 function FornecedorListComponent_ng_template_3_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275elementStart(0, "tr")(1, "th");
@@ -77762,7 +77883,7 @@ _FornecedorListComponent.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent
   }
   if (rf & 2) {
     \u0275\u0275advance(2);
-    \u0275\u0275property("value", ctx.fornecedores)("tableStyle", \u0275\u0275pureFunction0(2, _c024));
+    \u0275\u0275property("value", ctx.fornecedores)("tableStyle", \u0275\u0275pureFunction0(2, _c026));
   }
 }, dependencies: [Tooltip, PrimeTemplate, Table, ButtonDirective, Card] });
 var FornecedorListComponent = _FornecedorListComponent;
@@ -77826,6 +77947,7 @@ var _FornecedorFormComponent = class _FornecedorFormComponent {
   }
   onSubmit() {
     if (this.fornecedorForm.invalid) {
+      markAllFieldsAsDirty(this.fornecedorForm);
       return;
     }
     const fornecedor = this.fornecedorForm.value;
@@ -77855,7 +77977,7 @@ var _FornecedorFormComponent = class _FornecedorFormComponent {
 _FornecedorFormComponent.\u0275fac = function FornecedorFormComponent_Factory(t) {
   return new (t || _FornecedorFormComponent)(\u0275\u0275directiveInject(FormBuilder), \u0275\u0275directiveInject(FornecedorService), \u0275\u0275directiveInject(MessageService), \u0275\u0275directiveInject(ActivatedRoute), \u0275\u0275directiveInject(Router));
 };
-_FornecedorFormComponent.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _FornecedorFormComponent, selectors: [["app-fornecedor-form"]], decls: 18, vars: 5, consts: [[3, "ngSubmit", "formGroup"], [1, "mt-3"], [3, "toggleable", "collapsed"], ["pTemplate", "header"], [1, "grid"], [1, "p-fluid", "col-12"], [1, "flex", "flex-column", "gap-2"], ["for", "nome"], ["pInputText", "", "id", "nome", "formControlName", "nome"], ["for", "cnpj"], ["pInputText", "", "id", "cnpj", "formControlName", "cnpj"], [1, "mt-3", "flex", "flex-row-reverse", "gap-3"], ["pButton", "", "severity", "secondary", "type", "button", "label", "Voltar", 3, "click"], ["pButton", "", "type", "submit", 3, "disabled", "label"], [1, "font-bold"]], template: function FornecedorFormComponent_Template(rf, ctx) {
+_FornecedorFormComponent.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _FornecedorFormComponent, selectors: [["app-fornecedor-form"]], decls: 18, vars: 4, consts: [[3, "ngSubmit", "formGroup"], [1, "mt-3"], [3, "toggleable", "collapsed"], ["pTemplate", "header"], [1, "grid"], [1, "p-fluid", "col-12"], [1, "flex", "flex-column", "gap-2"], ["for", "nome"], ["pInputText", "", "id", "nome", "formControlName", "nome"], ["for", "cnpj"], ["pInputText", "", "id", "cnpj", "formControlName", "cnpj"], [1, "mt-3", "flex", "flex-row-reverse", "gap-3"], ["pButton", "", "severity", "secondary", "type", "button", "label", "Voltar", 3, "click"], ["pButton", "", "type", "submit", 3, "label"], [1, "font-bold"]], template: function FornecedorFormComponent_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275elementStart(0, "form", 0);
     \u0275\u0275listener("ngSubmit", function FornecedorFormComponent_Template_form_ngSubmit_0_listener() {
@@ -77886,16 +78008,16 @@ _FornecedorFormComponent.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent
     \u0275\u0275advance(2);
     \u0275\u0275property("toggleable", true)("collapsed", ctx.isCollapsed);
     \u0275\u0275advance(15);
-    \u0275\u0275property("disabled", ctx.fornecedorForm.invalid)("label", ctx.fornecedorId ? "Atualizar" : "Cadastrar");
+    \u0275\u0275property("label", ctx.fornecedorId ? "Atualizar" : "Cadastrar");
   }
 }, dependencies: [\u0275NgNoValidate, DefaultValueAccessor, NgControlStatus, NgControlStatusGroup, FormGroupDirective, FormControlName, PrimeTemplate, ButtonDirective, InputText, Panel] });
 var FornecedorFormComponent = _FornecedorFormComponent;
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(FornecedorFormComponent, { className: "FornecedorFormComponent", filePath: "src\\app\\components\\fornecedor\\fornecedor-form\\fornecedor-form.component.ts", lineNumber: 13 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(FornecedorFormComponent, { className: "FornecedorFormComponent", filePath: "src\\app\\components\\fornecedor\\fornecedor-form\\fornecedor-form.component.ts", lineNumber: 14 });
 })();
 
 // src/app/components/fornecedor/fornecedor-routing.module.ts
-var routes4 = [
+var routes3 = [
   { path: "", redirectTo: "list", pathMatch: "full" },
   { path: "new", component: FornecedorFormComponent },
   { path: "list", component: FornecedorListComponent },
@@ -77907,15 +78029,14 @@ _FornecedorRoutingModule.\u0275fac = function FornecedorRoutingModule_Factory(t)
   return new (t || _FornecedorRoutingModule)();
 };
 _FornecedorRoutingModule.\u0275mod = /* @__PURE__ */ \u0275\u0275defineNgModule({ type: _FornecedorRoutingModule });
-_FornecedorRoutingModule.\u0275inj = /* @__PURE__ */ \u0275\u0275defineInjector({ imports: [RouterModule.forChild(routes4), RouterModule] });
+_FornecedorRoutingModule.\u0275inj = /* @__PURE__ */ \u0275\u0275defineInjector({ imports: [RouterModule.forChild(routes3), RouterModule] });
 var FornecedorRoutingModule = _FornecedorRoutingModule;
 
 // src/app/app-routing.module.ts
-var routes5 = [
+var routes4 = [
   { path: "", redirectTo: "venda", pathMatch: "full" },
   { path: "venda", loadChildren: () => VendaRoutingModule },
   { path: "cliente", loadChildren: () => ClienteRoutingModule },
-  { path: "produto", loadChildren: () => ProdutoRoutingModule },
   { path: "fornecedor", loadChildren: () => FornecedorRoutingModule }
 ];
 var _AppRoutingModule = class _AppRoutingModule {
@@ -77924,12 +78045,12 @@ _AppRoutingModule.\u0275fac = function AppRoutingModule_Factory(t) {
   return new (t || _AppRoutingModule)();
 };
 _AppRoutingModule.\u0275mod = /* @__PURE__ */ \u0275\u0275defineNgModule({ type: _AppRoutingModule });
-_AppRoutingModule.\u0275inj = /* @__PURE__ */ \u0275\u0275defineInjector({ imports: [RouterModule.forRoot(routes5), RouterModule] });
+_AppRoutingModule.\u0275inj = /* @__PURE__ */ \u0275\u0275defineInjector({ imports: [RouterModule.forRoot(routes4), RouterModule] });
 var AppRoutingModule = _AppRoutingModule;
 
 // node_modules/primeng/fesm2022/primeng-toast.mjs
-var _c025 = ["container"];
-var _c125 = (a0) => [a0, "p-toast-message"];
+var _c027 = ["container"];
+var _c119 = (a0) => [a0, "p-toast-message"];
 var _c213 = (a0, a1, a2, a3) => ({
   showTransformParams: a0,
   hideTransformParams: a1,
@@ -78216,7 +78337,7 @@ var ToastItem = class _ToastItem {
     selectors: [["p-toastItem"]],
     viewQuery: function ToastItem_Query(rf, ctx) {
       if (rf & 1) {
-        \u0275\u0275viewQuery(_c025, 5);
+        \u0275\u0275viewQuery(_c027, 5);
       }
       if (rf & 2) {
         let _t;
@@ -78259,7 +78380,7 @@ var ToastItem = class _ToastItem {
       if (rf & 2) {
         const notHeadless_r4 = \u0275\u0275reference(4);
         \u0275\u0275classMap(ctx.message == null ? null : ctx.message.styleClass);
-        \u0275\u0275property("ngClass", \u0275\u0275pureFunction1(9, _c125, "p-toast-message-" + (ctx.message == null ? null : ctx.message.severity)))("@messageState", \u0275\u0275pureFunction1(16, _c310, \u0275\u0275pureFunction4(11, _c213, ctx.showTransformOptions, ctx.hideTransformOptions, ctx.showTransitionOptions, ctx.hideTransitionOptions)));
+        \u0275\u0275property("ngClass", \u0275\u0275pureFunction1(9, _c119, "p-toast-message-" + (ctx.message == null ? null : ctx.message.severity)))("@messageState", \u0275\u0275pureFunction1(16, _c310, \u0275\u0275pureFunction4(11, _c213, ctx.showTransformOptions, ctx.hideTransformOptions, ctx.showTransitionOptions, ctx.hideTransitionOptions)));
         \u0275\u0275attribute("id", ctx.message == null ? null : ctx.message.id)("data-pc-name", "toast")("data-pc-section", "root");
         \u0275\u0275advance(2);
         \u0275\u0275property("ngIf", ctx.headlessTemplate)("ngIfElse", notHeadless_r4);
@@ -78657,7 +78778,7 @@ var Toast = class _Toast {
     },
     viewQuery: function Toast_Query(rf, ctx) {
       if (rf & 1) {
-        \u0275\u0275viewQuery(_c025, 5);
+        \u0275\u0275viewQuery(_c027, 5);
       }
       if (rf & 2) {
         let _t;
@@ -78850,6 +78971,1344 @@ var ToastModule = class _ToastModule {
   }], null, null);
 })();
 
+// node_modules/primeng/fesm2022/primeng-confirmdialog.mjs
+var _c028 = ["content"];
+var _c120 = [[["p-footer"]]];
+var _c214 = ["p-footer"];
+var _c311 = (a0) => ({
+  "p-dialog p-confirm-dialog p-component": true,
+  "p-dialog-rtl": a0
+});
+var _c410 = (a0, a1) => ({
+  transform: a0,
+  transition: a1
+});
+var _c510 = (a0) => ({
+  value: "visible",
+  params: a0
+});
+var _c68 = (a0) => ({
+  $implicit: a0
+});
+var _c78 = () => ({
+  "p-dialog-header-icon p-dialog-header-close p-link": true
+});
+function ConfirmDialog_div_0_div_1_ng_container_1_ng_container_1_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementContainer(0);
+  }
+}
+function ConfirmDialog_div_0_div_1_ng_container_1_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementContainerStart(0);
+    \u0275\u0275template(1, ConfirmDialog_div_0_div_1_ng_container_1_ng_container_1_Template, 1, 0, "ng-container", 7);
+    \u0275\u0275elementContainerEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(3);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngTemplateOutlet", ctx_r1.headlessTemplate)("ngTemplateOutletContext", \u0275\u0275pureFunction1(2, _c68, ctx_r1.confirmation));
+  }
+}
+function ConfirmDialog_div_0_div_1_ng_template_2_div_0_ng_container_1_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementContainer(0);
+  }
+}
+function ConfirmDialog_div_0_div_1_ng_template_2_div_0_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 14);
+    \u0275\u0275template(1, ConfirmDialog_div_0_div_1_ng_template_2_div_0_ng_container_1_Template, 1, 0, "ng-container", 15);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(4);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngTemplateOutlet", ctx_r1.headerTemplate);
+  }
+}
+function ConfirmDialog_div_0_div_1_ng_template_2_div_1_span_1_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span", 19);
+    \u0275\u0275text(1);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(5);
+    \u0275\u0275property("id", ctx_r1.ariaLabelledBy);
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate(ctx_r1.option("header"));
+  }
+}
+function ConfirmDialog_div_0_div_1_ng_template_2_div_1_button_3_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r3 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "button", 20);
+    \u0275\u0275listener("click", function ConfirmDialog_div_0_div_1_ng_template_2_div_1_button_3_Template_button_click_0_listener($event) {
+      \u0275\u0275restoreView(_r3);
+      const ctx_r1 = \u0275\u0275nextContext(5);
+      return \u0275\u0275resetView(ctx_r1.close($event));
+    })("keydown.enter", function ConfirmDialog_div_0_div_1_ng_template_2_div_1_button_3_Template_button_keydown_enter_0_listener($event) {
+      \u0275\u0275restoreView(_r3);
+      const ctx_r1 = \u0275\u0275nextContext(5);
+      return \u0275\u0275resetView(ctx_r1.close($event));
+    });
+    \u0275\u0275element(1, "TimesIcon");
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(5);
+    \u0275\u0275property("ngClass", \u0275\u0275pureFunction0(2, _c78));
+    \u0275\u0275attribute("aria-label", ctx_r1.closeAriaLabel);
+  }
+}
+function ConfirmDialog_div_0_div_1_ng_template_2_div_1_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 14);
+    \u0275\u0275template(1, ConfirmDialog_div_0_div_1_ng_template_2_div_1_span_1_Template, 2, 2, "span", 16);
+    \u0275\u0275elementStart(2, "div", 17);
+    \u0275\u0275template(3, ConfirmDialog_div_0_div_1_ng_template_2_div_1_button_3_Template, 2, 3, "button", 18);
+    \u0275\u0275elementEnd()();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(4);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", ctx_r1.option("header"));
+    \u0275\u0275advance(2);
+    \u0275\u0275property("ngIf", ctx_r1.closable);
+  }
+}
+function ConfirmDialog_div_0_div_1_ng_template_2_i_4_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275element(0, "i", 3);
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(4);
+    \u0275\u0275classMap(ctx_r1.option("icon"));
+    \u0275\u0275property("ngClass", "p-confirm-dialog-icon");
+  }
+}
+function ConfirmDialog_div_0_div_1_ng_template_2_ng_container_5_1_ng_template_0_Template(rf, ctx) {
+}
+function ConfirmDialog_div_0_div_1_ng_template_2_ng_container_5_1_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275template(0, ConfirmDialog_div_0_div_1_ng_template_2_ng_container_5_1_ng_template_0_Template, 0, 0, "ng-template");
+  }
+}
+function ConfirmDialog_div_0_div_1_ng_template_2_ng_container_5_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementContainerStart(0);
+    \u0275\u0275template(1, ConfirmDialog_div_0_div_1_ng_template_2_ng_container_5_1_Template, 1, 0, null, 15);
+    \u0275\u0275elementContainerEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(4);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngTemplateOutlet", ctx_r1.iconTemplate);
+  }
+}
+function ConfirmDialog_div_0_div_1_ng_template_2_span_6_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275element(0, "span", 21);
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(4);
+    \u0275\u0275property("innerHTML", ctx_r1.option("message"), \u0275\u0275sanitizeHtml);
+  }
+}
+function ConfirmDialog_div_0_div_1_ng_template_2_ng_container_7_1_ng_template_0_Template(rf, ctx) {
+}
+function ConfirmDialog_div_0_div_1_ng_template_2_ng_container_7_1_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275template(0, ConfirmDialog_div_0_div_1_ng_template_2_ng_container_7_1_ng_template_0_Template, 0, 0, "ng-template");
+  }
+}
+function ConfirmDialog_div_0_div_1_ng_template_2_ng_container_7_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementContainerStart(0);
+    \u0275\u0275template(1, ConfirmDialog_div_0_div_1_ng_template_2_ng_container_7_1_Template, 1, 0, null, 7);
+    \u0275\u0275elementContainerEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(4);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngTemplateOutlet", ctx_r1.messageTemplate)("ngTemplateOutletContext", \u0275\u0275pureFunction1(2, _c68, ctx_r1.confirmation));
+  }
+}
+function ConfirmDialog_div_0_div_1_ng_template_2_div_8_ng_container_2_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementContainer(0);
+  }
+}
+function ConfirmDialog_div_0_div_1_ng_template_2_div_8_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 22);
+    \u0275\u0275projection(1);
+    \u0275\u0275template(2, ConfirmDialog_div_0_div_1_ng_template_2_div_8_ng_container_2_Template, 1, 0, "ng-container", 15);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(4);
+    \u0275\u0275advance(2);
+    \u0275\u0275property("ngTemplateOutlet", ctx_r1.footerTemplate);
+  }
+}
+function ConfirmDialog_div_0_div_1_ng_template_2_div_9_button_1_ng_container_1_i_1_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275element(0, "i");
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(7);
+    \u0275\u0275classMap(ctx_r1.option("rejectIcon"));
+  }
+}
+function ConfirmDialog_div_0_div_1_ng_template_2_div_9_button_1_ng_container_1_TimesIcon_2_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275element(0, "TimesIcon", 28);
+  }
+  if (rf & 2) {
+    \u0275\u0275property("styleClass", "p-button-icon-left");
+  }
+}
+function ConfirmDialog_div_0_div_1_ng_template_2_div_9_button_1_ng_container_1_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementContainerStart(0);
+    \u0275\u0275template(1, ConfirmDialog_div_0_div_1_ng_template_2_div_9_button_1_ng_container_1_i_1_Template, 1, 2, "i", 26)(2, ConfirmDialog_div_0_div_1_ng_template_2_div_9_button_1_ng_container_1_TimesIcon_2_Template, 1, 1, "TimesIcon", 27);
+    \u0275\u0275elementContainerEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(6);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", ctx_r1.option("rejectIcon"));
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", !ctx_r1.option("rejectIcon"));
+  }
+}
+function ConfirmDialog_div_0_div_1_ng_template_2_div_9_button_1_span_2_1_ng_template_0_Template(rf, ctx) {
+}
+function ConfirmDialog_div_0_div_1_ng_template_2_div_9_button_1_span_2_1_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275template(0, ConfirmDialog_div_0_div_1_ng_template_2_div_9_button_1_span_2_1_ng_template_0_Template, 0, 0, "ng-template");
+  }
+}
+function ConfirmDialog_div_0_div_1_ng_template_2_div_9_button_1_span_2_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span", 29);
+    \u0275\u0275template(1, ConfirmDialog_div_0_div_1_ng_template_2_div_9_button_1_span_2_1_Template, 1, 0, null, 15);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(6);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngTemplateOutlet", ctx_r1.rejectIconTemplate);
+  }
+}
+function ConfirmDialog_div_0_div_1_ng_template_2_div_9_button_1_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r4 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "button", 24);
+    \u0275\u0275listener("click", function ConfirmDialog_div_0_div_1_ng_template_2_div_9_button_1_Template_button_click_0_listener() {
+      \u0275\u0275restoreView(_r4);
+      const ctx_r1 = \u0275\u0275nextContext(5);
+      return \u0275\u0275resetView(ctx_r1.reject());
+    });
+    \u0275\u0275template(1, ConfirmDialog_div_0_div_1_ng_template_2_div_9_button_1_ng_container_1_Template, 3, 2, "ng-container", 11)(2, ConfirmDialog_div_0_div_1_ng_template_2_div_9_button_1_span_2_Template, 2, 1, "span", 25);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(5);
+    \u0275\u0275classMap(ctx_r1.option("rejectButtonStyleClass"));
+    \u0275\u0275property("label", ctx_r1.rejectButtonLabel)("ngClass", "p-confirm-dialog-reject");
+    \u0275\u0275attribute("aria-label", ctx_r1.rejectAriaLabel);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", !ctx_r1.rejectIconTemplate);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", ctx_r1.rejectIconTemplate);
+  }
+}
+function ConfirmDialog_div_0_div_1_ng_template_2_div_9_button_2_ng_container_1_i_1_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275element(0, "i");
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(7);
+    \u0275\u0275classMap(ctx_r1.option("acceptIcon"));
+  }
+}
+function ConfirmDialog_div_0_div_1_ng_template_2_div_9_button_2_ng_container_1_CheckIcon_2_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275element(0, "CheckIcon", 28);
+  }
+  if (rf & 2) {
+    \u0275\u0275property("styleClass", "p-button-icon-left");
+  }
+}
+function ConfirmDialog_div_0_div_1_ng_template_2_div_9_button_2_ng_container_1_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementContainerStart(0);
+    \u0275\u0275template(1, ConfirmDialog_div_0_div_1_ng_template_2_div_9_button_2_ng_container_1_i_1_Template, 1, 2, "i", 26)(2, ConfirmDialog_div_0_div_1_ng_template_2_div_9_button_2_ng_container_1_CheckIcon_2_Template, 1, 1, "CheckIcon", 27);
+    \u0275\u0275elementContainerEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(6);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", ctx_r1.option("acceptIcon"));
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", !ctx_r1.option("acceptIcon"));
+  }
+}
+function ConfirmDialog_div_0_div_1_ng_template_2_div_9_button_2_span_2_1_ng_template_0_Template(rf, ctx) {
+}
+function ConfirmDialog_div_0_div_1_ng_template_2_div_9_button_2_span_2_1_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275template(0, ConfirmDialog_div_0_div_1_ng_template_2_div_9_button_2_span_2_1_ng_template_0_Template, 0, 0, "ng-template");
+  }
+}
+function ConfirmDialog_div_0_div_1_ng_template_2_div_9_button_2_span_2_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span", 29);
+    \u0275\u0275template(1, ConfirmDialog_div_0_div_1_ng_template_2_div_9_button_2_span_2_1_Template, 1, 0, null, 15);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(6);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngTemplateOutlet", ctx_r1.acceptIconTemplate);
+  }
+}
+function ConfirmDialog_div_0_div_1_ng_template_2_div_9_button_2_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r5 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "button", 24);
+    \u0275\u0275listener("click", function ConfirmDialog_div_0_div_1_ng_template_2_div_9_button_2_Template_button_click_0_listener() {
+      \u0275\u0275restoreView(_r5);
+      const ctx_r1 = \u0275\u0275nextContext(5);
+      return \u0275\u0275resetView(ctx_r1.accept());
+    });
+    \u0275\u0275template(1, ConfirmDialog_div_0_div_1_ng_template_2_div_9_button_2_ng_container_1_Template, 3, 2, "ng-container", 11)(2, ConfirmDialog_div_0_div_1_ng_template_2_div_9_button_2_span_2_Template, 2, 1, "span", 25);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(5);
+    \u0275\u0275classMap(ctx_r1.option("acceptButtonStyleClass"));
+    \u0275\u0275property("label", ctx_r1.acceptButtonLabel)("ngClass", "p-confirm-dialog-accept");
+    \u0275\u0275attribute("aria-label", ctx_r1.acceptAriaLabel);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", !ctx_r1.acceptIconTemplate);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", ctx_r1.acceptIconTemplate);
+  }
+}
+function ConfirmDialog_div_0_div_1_ng_template_2_div_9_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 22);
+    \u0275\u0275template(1, ConfirmDialog_div_0_div_1_ng_template_2_div_9_button_1_Template, 3, 7, "button", 23)(2, ConfirmDialog_div_0_div_1_ng_template_2_div_9_button_2_Template, 3, 7, "button", 23);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(4);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", ctx_r1.option("rejectVisible"));
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", ctx_r1.option("acceptVisible"));
+  }
+}
+function ConfirmDialog_div_0_div_1_ng_template_2_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275template(0, ConfirmDialog_div_0_div_1_ng_template_2_div_0_Template, 2, 1, "div", 8)(1, ConfirmDialog_div_0_div_1_ng_template_2_div_1_Template, 4, 2, "div", 8);
+    \u0275\u0275elementStart(2, "div", 9, 1);
+    \u0275\u0275template(4, ConfirmDialog_div_0_div_1_ng_template_2_i_4_Template, 1, 3, "i", 10)(5, ConfirmDialog_div_0_div_1_ng_template_2_ng_container_5_Template, 2, 1, "ng-container", 11)(6, ConfirmDialog_div_0_div_1_ng_template_2_span_6_Template, 1, 1, "span", 12)(7, ConfirmDialog_div_0_div_1_ng_template_2_ng_container_7_Template, 2, 4, "ng-container", 11);
+    \u0275\u0275elementEnd();
+    \u0275\u0275template(8, ConfirmDialog_div_0_div_1_ng_template_2_div_8_Template, 3, 1, "div", 13)(9, ConfirmDialog_div_0_div_1_ng_template_2_div_9_Template, 3, 2, "div", 13);
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(3);
+    \u0275\u0275property("ngIf", ctx_r1.headerTemplate);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", !ctx_r1.headerTemplate);
+    \u0275\u0275advance(3);
+    \u0275\u0275property("ngIf", !ctx_r1.iconTemplate && ctx_r1.option("icon"));
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", ctx_r1.iconTemplate);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", !ctx_r1.messageTemplate);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", ctx_r1.messageTemplate);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", ctx_r1.footer || ctx_r1.footerTemplate);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", !ctx_r1.footer && !ctx_r1.footerTemplate);
+  }
+}
+function ConfirmDialog_div_0_div_1_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r1 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 5);
+    \u0275\u0275listener("@animation.start", function ConfirmDialog_div_0_div_1_Template_div_animation_animation_start_0_listener($event) {
+      \u0275\u0275restoreView(_r1);
+      const ctx_r1 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r1.onAnimationStart($event));
+    })("@animation.done", function ConfirmDialog_div_0_div_1_Template_div_animation_animation_done_0_listener($event) {
+      \u0275\u0275restoreView(_r1);
+      const ctx_r1 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r1.onAnimationEnd($event));
+    });
+    \u0275\u0275template(1, ConfirmDialog_div_0_div_1_ng_container_1_Template, 2, 4, "ng-container", 6)(2, ConfirmDialog_div_0_div_1_ng_template_2_Template, 10, 8, "ng-template", null, 0, \u0275\u0275templateRefExtractor);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const notHeadless_r6 = \u0275\u0275reference(3);
+    const ctx_r1 = \u0275\u0275nextContext(2);
+    \u0275\u0275classMap(ctx_r1.styleClass);
+    \u0275\u0275property("ngClass", \u0275\u0275pureFunction1(9, _c311, ctx_r1.rtl))("ngStyle", ctx_r1.style)("@animation", \u0275\u0275pureFunction1(14, _c510, \u0275\u0275pureFunction2(11, _c410, ctx_r1.transformOptions, ctx_r1.transitionOptions)));
+    \u0275\u0275attribute("aria-labelledby", ctx_r1.ariaLabelledBy)("aria-modal", true);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", ctx_r1.headlessTemplate)("ngIfElse", notHeadless_r6);
+  }
+}
+function ConfirmDialog_div_0_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 3);
+    \u0275\u0275template(1, ConfirmDialog_div_0_div_1_Template, 4, 16, "div", 4);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext();
+    \u0275\u0275classMap(ctx_r1.maskStyleClass);
+    \u0275\u0275property("ngClass", ctx_r1.getMaskClass());
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", ctx_r1.visible);
+  }
+}
+var showAnimation2 = animation([style({
+  transform: "{{transform}}",
+  opacity: 0
+}), animate("{{transition}}", style({
+  transform: "none",
+  opacity: 1
+}))]);
+var hideAnimation2 = animation([animate("{{transition}}", style({
+  transform: "{{transform}}",
+  opacity: 0
+}))]);
+var ConfirmDialog = class _ConfirmDialog {
+  el;
+  renderer;
+  confirmationService;
+  zone;
+  cd;
+  config;
+  document;
+  /**
+   * Title text of the dialog.
+   * @group Props
+   */
+  header;
+  /**
+   * Icon to display next to message.
+   * @group Props
+   */
+  icon;
+  /**
+   * Message of the confirmation.
+   * @group Props
+   */
+  message;
+  /**
+   * Inline style of the element.
+   * @group Props
+   */
+  get style() {
+    return this._style;
+  }
+  set style(value) {
+    this._style = value;
+    this.cd.markForCheck();
+  }
+  /**
+   * Class of the element.
+   * @group Props
+   */
+  styleClass;
+  /**
+   * Specify the CSS class(es) for styling the mask element
+   * @group Props
+   */
+  maskStyleClass;
+  /**
+   * Icon of the accept button.
+   * @group Props
+   */
+  acceptIcon;
+  /**
+   * Label of the accept button.
+   * @group Props
+   */
+  acceptLabel;
+  /**
+   * Defines a string that labels the close button for accessibility.
+   * @group Props
+   */
+  closeAriaLabel;
+  /**
+   * Defines a string that labels the accept button for accessibility.
+   * @group Props
+   */
+  acceptAriaLabel;
+  /**
+   * Visibility of the accept button.
+   * @group Props
+   */
+  acceptVisible = true;
+  /**
+   * Icon of the reject button.
+   * @group Props
+   */
+  rejectIcon;
+  /**
+   * Label of the reject button.
+   * @group Props
+   */
+  rejectLabel;
+  /**
+   * Defines a string that labels the reject button for accessibility.
+   * @group Props
+   */
+  rejectAriaLabel;
+  /**
+   * Visibility of the reject button.
+   * @group Props
+   */
+  rejectVisible = true;
+  /**
+   * Style class of the accept button.
+   * @group Props
+   */
+  acceptButtonStyleClass;
+  /**
+   * Style class of the reject button.
+   * @group Props
+   */
+  rejectButtonStyleClass;
+  /**
+   * Specifies if pressing escape key should hide the dialog.
+   * @group Props
+   */
+  closeOnEscape = true;
+  /**
+   * Specifies if clicking the modal background should hide the dialog.
+   * @group Props
+   */
+  dismissableMask;
+  /**
+   * Determines whether scrolling behavior should be blocked within the component.
+   * @group Props
+   */
+  blockScroll = true;
+  /**
+   * When enabled dialog is displayed in RTL direction.
+   * @group Props
+   */
+  rtl = false;
+  /**
+   * Adds a close icon to the header to hide the dialog.
+   * @group Props
+   */
+  closable = true;
+  /**
+   *  Target element to attach the dialog, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+   * @group Props
+   */
+  appendTo;
+  /**
+   * Optional key to match the key of confirm object, necessary to use when component tree has multiple confirm dialogs.
+   * @group Props
+   */
+  key;
+  /**
+   * Whether to automatically manage layering.
+   * @group Props
+   */
+  autoZIndex = true;
+  /**
+   * Base zIndex value to use in layering.
+   * @group Props
+   */
+  baseZIndex = 0;
+  /**
+   * Transition options of the animation.
+   * @group Props
+   */
+  transitionOptions = "150ms cubic-bezier(0, 0, 0.2, 1)";
+  /**
+   * When enabled, can only focus on elements inside the confirm dialog.
+   * @group Props
+   */
+  focusTrap = true;
+  /**
+   * Element to receive the focus when the dialog gets visible.
+   * @group Props
+   */
+  defaultFocus = "accept";
+  /**
+   * Object literal to define widths per screen size.
+   * @group Props
+   */
+  breakpoints;
+  /**
+   * Current visible state as a boolean.
+   * @group Props
+   */
+  get visible() {
+    return this._visible;
+  }
+  set visible(value) {
+    this._visible = value;
+    if (this._visible && !this.maskVisible) {
+      this.maskVisible = true;
+    }
+    this.cd.markForCheck();
+  }
+  /**
+   *  Allows getting the position of the component.
+   * @group Props
+   */
+  get position() {
+    return this._position;
+  }
+  set position(value) {
+    this._position = value;
+    switch (value) {
+      case "top-left":
+      case "bottom-left":
+      case "left":
+        this.transformOptions = "translate3d(-100%, 0px, 0px)";
+        break;
+      case "top-right":
+      case "bottom-right":
+      case "right":
+        this.transformOptions = "translate3d(100%, 0px, 0px)";
+        break;
+      case "bottom":
+        this.transformOptions = "translate3d(0px, 100%, 0px)";
+        break;
+      case "top":
+        this.transformOptions = "translate3d(0px, -100%, 0px)";
+        break;
+      default:
+        this.transformOptions = "scale(0.7)";
+        break;
+    }
+  }
+  /**
+   * Callback to invoke when dialog is hidden.
+   * @param {ConfirmEventType} enum - Custom confirm event.
+   * @group Emits
+   */
+  onHide = new EventEmitter();
+  footer;
+  contentViewChild;
+  templates;
+  ngAfterContentInit() {
+    this.templates?.forEach((item) => {
+      switch (item.getType()) {
+        case "header":
+          this.headerTemplate = item.template;
+          break;
+        case "footer":
+          this.footerTemplate = item.template;
+          break;
+        case "message":
+          this.messageTemplate = item.template;
+          break;
+        case "icon":
+          this.iconTemplate = item.template;
+          break;
+        case "rejecticon":
+          this.rejectIconTemplate = item.template;
+          break;
+        case "accepticon":
+          this.acceptIconTemplate = item.template;
+          break;
+        case "headless":
+          this.headlessTemplate = item.template;
+          break;
+      }
+    });
+  }
+  headerTemplate;
+  footerTemplate;
+  rejectIconTemplate;
+  acceptIconTemplate;
+  messageTemplate;
+  iconTemplate;
+  headlessTemplate;
+  confirmation;
+  _visible;
+  _style;
+  maskVisible;
+  documentEscapeListener;
+  container;
+  wrapper;
+  contentContainer;
+  subscription;
+  maskClickListener;
+  preWidth;
+  _position = "center";
+  transformOptions = "scale(0.7)";
+  styleElement;
+  id = UniqueComponentId();
+  ariaLabelledBy = this.getAriaLabelledBy();
+  confirmationOptions;
+  translationSubscription;
+  constructor(el, renderer, confirmationService, zone, cd, config2, document2) {
+    this.el = el;
+    this.renderer = renderer;
+    this.confirmationService = confirmationService;
+    this.zone = zone;
+    this.cd = cd;
+    this.config = config2;
+    this.document = document2;
+    this.subscription = this.confirmationService.requireConfirmation$.subscribe((confirmation) => {
+      if (!confirmation) {
+        this.hide();
+        return;
+      }
+      if (confirmation.key === this.key) {
+        this.confirmation = confirmation;
+        this.confirmationOptions = {
+          message: this.confirmation.message || this.message,
+          icon: this.confirmation.icon || this.icon,
+          header: this.confirmation.header || this.header,
+          rejectVisible: this.confirmation.rejectVisible == null ? this.rejectVisible : this.confirmation.rejectVisible,
+          acceptVisible: this.confirmation.acceptVisible == null ? this.acceptVisible : this.confirmation.acceptVisible,
+          acceptLabel: this.confirmation.acceptLabel || this.acceptLabel,
+          rejectLabel: this.confirmation.rejectLabel || this.rejectLabel,
+          acceptIcon: this.confirmation.acceptIcon || this.acceptIcon,
+          rejectIcon: this.confirmation.rejectIcon || this.rejectIcon,
+          acceptButtonStyleClass: this.confirmation.acceptButtonStyleClass || this.acceptButtonStyleClass,
+          rejectButtonStyleClass: this.confirmation.rejectButtonStyleClass || this.rejectButtonStyleClass,
+          defaultFocus: this.confirmation.defaultFocus || this.defaultFocus,
+          blockScroll: this.confirmation.blockScroll === false || this.confirmation.blockScroll === true ? this.confirmation.blockScroll : this.blockScroll,
+          closeOnEscape: this.confirmation.closeOnEscape === false || this.confirmation.closeOnEscape === true ? this.confirmation.closeOnEscape : this.closeOnEscape,
+          dismissableMask: this.confirmation.dismissableMask === false || this.confirmation.dismissableMask === true ? this.confirmation.dismissableMask : this.dismissableMask
+        };
+        if (this.confirmation.accept) {
+          this.confirmation.acceptEvent = new EventEmitter();
+          this.confirmation.acceptEvent.subscribe(this.confirmation.accept);
+        }
+        if (this.confirmation.reject) {
+          this.confirmation.rejectEvent = new EventEmitter();
+          this.confirmation.rejectEvent.subscribe(this.confirmation.reject);
+        }
+        this.visible = true;
+      }
+    });
+  }
+  ngOnInit() {
+    if (this.breakpoints) {
+      this.createStyle();
+    }
+    this.translationSubscription = this.config.translationObserver.subscribe(() => {
+      if (this.visible) {
+        this.cd.markForCheck();
+      }
+    });
+  }
+  getAriaLabelledBy() {
+    return this.header !== null ? UniqueComponentId() + "_header" : null;
+  }
+  option(name) {
+    const source = this.confirmationOptions || this;
+    if (source.hasOwnProperty(name)) {
+      return source[name];
+    }
+    return void 0;
+  }
+  onAnimationStart(event2) {
+    switch (event2.toState) {
+      case "visible":
+        this.container = event2.element;
+        this.wrapper = this.container?.parentElement;
+        this.contentContainer = DomHandler.findSingle(this.container, ".p-dialog-content");
+        this.container?.setAttribute(this.id, "");
+        this.appendContainer();
+        this.moveOnTop();
+        this.bindGlobalListeners();
+        this.enableModality();
+        const element = this.getElementToFocus();
+        if (element) {
+          element.focus();
+        }
+        break;
+    }
+  }
+  onAnimationEnd(event2) {
+    switch (event2.toState) {
+      case "void":
+        this.onOverlayHide();
+        break;
+    }
+  }
+  getElementToFocus() {
+    switch (this.option("defaultFocus")) {
+      case "accept":
+        return DomHandler.findSingle(this.container, ".p-confirm-dialog-accept");
+      case "reject":
+        return DomHandler.findSingle(this.container, ".p-confirm-dialog-reject");
+      case "close":
+        return DomHandler.findSingle(this.container, ".p-dialog-header-close");
+      case "none":
+        return null;
+      default:
+        return DomHandler.findSingle(this.container, ".p-confirm-dialog-accept");
+    }
+  }
+  appendContainer() {
+    if (this.appendTo) {
+      if (this.appendTo === "body")
+        this.document.body.appendChild(this.wrapper);
+      else
+        DomHandler.appendChild(this.wrapper, this.appendTo);
+    }
+  }
+  restoreAppend() {
+    if (this.wrapper && this.appendTo) {
+      this.el.nativeElement.appendChild(this.wrapper);
+    }
+  }
+  enableModality() {
+    if (this.option("blockScroll")) {
+      DomHandler.addClass(this.document.body, "p-overflow-hidden");
+    }
+    if (this.option("dismissableMask")) {
+      this.maskClickListener = this.renderer.listen(this.wrapper, "mousedown", (event2) => {
+        if (this.wrapper && this.wrapper.isSameNode(event2.target)) {
+          this.close(event2);
+        }
+      });
+    }
+  }
+  disableModality() {
+    this.maskVisible = false;
+    if (this.option("blockScroll")) {
+      DomHandler.removeClass(this.document.body, "p-overflow-hidden");
+    }
+    if (this.dismissableMask) {
+      this.unbindMaskClickListener();
+    }
+    if (this.container && !this.cd["destroyed"]) {
+      this.cd.detectChanges();
+    }
+  }
+  createStyle() {
+    if (!this.styleElement) {
+      this.styleElement = this.document.createElement("style");
+      this.styleElement.type = "text/css";
+      this.document.head.appendChild(this.styleElement);
+      let innerHTML = "";
+      for (let breakpoint in this.breakpoints) {
+        innerHTML += `
+                    @media screen and (max-width: ${breakpoint}) {
+                        .p-dialog[${this.id}] {
+                            width: ${this.breakpoints[breakpoint]} !important;
+                        }
+                    }
+                `;
+      }
+      this.styleElement.innerHTML = innerHTML;
+    }
+  }
+  close(event2) {
+    if (this.confirmation?.rejectEvent) {
+      this.confirmation.rejectEvent.emit(ConfirmEventType.CANCEL);
+    }
+    this.hide(ConfirmEventType.CANCEL);
+    event2.preventDefault();
+  }
+  hide(type) {
+    this.onHide.emit(type);
+    this.visible = false;
+    this.confirmation = null;
+    this.confirmationOptions = null;
+  }
+  moveOnTop() {
+    if (this.autoZIndex) {
+      zindexutils.set("modal", this.container, this.baseZIndex + this.config.zIndex.modal);
+      this.wrapper.style.zIndex = String(parseInt(this.container.style.zIndex, 10) - 1);
+    }
+  }
+  getMaskClass() {
+    let maskClass = {
+      "p-dialog-mask p-component-overlay": true,
+      "p-dialog-mask-scrollblocker": this.blockScroll
+    };
+    maskClass[this.getPositionClass().toString()] = true;
+    return maskClass;
+  }
+  getPositionClass() {
+    const positions = ["left", "right", "top", "top-left", "top-right", "bottom", "bottom-left", "bottom-right"];
+    const pos = positions.find((item) => item === this.position);
+    return pos ? `p-dialog-${pos}` : "";
+  }
+  bindGlobalListeners() {
+    if (this.option("closeOnEscape") && this.closable || this.focusTrap && !this.documentEscapeListener) {
+      const documentTarget = this.el ? this.el.nativeElement.ownerDocument : "document";
+      this.documentEscapeListener = this.renderer.listen(documentTarget, "keydown", (event2) => {
+        if (event2.which == 27 && this.option("closeOnEscape") && this.closable) {
+          if (parseInt(this.container.style.zIndex) === zindexutils.get(this.container) && this.visible) {
+            this.close(event2);
+          }
+        }
+        if (event2.which === 9 && this.focusTrap) {
+          event2.preventDefault();
+          let focusableElements = DomHandler.getFocusableElements(this.container);
+          if (focusableElements && focusableElements.length > 0) {
+            if (!focusableElements[0].ownerDocument.activeElement) {
+              focusableElements[0].focus();
+            } else {
+              let focusedIndex = focusableElements.indexOf(focusableElements[0].ownerDocument.activeElement);
+              if (event2.shiftKey) {
+                if (focusedIndex == -1 || focusedIndex === 0)
+                  focusableElements[focusableElements.length - 1].focus();
+                else
+                  focusableElements[focusedIndex - 1].focus();
+              } else {
+                if (focusedIndex == -1 || focusedIndex === focusableElements.length - 1)
+                  focusableElements[0].focus();
+                else
+                  focusableElements[focusedIndex + 1].focus();
+              }
+            }
+          }
+        }
+      });
+    }
+  }
+  unbindGlobalListeners() {
+    if (this.documentEscapeListener) {
+      this.documentEscapeListener();
+      this.documentEscapeListener = null;
+    }
+  }
+  unbindMaskClickListener() {
+    if (this.maskClickListener) {
+      this.maskClickListener();
+      this.maskClickListener = null;
+    }
+  }
+  onOverlayHide() {
+    if (this.container && this.autoZIndex) {
+      zindexutils.clear(this.container);
+    }
+    this.disableModality();
+    this.unbindGlobalListeners();
+    this.container = null;
+  }
+  destroyStyle() {
+    if (this.styleElement) {
+      this.document.head.removeChild(this.styleElement);
+      this.styleElement = null;
+    }
+  }
+  ngOnDestroy() {
+    this.restoreAppend();
+    this.onOverlayHide();
+    this.subscription.unsubscribe();
+    if (this.translationSubscription) {
+      this.translationSubscription.unsubscribe();
+    }
+    this.destroyStyle();
+  }
+  accept() {
+    if (this.confirmation && this.confirmation.acceptEvent) {
+      this.confirmation.acceptEvent.emit();
+    }
+    this.hide(ConfirmEventType.ACCEPT);
+  }
+  reject() {
+    if (this.confirmation && this.confirmation.rejectEvent) {
+      this.confirmation.rejectEvent.emit(ConfirmEventType.REJECT);
+    }
+    this.hide(ConfirmEventType.REJECT);
+  }
+  get acceptButtonLabel() {
+    return this.option("acceptLabel") || this.config.getTranslation(TranslationKeys.ACCEPT);
+  }
+  get rejectButtonLabel() {
+    return this.option("rejectLabel") || this.config.getTranslation(TranslationKeys.REJECT);
+  }
+  static \u0275fac = function ConfirmDialog_Factory(t) {
+    return new (t || _ConfirmDialog)(\u0275\u0275directiveInject(ElementRef), \u0275\u0275directiveInject(Renderer2), \u0275\u0275directiveInject(ConfirmationService), \u0275\u0275directiveInject(NgZone), \u0275\u0275directiveInject(ChangeDetectorRef), \u0275\u0275directiveInject(PrimeNGConfig), \u0275\u0275directiveInject(DOCUMENT2));
+  };
+  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({
+    type: _ConfirmDialog,
+    selectors: [["p-confirmDialog"]],
+    contentQueries: function ConfirmDialog_ContentQueries(rf, ctx, dirIndex) {
+      if (rf & 1) {
+        \u0275\u0275contentQuery(dirIndex, Footer, 5);
+        \u0275\u0275contentQuery(dirIndex, PrimeTemplate, 4);
+      }
+      if (rf & 2) {
+        let _t;
+        \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx.footer = _t.first);
+        \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx.templates = _t);
+      }
+    },
+    viewQuery: function ConfirmDialog_Query(rf, ctx) {
+      if (rf & 1) {
+        \u0275\u0275viewQuery(_c028, 5);
+      }
+      if (rf & 2) {
+        let _t;
+        \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx.contentViewChild = _t.first);
+      }
+    },
+    hostAttrs: [1, "p-element"],
+    inputs: {
+      header: "header",
+      icon: "icon",
+      message: "message",
+      style: "style",
+      styleClass: "styleClass",
+      maskStyleClass: "maskStyleClass",
+      acceptIcon: "acceptIcon",
+      acceptLabel: "acceptLabel",
+      closeAriaLabel: "closeAriaLabel",
+      acceptAriaLabel: "acceptAriaLabel",
+      acceptVisible: [InputFlags.HasDecoratorInputTransform, "acceptVisible", "acceptVisible", booleanAttribute],
+      rejectIcon: "rejectIcon",
+      rejectLabel: "rejectLabel",
+      rejectAriaLabel: "rejectAriaLabel",
+      rejectVisible: [InputFlags.HasDecoratorInputTransform, "rejectVisible", "rejectVisible", booleanAttribute],
+      acceptButtonStyleClass: "acceptButtonStyleClass",
+      rejectButtonStyleClass: "rejectButtonStyleClass",
+      closeOnEscape: [InputFlags.HasDecoratorInputTransform, "closeOnEscape", "closeOnEscape", booleanAttribute],
+      dismissableMask: [InputFlags.HasDecoratorInputTransform, "dismissableMask", "dismissableMask", booleanAttribute],
+      blockScroll: [InputFlags.HasDecoratorInputTransform, "blockScroll", "blockScroll", booleanAttribute],
+      rtl: [InputFlags.HasDecoratorInputTransform, "rtl", "rtl", booleanAttribute],
+      closable: [InputFlags.HasDecoratorInputTransform, "closable", "closable", booleanAttribute],
+      appendTo: "appendTo",
+      key: "key",
+      autoZIndex: [InputFlags.HasDecoratorInputTransform, "autoZIndex", "autoZIndex", booleanAttribute],
+      baseZIndex: [InputFlags.HasDecoratorInputTransform, "baseZIndex", "baseZIndex", numberAttribute],
+      transitionOptions: "transitionOptions",
+      focusTrap: [InputFlags.HasDecoratorInputTransform, "focusTrap", "focusTrap", booleanAttribute],
+      defaultFocus: "defaultFocus",
+      breakpoints: "breakpoints",
+      visible: "visible",
+      position: "position"
+    },
+    outputs: {
+      onHide: "onHide"
+    },
+    features: [\u0275\u0275InputTransformsFeature],
+    ngContentSelectors: _c214,
+    decls: 1,
+    vars: 1,
+    consts: [["notHeadless", ""], ["content", ""], [3, "class", "ngClass", 4, "ngIf"], [3, "ngClass"], ["role", "alertdialog", 3, "ngClass", "ngStyle", "class", 4, "ngIf"], ["role", "alertdialog", 3, "ngClass", "ngStyle"], [4, "ngIf", "ngIfElse"], [4, "ngTemplateOutlet", "ngTemplateOutletContext"], ["class", "p-dialog-header", 4, "ngIf"], [1, "p-dialog-content"], [3, "ngClass", "class", 4, "ngIf"], [4, "ngIf"], ["class", "p-confirm-dialog-message", 3, "innerHTML", 4, "ngIf"], ["class", "p-dialog-footer", 4, "ngIf"], [1, "p-dialog-header"], [4, "ngTemplateOutlet"], ["class", "p-dialog-title", 3, "id", 4, "ngIf"], [1, "p-dialog-header-icons"], ["type", "button", "role", "button", 3, "ngClass", "click", "keydown.enter", 4, "ngIf"], [1, "p-dialog-title", 3, "id"], ["type", "button", "role", "button", 3, "click", "keydown.enter", "ngClass"], [1, "p-confirm-dialog-message", 3, "innerHTML"], [1, "p-dialog-footer"], ["type", "button", "pRipple", "", "pButton", "", 3, "label", "ngClass", "class", "click", 4, "ngIf"], ["type", "button", "pRipple", "", "pButton", "", 3, "click", "label", "ngClass"], ["class", "p-button-icon-left", 4, "ngIf"], [3, "class", 4, "ngIf"], [3, "styleClass", 4, "ngIf"], [3, "styleClass"], [1, "p-button-icon-left"]],
+    template: function ConfirmDialog_Template(rf, ctx) {
+      if (rf & 1) {
+        \u0275\u0275projectionDef(_c120);
+        \u0275\u0275template(0, ConfirmDialog_div_0_Template, 2, 4, "div", 2);
+      }
+      if (rf & 2) {
+        \u0275\u0275property("ngIf", ctx.maskVisible);
+      }
+    },
+    dependencies: () => [NgClass, NgIf, NgTemplateOutlet, NgStyle, ButtonDirective, Ripple, TimesIcon, CheckIcon],
+    styles: ["@layer primeng{.p-dialog-mask{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;justify-content:center;align-items:center;pointer-events:none}.p-dialog-mask.p-component-overlay{pointer-events:auto}.p-dialog{display:flex;flex-direction:column;pointer-events:auto;max-height:90%;transform:scale(1);position:relative}.p-dialog-content{overflow-y:auto;flex-grow:1}.p-dialog-header{display:flex;align-items:center;justify-content:space-between;flex-shrink:0}.p-dialog-draggable .p-dialog-header{cursor:move}.p-dialog-footer{flex-shrink:0}.p-dialog .p-dialog-header-icons{display:flex;align-items:center}.p-dialog .p-dialog-header-icon{display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}.p-fluid .p-dialog-footer .p-button{width:auto}.p-dialog-top .p-dialog,.p-dialog-bottom .p-dialog,.p-dialog-left .p-dialog,.p-dialog-right .p-dialog,.p-dialog-top-left .p-dialog,.p-dialog-top-right .p-dialog,.p-dialog-bottom-left .p-dialog,.p-dialog-bottom-right .p-dialog{margin:.75rem;transform:translateZ(0)}.p-dialog-maximized{-webkit-transition:none;transition:none;transform:none;width:100vw!important;height:100vh!important;top:0!important;left:0!important;max-height:100%;height:100%}.p-dialog-maximized .p-dialog-content{flex-grow:1}.p-dialog-left{justify-content:flex-start}.p-dialog-right{justify-content:flex-end}.p-dialog-top{align-items:flex-start}.p-dialog-top-left{justify-content:flex-start;align-items:flex-start}.p-dialog-top-right{justify-content:flex-end;align-items:flex-start}.p-dialog-bottom{align-items:flex-end}.p-dialog-bottom-left{justify-content:flex-start;align-items:flex-end}.p-dialog-bottom-right{justify-content:flex-end;align-items:flex-end}.p-dialog .p-resizable-handle{position:absolute;font-size:.1px;display:block;cursor:se-resize;width:12px;height:12px;right:1px;bottom:1px}.p-confirm-dialog .p-dialog-content{display:flex;align-items:center}}\n"],
+    encapsulation: 2,
+    data: {
+      animation: [trigger("animation", [transition("void => visible", [useAnimation(showAnimation2)]), transition("visible => void", [useAnimation(hideAnimation2)])])]
+    },
+    changeDetection: 0
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(ConfirmDialog, [{
+    type: Component,
+    args: [{
+      selector: "p-confirmDialog",
+      template: `
+        <div [class]="maskStyleClass" [ngClass]="getMaskClass()" *ngIf="maskVisible">
+            <div
+                [ngClass]="{ 'p-dialog p-confirm-dialog p-component': true, 'p-dialog-rtl': rtl }"
+                [ngStyle]="style"
+                [class]="styleClass"
+                [@animation]="{ value: 'visible', params: { transform: transformOptions, transition: transitionOptions } }"
+                (@animation.start)="onAnimationStart($event)"
+                (@animation.done)="onAnimationEnd($event)"
+                role="alertdialog"
+                *ngIf="visible"
+                [attr.aria-labelledby]="ariaLabelledBy"
+                [attr.aria-modal]="true"
+            >
+                <ng-container *ngIf="headlessTemplate; else notHeadless">
+                    <ng-container *ngTemplateOutlet="headlessTemplate; context: { $implicit: confirmation }"></ng-container>
+                </ng-container>
+                <ng-template #notHeadless>
+                    <div class="p-dialog-header" *ngIf="headerTemplate">
+                        <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
+                    </div>
+                    <div class="p-dialog-header" *ngIf="!headerTemplate">
+                        <span class="p-dialog-title" [id]="ariaLabelledBy" *ngIf="option('header')">{{ option('header') }}</span>
+                        <div class="p-dialog-header-icons">
+                            <button *ngIf="closable" type="button" role="button" [attr.aria-label]="closeAriaLabel" [ngClass]="{ 'p-dialog-header-icon p-dialog-header-close p-link': true }" (click)="close($event)" (keydown.enter)="close($event)">
+                                <TimesIcon />
+                            </button>
+                        </div>
+                    </div>
+                    <div #content class="p-dialog-content">
+                        <i [ngClass]="'p-confirm-dialog-icon'" [class]="option('icon')" *ngIf="!iconTemplate && option('icon')"></i>
+                        <ng-container *ngIf="iconTemplate">
+                            <ng-template *ngTemplateOutlet="iconTemplate"></ng-template>
+                        </ng-container>
+                        <span class="p-confirm-dialog-message" *ngIf="!messageTemplate" [innerHTML]="option('message')"></span>
+                        <ng-container *ngIf="messageTemplate">
+                            <ng-template *ngTemplateOutlet="messageTemplate; context: { $implicit: confirmation }"></ng-template>
+                        </ng-container>
+                    </div>
+                    <div class="p-dialog-footer" *ngIf="footer || footerTemplate">
+                        <ng-content select="p-footer"></ng-content>
+                        <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
+                    </div>
+                    <div class="p-dialog-footer" *ngIf="!footer && !footerTemplate">
+                        <button
+                            type="button"
+                            pRipple
+                            pButton
+                            [label]="rejectButtonLabel"
+                            (click)="reject()"
+                            [ngClass]="'p-confirm-dialog-reject'"
+                            [class]="option('rejectButtonStyleClass')"
+                            *ngIf="option('rejectVisible')"
+                            [attr.aria-label]="rejectAriaLabel"
+                        >
+                            <ng-container *ngIf="!rejectIconTemplate">
+                                <i *ngIf="option('rejectIcon')" [class]="option('rejectIcon')"></i>
+                                <TimesIcon *ngIf="!option('rejectIcon')" [styleClass]="'p-button-icon-left'" />
+                            </ng-container>
+                            <span *ngIf="rejectIconTemplate" class="p-button-icon-left">
+                                <ng-template *ngTemplateOutlet="rejectIconTemplate"></ng-template>
+                            </span>
+                        </button>
+                        <button
+                            type="button"
+                            pRipple
+                            pButton
+                            [label]="acceptButtonLabel"
+                            (click)="accept()"
+                            [ngClass]="'p-confirm-dialog-accept'"
+                            [class]="option('acceptButtonStyleClass')"
+                            *ngIf="option('acceptVisible')"
+                            [attr.aria-label]="acceptAriaLabel"
+                        >
+                            <ng-container *ngIf="!acceptIconTemplate">
+                                <i *ngIf="option('acceptIcon')" [class]="option('acceptIcon')"></i>
+                                <CheckIcon *ngIf="!option('acceptIcon')" [styleClass]="'p-button-icon-left'" />
+                            </ng-container>
+                            <span *ngIf="acceptIconTemplate" class="p-button-icon-left">
+                                <ng-template *ngTemplateOutlet="acceptIconTemplate"></ng-template>
+                            </span>
+                        </button>
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+    `,
+      animations: [trigger("animation", [transition("void => visible", [useAnimation(showAnimation2)]), transition("visible => void", [useAnimation(hideAnimation2)])])],
+      changeDetection: ChangeDetectionStrategy.OnPush,
+      encapsulation: ViewEncapsulation$1.None,
+      host: {
+        class: "p-element"
+      },
+      styles: ["@layer primeng{.p-dialog-mask{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;justify-content:center;align-items:center;pointer-events:none}.p-dialog-mask.p-component-overlay{pointer-events:auto}.p-dialog{display:flex;flex-direction:column;pointer-events:auto;max-height:90%;transform:scale(1);position:relative}.p-dialog-content{overflow-y:auto;flex-grow:1}.p-dialog-header{display:flex;align-items:center;justify-content:space-between;flex-shrink:0}.p-dialog-draggable .p-dialog-header{cursor:move}.p-dialog-footer{flex-shrink:0}.p-dialog .p-dialog-header-icons{display:flex;align-items:center}.p-dialog .p-dialog-header-icon{display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}.p-fluid .p-dialog-footer .p-button{width:auto}.p-dialog-top .p-dialog,.p-dialog-bottom .p-dialog,.p-dialog-left .p-dialog,.p-dialog-right .p-dialog,.p-dialog-top-left .p-dialog,.p-dialog-top-right .p-dialog,.p-dialog-bottom-left .p-dialog,.p-dialog-bottom-right .p-dialog{margin:.75rem;transform:translateZ(0)}.p-dialog-maximized{-webkit-transition:none;transition:none;transform:none;width:100vw!important;height:100vh!important;top:0!important;left:0!important;max-height:100%;height:100%}.p-dialog-maximized .p-dialog-content{flex-grow:1}.p-dialog-left{justify-content:flex-start}.p-dialog-right{justify-content:flex-end}.p-dialog-top{align-items:flex-start}.p-dialog-top-left{justify-content:flex-start;align-items:flex-start}.p-dialog-top-right{justify-content:flex-end;align-items:flex-start}.p-dialog-bottom{align-items:flex-end}.p-dialog-bottom-left{justify-content:flex-start;align-items:flex-end}.p-dialog-bottom-right{justify-content:flex-end;align-items:flex-end}.p-dialog .p-resizable-handle{position:absolute;font-size:.1px;display:block;cursor:se-resize;width:12px;height:12px;right:1px;bottom:1px}.p-confirm-dialog .p-dialog-content{display:flex;align-items:center}}\n"]
+    }]
+  }], () => [{
+    type: ElementRef
+  }, {
+    type: Renderer2
+  }, {
+    type: ConfirmationService
+  }, {
+    type: NgZone
+  }, {
+    type: ChangeDetectorRef
+  }, {
+    type: PrimeNGConfig
+  }, {
+    type: Document,
+    decorators: [{
+      type: Inject,
+      args: [DOCUMENT2]
+    }]
+  }], {
+    header: [{
+      type: Input
+    }],
+    icon: [{
+      type: Input
+    }],
+    message: [{
+      type: Input
+    }],
+    style: [{
+      type: Input
+    }],
+    styleClass: [{
+      type: Input
+    }],
+    maskStyleClass: [{
+      type: Input
+    }],
+    acceptIcon: [{
+      type: Input
+    }],
+    acceptLabel: [{
+      type: Input
+    }],
+    closeAriaLabel: [{
+      type: Input
+    }],
+    acceptAriaLabel: [{
+      type: Input
+    }],
+    acceptVisible: [{
+      type: Input,
+      args: [{
+        transform: booleanAttribute
+      }]
+    }],
+    rejectIcon: [{
+      type: Input
+    }],
+    rejectLabel: [{
+      type: Input
+    }],
+    rejectAriaLabel: [{
+      type: Input
+    }],
+    rejectVisible: [{
+      type: Input,
+      args: [{
+        transform: booleanAttribute
+      }]
+    }],
+    acceptButtonStyleClass: [{
+      type: Input
+    }],
+    rejectButtonStyleClass: [{
+      type: Input
+    }],
+    closeOnEscape: [{
+      type: Input,
+      args: [{
+        transform: booleanAttribute
+      }]
+    }],
+    dismissableMask: [{
+      type: Input,
+      args: [{
+        transform: booleanAttribute
+      }]
+    }],
+    blockScroll: [{
+      type: Input,
+      args: [{
+        transform: booleanAttribute
+      }]
+    }],
+    rtl: [{
+      type: Input,
+      args: [{
+        transform: booleanAttribute
+      }]
+    }],
+    closable: [{
+      type: Input,
+      args: [{
+        transform: booleanAttribute
+      }]
+    }],
+    appendTo: [{
+      type: Input
+    }],
+    key: [{
+      type: Input
+    }],
+    autoZIndex: [{
+      type: Input,
+      args: [{
+        transform: booleanAttribute
+      }]
+    }],
+    baseZIndex: [{
+      type: Input,
+      args: [{
+        transform: numberAttribute
+      }]
+    }],
+    transitionOptions: [{
+      type: Input
+    }],
+    focusTrap: [{
+      type: Input,
+      args: [{
+        transform: booleanAttribute
+      }]
+    }],
+    defaultFocus: [{
+      type: Input
+    }],
+    breakpoints: [{
+      type: Input
+    }],
+    visible: [{
+      type: Input
+    }],
+    position: [{
+      type: Input
+    }],
+    onHide: [{
+      type: Output
+    }],
+    footer: [{
+      type: ContentChild,
+      args: [Footer]
+    }],
+    contentViewChild: [{
+      type: ViewChild,
+      args: ["content"]
+    }],
+    templates: [{
+      type: ContentChildren,
+      args: [PrimeTemplate]
+    }]
+  });
+})();
+var ConfirmDialogModule = class _ConfirmDialogModule {
+  static \u0275fac = function ConfirmDialogModule_Factory(t) {
+    return new (t || _ConfirmDialogModule)();
+  };
+  static \u0275mod = /* @__PURE__ */ \u0275\u0275defineNgModule({
+    type: _ConfirmDialogModule
+  });
+  static \u0275inj = /* @__PURE__ */ \u0275\u0275defineInjector({
+    imports: [CommonModule, ButtonModule, RippleModule, TimesIcon, CheckIcon, ButtonModule, SharedModule]
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(ConfirmDialogModule, [{
+    type: NgModule,
+    args: [{
+      imports: [CommonModule, ButtonModule, RippleModule, TimesIcon, CheckIcon],
+      exports: [ConfirmDialog, ButtonModule, SharedModule],
+      declarations: [ConfirmDialog]
+    }]
+  }], null, null);
+})();
+
 // node_modules/primeng/fesm2022/primeng-icons-bars.mjs
 var BarsIcon = class _BarsIcon extends BaseIcon {
   static \u0275fac = /* @__PURE__ */ (() => {
@@ -78903,19 +80362,19 @@ var BarsIcon = class _BarsIcon extends BaseIcon {
 })();
 
 // node_modules/primeng/fesm2022/primeng-menubar.mjs
-var _c026 = ["menubar"];
-var _c126 = (a0, a1) => ({
+var _c029 = ["menubar"];
+var _c121 = (a0, a1) => ({
   "p-submenu-list": a0,
   "p-menubar-root-list": a1
 });
-var _c214 = (a0) => ({
+var _c215 = (a0) => ({
   "p-menuitem-link": true,
   "p-disabled": a0
 });
-var _c311 = () => ({
+var _c312 = () => ({
   exact: false
 });
-var _c410 = (a0) => ({
+var _c411 = (a0) => ({
   $implicit: a0
 });
 function MenubarSub_ng_template_2_li_0_Template(rf, ctx) {
@@ -79047,7 +80506,7 @@ function MenubarSub_ng_template_2_li_1_ng_container_3_a_1_Template(rf, ctx) {
     const htmlLabel_r5 = \u0275\u0275reference(4);
     const processedItem_r2 = \u0275\u0275nextContext(3).$implicit;
     const ctx_r2 = \u0275\u0275nextContext();
-    \u0275\u0275property("target", ctx_r2.getItemProp(processedItem_r2, "target"))("ngClass", \u0275\u0275pureFunction1(12, _c214, ctx_r2.getItemProp(processedItem_r2, "disabled")));
+    \u0275\u0275property("target", ctx_r2.getItemProp(processedItem_r2, "target"))("ngClass", \u0275\u0275pureFunction1(12, _c215, ctx_r2.getItemProp(processedItem_r2, "disabled")));
     \u0275\u0275attribute("href", ctx_r2.getItemProp(processedItem_r2, "url"), \u0275\u0275sanitizeUrl)("aria-hidden", true)("data-automationid", ctx_r2.getItemProp(processedItem_r2, "automationId"))("data-pc-section", "action")("tabindex", -1);
     \u0275\u0275advance();
     \u0275\u0275property("ngIf", ctx_r2.getItemProp(processedItem_r2, "icon"));
@@ -79175,7 +80634,7 @@ function MenubarSub_ng_template_2_li_1_ng_container_3_a_2_Template(rf, ctx) {
     const htmlRouteLabel_r7 = \u0275\u0275reference(4);
     const processedItem_r2 = \u0275\u0275nextContext(3).$implicit;
     const ctx_r2 = \u0275\u0275nextContext();
-    \u0275\u0275property("routerLink", ctx_r2.getItemProp(processedItem_r2, "routerLink"))("queryParams", ctx_r2.getItemProp(processedItem_r2, "queryParams"))("routerLinkActive", "p-menuitem-link-active")("routerLinkActiveOptions", ctx_r2.getItemProp(processedItem_r2, "routerLinkActiveOptions") || \u0275\u0275pureFunction0(21, _c311))("target", ctx_r2.getItemProp(processedItem_r2, "target"))("ngClass", \u0275\u0275pureFunction1(22, _c214, ctx_r2.getItemProp(processedItem_r2, "disabled")))("fragment", ctx_r2.getItemProp(processedItem_r2, "fragment"))("queryParamsHandling", ctx_r2.getItemProp(processedItem_r2, "queryParamsHandling"))("preserveFragment", ctx_r2.getItemProp(processedItem_r2, "preserveFragment"))("skipLocationChange", ctx_r2.getItemProp(processedItem_r2, "skipLocationChange"))("replaceUrl", ctx_r2.getItemProp(processedItem_r2, "replaceUrl"))("state", ctx_r2.getItemProp(processedItem_r2, "state"));
+    \u0275\u0275property("routerLink", ctx_r2.getItemProp(processedItem_r2, "routerLink"))("queryParams", ctx_r2.getItemProp(processedItem_r2, "queryParams"))("routerLinkActive", "p-menuitem-link-active")("routerLinkActiveOptions", ctx_r2.getItemProp(processedItem_r2, "routerLinkActiveOptions") || \u0275\u0275pureFunction0(21, _c312))("target", ctx_r2.getItemProp(processedItem_r2, "target"))("ngClass", \u0275\u0275pureFunction1(22, _c215, ctx_r2.getItemProp(processedItem_r2, "disabled")))("fragment", ctx_r2.getItemProp(processedItem_r2, "fragment"))("queryParamsHandling", ctx_r2.getItemProp(processedItem_r2, "queryParamsHandling"))("preserveFragment", ctx_r2.getItemProp(processedItem_r2, "preserveFragment"))("skipLocationChange", ctx_r2.getItemProp(processedItem_r2, "skipLocationChange"))("replaceUrl", ctx_r2.getItemProp(processedItem_r2, "replaceUrl"))("state", ctx_r2.getItemProp(processedItem_r2, "state"));
     \u0275\u0275attribute("data-automationid", ctx_r2.getItemProp(processedItem_r2, "automationId"))("tabindex", -1)("aria-hidden", true)("data-pc-section", "action");
     \u0275\u0275advance();
     \u0275\u0275property("ngIf", ctx_r2.getItemProp(processedItem_r2, "icon"));
@@ -79219,7 +80678,7 @@ function MenubarSub_ng_template_2_li_1_ng_container_4_Template(rf, ctx) {
     const processedItem_r2 = \u0275\u0275nextContext(2).$implicit;
     const ctx_r2 = \u0275\u0275nextContext();
     \u0275\u0275advance();
-    \u0275\u0275property("ngTemplateOutlet", ctx_r2.itemTemplate)("ngTemplateOutletContext", \u0275\u0275pureFunction1(2, _c410, processedItem_r2.item));
+    \u0275\u0275property("ngTemplateOutlet", ctx_r2.itemTemplate)("ngTemplateOutletContext", \u0275\u0275pureFunction1(2, _c411, processedItem_r2.item));
   }
 }
 function MenubarSub_ng_template_2_li_1_p_menubarSub_5_Template(rf, ctx) {
@@ -79296,9 +80755,9 @@ function MenubarSub_ng_template_2_Template(rf, ctx) {
     \u0275\u0275property("ngIf", ctx_r2.isItemVisible(processedItem_r2) && !ctx_r2.getItemProp(processedItem_r2, "separator"));
   }
 }
-var _c510 = ["menubutton"];
-var _c68 = ["rootmenu"];
-var _c78 = ["*"];
+var _c511 = ["menubutton"];
+var _c69 = ["rootmenu"];
+var _c79 = ["*"];
 var _c87 = (a0) => ({
   "p-menubar p-component": true,
   "p-menubar-mobile-active": a0
@@ -79526,7 +80985,7 @@ var MenubarSub = class _MenubarSub {
     selectors: [["p-menubarSub"]],
     viewQuery: function MenubarSub_Query(rf, ctx) {
       if (rf & 1) {
-        \u0275\u0275viewQuery(_c026, 7);
+        \u0275\u0275viewQuery(_c029, 7);
       }
       if (rf & 2) {
         let _t;
@@ -79579,7 +81038,7 @@ var MenubarSub = class _MenubarSub {
         \u0275\u0275elementEnd();
       }
       if (rf & 2) {
-        \u0275\u0275property("ngClass", \u0275\u0275pureFunction2(8, _c126, !ctx.root, ctx.root))("tabindex", 0);
+        \u0275\u0275property("ngClass", \u0275\u0275pureFunction2(8, _c121, !ctx.root, ctx.root))("tabindex", 0);
         \u0275\u0275attribute("data-pc-section", "menu")("aria-label", ctx.ariaLabel)("aria-labelledBy", ctx.ariaLabelledBy)("id", ctx.root ? ctx.menuId : null)("aria-activedescendant", ctx.focusedItemId);
         \u0275\u0275advance(2);
         \u0275\u0275property("ngForOf", ctx.items);
@@ -80525,8 +81984,8 @@ var Menubar = class _Menubar {
     },
     viewQuery: function Menubar_Query(rf, ctx) {
       if (rf & 1) {
-        \u0275\u0275viewQuery(_c510, 5);
-        \u0275\u0275viewQuery(_c68, 5);
+        \u0275\u0275viewQuery(_c511, 5);
+        \u0275\u0275viewQuery(_c69, 5);
       }
       if (rf & 2) {
         let _t;
@@ -80553,7 +82012,7 @@ var Menubar = class _Menubar {
       onBlur: "onBlur"
     },
     features: [\u0275\u0275ProvidersFeature([MenubarService]), \u0275\u0275InputTransformsFeature],
-    ngContentSelectors: _c78,
+    ngContentSelectors: _c79,
     decls: 8,
     vars: 25,
     consts: [["rootmenu", ""], ["legacy", ""], ["menubutton", ""], [3, "ngClass", "ngStyle"], ["class", "p-menubar-start", 4, "ngIf"], ["tabindex", "0", "role", "button", "class", "p-menubar-button", 3, "click", "keydown", 4, "ngIf"], [3, "itemClick", "menuFocus", "menuBlur", "menuKeydown", "itemMouseEnter", "items", "itemTemplate", "menuId", "root", "baseZIndex", "autoZIndex", "mobileActive", "autoDisplay", "ariaLabel", "ariaLabelledBy", "focusedItemId", "submenuIconTemplate", "activeItemPath"], ["class", "p-menubar-end", 4, "ngIf", "ngIfElse"], [1, "p-menubar-start"], [4, "ngTemplateOutlet"], ["tabindex", "0", "role", "button", 1, "p-menubar-button", 3, "click", "keydown"], [4, "ngIf"], [1, "p-menubar-end"]],
@@ -80824,22 +82283,6 @@ var _NavbarComponent = class _NavbarComponent {
         ]
       },
       {
-        label: "Produtos",
-        icon: "fa-solid fa-earth-americas",
-        items: [
-          {
-            label: "New",
-            icon: "pi pi-fw pi-save",
-            routerLink: "/produto/new"
-          },
-          {
-            label: "List",
-            icon: "fa-solid fa-list",
-            routerLink: "/produto/list"
-          }
-        ]
-      },
-      {
         label: "Fornecedores",
         icon: "fa-solid fa-briefcase",
         items: [
@@ -80915,13 +82358,13 @@ var _AppComponent = class _AppComponent {
 _AppComponent.\u0275fac = function AppComponent_Factory(t) {
   return new (t || _AppComponent)();
 };
-_AppComponent.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _AppComponent, selectors: [["app-root"]], decls: 4, vars: 0, consts: [[1, "container"]], template: function AppComponent_Template(rf, ctx) {
+_AppComponent.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _AppComponent, selectors: [["app-root"]], decls: 5, vars: 0, consts: [[1, "container"]], template: function AppComponent_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275elementStart(0, "div", 0);
-    \u0275\u0275element(1, "app-navbar")(2, "p-toast")(3, "router-outlet");
+    \u0275\u0275element(1, "app-navbar")(2, "p-toast")(3, "p-confirmDialog")(4, "router-outlet");
     \u0275\u0275elementEnd();
   }
-}, dependencies: [RouterOutlet, Toast, NavbarComponent] });
+}, dependencies: [RouterOutlet, Toast, ConfirmDialog, NavbarComponent] });
 var AppComponent = _AppComponent;
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(AppComponent, { className: "AppComponent", filePath: "src\\app\\app.component.ts", lineNumber: 8 });
@@ -85018,145 +86461,6 @@ var NoopAnimationsModule = _NoopAnimationsModule;
   }], null, null);
 })();
 
-// node_modules/primeng/fesm2022/primeng-divider.mjs
-var _c027 = ["*"];
-var Divider = class _Divider {
-  /**
-   * Inline style of the component.
-   * @group Props
-   */
-  style;
-  /**
-   * Style class of the component.
-   * @group Props
-   */
-  styleClass;
-  /**
-   * Specifies the orientation.
-   * @group Props
-   */
-  layout = "horizontal";
-  /**
-   * Border style type.
-   * @group Props
-   */
-  type = "solid";
-  /**
-   * Alignment of the content.
-   * @group Props
-   */
-  align;
-  containerClass() {
-    return {
-      "p-divider p-component": true,
-      "p-divider-horizontal": this.layout === "horizontal",
-      "p-divider-vertical": this.layout === "vertical",
-      "p-divider-solid": this.type === "solid",
-      "p-divider-dashed": this.type === "dashed",
-      "p-divider-dotted": this.type === "dotted",
-      "p-divider-left": this.layout === "horizontal" && (!this.align || this.align === "left"),
-      "p-divider-center": this.layout === "horizontal" && this.align === "center" || this.layout === "vertical" && (!this.align || this.align === "center"),
-      "p-divider-right": this.layout === "horizontal" && this.align === "right",
-      "p-divider-top": this.layout === "vertical" && this.align === "top",
-      "p-divider-bottom": this.layout === "vertical" && this.align === "bottom"
-    };
-  }
-  static \u0275fac = function Divider_Factory(t) {
-    return new (t || _Divider)();
-  };
-  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({
-    type: _Divider,
-    selectors: [["p-divider"]],
-    hostAttrs: [1, "p-element"],
-    inputs: {
-      style: "style",
-      styleClass: "styleClass",
-      layout: "layout",
-      type: "type",
-      align: "align"
-    },
-    ngContentSelectors: _c027,
-    decls: 3,
-    vars: 6,
-    consts: [["role", "separator", 3, "ngClass", "ngStyle"], [1, "p-divider-content"]],
-    template: function Divider_Template(rf, ctx) {
-      if (rf & 1) {
-        \u0275\u0275projectionDef();
-        \u0275\u0275elementStart(0, "div", 0)(1, "div", 1);
-        \u0275\u0275projection(2);
-        \u0275\u0275elementEnd()();
-      }
-      if (rf & 2) {
-        \u0275\u0275classMap(ctx.styleClass);
-        \u0275\u0275property("ngClass", ctx.containerClass())("ngStyle", ctx.style);
-        \u0275\u0275attribute("aria-orientation", ctx.layout)("data-pc-name", "divider");
-      }
-    },
-    dependencies: [NgClass, NgStyle],
-    styles: ['@layer primeng{.p-divider-horizontal{display:flex;width:100%;position:relative;align-items:center}.p-divider-horizontal:before{position:absolute;display:block;top:50%;left:0;width:100%;content:""}.p-divider-horizontal.p-divider-left{justify-content:flex-start}.p-divider-horizontal.p-divider-right{justify-content:flex-end}.p-divider-horizontal.p-divider-center{justify-content:center}.p-divider-content{z-index:1}.p-divider-vertical{min-height:100%;margin:0 1rem;display:flex;position:relative;justify-content:center}.p-divider-vertical:before{position:absolute;display:block;top:0;left:50%;height:100%;content:""}.p-divider-vertical.p-divider-top{align-items:flex-start}.p-divider-vertical.p-divider-center{align-items:center}.p-divider-vertical.p-divider-bottom{align-items:flex-end}.p-divider-solid.p-divider-horizontal:before{border-top-style:solid}.p-divider-solid.p-divider-vertical:before{border-left-style:solid}.p-divider-dashed.p-divider-horizontal:before{border-top-style:dashed}.p-divider-dashed.p-divider-vertical:before{border-left-style:dashed}.p-divider-dotted.p-divider-horizontal:before{border-top-style:dotted}.p-divider-dotted.p-divider-horizontal:before{border-left-style:dotted}}\n'],
-    encapsulation: 2,
-    changeDetection: 0
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(Divider, [{
-    type: Component,
-    args: [{
-      selector: "p-divider",
-      template: `
-        <div [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style" role="separator" [attr.aria-orientation]="layout" [attr.data-pc-name]="'divider'">
-            <div class="p-divider-content">
-                <ng-content></ng-content>
-            </div>
-        </div>
-    `,
-      changeDetection: ChangeDetectionStrategy.OnPush,
-      encapsulation: ViewEncapsulation$1.None,
-      host: {
-        class: "p-element"
-      },
-      styles: ['@layer primeng{.p-divider-horizontal{display:flex;width:100%;position:relative;align-items:center}.p-divider-horizontal:before{position:absolute;display:block;top:50%;left:0;width:100%;content:""}.p-divider-horizontal.p-divider-left{justify-content:flex-start}.p-divider-horizontal.p-divider-right{justify-content:flex-end}.p-divider-horizontal.p-divider-center{justify-content:center}.p-divider-content{z-index:1}.p-divider-vertical{min-height:100%;margin:0 1rem;display:flex;position:relative;justify-content:center}.p-divider-vertical:before{position:absolute;display:block;top:0;left:50%;height:100%;content:""}.p-divider-vertical.p-divider-top{align-items:flex-start}.p-divider-vertical.p-divider-center{align-items:center}.p-divider-vertical.p-divider-bottom{align-items:flex-end}.p-divider-solid.p-divider-horizontal:before{border-top-style:solid}.p-divider-solid.p-divider-vertical:before{border-left-style:solid}.p-divider-dashed.p-divider-horizontal:before{border-top-style:dashed}.p-divider-dashed.p-divider-vertical:before{border-left-style:dashed}.p-divider-dotted.p-divider-horizontal:before{border-top-style:dotted}.p-divider-dotted.p-divider-horizontal:before{border-left-style:dotted}}\n']
-    }]
-  }], null, {
-    style: [{
-      type: Input
-    }],
-    styleClass: [{
-      type: Input
-    }],
-    layout: [{
-      type: Input
-    }],
-    type: [{
-      type: Input
-    }],
-    align: [{
-      type: Input
-    }]
-  });
-})();
-var DividerModule = class _DividerModule {
-  static \u0275fac = function DividerModule_Factory(t) {
-    return new (t || _DividerModule)();
-  };
-  static \u0275mod = /* @__PURE__ */ \u0275\u0275defineNgModule({
-    type: _DividerModule
-  });
-  static \u0275inj = /* @__PURE__ */ \u0275\u0275defineInjector({
-    imports: [CommonModule]
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(DividerModule, [{
-    type: NgModule,
-    args: [{
-      imports: [CommonModule],
-      exports: [Divider],
-      declarations: [Divider]
-    }]
-  }], null, null);
-})();
-
 // src/app/app.module.ts
 var _AppModule = class _AppModule {
 };
@@ -85164,7 +86468,7 @@ _AppModule.\u0275fac = function AppModule_Factory(t) {
   return new (t || _AppModule)();
 };
 _AppModule.\u0275mod = /* @__PURE__ */ \u0275\u0275defineNgModule({ type: _AppModule, bootstrap: [AppComponent] });
-_AppModule.\u0275inj = /* @__PURE__ */ \u0275\u0275defineInjector({ providers: [MessageService], imports: [
+_AppModule.\u0275inj = /* @__PURE__ */ \u0275\u0275defineInjector({ providers: [MessageService, ConfirmationService], imports: [
   BrowserModule,
   AppRoutingModule,
   HttpClientModule,
@@ -85187,7 +86491,10 @@ _AppModule.\u0275inj = /* @__PURE__ */ \u0275\u0275defineInjector({ providers: [
   InputTextareaModule,
   FileUploadModule,
   TagModule,
-  DialogModule
+  DialogModule,
+  ConfirmDialogModule,
+  InputIconModule,
+  IconFieldModule
 ] });
 var AppModule = _AppModule;
 
