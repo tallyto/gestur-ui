@@ -7,6 +7,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {environment} from "../../../../environments/environment";
 import {FileUploadEvent} from "primeng/fileupload";
+import {markAllFieldsAsDirty} from "../../../utils/Util";
 
 @Component({
   selector: 'app-cliente-form',
@@ -75,6 +76,7 @@ export class ClienteFormComponent implements OnInit {
   }
 
 
+
   loadClienteData(id: number) {
     this.clienteService.getClienteById(id).subscribe((cliente) => {
         this.clienteForm.patchValue(cliente);
@@ -102,6 +104,7 @@ export class ClienteFormComponent implements OnInit {
 
   onSubmit() {
     if (this.clienteForm.invalid) {
+      markAllFieldsAsDirty(this.clienteForm)
       return;
     }
     const cliente: Cliente = this.clienteForm.value;

@@ -4,6 +4,7 @@ import {MessageService} from "primeng/api";
 import {ActivatedRoute, Router} from "@angular/router";
 import {FornecedorService} from "../../../services/fornecedor.service";
 import {Fornecedor} from "../../../models/fornecedor.model";
+import {markAllFieldsAsDirty} from "../../../utils/Util";
 
 @Component({
   selector: 'app-fornecedor-form',
@@ -69,6 +70,7 @@ export class FornecedorFormComponent implements OnInit {
 
   onSubmit() {
     if (this.fornecedorForm.invalid) {
+      markAllFieldsAsDirty(this.fornecedorForm)
       return;
     }
     const fornecedor: Fornecedor = this.fornecedorForm.value;
