@@ -1,0 +1,15 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.center-card {
+  display: flex;
+  justify-content: center;
+}
+
+.p-card {
+  width: 100%;
+}

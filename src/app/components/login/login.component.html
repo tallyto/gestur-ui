@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="p-grid p-justify-center">
+    <div class="p-col-6">
+      <p-card>
+        <form (submit)="onSubmit()">
+          <div class="p-fluid">
+            <div class="p-field">
+              <label for="username">Usuário</label>
+              <input id="username" type="text" pInputText [(ngModel)]="username" name="username">
+            </div>
+            <div class="p-field">
+              <label for="password">Senha</label>
+              <p-password id="password" name="password" [(ngModel)]="password" [toggleMask]="true"></p-password>
+            </div>
+            <button class="mt-2" type="submit" pButton label="Entrar"></button>
+          </div>
+        </form>
+      </p-card>
+    </div>
+  </div>
+</div>

@@ -1,21 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MenuItem} from "primeng/api";
+import {AuthService} from "../../services/auth.service";
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
-export class NavbarComponent implements OnInit{
+export class NavbarComponent implements OnInit {
   items: MenuItem[];
 
-  constructor() {
+
+  constructor(private authService: AuthService) {
     this.items = [];
   }
+
   ngOnInit() {
     this.items = [
       {
         label: 'Clientes',
-        icon: 'pi pi-fw pi-user',
+        icon: 'fa-solid fa-users',
         items: [
           {
             label: 'New',
@@ -93,7 +97,26 @@ export class NavbarComponent implements OnInit{
             routerLink: "/lista-carteirinha"
           }
         ]
-      }
+      },
+      {
+        label: 'Perfil',
+        icon: 'fa-solid fa-user',
+        items: [
+          {
+            label: 'Configuração',
+            icon: 'fa-solid fa-gear',
+            routerLink: "/config"
+          },
+          {
+            label: 'Sair',
+            icon: 'fa-solid fa-xmark',
+            // routerLink: "/logout"
+            command: () => {
+              this.authService.logout()
+            }
+          }
+        ],
+      },
     ]
   }
 }
