@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ClienteFormComponent } from './components/cliente/cliente-form/cliente-form.component';
 import { ClienteListComponent } from './components/cliente/cliente-list/cliente-list.component';
-import { HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { MenubarModule } from 'primeng/menubar';
@@ -33,6 +33,11 @@ import {DialogModule} from "primeng/dialog";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {InputIconModule} from "primeng/inputicon";
 import {IconFieldModule} from "primeng/iconfield";
+import { LoginComponent } from './components/login/login.component';
+import {PasswordModule} from "primeng/password";
+import {AuthService} from "./services/auth.service";
+import {AuthErrorInterceptor} from "./handlers/AuthHandlerError";
+import {AuthInterceptor} from "./handlers/AuthHandlerInterceptor";
 
 @NgModule({
   declarations: [
@@ -43,7 +48,8 @@ import {IconFieldModule} from "primeng/iconfield";
     VendaFormComponent,
     VendaListComponent,
     FornecedorListComponent,
-    FornecedorFormComponent
+    FornecedorFormComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -71,9 +77,16 @@ import {IconFieldModule} from "primeng/iconfield";
     DialogModule,
     ConfirmDialogModule,
     InputIconModule,
-    IconFieldModule
+    IconFieldModule,
+    PasswordModule
   ],
-  providers: [MessageService,ConfirmationService],
+  providers: [
+    MessageService,
+    ConfirmationService,
+    AuthService,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthErrorInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
