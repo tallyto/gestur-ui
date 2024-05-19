@@ -5,3 +5,8 @@ export const markAllFieldsAsDirty = (formGroup: FormGroup) => {
     control.markAsDirty();
   });
 }
+
+export const getTenantFromEmail = (email: string) => {
+  const domain = email.split('@')[1];
+  return domain.replaceAll('.', '')
+}

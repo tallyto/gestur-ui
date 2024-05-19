@@ -189,7 +189,16 @@
 
 
             <div class="grid">
-              <div class="p-fluid col-12 md:col-4">
+
+              <div class="p-fluid col-12 md:col-6">
+                <div class="flex flex-column gap-2">
+                  <label for="quantidade">Quantidade</label>
+                  <input pInputText id="quantidade" type="number" min="0" formControlName="quantidade"/>
+                </div>
+              </div>
+
+
+              <div class="p-fluid col-12 md:col-6">
                 <div class="flex flex-column gap-2">
                   <label for="valorTotal">Valor Total</label>
                   <p-iconField iconPosition="left">
@@ -199,7 +208,18 @@
                 </div>
               </div>
 
-              <div class="p-fluid col-12 md:col-4">
+              <div class="p-fluid col-12 md:col-6">
+                <div class="flex flex-column gap-2">
+                  <label for="descontoFornecedor">Comissão Recebida</label>
+                  <p-iconField iconPosition="left">
+                    <p-inputIcon styleClass="fa-solid fa-brazilian-real-sign"/>
+                    <input pInputText id="comissaoRecebida" type="number" min="0"
+                           formControlName="comissaoRecebida"/>
+                  </p-iconField>
+                </div>
+              </div>
+
+              <div class="p-fluid col-12 md:col-6">
                 <div class="flex flex-column gap-2">
                   <label for="desconto">Desconto</label>
                   <p-iconField iconPosition="left">
@@ -208,22 +228,20 @@
                   </p-iconField>
                 </div>
               </div>
-
-              <div class="p-fluid col-12 md:col-4">
-                <div class="flex flex-column gap-2">
-                  <label for="quantidade">Quantidade</label>
-                  <p-iconField iconPosition="left">
-                    <p-inputIcon styleClass="fa-solid fa-brazilian-real-sign"/>
-                    <input pInputText id="quantidade" type="number" min="0" formControlName="quantidade"/>
-                  </p-iconField>
-                </div>
-              </div>
             </div>
 
             <p-divider></p-divider>
 
             <div class="grid">
-              <div class="p-fluid col-12 md:col-4">
+              <div class="p-fluid col-12 md:col-6">
+                <div class="flex flex-column gap-2">
+                  <label for="quantidadeFornecedor">Quantidade Fornecedor</label>
+                  <input pInputText id="quantidadeFornecedor" type="number" min="0"
+                         formControlName="quantidadeFornecedor"/>
+                </div>
+              </div>
+
+              <div class="p-fluid col-12 md:col-6">
                 <div class="flex flex-column gap-2">
                   <label for="valorFornecedor">Valor Fornecedor</label>
                   <p-iconField iconPosition="left">
@@ -233,24 +251,24 @@
                 </div>
               </div>
 
-              <div class="p-fluid col-12 md:col-4">
+              <div class="p-fluid col-12 md:col-6">
+                <div class="flex flex-column gap-2">
+                  <label for="descontoFornecedor">Comissão a Receber</label>
+                  <p-iconField iconPosition="left">
+                    <p-inputIcon styleClass="fa-solid fa-brazilian-real-sign"/>
+                    <input pInputText id="comissaoAReceber" type="number" min="0"
+                           formControlName="comissaoAReceber"/>
+                  </p-iconField>
+                </div>
+              </div>
+
+              <div class="p-fluid col-12 md:col-6">
                 <div class="flex flex-column gap-2">
                   <label for="descontoFornecedor">Desconto Fornecedor</label>
                   <p-iconField iconPosition="left">
                     <p-inputIcon styleClass="fa-solid fa-brazilian-real-sign"/>
                     <input pInputText id="descontoFornecedor" type="number" min="0"
                            formControlName="descontoFornecedor"/>
-                  </p-iconField>
-                </div>
-              </div>
-
-              <div class="p-fluid col-12 md:col-4">
-                <div class="flex flex-column gap-2">
-                  <label for="quantidadeFornecedor">Quantidade Fornecedor</label>
-                  <p-iconField iconPosition="left">
-                    <p-inputIcon styleClass="fa-solid fa-brazilian-real-sign"/>
-                    <input pInputText id="quantidadeFornecedor" type="number" min="0"
-                           formControlName="quantidadeFornecedor"/>
                   </p-iconField>
                 </div>
               </div>
@@ -298,7 +316,6 @@
           </ul>
         </ng-template>
       </p-fileUpload>
-
     </p-panel>
   </div>
 </ng-container>
