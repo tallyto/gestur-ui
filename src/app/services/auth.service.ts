@@ -4,6 +4,7 @@ import {catchError, map, Observable, of, tap} from "rxjs";
 import {jwtDecode} from "jwt-decode";
 import {environment} from "../../environments/environment";
 import {Router} from "@angular/router";
+import {getTenantFromEmail} from "../utils/Util";
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class AuthService {
 
   constructor(private http: HttpClient,
               private router: Router) {
-    this.baseUrl = `${environment.apiUrl}/auth/login`
+    this.baseUrl = `${environment.apiUrl}/api/v1/auth/login`
   }
 
   // Método para realizar login e obter o token JWT
@@ -25,16 +26,20 @@ export class AuthService {
     };
 
     // Substitua a URL pelo endpoint da API de login fornecido pelo cURL
-    return this.http.post<any>(this.baseUrl, loginData).pipe(
+    return this.http.post<any>(this.baseUrl, loginData, {
+      headers: {
+        'x-private-tenant': getTenantFromEmail(username)
+      }
+    }).pipe(
       tap((response) => {
         // Se a resposta da API contiver o token JWT, armazene-o e defina o estado de autenticação como verdadeiro
-        if (response.token) {
-          this.token = response.token;
+        if (response.accessToken) {
+          this.token = response.accessToken;
           // Armazene o token no localStorage (opcional)
           localStorage.setItem('accessToken', this.token);
         }
       }),
-      map((response) => !!response.token), // Retorna true se o token existir e false se não existir
+      map((response) => !!response.accessToken), // Retorna true se o token existir e false se não existir
       catchError((error) => {
         console.log('Erro ao realizar o login:', error);
         return of(false);

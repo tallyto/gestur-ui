@@ -1,20 +1,21 @@
-import {Venda} from "./venda.model";
-import {Fornecedor} from "./fornecedor.model";
+import { Venda } from "./venda.model";
+import { Fornecedor } from "./fornecedor.model";
 
 export class ItemVenda {
   id: number;
   venda: Venda;
-  descricao: string;
   formaPagamento: string;
-  valorTotal: number;
-  fornecedor: Fornecedor;
-  anotacao: string;
-  comissaoRecebida: number;
-  comissaoAReceber: number;
   localizador: string;
   atendente: string;
+  descricao: string;
+  anotacao: string;
   quantidade: number;
+  valorTotal: number;
   desconto: number;
+  comissaoRecebida: number;
+  fornecedor: Fornecedor;
+  quantidadeFornecedor: number;
   valorFornecedor: number;
   descontoFornecedor: number;
+  comissaoAReceber: number;
 }
